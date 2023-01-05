@@ -2,7 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const Footer = () => {
-  return <Container>footer</Container>;
+  return (
+    <Container>
+      <h3>폼폼폼</h3>
+      <p>김범준 안수빈 김형준 황보석 김동균</p>
+    </Container>
+  );
 };
 
 const Container = styled.div`
@@ -15,7 +20,14 @@ const Container = styled.div`
   min-width: 800px;
   max-width: 1200px;
 
-  border-top: 2px solid black;
+  h3 {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  p {
+    font-size: 0.8rem;
+    margin: 0.2rem;
+  }
 `;
 
 export default Footer;
