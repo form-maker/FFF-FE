@@ -28,9 +28,10 @@ const Button = styled.button`
   border-radius: 2rem;
   background: transparent;
   margin: ${({ margin }) => margin || "0"};
+  cursor: pointer;
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: ${({ theme }) => theme.color};
+    color: ${({ theme }) => theme.backgroundColor};
   }
 `;
 

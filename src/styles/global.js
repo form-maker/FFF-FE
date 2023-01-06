@@ -1,7 +1,7 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
 
-export default createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     color: inherit;
@@ -17,3 +17,5 @@ export default createGlobalStyle`
     width:100%;
   }
 `;
+
+export default GlobalStyle;
