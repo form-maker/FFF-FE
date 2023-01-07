@@ -1,13 +1,17 @@
 export const darkTheme = {
   color: "white",
   backgroundColor: "rgb(50,50,50)",
-  containerColor: "rgb(30,30,30)",
-  textAlign: "flex-end",
+  mainColor: "rgb(220,220,220)",
+  subColor: "#A0D5FA",
 };
 
 export const lightTheme = {
-  color: "black",
-  backgroundColor: "white",
-  containerColor: "rgb(220,220,220)",
-  textAlign: "flex-start",
+  color: "#000000",
+  backgroundColor: "#FFFFFF",
+  mainColor: "#BBE0FA",
+  subColor: "#A0D5FA",
+  sideColor1: "#D2E3FC",
+  sideColor2: "#EEEFF2",
+  pointColor1: "#FCE0BC",
+  pointColor2: "#DFD9FA",
 };
