@@ -1,19 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-const SurveySummeryCard = () => {
+const SurveySummeryCard = ({ deadLine, createdAt, summary, title }) => {
   return (
     <Container>
       <Header>
-        <p>D-30</p>
+        <p>D-{deadLine}</p>
       </Header>
       <Main>
-        <h3>제목</h3>
-        <p>온라인 쇼핑사이트 사용만족도 조사</p>
+        <h3>{title}</h3>
+        <p>{summary}</p>
       </Main>
       <Footer>
-        <div>12명</div>
-        <div>작성일: 2022-12-31</div>
+        <div>작성일: {createdAt}</div>
       </Footer>
     </Container>
   );
