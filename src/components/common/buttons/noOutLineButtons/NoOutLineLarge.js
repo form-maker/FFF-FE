@@ -1,20 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import fonts from "../../../../styles/fonts";
 
-const NoOutlineButton = ({ buttonValue, fontSize, fontWeight, onClick }) => {
+const NoOutLineLarge = ({ buttonValue, onClick, font }) => {
   return (
-    <Button fontSize={fontSize} fontWeight={fontWeight} onClick={onClick}>
+    <Button onClick={onClick} font={font}>
       {buttonValue}
     </Button>
   );
 };
 
 const Button = styled.button`
-  font-size: ${({ fontSize }) => fontSize || "1rem"};
+  ${fonts.H2}
+  ${({ font }) => font}
+  font-size: ${({ fontSize }) => fontSize || "1.5rem"};
   font-weight: ${({ fontWeight }) => fontWeight || "500"};
   padding: 0.5rem 1rem;
   border: none;
   background: transparent;
 `;
 
-export default NoOutlineButton;
+export default NoOutLineLarge;
