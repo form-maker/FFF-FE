@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import MainContentsScreen from "../components/main/mainContents/screen/MainContentsScreen";
-import MainSlideScreen from "../components/main/mainSlide/screen/MainSlideScreen";
+import MainDescriptionScreen from "../components/main/mainDescription/screen/MainDescriptionScreen";
 
 const Main = () => {
   return (
     <Container>
-      <MainSlideScreen />
+      <MainDescriptionScreen />
       <MainContentsScreen />
     </Container>
   );

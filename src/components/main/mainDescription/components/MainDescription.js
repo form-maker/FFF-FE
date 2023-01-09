@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import RoundButton from "../../../common/buttons/RoundButton";
 
-const Slide = () => {
+const MainDescription = () => {
   return (
     <Container>
       <Img>이미지</Img>
@@ -46,4 +46,4 @@ const Img = styled.div`
   width: 14rem;
 `;
 
-export default Slide;
+export default MainDescription;
