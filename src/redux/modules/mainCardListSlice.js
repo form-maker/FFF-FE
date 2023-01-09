@@ -11,8 +11,7 @@ export const __getMainCardList = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instanceApi.get(
-        `survey/main?isAsc=true&page=1&size=20&sortBy=최신순`
-        // { sortBy: "최신순" }
+        `survey/main?isAsc=true&page=1&size=9&sortBy=최신순`
       );
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
