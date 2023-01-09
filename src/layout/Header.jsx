@@ -1,20 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-import NoOutlineButton from "../components/common/buttons/NoOutlineButton";
+import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
+import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
 
 const Header = () => {
   return (
     <Container>
       <div>
-        <NoOutlineButton buttonValue="폼폼폼" fontSize="1.2rem" />
         <div>
-          <NoOutlineButton buttonValue="진행중인 폼" fontSize="0.8rem" />
-          <NoOutlineButton buttonValue="제작하기" fontSize="0.8rem" />
+          <NoOutLineMedium buttonValue="폼폼폼" />
         </div>
         <div>
-          <NoOutlineButton buttonValue="로그인" fontSize="0.9rem" />
-          <span>|</span>
-          <NoOutlineButton buttonValue="회원가입" fontSize="0.9rem" />
+          <NoOutLineSmall buttonValue="진행중인 폼" />
+          <NoOutLineSmall buttonValue="폼 제작하기" />
+        </div>
+        <div>
+          <NoOutLineSmall buttonValue="로그인" />
+          <NoOutLineSmall buttonValue="회원가입" />
         </div>
       </div>
     </Container>
@@ -29,7 +31,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0rem;
+    padding: 1rem 1rem;
   }
 `;
 
