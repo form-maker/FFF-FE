@@ -11,6 +11,8 @@ const CardList = () => {
     (state) => state.mainCardList.mainCardList.contents
   );
 
+  console.log(mainCardList);
+
   useEffect(() => {
     dispatch(__getMainCardList());
   }, [dispatch]);
@@ -35,18 +37,18 @@ const CardList = () => {
 };
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const SurveyContainer = styled.div`
-  margin: 0 1rem;
-  width: 100%;
-  min-width: 800px;
-  max-width: 1200px;
+  width: 97.3rem;
   display: grid;
-  grid-gap: 1rem;
+  grid-row-gap: 3rem;
   grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 3rem;
 `;
 
 export default CardList;

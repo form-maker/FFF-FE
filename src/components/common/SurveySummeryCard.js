@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import RoundDiv from "./RoundDiv";
 
 const SurveySummeryCard = ({ deadLine, createdAt, summary, title }) => {
   return (
     <Container>
       <Header>
-        <p>D-{deadLine}</p>
+        <RoundDiv text={`D - ${deadLine}`}></RoundDiv>
       </Header>
       <Main>
         <h3>{title}</h3>
@@ -21,10 +22,14 @@ const SurveySummeryCard = ({ deadLine, createdAt, summary, title }) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 14rem;
-  border: 1px solid black;
+
+  width: 22.6rem;
+  height: 32rem;
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: 2.1rem;
+
+  background-color: ${({ theme }) => theme.mainColor};
+  padding: 2rem;
   div {
     margin: 0;
   }
@@ -33,7 +38,7 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: flex-end;
-  align-items: baseline;
+  /* align-items: baseline; */
   margin: 0;
   p {
     font-size: 0.8rem;
@@ -44,8 +49,10 @@ const Header = styled.div`
 
 const Main = styled.div`
   flex: 1;
+  /* background: ${({ theme }) => theme.backgroundColor}; */
+  border-radius: 2.1rem;
   h3 {
-    font-size: 1rem;
+    font-size: 1.4rem;
     margin: 0;
   }
   p {
@@ -60,5 +67,4 @@ const Footer = styled.div`
     font-size: 0.8rem;
   }
 `;
-
 export default SurveySummeryCard;
