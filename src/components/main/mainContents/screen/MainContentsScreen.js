@@ -1,40 +1,53 @@
 import React from "react";
 import styled from "styled-components";
-import RoundButton from "../../../common/buttons/RoundButton";
+import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 import CardList from "../components/CardList";
 
 const MainContentsScreen = () => {
   return (
     <Container>
-      <TitleContainer>
+      <MainCardContainer>
         <h1>현재 진행중인 폼</h1>
         <div>
-          <RoundButton buttonValue="최신순" />
-          <RoundButton buttonValue="마감 임박순" margin="0 0.5rem 0 0.5rem" />
-          <RoundButton buttonValue="달성순" />
+          <RoundButtonMedium buttonValue="최신순" margin="1rem 0.5rem 0 0 " />
+          <RoundButtonMedium
+            buttonValue="마감 임박순"
+            margin="1rem 0.5rem 0 0.5rem"
+          />
+          <RoundButtonMedium buttonValue="달성순" margin="1rem 0 0 0.5rem" />
         </div>
-      </TitleContainer>
-
-      <CardList />
+        <CardContainer>
+          <CardList />
+        </CardContainer>
+      </MainCardContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
   width: 100%;
-  div {
-    margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+`;
+
+const MainCardContainer = styled.div`
+  width: 97.3rem;
+  margin: 7rem 1rem 2rem 0rem;
+  h1 {
+    font-size: 1.7rem;
+    margin: 0;
+  }
+  p {
+    font-size: 1.2rem;
+    margin: 0.2rem 0 3rem 0;
   }
 `;
 
-const TitleContainer = styled.div`
-  margin: 0 1rem;
-  h1 {
-    font-size: 1.2rem;
-  }
-  div {
-    margin-top: 1rem;
-  }
+const CardContainer = styled.div`
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default MainContentsScreen;
