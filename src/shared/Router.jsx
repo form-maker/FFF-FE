@@ -6,6 +6,8 @@ import Main from "../pages/Main";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Layout from "../layout/Layout";
+import CreateForm from "../pages/CreateForm";
+
 import { darkTheme, lightTheme } from "../styles/theme";
 import { useSelector } from "react-redux";
 
@@ -21,6 +23,7 @@ const Router = () => {
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/createForm" element={<CreateForm />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
