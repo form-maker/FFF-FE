@@ -47,6 +47,18 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
   }
+
+  input{
+     &:focus {
+      outline: none;
+    }
+  }
+
+  textarea{
+     &:focus {
+      outline: none;
+    }
+  }
 `;
 
 export default GlobalStyle;
