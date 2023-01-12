@@ -7,6 +7,7 @@ export const darkTheme = {
   sideColor2: "#EEEFF2",
   pointColor1: "#FCE0BC",
   pointColor2: "#DFD9FA",
+  hoverColor: "#8CB7D7",
 };
 
 export const lightTheme = {
@@ -19,4 +20,5 @@ export const lightTheme = {
   pointColor1: "#FCE0BC",
   pointColor2: "#DFD9FA",
   fontColor: "#686868",
+  hoverColor: "#8CB7D7",
 };

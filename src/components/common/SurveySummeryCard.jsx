@@ -23,12 +23,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 22.6rem;
-  height: 32rem;
+  width: 21.6rem;
+  height: 20rem;
   padding: 1rem;
   border-radius: 2.1rem;
 
-  background-color: ${({ theme }) => theme.mainColor};
+  background-color: ${({ theme }) => theme.subColor};
   padding: 2rem;
   div {
     margin: 0;

@@ -7,7 +7,7 @@ const MainContentsScreen = () => {
   return (
     <Container>
       <MainCardContainer>
-        <h1>현재 진행중인 폼</h1>
+        <h1>현재 진행중</h1>
         <div>
           <RoundButtonMedium buttonValue="최신순" margin="1rem 0.5rem 0 0 " />
           <RoundButtonMedium
@@ -16,10 +16,10 @@ const MainContentsScreen = () => {
           />
           <RoundButtonMedium buttonValue="달성순" margin="1rem 0 0 0.5rem" />
         </div>
-        <CardContainer>
-          <CardList />
-        </CardContainer>
       </MainCardContainer>
+      <CardContainer>
+        <CardList />
+      </CardContainer>
     </Container>
   );
 };
@@ -31,15 +31,13 @@ const Container = styled.div`
 `;
 
 const MainCardContainer = styled.div`
+  display: flex;
+  justify-content: center;
   width: 97.3rem;
   margin: 7rem 1rem 2rem 0rem;
   h1 {
     font-size: 1.7rem;
     margin: 0;
-  }
-  p {
-    font-size: 1.2rem;
-    margin: 0.2rem 0 3rem 0;
   }
 `;
 
