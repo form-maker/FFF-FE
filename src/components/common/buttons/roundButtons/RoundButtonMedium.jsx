@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import fonts from "../../../../styles/fonts";
 
 const RoundButtonMedium = ({
   buttonValue,
@@ -21,8 +22,7 @@ const RoundButtonMedium = ({
 };
 
 const Button = styled.button`
-  font-size: ${({ fontSize }) => fontSize || "0.6rem"};
-  font-weight: ${({ fontWeight }) => fontWeight || "500"};
+  ${fonts.Body2}
   padding: 0.4rem 1rem;
   border: ${({ theme }) => `1px solid ${theme.mainColor}`};
   border-radius: 2rem;
