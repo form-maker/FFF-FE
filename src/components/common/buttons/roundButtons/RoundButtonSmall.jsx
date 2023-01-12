@@ -27,7 +27,7 @@ const Button = styled.button`
   border: ${({ theme }) => `1px solid ${theme.mainColor}`};
   border-radius: 2rem;
   background: transparent;
-  margin: ${({ margin }) => margin || "0.5rem 1.6rem"};
+  margin: ${({ margin }) => margin || "0"};
   cursor: pointer;
   z-index: 1;
   &:hover {

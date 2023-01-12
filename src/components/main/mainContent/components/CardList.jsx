@@ -24,10 +24,11 @@ const CardList = () => {
           return (
             <SurveySummeryCard
               key={card.surveyId}
-              deadLine={card.deadLine}
+              deadLine={card.dday}
               title={card.title}
               summary={card.summary}
-              createdAt={card.createdAt.substr(0, 10)}
+              createdAt={card.createdAt}
+              participant={card.participant}
             />
           );
         })}
@@ -40,7 +41,6 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
 const SurveyContainer = styled.div`
@@ -49,6 +49,8 @@ const SurveyContainer = styled.div`
   grid-row-gap: 3rem;
   grid-template-columns: repeat(4, 1fr);
   margin-bottom: 3rem;
+  align-items: center;
+  justify-items: center;
 `;
 
 export default CardList;

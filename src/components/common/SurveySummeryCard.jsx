@@ -2,9 +2,21 @@ import React from "react";
 import styled from "styled-components";
 import RoundDiv from "./RoundDiv";
 
-const SurveySummeryCard = ({ deadLine, createdAt, summary, title }) => {
+const SurveySummeryCard = ({
+  deadLine,
+  createdAt,
+  summary,
+  title,
+  participant,
+}) => {
+  // 랜덤 색상 배정
+  const backgroundColor = ["#BBE0FA", "#B0D1FF", "#F6EAFD", "#CEDFFF"];
+  const getRandom = (min, max) =>
+    Math.floor(Math.random() * (max - min) + min) - 1;
+  let randomColor = backgroundColor[getRandom(1, backgroundColor.length + 1)];
+
   return (
-    <Container>
+    <Container backgroundColor={randomColor}>
       <Header>
         <RoundDiv text={`D - ${deadLine}`}></RoundDiv>
       </Header>
@@ -13,6 +25,7 @@ const SurveySummeryCard = ({ deadLine, createdAt, summary, title }) => {
         <p>{summary}</p>
       </Main>
       <Footer>
+        <div>{participant}</div>
         <div>작성일: {createdAt}</div>
       </Footer>
     </Container>
@@ -28,7 +41,7 @@ const Container = styled.div`
   padding: 1rem;
   border-radius: 2.1rem;
 
-  background-color: ${({ theme }) => theme.subColor};
+  background-color: ${({ backgroundColor }) => backgroundColor};
   padding: 2rem;
   div {
     margin: 0;
