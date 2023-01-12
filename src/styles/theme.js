@@ -18,4 +18,5 @@ export const lightTheme = {
   sideColor2: "#EEEFF2",
   pointColor1: "#FCE0BC",
   pointColor2: "#DFD9FA",
+  fontColor: "#686868",
 };

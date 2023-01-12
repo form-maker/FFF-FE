@@ -20,7 +20,9 @@ const MainDescriptionScreen = () => {
             />
             <RoundButtonLarge
               buttonValue="설문 제작하기"
-              onClick={navigate("/createForm")}
+              onClick={() => {
+                navigate("/createform");
+              }}
             />
           </div>
         </MainTitleContainer>
