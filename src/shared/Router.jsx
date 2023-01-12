@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Layout from "../layout/Layout";
 import CreateForm from "../pages/CreateForm";
+import Survey from "../pages/Survey";
 
 import { darkTheme, lightTheme } from "../styles/theme";
 import { useSelector } from "react-redux";
@@ -24,7 +25,7 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/createform" element={<CreateForm />} />
-          {/* <Route path="/survey" element={<Survey />} /> */}
+          <Route path="/survey" element={<Survey />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
