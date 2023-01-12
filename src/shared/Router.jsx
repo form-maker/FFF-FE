@@ -23,7 +23,7 @@ const Router = () => {
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/createForm" element={<CreateForm />} />
+          <Route path="/createform" element={<CreateForm />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
