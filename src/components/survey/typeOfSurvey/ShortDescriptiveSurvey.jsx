@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import fonts from "../../../styles/fonts";
 import {
-  pushAnswer,
-  deleteAnswer,
+  changeDescriptive,
   getCover,
 } from "../../../redux/modules/surveySlice";
 import {
@@ -12,22 +11,18 @@ import {
   __getBeforeSurveyQuestion,
 } from "../../../redux/modules/surveySlice";
 
-const MultipleChoiceSurvey = () => {
+const ShortDescriptiveSurvey = () => {
   const dispatch = useDispatch();
   const question = useSelector((state) => state.survey.question);
   const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const selectedAnswerList = useSelector(
-    (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
+  const descriptive = useSelector(
+    (state) => state.survey?.answer[currentPageNum - 2]["descriptive"]
   );
 
-  const answerHandler = (answerNum) => {
-    if (selectedAnswerList !== [] && selectedAnswerList.includes(answerNum)) {
-      dispatch(deleteAnswer(answerNum));
-    } else {
-      console.log(answerNum);
-      dispatch(pushAnswer(answerNum));
-    }
+  const answerHandler = (event) => {
+    const answer = event.target.value;
+    dispatch(changeDescriptive(answer));
   };
 
   const nextPageClickHandler = () => {
@@ -45,26 +40,13 @@ const MultipleChoiceSurvey = () => {
     <Container>
       <h2>{question.questionTitle}</h2>
       <p>{question.questionSummary}</p>
-
-      <p>*다중선택 가능</p>
-      {question.answerList.map((answer) => {
-        return (
-          <Button
-            key={answer.answerNum}
-            id={answer.answerNum}
-            onClick={() => {
-              answerHandler(answer.answerNum);
-            }}
-            background={
-              selectedAnswerList.includes(+answer.answerNum)
-                ? "subColor"
-                : "mainColor"
-            }
-          >
-            {answer.answerNum + 1}. {answer.answerValue}
-          </Button>
-        );
-      })}
+      <InputContainer>
+        <input
+          value={descriptive}
+          onChange={answerHandler}
+          placeholder="간단하게 작성해주세요"
+        ></input>
+      </InputContainer>
       <BottomContainer>
         <button onClick={goBackPageClickHandler}>〈</button>
         <div>
@@ -90,24 +72,21 @@ const Container = styled.div`
   p:nth-of-type(1) {
     ${fonts.Body2}
   }
-  p:nth-of-type(2) {
-    margin: 3rem 0 0 0;
-    ${fonts.Body2}
-  }
 `;
-const Button = styled.div`
-  ${fonts.Body2}
-  margin: 2rem 0 0 0;
-  width: 26.5rem;
-  height: 4.2rem;
-  border: none;
-  border-radius: 1rem;
+
+const InputContainer = styled.div`
+  width: 100%;
+  height: 35rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding-left: 2.2rem;
-  background: ${({ background, theme }) => theme[background]};
-  cursor: pointer;
+  input {
+    border: 0;
+    width: 27.3rem;
+    padding: 1.1rem;
+    text-align: center;
+    border-bottom: ${({ theme }) => `0.3rem solid ${theme.subColor}`};
+  }
 `;
 
 const BottomContainer = styled.div`
@@ -137,4 +116,5 @@ const BottomContainer = styled.div`
     cursor: pointer;
   }
 `;
-export default MultipleChoiceSurvey;
+
+export default ShortDescriptiveSurvey;

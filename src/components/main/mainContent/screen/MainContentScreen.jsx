@@ -1,20 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
+import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSmall";
 import CardList from "../components/CardList";
 
-const MainContentsScreen = () => {
+const MainContentScreen = () => {
   return (
     <Container>
       <MainCardContainer>
-        <h1>현재 진행중</h1>
+        <h1>현재 진행중인</h1>
         <div>
-          <RoundButtonMedium buttonValue="최신순" margin="1rem 0.5rem 0 0 " />
-          <RoundButtonMedium
+          <RoundButtonSmall buttonValue="최신순" margin="0 0.5rem 0 0 " />
+          <RoundButtonSmall
             buttonValue="마감 임박순"
-            margin="1rem 0.5rem 0 0.5rem"
+            margin="0 0.5rem 0 0.5rem"
           />
-          <RoundButtonMedium buttonValue="달성순" margin="1rem 0 0 0.5rem" />
+          <RoundButtonSmall buttonValue="달성순" margin=" 0 0 0.5rem" />
         </div>
       </MainCardContainer>
       <CardContainer>
@@ -27,14 +27,17 @@ const MainContentsScreen = () => {
 const Container = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 const MainCardContainer = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   width: 97.3rem;
-  margin: 7rem 1rem 2rem 0rem;
+  margin: 4.4rem 0 0 0;
   h1 {
     font-size: 1.7rem;
     margin: 0;
@@ -42,10 +45,10 @@ const MainCardContainer = styled.div`
 `;
 
 const CardContainer = styled.div`
-  margin-top: 3rem;
+  margin-top: 4.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export default MainContentsScreen;
+export default MainContentScreen;

@@ -2,22 +2,44 @@ import React from "react";
 import styled from "styled-components";
 import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
 import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <SubContainer>
         <div>
           <div>
-            <NoOutLineMedium buttonValue="폼폼폼" />
+            <NoOutLineMedium
+              buttonValue="폼폼폼"
+              onClick={() => {
+                navigate("/");
+              }}
+            />
           </div>
           <div>
             <NoOutLineSmall buttonValue="진행중인 폼" />
-            <NoOutLineSmall buttonValue="폼 제작하기" />
+            <NoOutLineSmall
+              buttonValue="폼 제작하기"
+              onClick={() => {
+                navigate("/createform");
+              }}
+            />
           </div>
           <div>
-            <NoOutLineSmall buttonValue="로그인" />
-            <NoOutLineSmall buttonValue="회원가입" />
+            <NoOutLineSmall
+              buttonValue="로그인"
+              onClick={() => {
+                navigate("/login");
+              }}
+            />
+            <NoOutLineSmall
+              buttonValue="회원가입"
+              onClick={() => {
+                navigate("/signup");
+              }}
+            />
           </div>
         </div>
       </SubContainer>

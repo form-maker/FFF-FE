@@ -59,6 +59,10 @@ const GlobalStyle = createGlobalStyle`
       outline: none;
     }
   }
+
+  button{
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;
