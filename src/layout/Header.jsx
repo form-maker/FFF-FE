@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
 import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
 import { useNavigate } from "react-router-dom";
+import { baseURLApi } from "../core/api";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const { data } = await baseURLApi.get("user");
+        setIsLogin(data.data.login);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkToken();
+  }, [isLogin]);
+
   return (
     <Container>
       <SubContainer>
@@ -28,18 +44,38 @@ const Header = () => {
             />
           </div>
           <div>
-            <NoOutLineSmall
-              buttonValue="로그인"
-              onClick={() => {
-                navigate("/login");
-              }}
-            />
-            <NoOutLineSmall
-              buttonValue="회원가입"
-              onClick={() => {
-                navigate("/signup");
-              }}
-            />
+            {isLogin ? (
+              <>
+                <NoOutLineSmall
+                  buttonValue="마이페이지"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                />
+                <NoOutLineSmall
+                  buttonValue="로그아웃"
+                  onClick={() => {
+                    localStorage.removeItem("Authorization");
+                    setIsLogin(false);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <NoOutLineSmall
+                  buttonValue="로그인"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                />
+                <NoOutLineSmall
+                  buttonValue="회원가입"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                />
+              </>
+            )}
           </div>
         </div>
       </SubContainer>
