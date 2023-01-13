@@ -20,8 +20,8 @@ const Container = styled.div`
   height: 100vh;
 `;
 const PhoneContainer = styled.div`
-  width: 35.6rem;
-  height: 80rem;
+  width: 37.5rem;
+  height: 66.7rem;
 `;
 
 export default Survey;
