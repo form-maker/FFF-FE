@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { baseURLApi } from "../../core/api";
 
 const initialState = {
   signup: [],
@@ -8,7 +9,14 @@ const initialState = {
 
 export const __addSignup = createAsyncThunk(
   "signup",
-  async (payload, thunkAPI) => {}
+  async (payload, thunkAPI) => {
+    try {
+      const data = await baseURLApi.post(`user/signup`, payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error");
+    }
+  }
 );
 
 const signupSlice = createSlice({
@@ -21,7 +29,7 @@ const signupSlice = createSlice({
     },
     [__addSignup.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.content = action.payload;
+      state.signup = action.payload;
     },
     [__addSignup.rejected]: (state, action) => {
       state.isLoading = false;
