@@ -21,7 +21,6 @@ const LoginScreen = () => {
   const Login = async (aaa) => {
     try {
       const data = await baseURLApi.post("user/login", aaa);
-      console.log(data);
       if (data.data.statusCode === 200) {
         alert("로그인 성공");
         return data;

@@ -1,35 +1,51 @@
 import React from "react";
 import styled from "styled-components";
-import NoOutlineButton from "../components/common/buttons/NoOutlineButton";
+import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
+import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
 
 const Header = () => {
   return (
     <Container>
-      <div>
-        <NoOutlineButton buttonValue="폼폼폼" fontSize="1.2rem" />
+      <SubContainer>
         <div>
-          <NoOutlineButton buttonValue="진행중인 폼" fontSize="0.8rem" />
-          <NoOutlineButton buttonValue="제작하기" fontSize="0.8rem" />
+          <div>
+            <NoOutLineMedium buttonValue="폼폼폼" />
+          </div>
+          <div>
+            <NoOutLineSmall buttonValue="진행중인 폼" />
+            <NoOutLineSmall buttonValue="폼 제작하기" />
+          </div>
+          <div>
+            <NoOutLineSmall buttonValue="로그인" />
+            <NoOutLineSmall buttonValue="회원가입" />
+          </div>
         </div>
-        <div>
-          <NoOutlineButton buttonValue="로그인" fontSize="0.9rem" />
-          <span>|</span>
-          <NoOutlineButton buttonValue="회원가입" fontSize="0.9rem" />
-        </div>
-      </div>
+      </SubContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
   width: 100%;
+  background: ${({ theme }) => theme.mainColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+`;
+
+const SubContainer = styled.div`
+  width: 100%;
   min-width: 800px;
   max-width: 1200px;
+  height: 8rem;
   div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0rem;
+    padding: 1rem 1rem;
   }
 `;
 

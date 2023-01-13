@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import fonts from "../styles/fonts";
 
 const Footer = () => {
   return (
@@ -15,17 +16,17 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding: 2rem 0;
+  padding: 4rem 0;
   width: 100%;
   min-width: 800px;
   max-width: 1200px;
 
   h3 {
-    font-size: 0.9rem;
+    ${fonts.H4}
     margin: 0;
   }
   p {
-    font-size: 0.8rem;
+    ${fonts.Body2}
     margin: 0.2rem;
   }
 `;

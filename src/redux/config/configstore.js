@@ -1,8 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 import signup from "../modules/signupSlice";
 
+import darkTheme from "../modules/themeSlice";
+import mainCardList from "../modules/mainCardListSlice";
+import createForm from "../modules/createFormSlice";
+import survey from "../modules/surveySlice";
+
 const store = configureStore({
-  reducer: { signup: signup },
+  reducer: {
+    darkTheme,
+    mainCardList,
+    createForm,
+    survey,
+    signup,
+  },
+
 });
 
 export default store;

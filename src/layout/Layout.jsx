@@ -35,8 +35,6 @@ const MainLayout = styled.div`
   width: 100%;
   min-width: 800px;
   max-width: 1200px;
-
-  background: ${palette.white};
 `;
 
 export default Layout;
