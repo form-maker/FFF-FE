@@ -52,7 +52,7 @@ export const __postSurvey = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instanceApi.post(
-        `survey/${payload.surveyId}`,
+        `survey/${payload.surveyId}/reply`,
         payload.answerList
       );
       return thunkAPI.fulfillWithValue(data);
@@ -137,6 +137,7 @@ const SurveySlice = createSlice({
 
     builder.addCase(__postSurvey.fulfilled, (state, action) => {
       console.log(action.payload.msg);
+      alert(action.payload.msg);
     });
     builder.addCase(__postSurvey.rejected, (state, action) => {
       console.log(action.payload);

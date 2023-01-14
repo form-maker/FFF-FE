@@ -11,8 +11,6 @@ const CardList = () => {
     (state) => state.mainCardList.mainCardList.contents
   );
 
-  console.log(mainCardList);
-
   useEffect(() => {
     dispatch(__getMainCardList());
   }, [dispatch]);
