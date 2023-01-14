@@ -5,6 +5,7 @@ import darkTheme from "../modules/themeSlice";
 import mainCardList from "../modules/mainCardListSlice";
 import createForm from "../modules/createFormSlice";
 import survey from "../modules/surveySlice";
+import myPageCardList from "../modules/myPageListSlice";
 
 const store = configureStore({
   reducer: {
@@ -13,8 +14,8 @@ const store = configureStore({
     createForm,
     survey,
     signup,
+    myPageCardList,
   },
-
 });
 
 export default store;
