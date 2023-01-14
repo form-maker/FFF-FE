@@ -49,7 +49,7 @@ const Header = () => {
                 <NoOutLineSmall
                   buttonValue="마이페이지"
                   onClick={() => {
-                    navigate("/login");
+                    navigate("/mypage");
                   }}
                 />
                 <NoOutLineSmall
