@@ -35,9 +35,10 @@ const Header = () => {
             />
           </div>
           <div>
-            <NoOutLineSmall buttonValue="진행중인 폼" />
+            <NoOutLineSmall buttonValue="진행중인 폼" font="Body2" />
             <NoOutLineSmall
               buttonValue="폼 제작하기"
+              font="Body2"
               onClick={() => {
                 navigate("/createform");
               }}
@@ -51,13 +52,16 @@ const Header = () => {
                   onClick={() => {
                     navigate("/mypage");
                   }}
+                  fontSize="1.3rem"
                 />
+                ⎮
                 <NoOutLineSmall
                   buttonValue="로그아웃"
                   onClick={() => {
                     localStorage.removeItem("Authorization");
                     setIsLogin(false);
                   }}
+                  fontSize="1.3rem"
                 />
               </>
             ) : (
@@ -85,7 +89,7 @@ const Header = () => {
 
 const Container = styled.div`
   width: 100%;
-  background: ${({ theme }) => theme.mainColor};
+  background: ${({ theme }) => theme.SubColor1};
   display: flex;
   justify-content: center;
   align-items: center;
