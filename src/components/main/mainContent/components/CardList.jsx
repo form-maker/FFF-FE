@@ -3,13 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 
 import styled from "styled-components";
-import SurveySummeryCard from "../../../common/SurveySummeryCard";
+import MainSurveySummeryCard from "./MainSurveySummeryCard";
 
 const CardList = () => {
   const dispatch = useDispatch();
   const mainCardList = useSelector(
     (state) => state.mainCardList.mainCardList.contents
   );
+
+  console.log(mainCardList);
 
   useEffect(() => {
     dispatch(__getMainCardList());
@@ -20,7 +22,7 @@ const CardList = () => {
       <SurveyContainer>
         {mainCardList?.map((card) => {
           return (
-            <SurveySummeryCard
+            <MainSurveySummeryCard
               key={card.surveyId}
               deadLine={card.dday}
               title={card.title}
@@ -42,10 +44,11 @@ const Container = styled.div`
 `;
 
 const SurveyContainer = styled.div`
-  width: 97.3rem;
+  width: 100%;
   display: grid;
   grid-row-gap: 3rem;
-  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 2.4rem;
+  grid-template-columns: repeat(3, 1fr);
   margin-bottom: 3rem;
   align-items: center;
   justify-items: center;

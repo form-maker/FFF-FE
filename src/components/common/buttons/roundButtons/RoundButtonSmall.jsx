@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import fonts from "../../../../styles/fonts";
 
 const RoundButtonSmall = ({
   buttonValue,
@@ -21,18 +22,18 @@ const RoundButtonSmall = ({
 };
 
 const Button = styled.button`
-  font-size: ${({ fontSize }) => fontSize || "0.6rem"};
-  font-weight: ${({ fontWeight }) => fontWeight || "500"};
-  padding: 0.4rem 1rem;
-  border: ${({ theme }) => `1px solid ${theme.mainColor}`};
+  ${fonts.Body1}
+  font-size: ${({ fontSize }) => fontSize || "1.2rem"};
+  font-weight: ${({ fontWeight }) => fontWeight || "400"};
+  padding: 0.6rem 1.6rem;
+  border: ${({ theme }) => `2px solid ${theme.subColor1}`};
   border-radius: 2rem;
   background: transparent;
   margin: ${({ margin }) => margin || "0"};
   cursor: pointer;
   z-index: 1;
   &:hover {
-    background-color: ${({ theme }) => theme.mainColor};
-    color: ${({ theme }) => theme.backgroundColor};
+    background-color: ${({ theme }) => theme.subColor1};
   }
 `;
 

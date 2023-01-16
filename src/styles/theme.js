@@ -18,6 +18,7 @@ export const lightTheme = {
   subColor1: "#BBE0FA",
   subColor2: "#CEDFFF",
   subColor3: "#F6EAFD",
+  pointColor: "#7AB0FE",
 
   mainHoverColor: "#94B6E7",
   subHoverColor1: "#7BBEED",

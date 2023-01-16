@@ -21,8 +21,12 @@ export default {
     font-family: "Pretendard";
     color: #5e5e5e;
   `,
-  Body2: css`
+  Body3: css`
     font-family: "Pretendard";
     color: #686868;
+  `,
+  Body4: css`
+    font-family: "Pretendard";
+    color: #6c6464;
   `,
 };
