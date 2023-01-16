@@ -11,6 +11,7 @@ import Survey from "../pages/Survey";
 import { darkTheme, lightTheme } from "../styles/theme";
 import { useSelector } from "react-redux";
 import MyPage from "../pages/MyPage";
+import Stats from "../pages/Stats";
 
 const Router = () => {
   const darkMode = useSelector((state) => state.darkTheme.darkTheme);
@@ -22,6 +23,7 @@ const Router = () => {
           <Route element={<Layout />}>
             <Route path="/" element={<Main />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/stats" element={<Stats />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/login/kakao" element={<Oauth2RedirectHandler />} />

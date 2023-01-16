@@ -6,6 +6,7 @@ import mainCardList from "../modules/mainCardListSlice";
 import createForm from "../modules/createFormSlice";
 import survey from "../modules/surveySlice";
 import myPageCardList from "../modules/myPageListSlice";
+import stats from "../modules/statsSlice";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     survey,
     signup,
     myPageCardList,
+    stats,
   },
 });
 

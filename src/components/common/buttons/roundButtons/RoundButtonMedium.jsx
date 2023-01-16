@@ -22,10 +22,13 @@ const RoundButtonMedium = ({
 };
 
 const Button = styled.button`
-  ${fonts.Body2}
+  ${fonts.Body1}
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
   padding: 0.8rem 1.9rem;
   border: ${({ theme }) => `1px solid ${theme.mainColor}`};
-  border-radius: 9.9rem;
+  border-radius: 1.6rem;
   background: ${({ theme }) => theme.backgroundColor};
   margin: ${({ margin }) => margin || "0.5rem 1.6rem"};
   cursor: pointer;
