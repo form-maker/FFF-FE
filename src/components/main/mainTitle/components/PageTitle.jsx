@@ -12,7 +12,10 @@ const PageTitle = () => {
         <div></div>
         <div></div>
       </BackgroundContainer>
-      <h1>세상의 폼폼폼</h1>
+      <h1>
+        세상에서 가장
+        <br /> 몽글몽글한 설문조사
+      </h1>
       <p>설문에 참여하고 이벤트에 응모해 보세요</p>
       <ButtonContainer>
         <RoundButtonMedium buttonValue="설문 참여하기" margin="0 0.85rem 0 0" />

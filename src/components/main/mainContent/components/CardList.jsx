@@ -14,8 +14,8 @@ const CardList = () => {
   console.log(mainCardList);
 
   useEffect(() => {
-    dispatch(__getMainCardList());
-  }, [dispatch]);
+    dispatch(__getMainCardList({ page: 1, size: 9, sortBy: "최신순" }));
+  }, []);
 
   return (
     <Container>
