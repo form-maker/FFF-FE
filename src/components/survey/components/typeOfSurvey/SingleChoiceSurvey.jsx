@@ -58,7 +58,7 @@ const SingleChoiceSurvey = () => {
                   : "subColor1"
               }
             >
-              {answer.answerNum + 1}. {answer.answerValue}
+              {answer.answerNum}. {answer.answerValue}
             </Button>
           );
         })}
