@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 import Header from "./Header";
 import Footer from "./Footer";
-import palette from "../styles/palette";
 
 const Layout = () => {
   return (
@@ -35,9 +34,6 @@ const MainLayout = styled.div`
   width: 100%;
   min-width: 800px;
   max-width: 1200px;
-
-  background: ${palette.gray1};
-  color: ${palette.white};
 `;
 
 export default Layout;

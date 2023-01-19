@@ -1,11 +1,27 @@
 import React from "react";
 import styled from "styled-components";
+import fonts from "../styles/fonts";
 
 const Footer = () => {
-  return <Container>footer</Container>;
+  return (
+    <Container>
+      <FooterContainer>
+        <h3>폼폼폼</h3>
+        <p>김범준 안수빈 김형준 황보석 김동균 </p>
+      </FooterContainer>
+    </Container>
+  );
 };
 
 const Container = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #e1e1e1;
+`;
+
+const FooterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +31,14 @@ const Container = styled.div`
   min-width: 800px;
   max-width: 1200px;
 
-  border-top: 2px solid black;
+  h3 {
+    ${fonts.H4}
+    margin: 0;
+  }
+  p {
+    ${fonts.Body2}
+    margin: 0.2rem;
+  }
 `;
 
 export default Footer;
