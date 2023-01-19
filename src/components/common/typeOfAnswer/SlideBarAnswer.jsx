@@ -14,19 +14,6 @@ const SlideBarAnswer = () => {
       state.createForm.formList.questionList[currentPageNum - 2]["volume"]
   );
 
-  // const leftLabel = useSelector(
-  //   (state) =>
-  //     state.createForm.formList.questionList[currentPageNum - 2][
-  //       "answerList"
-  //     ][0]["answerValue"]
-  // );
-  // const rightLabel = useSelector(
-  //   (state) =>
-  //     state.createForm.formList.questionList[currentPageNum - 2][
-  //       "answerList"
-  //     ][1][["answerValue"]]
-  // );
-
   const inputHandler = (event) => {
     setSlideValue(event.target.value);
   };
@@ -34,12 +21,11 @@ const SlideBarAnswer = () => {
   const [marginLeft, setMarginLeft] = useState("");
 
   useEffect(() => {
-    setMarginLeft(`${((+volume + +slideValue) * 29.1) / (+volume * 2 + 1)}rem`);
+    setMarginLeft(`${((+volume + +slideValue) * 24) / (+volume * 2)}rem`);
   }, [volume, slideValue]);
 
   return (
     <Container>
-      {/* <InputValue> <div>{slideValue}</div> </InputValue> */}
       <PointerContainer marginLeft={marginLeft}>
         <img src={process.env.PUBLIC_URL + "/img/pointer.svg"} alt="pointer" />
       </PointerContainer>
@@ -55,11 +41,8 @@ const SlideBarAnswer = () => {
         />
         <Circle />
       </SlideContainer>
+      <p>{slideValue}</p>
       <p>점수를 선택해주세요</p>
-      {/* <VolumeLabelContainer>
-        <div>{-volume}</div>
-        <div>{volume}</div>
-      </VolumeLabelContainer> */}
     </Container>
   );
 };
@@ -103,7 +86,7 @@ const Container = styled.div`
 
 const PointerContainer = styled.div`
   width: 100%;
-  margin-left: 5.2rem;
+  margin-left: 5rem;
   margin-bottom: 0.9rem;
   img {
     width: 2.9rem;
@@ -118,33 +101,9 @@ const Circle = styled.div`
   background: ${({ theme }) => theme.gray6};
 `;
 
-const InputValue = styled.div`
-  color: #4471ef;
-  text-align: center;
-  font-weight: 600;
-  line-height: 40px;
-  height: 40px;
-  overflow: hidden;
-  margin-left: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  div {
-    transition: all 300ms ease-in-out;
-    ${fonts.Body1}
-  }
-`;
-
 const SlideContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const VolumeLabelContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
 `;

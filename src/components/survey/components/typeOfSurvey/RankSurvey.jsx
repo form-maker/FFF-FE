@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
+import fonts from "../../../../styles/fonts";
 import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
   getCover,
-} from "../../../redux/modules/surveySlice";
+} from "../../../../redux/modules/surveySlice";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { changeAnswerList } from "../../../redux/modules/surveySlice";
-import TurnAPageButtons from "../components/TurnAPageButtons";
+import { changeAnswerList } from "../../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../../components/TurnAPageButtons";
 
 const RankSurvey = () => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const RankSurvey = () => {
   const [characters, updateCharacters] = useState(addAnswerId);
 
   useEffect(() => {
-    let answerList = characters.map((character) => {
+    let answerList = characters?.map((character) => {
       return character.answerNum;
     });
     dispatch(changeAnswerList(answerList));
@@ -119,7 +119,7 @@ const RankSurvey = () => {
       <ArrowButtonContainer>
         <TurnAPageButtons
           currentPageNum={currentPageNum}
-          questionLength={questionIdList.length}
+          questionLength={questionIdList.length + 1}
           goBackPageClickHandler={goBackPageClickHandler}
           nextPageClickHandler={nextPageClickHandler}
         />

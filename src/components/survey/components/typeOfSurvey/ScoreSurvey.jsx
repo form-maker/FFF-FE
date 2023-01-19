@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
-import { changeAnswer, getCover } from "../../../redux/modules/surveySlice";
+import fonts from "../../../../styles/fonts";
+import { changeAnswer, getCover } from "../../../../redux/modules/surveySlice";
 import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
-} from "../../../redux/modules/surveySlice";
-import TurnAPageButtons from "../components/TurnAPageButtons";
-import RoundButtonMedium from "../../common/buttons/roundButtons/RoundButtonMedium";
+} from "../../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../TurnAPageButtons";
+import RoundButtonMedium from "../../../../components/common/buttons/roundButtons/RoundButtonMedium";
 
 const ScoreSurvey = () => {
   const dispatch = useDispatch();

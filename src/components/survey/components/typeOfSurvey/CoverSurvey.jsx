@@ -2,14 +2,15 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
-import { __getSurveyQuestion } from "../../../redux/modules/surveySlice";
-import RoundButtonLarge from "../../common/buttons/roundButtons/RoundButtonLarge";
+import fonts from "../../../../styles/fonts";
+import { __getSurveyQuestion } from "../../../../redux/modules/surveySlice";
+import RoundButtonLarge from "../../../common/buttons/roundButtons/RoundButtonLarge";
 
 const CoverSurvey = () => {
   const dispatch = useDispatch();
   const survey = useSelector((state) => state.survey.survey);
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
+  const questionIdList = useSelector((state) => state.survey?.questionIdList);
+  console.log(questionIdList);
 
   const surveyStartClickHandler = () => {
     dispatch(__getSurveyQuestion(questionIdList[0]));

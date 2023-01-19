@@ -13,7 +13,7 @@ const Header = () => {
     const checkToken = async () => {
       try {
         const { data } = await baseURLApi.get("user");
-        setIsLogin(data.data.login);
+        setIsLogin(data.data);
         console.log(data);
       } catch (error) {
         console.log(error);

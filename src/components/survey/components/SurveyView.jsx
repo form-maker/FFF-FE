@@ -2,33 +2,28 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import fonts from "../../../styles/fonts";
 
-import CoverSurvey from "../typeOfSurvey/CoverSurvey";
-import ScoreSurvey from "../typeOfSurvey/ScoreSurvey";
-import StarSurvey from "../typeOfSurvey/StarSurvey";
-import SingleChoiceSurvey from "../typeOfSurvey/SingleChoiceSurvey";
-import MultipleChoiceSurvey from "../typeOfSurvey/MultipleChoiceSurvey";
-import SlideSurvey from "../typeOfSurvey/SlideSurvey";
-import RankSurvey from "../typeOfSurvey/RankSurvey";
-import ShortDescriptiveSurvey from "../typeOfSurvey/ShortDescriptiveSurvey";
-import LongDescriptiveSurvey from "../typeOfSurvey/LongDescriptiveSurvey";
+import CoverSurvey from "./typeOfSurvey/CoverSurvey";
+import ScoreSurvey from "./typeOfSurvey/ScoreSurvey";
+import StarSurvey from "./typeOfSurvey/StarSurvey";
+import SingleChoiceSurvey from "./typeOfSurvey/SingleChoiceSurvey";
+import MultipleChoiceSurvey from "./typeOfSurvey/MultipleChoiceSurvey";
+import SlideSurvey from "./typeOfSurvey/SlideSurvey";
+import RankSurvey from "./typeOfSurvey/RankSurvey";
+import ShortDescriptiveSurvey from "./typeOfSurvey/ShortDescriptiveSurvey";
+import LongDescriptiveSurvey from "./typeOfSurvey/LongDescriptiveSurvey";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
-import {
-  __getSurvey,
-  __getSurveyQuestion,
-  __postSurvey,
-} from "../../../redux/modules/surveySlice";
-import RoundButtonMedium from "../../common/buttons/roundButtons/RoundButtonMedium";
+import { useSelector, useDispatch, batch } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { __getSurvey, __postSurvey } from "../../../redux/modules/surveySlice";
 import RoundButtonLarge from "../../common/buttons/roundButtons/RoundButtonLarge";
 
 const SurveyView = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const surveyId = searchParams.get("surveyId");
   const survey = useSelector((state) => state.survey.survey);
   const currentFormType = useSelector((state) => state.survey.currentFormType);
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
 
   const answerList = useSelector((state) => state.survey.answer);
@@ -41,13 +36,16 @@ const SurveyView = () => {
   }, [dispatch, surveyId]);
 
   const endSurveyClickHandler = () => {
-    let BlankAnswer = answerList.filter(
+    let BlankAnswer = answerList?.filter(
       (answer) => answer.selectValue.length === 0 && answer.descriptive === ""
     );
     BlankAnswer.length !== 0
       ? alert("체크하지 않은 문항이 있습니다!")
-      : console.log(surveyId, answerList);
-    dispatch(__postSurvey({ surveyId, answerList }));
+      : batch(() => {
+          dispatch(__postSurvey({ surveyId, answerList }));
+          navigate("/");
+          alert("설문을 완료하였습니다");
+        });
   };
 
   return (

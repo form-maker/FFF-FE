@@ -42,6 +42,7 @@ const CreateFormList = () => {
               onClick={() => {
                 goClickPageHandler(question.questionId);
               }}
+              isCurrentPageNum={currentPageNum === index + 2}
             />
           ))}
         </SurveyListContainer>

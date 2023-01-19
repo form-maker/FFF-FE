@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
-import { changeAnswer, getCover } from "../../../redux/modules/surveySlice";
+import fonts from "../../../../styles/fonts";
+import {
+  pushAnswer,
+  deleteAnswer,
+  getCover,
+} from "../../../../redux/modules/surveySlice";
 import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
-} from "../../../redux/modules/surveySlice";
-import TurnAPageButtons from "../components/TurnAPageButtons";
+} from "../../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../../components/TurnAPageButtons";
 
-const SingleChoiceSurvey = () => {
+const MultipleChoiceSurvey = () => {
   const dispatch = useDispatch();
   const question = useSelector((state) => state.survey.question);
   const questionIdList = useSelector((state) => state.survey.questionIdList);
@@ -19,7 +23,12 @@ const SingleChoiceSurvey = () => {
   );
 
   const answerHandler = (answerNum) => {
-    dispatch(changeAnswer(answerNum));
+    if (selectedAnswerList !== [] && selectedAnswerList.includes(answerNum)) {
+      dispatch(deleteAnswer(answerNum));
+    } else {
+      console.log(answerNum);
+      dispatch(pushAnswer(answerNum));
+    }
   };
 
   const nextPageClickHandler = () => {
@@ -27,7 +36,6 @@ const SingleChoiceSurvey = () => {
       ? alert("마지막 항목입니다")
       : dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
   };
-
   const goBackPageClickHandler = () => {
     currentPageNum === 2
       ? dispatch(getCover())
@@ -41,12 +49,12 @@ const SingleChoiceSurvey = () => {
         <h5>{question.questionSummary}</h5>
       </TitleContainer>
       <CommentContainer>
-        <p>*다중선택 불가</p>
+        <p>다중 선택 가능</p>
       </CommentContainer>
       <ButtonBox>
-        {question.answerList.map((answer) => {
+        {question.answerList?.map((answer) => {
           return (
-            <button
+            <Button
               key={answer.answerNum}
               id={answer.answerNum}
               onClick={() => {
@@ -54,12 +62,12 @@ const SingleChoiceSurvey = () => {
               }}
               background={
                 selectedAnswerList.includes(+answer.answerNum)
-                  ? "subColor"
-                  : "mainColor"
+                  ? "subHoverColor1"
+                  : "subColor1"
               }
             >
-              {answer.answerNum + 1}. {answer.answerValue}
-            </button>
+              {answer.answerNum}. {answer.answerValue}
+            </Button>
           );
         })}
       </ButtonBox>
@@ -67,7 +75,7 @@ const SingleChoiceSurvey = () => {
       <ArrowButtonContainer>
         <TurnAPageButtons
           currentPageNum={currentPageNum}
-          questionLength={questionIdList.length}
+          questionLength={questionIdList.length + 1}
           goBackPageClickHandler={goBackPageClickHandler}
           nextPageClickHandler={nextPageClickHandler}
         />
@@ -125,16 +133,18 @@ const ButtonBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  button {
-    width: 26.5rem;
-    display: flex;
-    align-items: center;
-    padding: 1.2rem;
-    margin: 0.6em 0;
-    border: none;
-    border-radius: 1rem;
-    background: ${({ theme }) => theme.subColor1};
-  }
+`;
+
+const Button = styled.div`
+  width: 26.5rem;
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  margin: 0.6em 0;
+  border: none;
+  border-radius: 1rem;
+  background: ${({ theme, background }) => theme[background]};
+  cursor: pointer;
 `;
 
 const ArrowButtonContainer = styled.div`
@@ -143,4 +153,4 @@ const ArrowButtonContainer = styled.div`
   bottom: 5rem;
 `;
 
-export default SingleChoiceSurvey;
+export default MultipleChoiceSurvey;

@@ -5,18 +5,28 @@ import fonts from "../styles/fonts";
 const Footer = () => {
   return (
     <Container>
-      <h3>폼폼폼</h3>
-      <p>김범준 안수빈 김형준 황보석 김동균</p>
+      <FooterContainer>
+        <h3>폼폼폼</h3>
+        <p>김범준 안수빈 김형준 황보석 김동균 </p>
+      </FooterContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #e1e1e1;
+`;
+
+const FooterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  padding: 4rem 0;
+  padding: 2rem 0;
   width: 100%;
   min-width: 800px;
   max-width: 1200px;

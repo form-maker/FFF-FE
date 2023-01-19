@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
-import { changeAnswer, getCover } from "../../../redux/modules/surveySlice";
+import fonts from "../../../../styles/fonts";
+import { changeAnswer, getCover } from "../../../../redux/modules/surveySlice";
 import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
-} from "../../../redux/modules/surveySlice";
-import TurnAPageButtons from "../components/TurnAPageButtons";
+} from "../../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../../components/TurnAPageButtons";
 
 const SlideSurvey = () => {
   const dispatch = useDispatch();
@@ -21,6 +21,7 @@ const SlideSurvey = () => {
   useEffect(() => {
     dispatch(changeAnswer(0));
   }, []);
+
   const answerHandler = (event) => {
     const { value } = event.target;
     dispatch(changeAnswer(+value));
@@ -43,8 +44,8 @@ const SlideSurvey = () => {
   useEffect(() => {
     setMarginLeft(
       `${
-        ((+question.volume + +selectedAnswerList[0]) * 25.9) /
-        (+question.volume * 2 + 1)
+        ((+question.volume + +selectedAnswerList[0]) * 24) /
+        (+question.volume * 2)
       }rem`
     );
   }, [question, selectedAnswerList]);
@@ -77,7 +78,7 @@ const SlideSurvey = () => {
       <ArrowButtonContainer>
         <TurnAPageButtons
           currentPageNum={currentPageNum}
-          questionLength={questionIdList.length}
+          questionLength={questionIdList.length + 1}
           goBackPageClickHandler={goBackPageClickHandler}
           nextPageClickHandler={nextPageClickHandler}
         />
@@ -177,31 +178,4 @@ const ArrowButtonContainer = styled.div`
   bottom: 5rem;
 `;
 
-// const BottomContainer = styled.div`
-//   width: 100%;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   position: absolute;
-//   bottom: 1rem;
-
-//   div {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//   }
-//   button {
-//     border: none;
-//     background: none;
-//     width: 6.2rem;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     margin: 0;
-//     padding: 1.3rem 1.6rem;
-//     color: ${({ theme }) => theme.mainColor};
-//     ${fonts.H1}
-//     cursor: pointer;
-//   }
-// `;
 export default SlideSurvey;
