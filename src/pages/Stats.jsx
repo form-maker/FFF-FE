@@ -1,45 +1,136 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import StatsHeaderScreen from "../components/stats/statsHeader/screen/StatsHeaderScreen";
+import StatsCategory from "../components/stats/statsMainList/components/StatsCategory";
 import StatsMainListScreen from "../components/stats/statsMainList/screen/StatsMainListScreen";
-import StatusSideBarScreen from "../components/stats/statusSideBar/screen/StatusSideBarScreen";
+import Calender from "../components/stats/statsMainList/components/Calender";
 
 const Stats = () => {
+  const [isToggleOn, setIsToggleOn] = useState(true);
+
   return (
     <Container>
       <StatsHeaderScreen />
       <StatsMainContainer>
-        <StatsMainListContainer>
+        <ToggleButton
+          onClick={() => {
+            setIsToggleOn((prev) => !prev);
+          }}
+        >
+          <img
+            src={process.env.PUBLIC_URL + "/img/statsToggle.svg"}
+            alt="statsToggle"
+          ></img>
+        </ToggleButton>
+        {isToggleOn && (
+          <ToggleMenu>
+            <ToggleMenuContainer>
+              <Calender setIsToggleOn={setIsToggleOn} />
+              <StatusContainer>
+                <StatsCategory />
+              </StatusContainer>
+            </ToggleMenuContainer>
+
+            <ToggleCloseButton
+              onClick={() => {
+                setIsToggleOn((prev) => !prev);
+              }}
+            >
+              <img
+                src={process.env.PUBLIC_URL + "/img/statsToggleClose.svg"}
+                alt="statsToggle"
+              ></img>
+            </ToggleCloseButton>
+          </ToggleMenu>
+        )}
+        <StatsMainItemContainer>
           <StatsMainListScreen />
-        </StatsMainListContainer>
-        <StatusSideBarContainer>
-          <StatusSideBarScreen />
-        </StatusSideBarContainer>
+        </StatsMainItemContainer>
       </StatsMainContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
-  min-width: 800px;
-  max-width: 1200px;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StatsMainContainer = styled.div`
+  background: ${({ theme }) => theme.backgroundColor2};
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 9.5rem;
+  position: relative;
+`;
+
+const StatsMainItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  min-width: 800px;
+  max-width: 1200px;
   margin: 0;
   padding-top: 3rem;
 `;
 
-const StatsMainListContainer = styled.div`
-  flex: 1;
+const ToggleButton = styled.div`
+  width: 35.6rem;
+  height: 3rem;
+  border-radius: 0px 0px 10px 10px;
+  background: ${({ theme }) => theme.gray7};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 2.7rem;
+  }
+  cursor: pointer;
 `;
 
-const StatusSideBarContainer = styled.div`
-  width: 25rem;
+const ToggleMenuContainer = styled.div`
+  display: flex;
+  margin-top: 3.7rem;
+`;
+
+const ToggleCloseButton = styled.div`
+  width: 35.6rem;
+  height: 3rem;
+  border-radius: 10px 10px 0px 0px;
+  background: ${({ theme }) => theme.gray7};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 2.7rem;
+  }
+  cursor: pointer;
+`;
+
+const ToggleMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 50rem;
+  z-index: 1;
+  background: ${({ theme }) => theme.backgroundColor};
+  border-bottom: ${({ theme }) => `1px solid ${theme.gray6}`};
+`;
+
+const StatusContainer = styled.div`
+  height: 40rem;
+  overflow: auto;
+  margin-left: 3.7rem;
 `;
 
 export default Stats;
