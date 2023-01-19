@@ -14,7 +14,6 @@ import Google from "../components/login/outh/Google";
 import MyPage from "../pages/MyPage";
 import Stats from "../pages/Stats";
 
-
 const Router = () => {
   const darkMode = useSelector((state) => state.darkTheme.darkTheme);
 
@@ -30,7 +29,7 @@ const Router = () => {
           <Route path="/createform" element={<CreateForm />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/kakao" element={<Oauth2RedirectHandler />} />
-          <Route path="/user/oauth/google" element={<Google />} />
+          <Route path="/api/user/oauth/google" element={<Google />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/survey" element={<Survey />} />
         </Routes>

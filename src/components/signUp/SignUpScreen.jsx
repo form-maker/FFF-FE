@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { __addSignup } from "../../redux/modules/signupSlice";
-import { instanceApi } from "../../core/api";
+import { baseURLApi, instanceApi } from "../../core/api";
 import fonts from "../../styles/fonts";
+import { da, el } from "date-fns/locale";
 
 const SignUpScreen = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const SignUpScreen = () => {
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailnum, setEmailNum] = useState("");
 
   const [loginIdMessage, setLoginIdMassage] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -163,16 +165,65 @@ const SignUpScreen = () => {
     }
   };
 
+  //이메일 인증번호 보내기 통신
+  const EmailNum = async (g) => {
+    try {
+      const data = await baseURLApi.post(`user/mail-auth?email=${g}`);
+      if (data.data.statusCode === 200) {
+        alert("전송되었습니다.");
+        return data;
+      } else {
+        alert("이메일 형식이 아닙니다.");
+      }
+    } catch (error) {}
+  };
+
+  //이메일 인증번호 버튼 이벤트
+  const EmailNumber = (e) => {
+    e.preventDefault();
+    EmailNum(email);
+  };
   //이메일 인증번호 입력 이벤트
   const EmailNumberChangeHandler = (e) => {
-    //e.target.value;
+    setEmailNum(e.target.value);
+  };
+
+  //이메일 인증번호 확인 통신
+  const Emailcode = async (email, emailnum) => {
+    try {
+      const data = await baseURLApi.post(
+        `user/mail-auth/verify?email=${email}&code=${emailnum}`
+      );
+      if (data.data.statusCode === 200) {
+        alert("인증번호가 일치합니다. 게속 회원가입을 진행해 주세요.");
+      } else {
+        alert("인증번호가 일치하지 않습니다");
+      }
+      return data;
+    } catch (error) {}
+  };
+
+  //인증번호 확인 버튼
+  const EmailCheckNumberHandeler = (e) => {
+    e.preventDefault();
+    Emailcode(email, emailnum);
   };
 
   //회원가입 버튼 온클릭
   const ClickSignupHandler = () => {
-    dispatch(__addSignup({ loginId, email, username, password }));
-    alert("회원가입 성공");
-    navigate(`/login`);
+    if (
+      emailnum.length &&
+      loginId.length &&
+      email.length &&
+      username.length &&
+      password.length === 0
+    ) {
+      alert("빈칸을 채워주세요.");
+    } else {
+      dispatch(__addSignup({ loginId, email, username, password }));
+      alert("회원가입 완료");
+      navigate(`/login`);
+    }
   };
 
   return (
@@ -198,7 +249,7 @@ const SignUpScreen = () => {
           </IdCheckBox>{" "}
           {loginId.length > 0 && (
             <Span
-              className={`message ${isLoginId} ? '"영문 대/소문자 6자리 이상으로 압력해주세요."' : "아이디 형식이 맞습니다."`}
+              className={`message ${isLoginId} ? '"영문 대/소문자 6자리 이상으로 압력해주세요."' : "아이디 형식에 맞습니다."`}
             >
               {loginIdMessage}
             </Span>
@@ -250,26 +301,38 @@ const SignUpScreen = () => {
 
         <Stlabel>이메일</Stlabel>
         <EmailBox>
-          <EmailInput
-            type="email"
-            placeholder="이메일"
-            onChange={EmailChangeHandler}
-          ></EmailInput>
-          <CheckBox>인증번호 받기</CheckBox>
+          <EmailNumCeek>
+            <EmailNumChekBox>
+              <StInput
+                type="email"
+                placeholder="이메일"
+                onChange={EmailChangeHandler}
+              ></StInput>
+              <CheckBox onClick={EmailNumber}>인증번호 받기</CheckBox>
+            </EmailNumChekBox>
+            {email.length > 0 && (
+              <Span
+                style={{ marginbottom: "10px" }}
+                className={`message ${isemail} ? "올바른 이메일 형식입니다.": "이메일 형식이 아닙니다"`}
+              >
+                {emailMessage}
+              </Span>
+            )}
+          </EmailNumCeek>
+          <IdCheckBox>
+            <IdCheckBox>
+              <StInput
+                onChange={EmailNumberChangeHandler}
+                type="text"
+                placeholder="인증번호"
+              ></StInput>
+              <CheckBox onClick={EmailCheckNumberHandeler}>
+                인증번호 확인
+              </CheckBox>
+            </IdCheckBox>
+          </IdCheckBox>
         </EmailBox>
-        <EmailSpan>
-          {email.length > 0 && (
-            <Span
-              style={{ marginbottom: "10px" }}
-              className={`message ${isemail} ? "올바른 이메일 형식입니다.": "이메일 형식이 아닙니다"`}
-            >
-              {emailMessage}
-            </Span>
-          )}
-        </EmailSpan>
-        <EmailCheck>
-          <EmailCheckInput type="text" placeholder="인증번호"></EmailCheckInput>
-        </EmailCheck>
+
         <Stlabel>닉네임</Stlabel>
         <InputBox>
           <StInput
@@ -298,7 +361,7 @@ const SignUpScreen = () => {
           }
           onClick={ClickSignupHandler}
         >
-          회원가입
+          가입하기
         </ButtonBox>
       </StForm>
     </StcontainerBox>
@@ -328,7 +391,10 @@ const StForm = styled.form`
 `;
 
 const StTitle = styled.div`
-  ${fonts.H1}
+  ${fonts.Body1}
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,6 +405,9 @@ const StTitle = styled.div`
 const Stlabel = styled.label`
   margin-bottom: 10px;
   ${fonts.Body1}
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
 `;
 
 const InputBox = styled.div`
@@ -350,7 +419,10 @@ const InputBox = styled.div`
 `;
 const StInput = styled.input`
   border-radius: 11px;
-  ${fonts.Caption}
+  ${fonts.Body5}
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
   width: 205px;
   height: 40px;
   padding-left: 10px;
@@ -366,7 +438,10 @@ const CheckBox = styled.button`
   border-radius: 20px;
   border: none;
   margin-left: 10px;
-  ${fonts.Caption}
+  ${fonts.Body1}
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
 `;
 
 const IdBox = styled.div`
@@ -391,9 +466,11 @@ const Pwbox = styled.div`
   border: none;
   border-radius: 11px;
   background-color: rgb(238, 238, 238, 0.55);
-  margin-bottom: 10px;
   input {
+    ${fonts.Body5}
+    font-weight: 400;
     font-size: 12px;
+    line-height: 14px;
     width: 300px;
     height: 30px;
     padding-left: 10px;
@@ -414,48 +491,10 @@ const Pwbox = styled.div`
 const Span = styled.span`
   margin-top: 10px;
   position: absolute;
-  ${fonts.Caption}
-`;
-
-const EmailBox = styled.div`
-  display: flex;
-  width: 310px;
-  height: 40px;
-  border: none;
-`;
-
-const EmailInput = styled.input`
-  border-radius: 11px;
-  ${fonts.Caption}
-  width: 205px;
-  height: 40px;
-  padding-left: 10px;
-  background-color: rgb(238, 238, 238, 0.55);
-  color: #9e9e9e;
-  border: none;
-`;
-
-const EmailCheck = styled.div`
-  width: 310px;
-  height: 40px;
-  margin-top: 10px;
-  margin-bottom: 45px;
-`;
-
-const EmailCheckInput = styled.input`
-  border-radius: 11px;
-  ${fonts.Caption}
-  width: 310px;
-  height: 40px;
-  background-color: rgb(238, 238, 238, 0.55);
-  color: #9e9e9e;
-  border: none;
-  padding-left: 10px;
-`;
-
-const EmailSpan = styled.div`
-  margin-top: 10px;
-  margin-bottom: 5px;
+  ${fonts.Body1}
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
 `;
 
 const ButtonBox = styled.button`
@@ -470,14 +509,23 @@ const ButtonBox = styled.button`
   border-radius: 20px;
   margin-top: 50px;
   margin-bottom: 75px;
-  ${fonts.Body2}
+  ${fonts.Body1}
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
 `;
 
-const usernameBox = styled.div`
+const EmailBox = styled.div`
+  margin-bottom: 50px;
+`;
+
+const EmailNumCeek = styled.div`
+  margin-bottom: 30px;
+`;
+
+const EmailNumChekBox = styled.div`
   display: flex;
   width: 310px;
   height: 40px;
   border: none;
-  margin-bottom: 45px;
-  margin-bottom: 50px;
 `;
