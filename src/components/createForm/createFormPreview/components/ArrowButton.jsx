@@ -3,7 +3,7 @@ import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 
 const ArrowButton = ({ buttonText }) => {
-  return <Container>{buttonText}</Container>;
+  return <img>{buttonText}</img>;
 };
 
 const Container = styled.div`

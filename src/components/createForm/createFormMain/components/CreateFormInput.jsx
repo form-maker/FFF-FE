@@ -2,20 +2,27 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { fillOutQuestionTitleAndSummery } from "../../../../redux/modules/createFormSlice";
+import fonts from "../../../../styles/fonts";
 
 const CreateFormInput = () => {
   const dispatch = useDispatch();
   const questionType = useSelector(
-    (state) => state.createForm.selectedFormType
+    (state) => state.createForm?.selectedFormType
   );
   const currentPageNum = useSelector(
-    (state) => state.createForm.currentPageNum
+    (state) => state.createForm?.currentPageNum
   );
+
+  const selectedFormType = useSelector(
+    (state) => state.createForm?.selectedFormType
+  );
+
   const questionTitle = useSelector(
     (state) =>
-      state.createForm.formList.questionList.length !== 0 &&
-      questionType !== "Cover" &&
-      state.createForm.formList.questionList[currentPageNum - 2][
+      state.createForm.formList?.questionList?.length !== 0 &&
+      questionType !== "COVER" &&
+      selectedFormType !== "COVER" &&
+      state.createForm?.formList?.questionList[currentPageNum - 2][
         "questionTitle"
       ]
   );
@@ -23,7 +30,8 @@ const CreateFormInput = () => {
   const questionSummary = useSelector(
     (state) =>
       state.createForm.formList?.questionList.length !== 0 &&
-      questionType !== "Cover" &&
+      questionType !== "COVER" &&
+      selectedFormType !== "COVER" &&
       state.createForm.formList?.questionList[currentPageNum - 2][
         "questionSummary"
       ]
@@ -40,13 +48,13 @@ const CreateFormInput = () => {
   };
 
   return (
-    questionType !== "Cover" &&
-    questionType !== "Group" &&
-    questionType !== "NewForm" &&
+    questionType !== "COVER" &&
+    // questionType !== "Group" &&
+    questionType !== "NEW_FORM" &&
     questionType !== undefined && (
       <Container>
         <div>
-          <TitleNumber>{currentPageNum - 1}</TitleNumber>
+          {/* <TitleNumber>{currentPageNum - 1}</TitleNumber> */}
           <TitleInput
             placeholder="질문을 작성해주세요"
             value={questionTitle || ""}
@@ -66,26 +74,45 @@ const CreateFormInput = () => {
   );
 };
 
-const Container = styled.div``;
-
-const TitleNumber = styled.span`
-  font-size: 5rem;
+const Container = styled.div`
+  width: 100%;
+  padding-top: 7.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
+// const TitleNumber = styled.span`
+//   font-size: 5rem;
+// `;
+
 const TitleInput = styled.input`
-  font-size: 3rem;
+  text-align: center;
+  ${fonts.Body1}
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 2.9rem;
   width: 50rem;
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.fontColor};
+  &::placeholder {
+    color: ${({ theme }) => theme.color};
+  }
 `;
 
 const SubTitleInput = styled.input`
-  font-size: 1.4rem;
+  margin-top: 4.2rem;
+  text-align: center;
+  ${fonts.Body3}
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  width: 50rem;
   border: none;
-  width: 51.5rem;
-  margin-top: 1.5rem;
-  margin-left: 1rem;
   border-bottom: 1px solid ${({ theme }) => theme.fontColor};
+  &::placeholder {
+    ${fonts.Body3}
+  }
 `;
 
 export default CreateFormInput;

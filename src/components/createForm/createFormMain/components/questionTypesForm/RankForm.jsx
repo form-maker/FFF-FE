@@ -31,7 +31,7 @@ const RankForm = () => {
       !questionTitle &&
       dispatch(
         fillOutQuestion({
-          questionType: "Rank",
+          questionType: "RANK",
           questionTitle: "",
           questionSummary: "",
           answerList: [],
@@ -65,67 +65,93 @@ const RankForm = () => {
 
   return (
     <Container>
-      <QuestionInput
-        placeholder="질문을 작성해주세요"
-        value={questionInput}
-        onChange={InputChangeHandler}
-        onKeyUp={onKeyUp}
-      ></QuestionInput>
-      {answerList?.map((answer, index) => {
-        return (
-          <Question>
-            <div>{index + 1}</div> {answer}
-          </Question>
-        );
-      })}
-      <CommentContainer>
+      <ChoiceContainer>
         <p>앤터를 눌러 항목을 추가할 수 있습니다</p>
-      </CommentContainer>
+        <QuestionInput
+          placeholder="질문을 작성해주세요"
+          value={questionInput}
+          onChange={InputChangeHandler}
+          onKeyUp={onKeyUp}
+        ></QuestionInput>
+        {answerList?.map((answer, index) => {
+          return (
+            <Question key={index}>
+              <div>
+                <span> {index + 1}</span>
+                {answer}
+              </div>
+              <img
+                src={process.env.PUBLIC_URL + "/img/roundX.svg"}
+                alt="xIcon"
+              />
+            </Question>
+          );
+        })}
+      </ChoiceContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 5rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+`;
+
+const ChoiceContainer = styled.div`
+  width: 50rem;
+  p {
+    ${fonts.Body1}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  }
 `;
 
 const QuestionInput = styled.input`
-  font-size: 1.4rem;
+  ${fonts.Body1}
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
   border: none;
-  width: 51.5rem;
-  margin-top: 1.5rem;
-  margin-left: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.fontColor};
+  width: 100%;
+  padding: 0.8rem 0;
+  border-bottom: 2px solid #999999;
 `;
 
 const Question = styled.div`
   display: flex;
-  padding: 0.6rem 1.5rem;
-  ${fonts.Body2}
-  background-color: ${({ theme }) => theme.sideColor1};
+  align-items: center;
+  ${fonts.Body1}
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  border: none;
+  width: 100%;
+  margin-top: 2.2rem;
+  padding: 0.2rem 0;
   margin-top: 1rem;
   width: 100%;
-  border-radius: 1rem;
+  border-bottom: 2px solid #999999;
   div {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 1rem;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0.8rem;
-  }
-`;
+    flex: 1;
+    ${fonts.Body1}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
 
-const CommentContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
+    span {
+      font-weight: 800;
+      font-size: 2rem;
+      line-height: 1.9rem;
+      margin-right: 1rem;
+    }
+  }
+  img {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 `;
 
 export default RankForm;

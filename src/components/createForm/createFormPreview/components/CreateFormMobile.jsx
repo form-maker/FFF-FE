@@ -10,11 +10,10 @@ const CreateFormMobile = () => {
   );
 };
 const Container = styled.div`
-  width: 39.1rem;
-  height: 87.8rem;
-  border: 1px solid #000000;
-  box-shadow: 0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
-  border-radius: 44.0996px;
+  width: 35.6rem;
+  height: 77.3rem;
+  box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 44px;
   display: flex;
   justify-content: center;
   align-items: center;
