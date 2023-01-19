@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { instanceApi } from "../../core/api";
+import { baseURLApi } from "../../core/api";
 
 const initialState = {
   stats: [],
@@ -10,7 +10,7 @@ export const __getStats = createAsyncThunk(
   "stats/getStats",
   async ({ end, start, surveyId }, thunkAPI) => {
     try {
-      const { data } = await instanceApi.post(
+      const { data } = await baseURLApi.get(
         `survey/stats?end=${end}&start=${start}&surveyId=${surveyId}`
       );
       return thunkAPI.fulfillWithValue(data);

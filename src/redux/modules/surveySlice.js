@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { instanceApi } from "../../core/api";
+import { instanceApi, baseURLApi } from "../../core/api";
 
 const initialState = {
   currentPageNum: 1,
@@ -51,7 +51,7 @@ export const __postSurvey = createAsyncThunk(
   "survey/postSurvey",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await instanceApi.post(
+      const { data } = await baseURLApi.post(
         `survey/${payload.surveyId}/reply`,
         payload.answerList
       );
