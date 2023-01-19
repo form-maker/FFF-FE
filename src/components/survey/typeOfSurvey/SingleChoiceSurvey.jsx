@@ -7,6 +7,7 @@ import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
 } from "../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../components/TurnAPageButtons";
 
 const SingleChoiceSurvey = () => {
   const dispatch = useDispatch();
@@ -35,99 +36,111 @@ const SingleChoiceSurvey = () => {
 
   return (
     <Container>
-      <h2>{question.questionTitle}</h2>
-      <p>{question.questionSummary}</p>
+      <TitleContainer>
+        <h1>{question.questionTitle}</h1>
+        <h5>{question.questionSummary}</h5>
+      </TitleContainer>
+      <CommentContainer>
+        <p>*다중선택 불가</p>
+      </CommentContainer>
+      <ButtonBox>
+        {question.answerList.map((answer) => {
+          return (
+            <button
+              key={answer.answerNum}
+              id={answer.answerNum}
+              onClick={() => {
+                answerHandler(answer.answerNum);
+              }}
+              background={
+                selectedAnswerList.includes(+answer.answerNum)
+                  ? "subColor"
+                  : "mainColor"
+              }
+            >
+              {answer.answerNum + 1}. {answer.answerValue}
+            </button>
+          );
+        })}
+      </ButtonBox>
 
-      <p>*다중선택 불가</p>
-      {question.answerList.map((answer) => {
-        return (
-          <Button
-            key={answer.answerNum}
-            id={answer.answerNum}
-            onClick={() => {
-              answerHandler(answer.answerNum);
-            }}
-            background={
-              selectedAnswerList.includes(+answer.answerNum)
-                ? "subColor"
-                : "mainColor"
-            }
-          >
-            {answer.answerNum + 1}. {answer.answerValue}
-          </Button>
-        );
-      })}
-      <BottomContainer>
-        <button onClick={goBackPageClickHandler}>〈</button>
-        <div>
-          {currentPageNum}/{questionIdList.length + 1}
-        </div>
-        <button onClick={nextPageClickHandler}>〉</button>
-      </BottomContainer>
+      <ArrowButtonContainer>
+        <TurnAPageButtons
+          currentPageNum={currentPageNum}
+          questionLength={questionIdList.length}
+          goBackPageClickHandler={goBackPageClickHandler}
+          nextPageClickHandler={nextPageClickHandler}
+        />
+      </ArrowButtonContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: 26.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  h2 {
-    margin: 5rem 0 0 0;
-    ${fonts.H2}
-  }
-  p:nth-of-type(1) {
-    ${fonts.Body2}
-  }
-  p:nth-of-type(2) {
-    margin: 3rem 0 0 0;
-    ${fonts.Body2}
-  }
-`;
-const Button = styled.div`
-  ${fonts.Body2}
-  margin: 2rem 0 0 0;
-  width: 26.5rem;
-  height: 4.2rem;
-  border: none;
-  border-radius: 1rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-left: 2.2rem;
-  background: ${({ background, theme }) => theme[background]};
-  cursor: pointer;
+  padding-top: 6.1rem;
 `;
 
-const BottomContainer = styled.div`
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    ${fonts.Body1}
+    margin: 0;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 2.9rem;
+  }
+  h5 {
+    ${fonts.Body3}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    margin-top: 4.6rem;
+  }
+`;
+
+const CommentContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  bottom: 1rem;
-
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  button {
-    border: none;
-    background: none;
-    width: 6.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  justify-content: flex-end;
+  margin-top: 5rem;
+  p {
+    ${fonts.Body3}
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
     margin: 0;
-    padding: 1.3rem 1.6rem;
-    color: ${({ theme }) => theme.mainColor};
-    ${fonts.H1}
-    cursor: pointer;
   }
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  button {
+    width: 26.5rem;
+    display: flex;
+    align-items: center;
+    padding: 1.2rem;
+    margin: 0.6em 0;
+    border: none;
+    border-radius: 1rem;
+    background: ${({ theme }) => theme.subColor1};
+  }
+`;
+
+const ArrowButtonContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  bottom: 5rem;
 `;
 
 export default SingleChoiceSurvey;

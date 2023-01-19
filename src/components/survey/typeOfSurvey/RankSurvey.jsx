@@ -9,6 +9,7 @@ import {
 } from "../../../redux/modules/surveySlice";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { changeAnswerList } from "../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../components/TurnAPageButtons";
 
 const RankSurvey = () => {
   const dispatch = useDispatch();
@@ -25,16 +26,15 @@ const RankSurvey = () => {
     console.log(answer);
   }, [selectedAnswerList, answer]);
 
+  let answerNumList = [];
+  for (let i = 1; i <= question.answerList?.length; i++) {
+    answerNumList.push(i);
+  }
+  console.log(answerNumList);
+
   // 드래그 앤 드롭 제작
-  // 배경 색
-  const backgroundColorList = [
-    "rgb(254, 244, 148, 0.777)",
-    "rgba(238, 184, 209, 0.777)",
-    "rgb(185, 210, 234, 0.777)",
-    "rgb(195, 230, 220, 0.777)",
-  ];
   // 아이디 그룹 묶기
-  let addAnswerId = question.answerList.map((answer, index) => {
+  let addAnswerId = question.answerList?.map((answer, index) => {
     return {
       id: String(index + 1),
       answer: answer.answerValue,
@@ -73,10 +73,19 @@ const RankSurvey = () => {
   };
   return (
     <Container>
-      <h2>{question.questionTitle}</h2>
-      <p>{question.questionSummary}</p>
-      <MainContainer>
-        <p>드래그 앤 드롭으로 원하는 순위를 조정해주세요.</p>
+      <TitleContainer>
+        <h1>{question.questionTitle}</h1>
+        <h5>{question.questionSummary}</h5>
+      </TitleContainer>
+      <CommentContainer>
+        <p>드래그 앤 드롭으로 원하는 순위를 조정해주세요</p>
+      </CommentContainer>
+      <DragDropContainer>
+        <AnswerNumberContainer>
+          {answerNumList.map((answerNum) => (
+            <div>{answerNum}</div>
+          ))}
+        </AnswerNumberContainer>
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <Droppable droppableId="characters">
             {(provided) => (
@@ -93,9 +102,8 @@ const RankSurvey = () => {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
-                          // color={backgroundColorList[(id - 1) % 4]}
                         >
-                          {answer}
+                          {`${answer}`}
                         </DNDList>
                       )}
                     </Draggable>
@@ -106,66 +114,91 @@ const RankSurvey = () => {
             )}
           </Droppable>
         </DragDropContext>
-      </MainContainer>
-      <BottomContainer>
-        <button onClick={goBackPageClickHandler}>〈</button>
-        <div>
-          {currentPageNum}/{questionIdList.length + 1}
-        </div>
-        <button onClick={nextPageClickHandler}>〉</button>
-      </BottomContainer>
+      </DragDropContainer>
+
+      <ArrowButtonContainer>
+        <TurnAPageButtons
+          currentPageNum={currentPageNum}
+          questionLength={questionIdList.length}
+          goBackPageClickHandler={goBackPageClickHandler}
+          nextPageClickHandler={nextPageClickHandler}
+        />
+      </ArrowButtonContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: 26.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  h2 {
-    margin: 5rem 0 0 0;
-    ${fonts.H2}
-  }
-  p:nth-of-type(1) {
-    ${fonts.Body2}
-  }
-  p:nth-of-type(2) {
-    margin: 3rem 0 0 0;
-    ${fonts.Body2}
-  }
-`;
-const MainContainer = styled.div`
-  margin-top: 4rem;
+  padding-top: 6.1rem;
 `;
 
-const BottomContainer = styled.div`
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    ${fonts.Body1}
+    margin: 0;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 2.9rem;
+  }
+  h5 {
+    ${fonts.Body3}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    margin-top: 4.6rem;
+  }
+`;
+
+const CommentContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  bottom: 1rem;
+  margin-top: 5rem;
+  p {
+    ${fonts.Body3}
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    margin: 0;
+  }
+`;
 
+const DragDropContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
+const AnswerNumberContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem 0 1rem 0;
   div {
     display: flex;
-    justify-content: center;
     align-items: center;
-  }
-  button {
-    border: none;
-    background: none;
-    width: 6.2rem;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 1.3rem 1.6rem;
-    color: ${({ theme }) => theme.mainColor};
-    ${fonts.H1}
-    cursor: pointer;
+    width: 4.2rem;
+    height: 4.2rem;
+    margin: 6px;
+    padding: 1.2rem 2.2rem;
+    border-radius: 10px;
+
+    ${fonts.Body1}
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+
+    background-color: ${({ theme }) => theme.subColor2};
   }
 `;
 
@@ -173,26 +206,33 @@ const DNDListContainer = styled.ul`
   padding: 0;
   width: 100%;
   display: flex;
-
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 const DNDList = styled.div`
   display: flex;
   align-items: center;
-  color: rgb(67, 67, 67);
-  ${fonts.Body2}
-  width:  26.5rem;
+  width: 21rem;
   height: 4.2rem;
-  margin: 6px;
+  margin: 0.6rem;
   padding: 1.2rem 2.2rem;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.mainColor};
+
+  ${fonts.Body1}
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+
+  background-color: ${({ theme }) => theme.subColor1};
   p {
     margin: 0;
   }
+`;
+
+const ArrowButtonContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  bottom: 5rem;
 `;
 
 export default RankSurvey;

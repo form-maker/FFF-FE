@@ -5,9 +5,7 @@ import SurveyScreen from "../components/survey/screen/SurveyScreen";
 const Survey = () => {
   return (
     <Container>
-      <PhoneContainer>
-        <SurveyScreen />
-      </PhoneContainer>
+      <SurveyScreen />
     </Container>
   );
 };
@@ -18,10 +16,6 @@ const Container = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-`;
-const PhoneContainer = styled.div`
-  width: 37.5rem;
-  height: 66.7rem;
 `;
 
 export default Survey;

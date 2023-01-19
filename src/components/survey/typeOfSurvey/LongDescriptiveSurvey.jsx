@@ -10,6 +10,7 @@ import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
 } from "../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../components/TurnAPageButtons";
 
 const LongDescriptiveSurvey = () => {
   const dispatch = useDispatch();
@@ -39,8 +40,10 @@ const LongDescriptiveSurvey = () => {
 
   return (
     <Container>
-      <h2>{question.questionTitle}</h2>
-      <p>{question.questionSummary}</p>
+      <TitleContainer>
+        <h1>{question.questionTitle}</h1>
+        <h5>{question.questionSummary}</h5>
+      </TitleContainer>
       <InputContainer>
         <textarea
           type="text"
@@ -49,13 +52,14 @@ const LongDescriptiveSurvey = () => {
           onChange={answerHandler}
         ></textarea>
       </InputContainer>
-      <BottomContainer>
-        <button onClick={goBackPageClickHandler}>〈</button>
-        <div>
-          {currentPageNum}/{questionIdList.length + 1}
-        </div>
-        <button onClick={nextPageClickHandler}>〉</button>
-      </BottomContainer>
+      <ArrowButtonContainer>
+        <TurnAPageButtons
+          currentPageNum={currentPageNum}
+          questionLength={questionIdList.length + 1}
+          goBackPageClickHandler={goBackPageClickHandler}
+          nextPageClickHandler={nextPageClickHandler}
+        />
+      </ArrowButtonContainer>
     </Container>
   );
 };
@@ -67,43 +71,58 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  h2 {
-    margin: 5rem 0 0 0;
-    ${fonts.H2}
+  padding-top: 6.1rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    ${fonts.Body1}
+    margin: 0;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 2.9rem;
   }
-  p:nth-of-type(1) {
-    ${fonts.Body2}
+  h5 {
+    ${fonts.Body3}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    margin-top: 4.6rem;
   }
 `;
 
 const InputContainer = styled.div`
   width: 100%;
-  height: 35rem;
   display: flex;
+  margin-top: 5rem;
   justify-content: center;
   align-items: center;
-  input {
-    border: 0;
-    width: 27.3rem;
-    padding: 1.1rem;
-    text-align: center;
-    border-bottom: ${({ theme }) => `0.3rem solid ${theme.subColor}`};
-  }
   textarea {
     box-sizing: border-box;
+    width: 26.4rem;
+    height: 23.7rem;
+    padding: 1rem;
+    resize: none;
+
+    font-size: 18px;
     background-color: transparent;
     color: gray;
-    width: 26.4rem;
-    border: 1px solid black;
-    font-size: 1.2rem;
-    resize: none;
-    min-height: 20rem;
-    border: ${({ theme }) => `0.1rem solid ${theme.subColor}`};
+    border: ${({ theme }) => `2px solid ${theme.subColor1}`};
+
     border-radius: 1rem;
-    padding: 1rem;
     scroll-behavior: auto;
+
+    ${fonts.Body1}
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+
     &::placeholder {
       color: gray;
+      text-align: center;
     }
     div {
       display: flex;
@@ -111,32 +130,38 @@ const InputContainer = styled.div`
   }
 `;
 
-const BottomContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  bottom: 1rem;
+// const BottomContainer = styled.div`
+//   width: 100%;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   position: absolute;
+//   bottom: 1rem;
 
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  button {
-    border: none;
-    background: none;
-    width: 6.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 1.3rem 1.6rem;
-    color: ${({ theme }) => theme.mainColor};
-    ${fonts.H1}
-    cursor: pointer;
-  }
+//   div {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//   }
+//   button {
+//     border: none;
+//     background: none;
+//     width: 6.2rem;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     margin: 0;
+//     padding: 1.3rem 1.6rem;
+//     color: ${({ theme }) => theme.mainColor};
+//     ${fonts.H1}
+//     cursor: pointer;
+//   }
+// `;
+
+const ArrowButtonContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  bottom: 5rem;
 `;
 
 export default LongDescriptiveSurvey;

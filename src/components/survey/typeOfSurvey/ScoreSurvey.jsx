@@ -7,6 +7,8 @@ import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
 } from "../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../components/TurnAPageButtons";
+import RoundButtonMedium from "../../common/buttons/roundButtons/RoundButtonMedium";
 
 const ScoreSurvey = () => {
   const dispatch = useDispatch();
@@ -41,62 +43,71 @@ const ScoreSurvey = () => {
 
   return (
     <Container>
-      <h2>{question.questionTitle}</h2>
-      <p>{question.questionSummary}</p>
-      <ButtonContainer>
-        <Button
-          background={selectedAnswerList.includes(1) ? "subColor" : "mainColor"}
+      <TitleContainer>
+        <h1>{question.questionTitle}</h1>
+        <h5>{question.questionSummary}</h5>
+      </TitleContainer>
+      <ScoreButtonContainer>
+        <RoundButtonMedium
+          buttonValue="1점"
+          margin="0 0.5rem"
+          background={
+            selectedAnswerList.includes(1) ? "subHoverColor1" : "subColor1"
+          }
           onClick={() => {
             answerHandler(1);
           }}
-        >
-          1점
-        </Button>
-
-        <Button
-          background={selectedAnswerList.includes(2) ? "subColor" : "mainColor"}
+        ></RoundButtonMedium>
+        <RoundButtonMedium
+          buttonValue="2점"
+          margin="0 0.5rem"
+          background={
+            selectedAnswerList.includes(2) ? "subHoverColor1" : "subColor1"
+          }
           onClick={() => {
             answerHandler(2);
           }}
-        >
-          2점
-        </Button>
-
-        <Button
-          background={selectedAnswerList.includes(3) ? "subColor" : "mainColor"}
+        ></RoundButtonMedium>
+        <RoundButtonMedium
+          buttonValue="3점"
+          margin="0  0.5rem"
+          background={
+            selectedAnswerList.includes(3) ? "subHoverColor1" : "subColor1"
+          }
           onClick={() => {
             answerHandler(3);
           }}
-        >
-          3점
-        </Button>
-
-        <Button
-          background={selectedAnswerList.includes(4) ? "subColor" : "mainColor"}
+        ></RoundButtonMedium>
+        <RoundButtonMedium
+          buttonValue="4점"
+          margin="0  0.5rem"
+          background={
+            selectedAnswerList.includes(4) ? "subHoverColor1" : "subColor1"
+          }
           onClick={() => {
             answerHandler(4);
           }}
-        >
-          4점
-        </Button>
-
-        <Button
-          background={selectedAnswerList.includes(5) ? "subColor" : "mainColor"}
+        ></RoundButtonMedium>
+        <RoundButtonMedium
+          buttonValue="5점"
+          margin="0  0.5rem"
+          background={
+            selectedAnswerList.includes(5) ? "subHoverColor1" : "subColor1"
+          }
           onClick={() => {
             answerHandler(5);
           }}
-        >
-          5점
-        </Button>
-      </ButtonContainer>
-      <p>원하시는 별점을 선택해주세요</p>
-      <BottomContainer>
-        <button onClick={goBackPageClickHandler}>〈</button>
-        <div>
-          {currentPageNum}/{questionIdList.length + 1}
-        </div>
-        <button onClick={nextPageClickHandler}>〉</button>
-      </BottomContainer>
+        ></RoundButtonMedium>
+      </ScoreButtonContainer>
+      <p>원하는 점수를 선택해 주세요</p>
+      <ArrowButtonContainer>
+        <TurnAPageButtons
+          currentPageNum={currentPageNum}
+          questionLength={questionIdList.length + 1}
+          goBackPageClickHandler={goBackPageClickHandler}
+          nextPageClickHandler={nextPageClickHandler}
+        />
+      </ArrowButtonContainer>
     </Container>
   );
 };
@@ -108,62 +119,45 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  h2 {
-    margin: 5rem 0 0 0;
-    ${fonts.H2}
-  }
-  p:nth-of-type(1) {
-    ${fonts.Body2}
+  padding-top: 6.1rem;
+  p {
+    ${fonts.Body3}
+    margin-top: 1.9rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
   }
 `;
 
-const ButtonContainer = styled.div`
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    ${fonts.Body1}
+    margin: 0;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 2.9rem;
+  }
+  h5 {
+    ${fonts.Body3}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    margin-top: 4.6rem;
+  }
+`;
+
+const ScoreButtonContainer = styled.div`
   display: flex;
   margin-top: 10rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-const Button = styled.div`
-  ${fonts.Body1}
-  background: ${({ background, theme }) => theme[background]};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 5rem;
-  margin: 0.5rem;
-  padding: 0.8rem 0.2rem;
-  border-radius: 1rem;
-  cursor: pointer;
-`;
-
-const BottomContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const ArrowButtonContainer = styled.div`
   position: absolute;
-  bottom: 1rem;
-
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  button {
-    border: none;
-    background: none;
-    width: 6.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 1.3rem 1.6rem;
-    color: ${({ theme }) => theme.mainColor};
-    ${fonts.H1}
-    cursor: pointer;
-  }
+  width: 100%;
+  bottom: 5rem;
 `;
 
 export default ScoreSurvey;
