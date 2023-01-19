@@ -98,7 +98,7 @@ const SurveySlice = createSlice({
     builder.addCase(__getSurvey.fulfilled, (state, action) => {
       state.survey = action.payload.data;
       state.questionIdList = action.payload.data.questionIdList;
-      state.answer = action.payload.data.questionIdList.map((id, index) => {
+      state.answer = action.payload.data.questionIdList?.map((id, index) => {
         return {
           questionId: id,
           questionNum: index + 1,
