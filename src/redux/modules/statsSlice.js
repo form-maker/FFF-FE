@@ -8,10 +8,10 @@ const initialState = {
 
 export const __getStats = createAsyncThunk(
   "stats/getStats",
-  async (payload, thunkAPI) => {
+  async ({ end, start, surveyId }, thunkAPI) => {
     try {
       const { data } = await instanceApi.post(
-        `survey/stats?end=2023-03-01&start=2023-01-21&surveyId=1`
+        `survey/stats?end=${end}&start=${start}&surveyId=${surveyId}`
       );
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {

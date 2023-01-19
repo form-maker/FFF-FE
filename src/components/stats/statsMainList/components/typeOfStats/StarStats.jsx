@@ -12,7 +12,6 @@ const StarStats = ({ stats }) => {
   let options = {
     series: [
       {
-        name: "star",
         data: stats?.satisfactionList,
       },
     ],
@@ -26,18 +25,31 @@ const StarStats = ({ stats }) => {
       },
       plotOptions: {
         bar: {
-          borderRadius: 10,
+          borderRadius: 5,
+          columnWidth: "40%",
+
           dataLabels: {
             position: "top",
           },
+          colors: {
+            ranges: [
+              {
+                from: 40,
+                to: 100,
+                color: "#96CDF5",
+              },
+            ],
+          },
         },
       },
+      colors: ["#BBE0FA", "#BBE0FA", "#BBE0FA", "#BBE0FA", "#BBE0FA"],
+
       dataLabels: {
         enabled: true,
         formatter: function (val) {
           return val + "%";
         },
-        offsetY: -20,
+        offsetY: -30,
         style: {
           fontSize: "12px",
           colors: ["#304758"],
@@ -53,24 +65,18 @@ const StarStats = ({ stats }) => {
         axisTicks: {
           show: false,
         },
-        crosshairs: {
-          fill: {
-            type: "gradient",
-            gradient: {
-              colorFrom: "#D8E3F0",
-              colorTo: "#BED1E6",
-              stops: [0, 100],
-              opacityFrom: 0.4,
-              opacityTo: 0.5,
-            },
+        labels: {
+          show: true,
+          formatter: function (val) {
+            return val + "점";
           },
         },
         tooltip: {
-          enabled: true,
+          enabled: false,
         },
       },
       yaxis: {
-        show: false,
+        show: true,
         axisBorder: {
           show: false,
         },
@@ -78,42 +84,102 @@ const StarStats = ({ stats }) => {
           show: false,
         },
         labels: {
-          show: false,
+          show: true,
           formatter: function (val) {
             return val + "%";
           },
         },
       },
-      grid: { show: false },
+      grid: {
+        show: true,
+        borderColor: "#ECECEC",
+        strokeDashArray: 12,
+      },
     },
   };
 
   return (
     <Container>
-      <Title>{stats.questionTitle}</Title>
-      <ApexCharts
-        options={options.options}
-        series={options.series}
-        type="bar"
-        height={200}
-        width={250}
-      />
+      <Header>
+        <TitleContainer>
+          <p>{stats.questionType}</p>
+          <h2>
+            {stats.questionNum}. {stats.questionTitle}
+          </h2>
+          <h4>{stats.questionSummary}</h4>
+        </TitleContainer>
+        <Average>평점: {stats.questionAvg}</Average>
+      </Header>
+      <ChartContainer>
+        <ApexCharts
+          options={options.options}
+          series={options.series}
+          type="bar"
+          height={300}
+          width={440}
+        />
+      </ChartContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 30rem;
-  height: 30em;
-  border: 0.1rem solid blue;
-  border-radius: 1rem;
-  padding: 2rem;
+  width: 47.2rem;
+  height: 41.6em;
+  background: #ffffff;
+  box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
   position: relative;
 `;
 
-const Title = styled.h2`
-  ${fonts.Body2}
-  width: 18rem;
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem 3rem 0 3rem;
+`;
+
+const TitleContainer = styled.div`
+  p {
+    ${fonts.Body3}
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    margin: 0;
+  }
+  h2 {
+    ${fonts.Body1}
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    margin: 0;
+    margin-top: 0.6rem;
+  }
+  h4 {
+    ${fonts.Body3}
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    margin: 0;
+    margin-top: 0.7rem;
+  }
+`;
+
+const Average = styled.div`
+  ${fonts.Body3}
+  height: 3.3rem;
+  width: 7.3rem;
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  background: ${({ theme }) => theme.lightMainColor};
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ChartContainer = styled.div`
+  margin: 1rem 0 0 1rem;
 `;
 
 export default StarStats;
