@@ -21,7 +21,7 @@ const PageTitle = () => {
         <RoundButtonMedium buttonValue="설문 참여하기" margin="0 0.85rem 0 0" />
         <RoundButtonMedium
           buttonValue="설문 제작하기"
-          margin="0 0 0 0.85rem "
+          margin="0 0 0 0.85rem"
           onClick={() => {
             navigate("/createform");
           }}
@@ -75,6 +75,7 @@ const BackgroundContainer = styled.div`
 
 const ButtonContainer = styled.div`
   margin-top: 4.4rem;
+  display: flex;
 `;
 
 export default PageTitle;

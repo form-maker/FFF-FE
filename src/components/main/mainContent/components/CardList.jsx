@@ -4,14 +4,14 @@ import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 
 import styled from "styled-components";
 import MainSurveySummeryCard from "./MainSurveySummeryCard";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const CardList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const mainCardList = useSelector(
-    (state) => state.mainCardList.mainCardList.contents
+    (state) => state.mainCardList?.mainCardList.contents
   );
-
-  console.log(mainCardList);
 
   useEffect(() => {
     dispatch(__getMainCardList({ page: 1, size: 9, sortBy: "최신순" }));
@@ -29,6 +29,9 @@ const CardList = () => {
               summary={card.summary}
               createdAt={card.createdAt}
               participant={card.participant}
+              onClick={() => {
+                navigate(`/survey?surveyId=${card.surveyId}`);
+              }}
             />
           );
         })}

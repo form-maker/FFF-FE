@@ -8,6 +8,7 @@ const MainSurveySummeryCard = ({
   summary,
   title,
   participant,
+  onClick,
 }) => {
   // 랜덤 색상 배정
   const backgroundColor = ["#BBE0FA", "#B0D1FF", "#F6EAFD", "#CEDFFF"];
@@ -16,7 +17,7 @@ const MainSurveySummeryCard = ({
   let randomColor = backgroundColor[getRandom(1, backgroundColor.length + 1)];
 
   return (
-    <Container backgroundColor={randomColor}>
+    <Container backgroundColor={randomColor} onClick={onClick}>
       <Header>
         <p> {`D - ${deadLine}`}</p>
       </Header>
@@ -41,6 +42,7 @@ const Container = styled.div`
   padding: 1.4rem 1.5rem 1.4rem 2.2rem;
   border-radius: 1rem;
 
+  cursor: pointer;
   background-color: ${({ backgroundColor }) => backgroundColor};
   div {
     margin: 0;
