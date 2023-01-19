@@ -8,6 +8,7 @@ const RoundButtonSmall = ({
   fontWeight,
   margin,
   onClick,
+  background,
 }) => {
   return (
     <Button
@@ -15,6 +16,7 @@ const RoundButtonSmall = ({
       fontWeight={fontWeight}
       margin={margin}
       onClick={onClick}
+      background={background}
     >
       {buttonValue}
     </Button>
@@ -28,7 +30,7 @@ const Button = styled.button`
   padding: 0.6rem 1.6rem;
   border: ${({ theme }) => `2px solid ${theme.subColor1}`};
   border-radius: 2rem;
-  background: transparent;
+  background: ${({ background, theme }) => theme[background] || "transparent"};
   margin: ${({ margin }) => margin || "0"};
   cursor: pointer;
   z-index: 1;
