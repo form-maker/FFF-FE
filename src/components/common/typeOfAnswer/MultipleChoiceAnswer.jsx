@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import fonts from "../../../styles/fonts";
 
 const MultipleChoiceAnswer = () => {
   const currentPageNum = useSelector(
@@ -14,6 +15,9 @@ const MultipleChoiceAnswer = () => {
 
   return (
     <Container>
+      <CommentContainer>
+        <p>중복선택 가능</p>
+      </CommentContainer>
       <ButtonBox>
         {answerList?.map((answer, index) => {
           return (
@@ -23,16 +27,13 @@ const MultipleChoiceAnswer = () => {
           );
         })}
       </ButtonBox>
-      <CommentContainer>
-        <p>최대 3개 선택 가능합니다</p>
-      </CommentContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
-  margin-top: 8rem;
+  width: 26.5rem;
+  margin-top: 3rem;
 `;
 
 const ButtonBox = styled.div`
@@ -41,14 +42,14 @@ const ButtonBox = styled.div`
   justify-content: center;
   align-items: center;
   button {
-    width: 100%;
+    width: 26.5rem;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 2rem;
-    margin: 0.5rem 0;
+    padding: 1.2rem;
+    margin: 0.85em 0;
     border: none;
     border-radius: 0.5rem;
+    background: ${({ theme }) => theme.subColor1};
   }
 `;
 
@@ -56,6 +57,13 @@ const CommentContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  p {
+    ${fonts.Body3}
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    margin: 0;
+  }
 `;
 
 export default MultipleChoiceAnswer;

@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import fonts from "../../../styles/fonts";
 
 const NewAnswer = () => {
   return (
     <Container>
-      <h2>
-        좌측 상단의 네비게이션 바를 클릭하여 작성하고자 하는 양식을 선택해주세요
-      </h2>
-      <h1>+</h1>
+      <h2>새로운 설문을 추가해 주세요</h2>
     </Container>
   );
 };
@@ -15,10 +13,16 @@ const NewAnswer = () => {
 const Container = styled.div`
   width: 100%;
   display: flex;
-  margin-top: 15rem;
+  margin-top: 25rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  h2 {
+    ${fonts.Body3}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  }
 `;
 
 export default NewAnswer;
