@@ -7,9 +7,8 @@ const Oauth2RedirectHandler = () => {
 
   kakao(code).then((res) => {
     console.log(res);
-    console.log("카카오 로그인 전");
+    alert("카카오 로그인 성공!");
     localStorage.setItem("Authorization", res.headers.authorization);
-    console.log("카카오로그인 후");
     navigate("/");
   });
 };
