@@ -1624,6 +1624,11 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
+"@react-oauth/google@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@react-oauth/google/-/google-0.6.0.tgz#f0af1e82034420af31be78cbc50d9b095923ed3d"
+  integrity sha512-F+VtUk40C5zjL/E3VW5/nsIfm7gmad4HgpGjW3shHqsL6hopOEIncWIGlEzKs2H/hlZw5mHkyq2ONmw5TI2j/g==
+
 "@reduxjs/toolkit@^1.9.1":
   version "1.9.1"
   resolved "https://registry.npmjs.org/@reduxjs/toolkit/-/toolkit-1.9.1.tgz"
@@ -7752,7 +7757,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.6.0, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -7929,6 +7934,11 @@ react-google-login@^5.2.2:
   dependencies:
     "@types/react" "*"
     prop-types "^15.6.0"
+
+react-icons@^4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.7.1.tgz#0f4b25a5694e6972677cb189d2a72eabea7a8345"
+  integrity sha512-yHd3oKGMgm7zxo3EA7H2n7vxSoiGmHk5t6Ou4bXsfcgWyhfDKMpyKfhHR6Bjnn63c+YXBLBPUql9H4wPJM6sXw==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
