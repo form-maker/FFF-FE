@@ -1,25 +1,29 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
-import { changeAnswer, getCover } from "../../../redux/modules/surveySlice";
+import fonts from "../../../../styles/fonts";
+import {
+  changeDescriptive,
+  getCover,
+} from "../../../../redux/modules/surveySlice";
 import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
-} from "../../../redux/modules/surveySlice";
-import TurnAPageButtons from "../components/TurnAPageButtons";
+} from "../../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../../components/TurnAPageButtons";
 
-const SingleChoiceSurvey = () => {
+const LongDescriptiveSurvey = () => {
   const dispatch = useDispatch();
   const question = useSelector((state) => state.survey.question);
   const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const selectedAnswerList = useSelector(
-    (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
+  const descriptive = useSelector(
+    (state) => state.survey?.answer[currentPageNum - 2]["descriptive"]
   );
 
-  const answerHandler = (answerNum) => {
-    dispatch(changeAnswer(answerNum));
+  const answerHandler = (event) => {
+    const answer = event.target.value;
+    dispatch(changeDescriptive(answer));
   };
 
   const nextPageClickHandler = () => {
@@ -40,34 +44,18 @@ const SingleChoiceSurvey = () => {
         <h1>{question.questionTitle}</h1>
         <h5>{question.questionSummary}</h5>
       </TitleContainer>
-      <CommentContainer>
-        <p>*다중선택 불가</p>
-      </CommentContainer>
-      <ButtonBox>
-        {question.answerList.map((answer) => {
-          return (
-            <button
-              key={answer.answerNum}
-              id={answer.answerNum}
-              onClick={() => {
-                answerHandler(answer.answerNum);
-              }}
-              background={
-                selectedAnswerList.includes(+answer.answerNum)
-                  ? "subColor"
-                  : "mainColor"
-              }
-            >
-              {answer.answerNum + 1}. {answer.answerValue}
-            </button>
-          );
-        })}
-      </ButtonBox>
-
+      <InputContainer>
+        <textarea
+          type="text"
+          placeholder="꼼꼼하게 답해주세요"
+          value={descriptive}
+          onChange={answerHandler}
+        ></textarea>
+      </InputContainer>
       <ArrowButtonContainer>
         <TurnAPageButtons
           currentPageNum={currentPageNum}
-          questionLength={questionIdList.length}
+          questionLength={questionIdList.length + 1}
           goBackPageClickHandler={goBackPageClickHandler}
           nextPageClickHandler={nextPageClickHandler}
         />
@@ -77,7 +65,7 @@ const SingleChoiceSurvey = () => {
 };
 
 const Container = styled.div`
-  width: 26.5rem;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -106,34 +94,39 @@ const TitleContainer = styled.div`
   }
 `;
 
-const CommentContainer = styled.div`
+const InputContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
   margin-top: 5rem;
-  p {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1.2rem;
-    line-height: 1.4rem;
-    margin: 0;
-  }
-`;
-
-const ButtonBox = styled.div`
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  button {
-    width: 26.5rem;
-    display: flex;
-    align-items: center;
-    padding: 1.2rem;
-    margin: 0.6em 0;
-    border: none;
+  textarea {
+    box-sizing: border-box;
+    width: 26.4rem;
+    height: 23.7rem;
+    padding: 1rem;
+    resize: none;
+
+    font-size: 18px;
+    background-color: transparent;
+    color: gray;
+    border: ${({ theme }) => `2px solid ${theme.subColor1}`};
+
     border-radius: 1rem;
-    background: ${({ theme }) => theme.subColor1};
+    scroll-behavior: auto;
+
+    ${fonts.Body1}
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+
+    &::placeholder {
+      color: gray;
+      text-align: center;
+    }
+    div {
+      display: flex;
+    }
   }
 `;
 
@@ -143,4 +136,4 @@ const ArrowButtonContainer = styled.div`
   bottom: 5rem;
 `;
 
-export default SingleChoiceSurvey;
+export default LongDescriptiveSurvey;

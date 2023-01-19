@@ -1,29 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
-import {
-  changeDescriptive,
-  getCover,
-} from "../../../redux/modules/surveySlice";
+import fonts from "../../../../styles/fonts";
+import { changeAnswer, getCover } from "../../../../redux/modules/surveySlice";
 import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
-} from "../../../redux/modules/surveySlice";
-import TurnAPageButtons from "../components/TurnAPageButtons";
+} from "../../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../../components/TurnAPageButtons";
 
-const ShortDescriptiveSurvey = () => {
+const SingleChoiceSurvey = () => {
   const dispatch = useDispatch();
   const question = useSelector((state) => state.survey.question);
   const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const descriptive = useSelector(
-    (state) => state.survey?.answer[currentPageNum - 2]["descriptive"]
+  const selectedAnswerList = useSelector(
+    (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
 
-  const answerHandler = (event) => {
-    const answer = event.target.value;
-    dispatch(changeDescriptive(answer));
+  const answerHandler = (answerNum) => {
+    dispatch(changeAnswer(answerNum));
   };
 
   const nextPageClickHandler = () => {
@@ -31,6 +27,7 @@ const ShortDescriptiveSurvey = () => {
       ? alert("마지막 항목입니다")
       : dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
   };
+
   const goBackPageClickHandler = () => {
     currentPageNum === 2
       ? dispatch(getCover())
@@ -43,17 +40,34 @@ const ShortDescriptiveSurvey = () => {
         <h1>{question.questionTitle}</h1>
         <h5>{question.questionSummary}</h5>
       </TitleContainer>
-      <InputContainer>
-        <input
-          value={descriptive}
-          onChange={answerHandler}
-          placeholder="한문장으로 작성해주세요"
-        ></input>
-      </InputContainer>
+      <CommentContainer>
+        <p>*다중선택 불가</p>
+      </CommentContainer>
+      <ButtonBox>
+        {question.answerList?.map((answer) => {
+          return (
+            <Button
+              key={answer.answerNum}
+              id={answer.answerNum}
+              onClick={() => {
+                answerHandler(answer.answerNum);
+              }}
+              background={
+                selectedAnswerList.includes(+answer.answerNum)
+                  ? "subHoverColor1"
+                  : "subColor1"
+              }
+            >
+              {answer.answerNum + 1}. {answer.answerValue}
+            </Button>
+          );
+        })}
+      </ButtonBox>
+
       <ArrowButtonContainer>
         <TurnAPageButtons
           currentPageNum={currentPageNum}
-          questionLength={questionIdList.length}
+          questionLength={questionIdList.length + 1}
           goBackPageClickHandler={goBackPageClickHandler}
           nextPageClickHandler={nextPageClickHandler}
         />
@@ -63,7 +77,7 @@ const ShortDescriptiveSurvey = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: 26.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -92,32 +106,37 @@ const TitleContainer = styled.div`
   }
 `;
 
-const InputContainer = styled.div`
+const CommentContainer = styled.div`
   width: 100%;
-  height: 35rem;
   display: flex;
+  justify-content: flex-end;
+  margin-top: 5rem;
+  p {
+    ${fonts.Body3}
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    margin: 0;
+  }
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
-  input {
-    text-align: center;
-    padding: 1.1rem;
-    width: 27.3rem;
+`;
 
-    ${fonts.Body1}
-    font-weight: 600;
-    font-size: 1.4rem;
-    line-height: 1.7rem;
-
-    border: none;
-    border-bottom: 0.3rem solid ${({ theme }) => theme.pointColor};
-    &::placeholder {
-      ${fonts.Body1}
-      font-weight: 600;
-      font-size: 1.4rem;
-      line-height: 1.7rem;
-    }
-  }
+const Button = styled.div`
+  width: 26.5rem;
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  margin: 0.6em 0;
+  border: none;
+  border-radius: 1rem;
+  background: ${({ theme, background }) => theme[background]};
+  cursor: pointer;
 `;
 
 const ArrowButtonContainer = styled.div`
@@ -126,4 +145,4 @@ const ArrowButtonContainer = styled.div`
   bottom: 5rem;
 `;
 
-export default ShortDescriptiveSurvey;
+export default SingleChoiceSurvey;

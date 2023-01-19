@@ -1,17 +1,17 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
+import fonts from "../../../../styles/fonts";
 import {
   pushAnswer,
   deleteAnswer,
   getCover,
-} from "../../../redux/modules/surveySlice";
+} from "../../../../redux/modules/surveySlice";
 import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
-} from "../../../redux/modules/surveySlice";
-import TurnAPageButtons from "../components/TurnAPageButtons";
+} from "../../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../../components/TurnAPageButtons";
 
 const MultipleChoiceSurvey = () => {
   const dispatch = useDispatch();
@@ -52,9 +52,9 @@ const MultipleChoiceSurvey = () => {
         <p>다중 선택 가능</p>
       </CommentContainer>
       <ButtonBox>
-        {question.answerList.map((answer) => {
+        {question.answerList?.map((answer) => {
           return (
-            <button
+            <Button
               key={answer.answerNum}
               id={answer.answerNum}
               onClick={() => {
@@ -62,12 +62,12 @@ const MultipleChoiceSurvey = () => {
               }}
               background={
                 selectedAnswerList.includes(+answer.answerNum)
-                  ? "subColor"
-                  : "mainColor"
+                  ? "subHoverColor1"
+                  : "subColor1"
               }
             >
               {answer.answerNum + 1}. {answer.answerValue}
-            </button>
+            </Button>
           );
         })}
       </ButtonBox>
@@ -75,7 +75,7 @@ const MultipleChoiceSurvey = () => {
       <ArrowButtonContainer>
         <TurnAPageButtons
           currentPageNum={currentPageNum}
-          questionLength={questionIdList.length}
+          questionLength={questionIdList.length + 1}
           goBackPageClickHandler={goBackPageClickHandler}
           nextPageClickHandler={nextPageClickHandler}
         />
@@ -133,16 +133,18 @@ const ButtonBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  button {
-    width: 26.5rem;
-    display: flex;
-    align-items: center;
-    padding: 1.2rem;
-    margin: 0.6em 0;
-    border: none;
-    border-radius: 1rem;
-    background: ${({ theme }) => theme.subColor1};
-  }
+`;
+
+const Button = styled.div`
+  width: 26.5rem;
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  margin: 0.6em 0;
+  border: none;
+  border-radius: 1rem;
+  background: ${({ theme, background }) => theme[background]};
+  cursor: pointer;
 `;
 
 const ArrowButtonContainer = styled.div`
