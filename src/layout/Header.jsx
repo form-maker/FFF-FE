@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
 import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
 import { useNavigate } from "react-router-dom";
+import { baseURLApi } from "../core/api";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const { data } = await baseURLApi.get("user");
+        setIsLogin(data.data.login);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkToken();
+  }, [isLogin]);
+
   return (
     <Container>
       <SubContainer>
@@ -19,27 +35,51 @@ const Header = () => {
             />
           </div>
           <div>
-            <NoOutLineSmall buttonValue="진행중인 폼" />
+            <NoOutLineSmall buttonValue="진행중인 폼" font="Body2" />
             <NoOutLineSmall
               buttonValue="폼 제작하기"
+              font="Body2"
               onClick={() => {
                 navigate("/createform");
               }}
             />
           </div>
           <div>
-            <NoOutLineSmall
-              buttonValue="로그인"
-              onClick={() => {
-                navigate("/login");
-              }}
-            />
-            <NoOutLineSmall
-              buttonValue="회원가입"
-              onClick={() => {
-                navigate("/signup");
-              }}
-            />
+            {isLogin ? (
+              <>
+                <NoOutLineSmall
+                  buttonValue="마이페이지"
+                  onClick={() => {
+                    navigate("/mypage");
+                  }}
+                  fontSize="1.3rem"
+                />
+                ⎮
+                <NoOutLineSmall
+                  buttonValue="로그아웃"
+                  onClick={() => {
+                    localStorage.removeItem("Authorization");
+                    setIsLogin(false);
+                  }}
+                  fontSize="1.3rem"
+                />
+              </>
+            ) : (
+              <>
+                <NoOutLineSmall
+                  buttonValue="로그인"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                />
+                <NoOutLineSmall
+                  buttonValue="회원가입"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                />
+              </>
+            )}
           </div>
         </div>
       </SubContainer>
@@ -49,7 +89,7 @@ const Header = () => {
 
 const Container = styled.div`
   width: 100%;
-  background: ${({ theme }) => theme.mainColor};
+  background: ${({ theme }) => theme.subColor1};
   display: flex;
   justify-content: center;
   align-items: center;

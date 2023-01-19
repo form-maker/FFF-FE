@@ -11,11 +11,7 @@ const CreateFormPreviewScreen = () => {
 };
 
 const Container = styled.div`
-  width: 50rem;
-  height: 100vh;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  width: 35.6rem;
 `;
 
 export default CreateFormPreviewScreen;

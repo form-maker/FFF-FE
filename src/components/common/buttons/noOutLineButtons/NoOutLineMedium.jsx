@@ -7,8 +7,10 @@ const NoOutLineMedium = ({ buttonValue, onClick }) => {
 };
 
 const Button = styled.button`
-  ${fonts.H4}
+  ${fonts.H1}
   padding: 0.5rem 1rem;
+  font-size: 2rem;
+  line-height: 2.5rem;
   border: none;
   background: transparent;
 `;

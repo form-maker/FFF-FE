@@ -19,6 +19,8 @@ import {
   __getSurveyQuestion,
   __postSurvey,
 } from "../../../redux/modules/surveySlice";
+import RoundButtonMedium from "../../common/buttons/roundButtons/RoundButtonMedium";
+import RoundButtonLarge from "../../common/buttons/roundButtons/RoundButtonLarge";
 
 const SurveyView = () => {
   const dispatch = useDispatch();
@@ -50,13 +52,7 @@ const SurveyView = () => {
 
   return (
     <Container>
-      {currentPageNum === survey.questionIdList?.length + 1 && (
-        <EndButton onClick={endSurveyClickHandler}>설문 완료</EndButton>
-      )}
-      <h5>미리보기</h5>
-      <p>
-        <span>🔥 </span>현재 * 명이 설문을 참여 중입니다.
-      </p>
+      <PointContext>🔥 현재 * 명이 설문을 참여 중입니다.</PointContext>
       {currentFormType === "COVER" && <CoverSurvey />}
       {currentFormType === "SCORE" && <ScoreSurvey />}
       {currentFormType === "STAR" && <StarSurvey />}
@@ -66,9 +62,33 @@ const SurveyView = () => {
       {currentFormType === "RANK" && <RankSurvey />}
       {currentFormType === "SHORT_DESCRIPTIVE" && <ShortDescriptiveSurvey />}
       {currentFormType === "LONG_DESCRIPTIVE" && <LongDescriptiveSurvey />}
+
+      {currentPageNum === survey.questionIdList?.length + 1 && (
+        <EndButtonContainer>
+          <RoundButtonLarge
+            buttonValue="설문 완료"
+            onClick={endSurveyClickHandler}
+            background="subColor1"
+            width="28.3rem"
+          ></RoundButtonLarge>
+        </EndButtonContainer>
+      )}
     </Container>
   );
 };
+
+const PointContext = styled.div`
+  ${fonts.Body1}
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  width: 22.7rem;
+  text-align: center;
+  background: ${({ theme }) => theme.gray3};
+  padding: 0.7rem;
+  border-radius: 9.9rem;
+  margin-top: 4.2rem;
+`;
 
 const Container = styled.div`
   width: 100%;
@@ -90,14 +110,9 @@ const Container = styled.div`
   }
 `;
 
-const EndButton = styled.div`
+const EndButtonContainer = styled.div`
   position: absolute;
-  right: 3rem;
-  padding: 0.8rem 1.5rem;
-  background-color: ${({ theme }) => theme.mainColor};
-  border-radius: 1rem;
-  ${fonts.Body2}
-  cursor: pointer;
+  bottom: 10rem;
 `;
 
 export default SurveyView;

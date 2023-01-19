@@ -15,7 +15,7 @@ const Button = styled.button`
   ${({ font }) => font}
   font-size: ${({ fontSize }) => fontSize || "1.5rem"};
   font-weight: ${({ fontWeight }) => fontWeight || "500"};
-  padding: 0.5rem 1rem;
+  /* padding: 0.5rem 1rem; */
   border: none;
   background: transparent;
 `;

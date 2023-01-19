@@ -10,6 +10,7 @@ import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
 } from "../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../components/TurnAPageButtons";
 
 const ShortDescriptiveSurvey = () => {
   const dispatch = useDispatch();
@@ -38,22 +39,25 @@ const ShortDescriptiveSurvey = () => {
 
   return (
     <Container>
-      <h2>{question.questionTitle}</h2>
-      <p>{question.questionSummary}</p>
+      <TitleContainer>
+        <h1>{question.questionTitle}</h1>
+        <h5>{question.questionSummary}</h5>
+      </TitleContainer>
       <InputContainer>
         <input
           value={descriptive}
           onChange={answerHandler}
-          placeholder="간단하게 작성해주세요"
+          placeholder="한문장으로 작성해주세요"
         ></input>
       </InputContainer>
-      <BottomContainer>
-        <button onClick={goBackPageClickHandler}>〈</button>
-        <div>
-          {currentPageNum}/{questionIdList.length + 1}
-        </div>
-        <button onClick={nextPageClickHandler}>〉</button>
-      </BottomContainer>
+      <ArrowButtonContainer>
+        <TurnAPageButtons
+          currentPageNum={currentPageNum}
+          questionLength={questionIdList.length}
+          goBackPageClickHandler={goBackPageClickHandler}
+          nextPageClickHandler={nextPageClickHandler}
+        />
+      </ArrowButtonContainer>
     </Container>
   );
 };
@@ -65,12 +69,26 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  h2 {
-    margin: 5rem 0 0 0;
-    ${fonts.H2}
+  padding-top: 6.1rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    ${fonts.Body1}
+    margin: 0;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 2.9rem;
   }
-  p:nth-of-type(1) {
-    ${fonts.Body2}
+  h5 {
+    ${fonts.Body3}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    margin-top: 4.6rem;
   }
 `;
 
@@ -80,41 +98,32 @@ const InputContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
   input {
-    border: 0;
-    width: 27.3rem;
-    padding: 1.1rem;
     text-align: center;
-    border-bottom: ${({ theme }) => `0.3rem solid ${theme.subColor}`};
+    padding: 1.1rem;
+    width: 27.3rem;
+
+    ${fonts.Body1}
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+
+    border: none;
+    border-bottom: 0.3rem solid ${({ theme }) => theme.pointColor};
+    &::placeholder {
+      ${fonts.Body1}
+      font-weight: 600;
+      font-size: 1.4rem;
+      line-height: 1.7rem;
+    }
   }
 `;
 
-const BottomContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const ArrowButtonContainer = styled.div`
   position: absolute;
-  bottom: 1rem;
-
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  button {
-    border: none;
-    background: none;
-    width: 6.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 1.3rem 1.6rem;
-    color: ${({ theme }) => theme.mainColor};
-    ${fonts.H1}
-    cursor: pointer;
-  }
+  width: 100%;
+  bottom: 5rem;
 `;
 
 export default ShortDescriptiveSurvey;

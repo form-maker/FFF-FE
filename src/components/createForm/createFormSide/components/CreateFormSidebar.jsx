@@ -64,31 +64,17 @@ const CreateFormSidebar = () => {
           />
           <p>주관식 페이지</p>
         </Card>
-        {/* <Card>
-          <CreateFormQuestionTypeCard
-            questionType="주제 페이지"
-            onClick={() => {
-              selectTypeHandler("Group");
-            }}
-          />
-          <p>주제 페이지</p>
-        </Card> */}
       </CardContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  position: absolute;
-  transform: translateY(calc(-50% + 3rem));
-  top: 50%;
-  left: 5rem;
+  width: 25rem;
+  height: 100%;
 
-  width: 20.5rem;
-  height: 85vh;
-
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 13px;
+  border: 1px solid #d9d9d9;
+  border-radius: 0px 5px 5px 0px;
   background: ${({ theme }) => theme.sideColor2};
 
   display: flex;

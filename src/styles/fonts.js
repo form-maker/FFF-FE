@@ -4,50 +4,37 @@ import { css } from "styled-components";
 export default {
   H1: css`
     font-family: "netmarbleB";
-    font-size: 28px;
-    line-height: 38px;
-    letter-spacing: -0.01em;
   `,
 
   H2: css`
-    font-family: "netmarbleB";
-    font-size: 24px;
-    line-height: 34px;
-    letter-spacing: -0.01em;
+    font-family: "netmarbleM";
   `,
 
   H3: css`
-    font-family: "netmarbleB";
-    font-size: 20px;
-    line-height: 26px;
-    letter-spacing: -0.01em;
-  `,
-
-  H4: css`
-    font-family: "netmarbleB";
-    font-size: 18px;
-    line-height: 24px;
-    letter-spacing: -0.01em;
+    font-family: "netmarbleL";
   `,
   Body1: css`
-    font-family: "Inter", sans-serif;
-    font-weight: 800;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: -0.01em;
+    font-family: "Pretendard";
+    color: #000000;
   `,
   Body2: css`
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-    letter-spacing: -0.01em;
+    font-family: "Pretendard";
+    color: #5e5e5e;
   `,
-  Caption: css`
-    font-family: "Inter", sans-serif;
-    font-weight: 200;
-    font-size: 12px;
-    line-height: 14px;
-    letter-spacing: -0.01em;
+  Body3: css`
+    font-family: "Pretendard";
+    color: #686868;
+  `,
+  Body4: css`
+    font-family: "Pretendard";
+    color: #6c6464;
+  `,
+  Body5: css`
+    font-family: "Pretendard";
+    color: #9e9e9e;
+  `,
+  Body6: css`
+    font-family: "Pretendard";
+    color: #999999;
   `,
 };

@@ -8,26 +8,26 @@ const GlobalStyle = createGlobalStyle`
         format("woff");
 
     }
-       @font-face {
+    @font-face {
       font-family: "netmarbleM";
       src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.1/netmarbleM.woff")
         format("woff");
 
     }
-           @font-face {
+    @font-face {
       font-family: "netmarbleL";
       src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.1/netmarbleL.woff")
         format("woff");
 
     }
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
+    // pretendard 글꼴
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css");
   html{
   font-size: 62.5%;
   }
   body {
-    font-family: 'Inter', sans-serif;
-    background-color: white;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     letter-spacing: -0.5px;
     touch-action: pan-y;
     -webkit-font-smoothing: antialiased;

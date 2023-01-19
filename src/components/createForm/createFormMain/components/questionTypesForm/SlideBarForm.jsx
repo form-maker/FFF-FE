@@ -2,20 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import fonts from "../../../../../styles/fonts";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  fillOutQuestion,
-  // fillOutQuestionAnswer,
-} from "../../../../../redux/modules/createFormSlice";
+import { fillOutQuestion } from "../../../../../redux/modules/createFormSlice";
+import { Slider } from "@material-ui/core";
 
 const SlideBarForm = () => {
-  // 슬라이드 기본값
   const [slideValue, setSlideValue] = useState(2);
-  // 슬라이드 끝 이름
-  // const [inputValue, setInputValue] = useState({
-  //   leftLabel: "",
-  //   rightLabel: "",
-  // });
-  // //
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
@@ -41,7 +32,7 @@ const SlideBarForm = () => {
       dispatch(
         // fillOutQuestion
         fillOutQuestion({
-          questionType: "Slide",
+          questionType: "SLIDE",
           questionTitle: "",
           questionSummary: "",
           answerList: ["", ""],
@@ -62,62 +53,60 @@ const SlideBarForm = () => {
     const { name, value } = event.target;
     const answer = [...answerList];
     answer[+name] = value;
-    // setInputValue({ ...inputValue, [name]: value });
     dispatch(
-      // fillOutQuestionAnswer
       fillOutQuestion({
         answerList: answer,
       })
     );
   };
 
+  const Range = [];
+  for (let i = -5; i <= 5; i++) {
+    Range.push(i);
+  }
+
   return (
     <Container>
       <div>
-        <p>선택지의 범위를 끌어당겨 선택해주세요</p>
         <RangeContainer>
-          <InputValue>
-            <div>{-slideValue}</div>
-          </InputValue>
-          <input
-            type="range"
-            min="-5"
-            max="0"
-            value={-slideValue}
-            step="1"
-            onChange={plusInputHandler}
+          <Slider
+            defaultValue={0}
+            min={-5}
+            max={5}
+            step={1}
+            marks
+            valueLabelDisplay="on"
+            color="#6BBBF3"
           />
-          <input
-            type="range"
-            min="0"
-            max="5"
-            value={slideValue}
-            step="1"
-            onChange={plusInputHandler}
-          />
-          <InputValue>
-            <div>{slideValue}</div>
-          </InputValue>
         </RangeContainer>
-        <p>처음과 마지막 라벨에 들어갈 내용을 작성해주세요</p>
-        <InputContainer>
-          <div>{-slideValue}</div>
-          <input
-            value={answerList && answerList[0]}
-            onChange={inputHandler}
-            name="0"
-            placeholder="처음 라벨에 들어갈 내용을 작성해주세요"
-          />
-        </InputContainer>
-        <InputContainer>
-          <div>{slideValue}</div>
-          <input
-            value={answerList && answerList[1]}
-            onChange={inputHandler}
-            name="1"
-            placeholder="마지막 라벨에 들어갈 내용을 작성해주세요"
-          />
-        </InputContainer>
+        <RangeNumberContainer>
+          <RangeBox>
+            {Range.map((range) => {
+              return <div>{range}</div>;
+            })}
+          </RangeBox>
+        </RangeNumberContainer>
+        <LabelContainer>
+          <p>왼쪽과 오른쪽에 들어갈 내용을 작성해 주세요</p>
+          <InputContainer>
+            <div>{-slideValue}</div>
+            <input
+              value={answerList && answerList[0]}
+              onChange={inputHandler}
+              name="0"
+              placeholder="왼쪽 라벨에 들어갈 내용을 작성해주세요"
+            />
+          </InputContainer>
+          <InputContainer>
+            <div>{slideValue}</div>
+            <input
+              value={answerList && answerList[1]}
+              onChange={inputHandler}
+              name="1"
+              placeholder="오른쪽 라벨에 들어갈 내용을 작성해주세요"
+            />
+          </InputContainer>
+        </LabelContainer>
       </div>
     </Container>
   );
@@ -137,71 +126,95 @@ const Container = styled.div`
 `;
 
 const RangeContainer = styled.div`
-  width: 100%;
+  width: 56.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  padding-top: 9rem;
   input {
     margin: 0;
     -webkit-appearance: none;
-    width: 20rem;
-    height: 2px;
-    background: #4471ef;
+    width: 45%;
+    height: 1.1rem;
+    background: #ececec;
     border: none;
+    border-radius: 1.1rem;
     outline: none;
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      background: #eee;
-      border: 2px solid #4471ef;
+      width: 1.2rem;
+      height: 1.2rem;
+      background: ${({ theme }) => theme.pointColor2};
       border-radius: 50%;
     }
     &::-webkit-slider-thumb:hover {
-      background: #4471ef;
+      background: ${({ theme }) => theme.mainHoverColor};
     }
   }
 `;
 
-const InputValue = styled.div`
-  color: #4471ef;
-  text-align: center;
-  font-weight: 600;
-  line-height: 40px;
-  height: 40px;
-  overflow: hidden;
-  margin-left: 1rem;
-  margin-right: 1rem;
+const RangeNumberContainer = styled.div`
   display: flex;
+  align-items: center;
+`;
+
+const RangeBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50rem;
+  margin: 1rem auto;
+`;
+
+const LabelContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  div {
-    transition: all 300ms ease-in-out;
+  margin-top: 5rem;
+  p {
     ${fonts.Body1}
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    margin-bottom: 3.8rem;
   }
 `;
 
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 2.2rem;
   div {
-    width: 3rem;
-    height: 3rem;
     display: flex;
-    color: white;
-    ${fonts.Body2}
     justify-content: center;
     align-items: center;
-    background: ${({ theme }) => theme.subColor};
+
+    width: 5.6rem;
+    height: 4.6rem;
+
+    ${fonts.Body1}
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+
+    background: ${({ theme }) => theme.subColor1};
     border-radius: 1.5rem;
   }
   input {
-    font-size: 1.4rem;
-    border: none;
-    width: 100%;
+    text-align: center;
+    width: 26.6rem;
     margin-top: 1.5rem;
-    border-bottom: 1px solid ${({ theme }) => theme.fontColor};
+    margin-left: 1.2rem;
+    padding: 0.5rem;
+
+    ${fonts.Body1}
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+
+    border: none;
+    border-bottom: 3px solid ${({ theme }) => theme.gray4};
   }
 `;
 

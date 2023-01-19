@@ -8,13 +8,15 @@ const RoundButtonLarge = ({
   onClick,
   width,
   backgroundColor,
+  hoverColor,
 }) => {
   return (
     <Button
-      margin={margin}
       onClick={onClick}
       width={width}
+      margin={margin}
       backgroundColor={backgroundColor}
+      hoverColor={hoverColor}
     >
       {buttonValue}
     </Button>
@@ -22,18 +24,23 @@ const RoundButtonLarge = ({
 };
 
 const Button = styled.button`
-  padding: 0.4rem 1.5rem;
   ${fonts.Body1}
-  border: ${({ theme }) => `2px solid ${theme.subColor}`};
+  height: 5.2rem;
   width: ${({ width }) => width};
-  border-radius: 2rem;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  border-radius: 2.6rem;
   background: transparent;
-  margin: ${({ margin }) => margin || "0 1rem"};
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background: ${({ theme, backgroundColor }) =>
+    theme[backgroundColor] || theme.subColor1};
+  border: none;
   cursor: pointer;
   &:hover {
-    background-color: ${({ theme }) => theme.subColor};
-    color: ${({ theme }) => theme.backgroundColor};
+    background: ${({ theme }) => theme.subHoverColor1};
+  }
+  & + * {
+    margin-top: 1.3rem;
   }
 `;
 

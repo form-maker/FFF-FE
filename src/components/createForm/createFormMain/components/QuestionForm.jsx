@@ -6,7 +6,7 @@ import ScoreAndStarForm from "./questionTypesForm/ScoreAndStarForm";
 import SingleAndMultiChoiceForm from "./questionTypesForm/SingleAndMultiChoiceForm";
 import SlideBarForm from "./questionTypesForm/SlideBarForm";
 import SurveyCoverForm from "./questionTypesForm/SurveyCoverForm";
-import GroupForm from "./questionTypesForm/GroupForm";
+// import GroupForm from "./questionTypesForm/GroupForm";
 import { useSelector } from "react-redux";
 import NewForm from "./questionTypesForm/NewForm";
 
@@ -19,19 +19,19 @@ const QuestionForm = () => {
 
   return (
     <Container>
-      {questionType === "Cover" && <SurveyCoverForm />}
-      {(questionType === "Score" || questionType === "Star") && (
+      {questionType === "COVER" && <SurveyCoverForm />}
+      {(questionType === "SCORE" || questionType === "STAR") && (
         <ScoreAndStarForm />
       )}
-      {(questionType === "SingleChoice" ||
-        questionType === "MultipleChoice") && <SingleAndMultiChoiceForm />}
-      {questionType === "Slide" && <SlideBarForm />}
+      {(questionType === "SINGLE_CHOICE" ||
+        questionType === "MULTIPLE_CHOICE") && <SingleAndMultiChoiceForm />}
+      {questionType === "SLIDE" && <SlideBarForm />}
 
-      {questionType === "Rank" && <RankForm />}
-      {(questionType === "ShortDescriptive" ||
-        questionType === "LongDescriptive") && <LongAndShortDescriptiveForm />}
-      {questionType === "Group" && <GroupForm />}
-      {(questionType === "NewForm" || questionType === undefined) && (
+      {questionType === "RANK" && <RankForm />}
+      {(questionType === "SHORT_DESCRIPTIVE" ||
+        questionType === "LONG_DESCRIPTIVE") && <LongAndShortDescriptiveForm />}
+      {/* {questionType === "Group" && <GroupForm />} */}
+      {(questionType === "NEW_FORM" || questionType === undefined) && (
         <NewForm />
       )}
     </Container>
@@ -39,7 +39,8 @@ const QuestionForm = () => {
 };
 
 const Container = styled.div`
-  width: 50rem;
+  width: 100%;
+  height: 100%;
 `;
 
 export default QuestionForm;

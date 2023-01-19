@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
-  selectedFormType: "Cover",
+  selectedFormType: "COVER",
   currentPageNum: 1,
   formList: {
     title: "",
     startedAt: "",
     endedAt: "",
-    achievement: "",
+    achievement: 20,
     groupList: [],
     summary: "",
     questionList: [],
@@ -75,7 +75,7 @@ const createFormSlice = createSlice({
           state.formList.questionList[state.currentPageNum - 2]["questionType"];
       } else {
         state.currentPageNum = 1;
-        state.selectedFormType = "Cover";
+        state.selectedFormType = "COVER";
       }
     },
     goNext(state) {
@@ -96,6 +96,13 @@ const createFormSlice = createSlice({
           ];
       }
     },
+    goClickPage(state, action) {
+      console.log(action.payload);
+      state.currentPageNum = action.payload;
+      console.log(current(state.formList?.questionList));
+      state.selectedFormType =
+        state.formList?.questionList[action.payload - 2]["questionType"];
+    },
   },
 });
 
@@ -104,10 +111,10 @@ export const {
   selectedFormType,
   fillOutQuestion,
   fillOutQuestionTitleAndSummery,
-  // fillOutQuestionAnswer,
   deleteQuestion,
   addForm,
   goBack,
   goNext,
+  goClickPage,
 } = createFormSlice.actions;
 export default createFormSlice.reducer;

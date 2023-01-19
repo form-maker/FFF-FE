@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
-import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 import CreateFormInput from "../components/CreateFormInput";
 import QuestionForm from "../components/QuestionForm";
 import TurnAPageButtons from "../components/TurnAPageButtons";
@@ -9,78 +8,59 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectedFormType,
   addForm,
-  deleteQuestion,
 } from "../../../../redux/modules/createFormSlice";
-import { baseURLApi } from "../../../../core/api";
+import SelectTypeList from "../components/selectType/SelectTypeList";
 
 const CreateFromMainScreen = () => {
+  const [isSelectToggleShow, setIsSelectToggleShow] = useState(false);
   const questionId = useRef(1);
   const dispatch = useDispatch();
-  const questionType = useSelector(
-    (state) => state.createForm.selectedFormType
-  );
+
   const questionLength = useSelector(
     (state) => state.createForm.formList.questionList
   ).length;
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
-  const currentQuestionId = useSelector(
-    (state) =>
-      state.createForm.formList.questionList.length !== 0 &&
-      state.createForm.formList.questionList[currentPageNum - 2]["questionId"]
-  );
-  const survey = useSelector((state) => state.createForm.formList);
-
-  const postClickHandler = async () => {
-    try {
-      await baseURLApi.post("survey", survey);
-      alert("등록이 완료 되었습니다.");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Container>
       <Header>
-        {questionType !== "Cover" && (
-          <>
-            <RoundButtonMedium
-              buttonValue="등록하기"
-              onClick={postClickHandler}
-            ></RoundButtonMedium>
-            <RoundButtonMedium
-              buttonValue="문항삭제"
-              onClick={() => {
-                questionLength !== 0 &&
-                  dispatch(deleteQuestion(currentQuestionId));
-              }}
-            ></RoundButtonMedium>
-          </>
+        <div
+          onClick={() => {
+            setIsSelectToggleShow((prev) => !prev);
+          }}
+        >
+          설문 개요 작성
+          <ToggleIcon
+            src={process.env.PUBLIC_URL + "/img/toggleIcon.svg"}
+            alt="toggleIcon"
+          />
+        </div>
+        {isSelectToggleShow && (
+          <ToggleContainer>
+            <SelectTypeList setIsSelectToggleShow={setIsSelectToggleShow} />
+          </ToggleContainer>
         )}
 
-        <h5>🔥설문 조사 커버 페이지 제작중</h5>
+        <h5
+          onClick={() => {
+            dispatch(selectedFormType("NEW_FORM"));
+            dispatch(addForm({ questionId: questionId.current }));
+            questionId.current += 1;
+          }}
+        >
+          새 설문 추가하기 +
+        </h5>
       </Header>
       <Main>
         <CreateFormInput />
-        <ArrowButtonContainer>
-          <TurnAPageButtons />
-        </ArrowButtonContainer>
         <QuestionForm />
+        <TurnAPageButtons />
       </Main>
       <Bottom>
         <p>
           {currentPageNum}/{questionLength + 1}
         </p>
-        <RoundButtonMedium
-          buttonValue="문항추가"
-          onClick={() => {
-            dispatch(selectedFormType("NewForm"));
-            dispatch(addForm({ questionId: questionId.current }));
-            questionId.current += 1;
-          }}
-        ></RoundButtonMedium>
       </Bottom>
     </Container>
   );
@@ -88,44 +68,62 @@ const CreateFromMainScreen = () => {
 
 const Container = styled.div`
   flex: 1;
-  padding-left: 25.5rem;
   display: flex;
   flex-direction: column;
 `;
 
 const Header = styled.div`
-  margin-top: 5rem;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding-right: 2rem;
-  h5 {
-    margin-right: 5rem;
-    ${fonts.Body1}
+  justify-content: space-between;
+  align-items: center;
+  padding: 3.4rem 2.3rem 0 2.3rem;
+  position: relative;
+  div {
+    color: ${({ theme }) => theme.pointColor2};
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    cursor: pointer;
   }
+  h5 {
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    ${fonts.Body1}
+    margin: 0;
+    cursor: pointer;
+  }
+`;
+
+const ToggleContainer = styled.div`
+  position: absolute;
+  top: 7.4rem;
+  left: 1.4rem;
+  z-index: 1;
+`;
+
+const ToggleIcon = styled.img`
+  width: 1.4rem;
+  margin-left: 1.9rem;
 `;
 
 const Main = styled.div`
   position: relative;
   flex: 1;
   display: flex;
-  margin-top: 5rem;
   flex-direction: column;
   align-items: center;
 `;
 
-const ArrowButtonContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-`;
-
 const Bottom = styled.div`
-  margin-bottom: 5rem;
+  margin-bottom: 3.1rem;
   display: flex;
-  padding-right: 2rem;
-  justify-content: flex-end;
+  justify-content: center;
+  ${fonts.Body3}
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
 `;
 
 export default CreateFromMainScreen;
