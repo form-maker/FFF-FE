@@ -14,8 +14,7 @@ const MyPageContentScreen = () => {
 
 const Container = styled.div`
   width: 100%;
-  padding-top: 11.4rem;
-  padding-left: 3rem;
+  padding: 9.1rem 3rem 0 3rem;
 `;
 
 export default MyPageContentScreen;

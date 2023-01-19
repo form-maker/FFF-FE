@@ -7,6 +7,7 @@ import {
   selectedFormType,
   fillOutQuestion,
 } from "../../../../../redux/modules/createFormSlice";
+import fonts from "../../../../../styles/fonts";
 
 const LongAndShortDescriptiveForm = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const LongAndShortDescriptiveForm = () => {
       !questionTitle &&
       dispatch(
         fillOutQuestion({
-          questionType: "ShortDescriptive",
+          questionType: "SHORT_DESCRIPTIVE",
           questionTitle: "",
           questionSummary: "",
           answerList: [],
@@ -54,23 +55,28 @@ const LongAndShortDescriptiveForm = () => {
 
   return (
     <Container>
+      <p>장문형과 단문형을 선택해 주세요</p>
       <RoundButtonLarge
         buttonValue="단문형"
-        width="30rem"
+        width="28.3rem"
         onClick={() => {
-          typeClickHandler("ShortDescriptive");
+          typeClickHandler("SHORT_DESCRIPTIVE");
         }}
-        backgroundColor={questionType === "ShortDescriptive" && "blue"}
+        backgroundColor={
+          questionType === "SHORT_DESCRIPTIVE" && "subHoverColor1"
+        }
       />
       <RoundButtonLarge
         buttonValue="장문형"
         소
-        width="30rem"
+        width="28.3rem"
         margin="1rem 0 0 0"
         onClick={() => {
-          typeClickHandler("LongDescriptive");
+          typeClickHandler("LONG_DESCRIPTIVE");
         }}
-        backgroundColor={questionType === "LongDescriptive" && "blue"}
+        backgroundColor={
+          questionType === "LONG_DESCRIPTIVE" && "subHoverColor1"
+        }
       />
     </Container>
   );
@@ -78,10 +84,16 @@ const LongAndShortDescriptiveForm = () => {
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 11.6rem;
+  p {
+    ${fonts.Body1}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  }
 `;
 
 export default LongAndShortDescriptiveForm;

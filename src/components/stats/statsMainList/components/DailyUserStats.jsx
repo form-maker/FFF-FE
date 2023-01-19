@@ -5,18 +5,32 @@ import { useSelector } from "react-redux";
 
 const DailyUserStats = () => {
   const statsList = useSelector((state) => state.stats.stats);
+  console.log(statsList?.dailyParticipantList?.date);
 
   let options = {
     series: [
       {
-        name: "날짜 별 응답자 수",
         data: statsList?.dailyParticipantList?.participant,
       },
     ],
     options: {
-      colors: ["#7AB0FE"],
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.7,
+          opacityTo: 0.9,
+          stops: [0, 90, 100],
+        },
+      },
+
       chart: {
-        type: "line",
+        type: "area",
+        height: 350,
+        stacked: true,
+        zoom: {
+          enabled: false,
+        },
         animations: {
           enabled: true,
           easing: "linear",
@@ -27,31 +41,29 @@ const DailyUserStats = () => {
         toolbar: {
           show: false,
         },
-        zoom: {
-          enabled: false,
-        },
       },
+
       dataLabels: {
         enabled: false,
       },
       stroke: {
         curve: "smooth",
-        width: 2,
+        width: 1.4,
+      },
+      title: {
+        text: "날짜 별 응답자 수",
+        align: "left",
       },
       markers: {
         size: 0,
       },
       xaxis: {
         categories: statsList?.dailyParticipantList?.date,
-        labels: {
-          show: false,
-        },
+        show: true,
       },
       yaxis: {
-        show: false,
-        borderColor: "white",
         label: {
-          show: false,
+          show: true,
           borderColor: "white",
           style: {
             color: "#fff",
@@ -59,7 +71,7 @@ const DailyUserStats = () => {
           },
         },
       },
-      grid: { show: false },
+      grid: { show: true },
       legend: {
         show: false,
       },
@@ -68,25 +80,25 @@ const DailyUserStats = () => {
 
   return (
     <Container>
-      <div>
-        <ApexCharts
-          type="line"
-          series={options.series}
-          options={options.options}
-          height={100}
-          width={900}
-        ></ApexCharts>
-      </div>
+      <ApexCharts
+        type="area"
+        series={options.series}
+        options={options.options}
+        height={320}
+        width={980}
+      ></ApexCharts>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100rem;
-  height: 10rem;
-  /* border: 0.2rem solid ${({ theme }) => theme.subColor}; */
-  /* border-radius: 1rem; */
-  padding: 0 1rem;
+  background-color: white;
+  box-shadow: 0px 0px 9.08108px 3.89189px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 3rem 0rem 3rem;
 `;
 
 export default DailyUserStats;

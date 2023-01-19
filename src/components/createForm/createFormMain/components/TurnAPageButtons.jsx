@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import ArrowButton from "./ArrowButton";
 import { useDispatch } from "react-redux";
 import { goBack, goNext } from "../../../../redux/modules/createFormSlice";
 
@@ -8,14 +7,16 @@ const TurnAPageButtons = () => {
   const dispatch = useDispatch();
   return (
     <Container>
-      <ArrowButton
-        buttonText="<"
+      <img
+        src={process.env.PUBLIC_URL + "/img/grayLeftButton.svg"}
+        alt="LeftButton"
         onClick={() => {
           dispatch(goBack());
         }}
       />
-      <ArrowButton
-        buttonText=">"
+      <img
+        src={process.env.PUBLIC_URL + "/img/grayRightButton.svg"}
+        alt="RightButton"
         onClick={() => {
           dispatch(goNext());
         }}
@@ -25,12 +26,22 @@ const TurnAPageButtons = () => {
 };
 
 const Container = styled.div`
-  width: 75em;
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  top: 15rem;
-  left: -37rem;
+  img {
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    &:nth-child(1) {
+      width: 7.2rem;
+      cursor: pointer;
+      left: 2.4rem;
+    }
+    &:nth-child(2) {
+      width: 7.2rem;
+      cursor: pointer;
+      right: 2.4rem;
+    }
+  }
 `;
 
 export default TurnAPageButtons;

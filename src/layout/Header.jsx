@@ -89,7 +89,7 @@ const Header = () => {
 
 const Container = styled.div`
   width: 100%;
-  background: ${({ theme }) => theme.SubColor1};
+  background: ${({ theme }) => theme.subColor1};
   display: flex;
   justify-content: center;
   align-items: center;

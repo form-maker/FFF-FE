@@ -1,17 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import fonts from "../../../styles/fonts";
 import { useSelector } from "react-redux";
 
-const backgroundColorList = [
-  "rgb(254, 244, 148, 0.777)",
-  "rgba(238, 184, 209, 0.777)",
-  "rgb(185, 210, 234, 0.777)",
-  "rgb(195, 230, 220, 0.777)",
-];
-
 const RankAnswer = () => {
+  // const answerId = useRef(1);
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
@@ -24,14 +18,18 @@ const RankAnswer = () => {
     return { id: String(index + 1), answer: answer };
   });
 
-  console.log(addAnswerId);
-
   const [characters, updateCharacters] = useState(addAnswerId);
+
+  useEffect(() => {
+    updateCharacters(addAnswerId);
+  }, [answerList]);
+
   function handleOnDragEnd(result) {
     if (!result.destination) return;
 
     const items = Array.from(characters);
-    const [reorderedItem] = items.splice(result.source.index, 1);
+
+    const [reorderedItem] = characters.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
     updateCharacters(items);
@@ -55,9 +53,8 @@ const RankAnswer = () => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
-                        color={backgroundColorList[(id - 1) % 4]}
                       >
-                        <p>{answer}</p>
+                        <p> {`${index + 1}. ${answer}`}</p>
                       </DNDList>
                     )}
                   </Draggable>
@@ -68,9 +65,6 @@ const RankAnswer = () => {
           )}
         </Droppable>
       </DragDropContext>
-      <CommentContainer>
-        <p>최대 3개 문항 선택 가능합니다</p>
-      </CommentContainer>
     </Container>
   );
 };
@@ -94,23 +88,23 @@ const DNDListContainer = styled.ul`
 `;
 
 const DNDList = styled.div`
-  color: rgb(67, 67, 67);
-  ${fonts.Body2}
-  width:  80%;
-  margin: 6px;
-  padding: 10px;
-  border-radius: 10px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.color};
-`;
+  width: 26.5rem;
+  height: 4.2rem;
+  margin: 6px;
+  padding: 1.2rem 2.2rem;
+  border-radius: 10px;
 
-const CommentContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  padding: 2rem 5rem;
+  ${fonts.Body1}
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+
+  background-color: ${({ theme }) => theme.subColor1};
+  p {
+    margin: 0;
+  }
 `;
 
 export default RankAnswer;

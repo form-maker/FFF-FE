@@ -8,6 +8,9 @@ const RoundButtonMedium = ({
   fontWeight,
   margin,
   onClick,
+  background,
+  height,
+  borderRadius,
 }) => {
   return (
     <Button
@@ -15,6 +18,9 @@ const RoundButtonMedium = ({
       fontWeight={fontWeight}
       margin={margin}
       onClick={onClick}
+      background={background}
+      height={height}
+      borderRadius={borderRadius}
     >
       {buttonValue}
     </Button>
@@ -27,13 +33,18 @@ const Button = styled.button`
   font-size: 12px;
   line-height: 14px;
   padding: 0.8rem 1.9rem;
-  border: ${({ theme }) => `1px solid ${theme.mainColor}`};
-  border-radius: 1.6rem;
-  background: ${({ theme }) => theme.backgroundColor};
+  display: flex;
+  justify-content: center;
+  height: ${({ height }) => height};
+  align-items: center;
+  border: none;
+  border-radius: ${({ borderRadius }) => borderRadius || "1.6rem"};
+  background: ${({ theme, background }) =>
+    theme[background] || theme.backgroundColor};
   margin: ${({ margin }) => margin || "0.5rem 1.6rem"};
   cursor: pointer;
   &:hover {
-    background-color: ${({ theme }) => theme.hoverColor};
+    background-color: ${({ theme }) => theme.subHoverColor1};
   }
 `;
 

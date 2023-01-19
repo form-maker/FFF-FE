@@ -6,6 +6,7 @@ import {
   selectedFormType,
   fillOutQuestion,
 } from "../../../../../redux/modules/createFormSlice";
+import fonts from "../../../../../styles/fonts";
 
 const ScoreAndStarForm = () => {
   const dispatch = useDispatch();
@@ -25,13 +26,15 @@ const ScoreAndStarForm = () => {
       ]
   );
 
+  console.log(questionType);
+
   // 처음에 시작할 때 셋팅 값
   useEffect(() => {
     currentPageNum > 1 &&
       !questionTitle &&
       dispatch(
         fillOutQuestion({
-          questionType: "Score",
+          questionType: "SCORE",
           questionTitle: "",
           questionSummary: "",
           answerList: [],
@@ -53,22 +56,23 @@ const ScoreAndStarForm = () => {
 
   return (
     <Container>
+      <p>별점과 설문형을 선택해 주세요</p>
       <RoundButtonLarge
         buttonValue="점수 형식"
-        width="30rem"
+        width="28.3rem"
         onClick={() => {
-          typeClickHandler("Score");
+          typeClickHandler("SCORE");
         }}
-        backgroundColor={questionType === "Score" && "blue"}
+        backgroundColor={questionType === "SCORE" && "subHoverColor1"}
       />
       <RoundButtonLarge
         buttonValue="별점 형식"
-        width="30rem"
+        width="28.3rem"
         margin="1rem 0 0 0"
         onClick={() => {
-          typeClickHandler("Star");
+          typeClickHandler("STAR");
         }}
-        backgroundColor={questionType === "Star" && "blue"}
+        backgroundColor={questionType === "STAR" && "subHoverColor1"}
       />
     </Container>
   );
@@ -76,10 +80,16 @@ const ScoreAndStarForm = () => {
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 11.6rem;
+  p {
+    ${fonts.Body1}
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  }
 `;
 
 export default ScoreAndStarForm;
