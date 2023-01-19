@@ -2,8 +2,16 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import fonts from "../../../../../styles/fonts";
 import { useSelector, useDispatch } from "react-redux";
+import "./SlideBarForm.css";
 import { fillOutQuestion } from "../../../../../redux/modules/createFormSlice";
 import { Slider } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+
+// const slideTheme = createTheme({
+//   palette: {
+//     color: "#BBE0FA",
+//   },
+// });
 
 const SlideBarForm = () => {
   const [slideValue, setSlideValue] = useState(2);
@@ -30,7 +38,6 @@ const SlideBarForm = () => {
     currentPageNum > 1 &&
       !questionTitle &&
       dispatch(
-        // fillOutQuestion
         fillOutQuestion({
           questionType: "SLIDE",
           questionTitle: "",
@@ -60,30 +67,68 @@ const SlideBarForm = () => {
     );
   };
 
-  const Range = [];
-  for (let i = -5; i <= 5; i++) {
-    Range.push(i);
+  const leftRange = [];
+  for (let i = -5; i <= -1; i++) {
+    leftRange.push(i);
   }
+
+  const rightRange = [];
+  for (let i = 1; i <= 5; i++) {
+    rightRange.push(i);
+  }
+
+  const [value, setValue] = useState([-2, 2]);
+
+  const ChangeHandler = (event, newValue) => {
+    const [newLeft, newRight] = newValue;
+    const [Left, Right] = value;
+    if (newRight !== Right) {
+      setValue([-newRight, newRight]);
+    }
+    if (newLeft !== Left) {
+      setValue([newLeft, -newLeft]);
+    }
+    dispatch(
+      fillOutQuestion({
+        volume: value[1],
+      })
+    );
+  };
 
   return (
     <Container>
       <div>
         <RangeContainer>
-          <Slider
-            defaultValue={0}
-            min={-5}
-            max={5}
-            step={1}
-            marks
-            valueLabelDisplay="on"
-            color="#6BBBF3"
-          />
+          <Box sx={{ width: 500 }}>
+            <Slider
+              defaultValue={0}
+              min={-5}
+              max={5}
+              step={1}
+              sx={{
+                color: "palette.color",
+              }}
+              marks
+              valueLabelDisplay="on"
+              value={value}
+              onChange={ChangeHandler}
+            />
+          </Box>
         </RangeContainer>
         <RangeNumberContainer>
           <RangeBox>
-            {Range.map((range) => {
-              return <div>{range}</div>;
-            })}
+            <LeftRangeContainer>
+              {leftRange?.map((range) => {
+                return <div>{range}</div>;
+              })}
+            </LeftRangeContainer>
+
+            <div>0</div>
+            <RightRangeContainer>
+              {rightRange?.map((range) => {
+                return <div>{range}</div>;
+              })}
+            </RightRangeContainer>
           </RangeBox>
         </RangeNumberContainer>
         <LabelContainer>
@@ -162,8 +207,20 @@ const RangeBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 50rem;
+  width: 51rem;
   margin: 1rem auto;
+`;
+
+const LeftRangeContainer = styled.div`
+  display: flex;
+  width: 21.2rem;
+  justify-content: space-between;
+`;
+
+const RightRangeContainer = styled.div`
+  display: flex;
+  width: 20rem;
+  justify-content: space-between;
 `;
 
 const LabelContainer = styled.div`
@@ -177,7 +234,7 @@ const LabelContainer = styled.div`
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 1.8rem;
-    margin-bottom: 3.8rem;
+    margin-bottom: 2.5rem;
   }
 `;
 
@@ -214,7 +271,7 @@ const InputContainer = styled.div`
     line-height: 1.8rem;
 
     border: none;
-    border-bottom: 3px solid ${({ theme }) => theme.gray4};
+    border-bottom: 3px solid ${({ theme }) => theme.gray5};
   }
 `;
 

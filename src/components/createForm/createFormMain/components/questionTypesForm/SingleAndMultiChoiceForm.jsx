@@ -195,7 +195,7 @@ const QuestionInput = styled.input`
   width: 100%;
   margin-top: 2.2rem;
   padding: 0.8rem 0;
-  border-bottom: 2px solid #999999;
+  border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
 `;
 
 const Question = styled.div`
@@ -211,7 +211,7 @@ const Question = styled.div`
   padding: 0.2rem 0;
   margin-top: 1rem;
   width: 100%;
-  border-bottom: 2px solid #999999;
+  border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
   div {
     flex: 1;
     ${fonts.Body1}

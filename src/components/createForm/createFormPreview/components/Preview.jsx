@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import CoverAnswer from "../../../common/typeOfAnswer/CoverAnswer";
-// import GroupAnswer from "../../../common/typeOfAnswer/GroupAnswer";
 import LongDescriptiveAnswer from "../../../common/typeOfAnswer/LongDescriptiveAnswer";
 import MultipleChoiceAnswer from "../../../common/typeOfAnswer/MultipleChoiceAnswer";
 import RankAnswer from "../../../common/typeOfAnswer/RankAnswer";
@@ -11,15 +10,15 @@ import ShortDescriptiveAnswer from "../../../common/typeOfAnswer/ShortDescriptiv
 import SingleChoiceAnswer from "../../../common/typeOfAnswer/SingleChoiceAnswer";
 import SlideBarAnswer from "../../../common/typeOfAnswer/SlideBarAnswer";
 import StarAnswer from "../../../common/typeOfAnswer/StarAnswer";
-import ArrowButton from "./ArrowButton";
 import { useSelector } from "react-redux";
 import NewAnswer from "../../../common/typeOfAnswer/NewAnswer";
 import PhoneTurnAPageButtons from "./PhoneTurnAPageButtons";
 
 const Preview = () => {
   const questionType = useSelector(
-    (state) => state.createForm.selectedFormType
+    (state) => state.createForm?.selectedFormType
   );
+
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
@@ -48,8 +47,8 @@ const Preview = () => {
     <Container>
       <PointContext>🔥 현재 * 명이 설문을 참여 중입니다.</PointContext>
       {questionType !== "COVER" &&
-        // questionType !== "Group" &&
-        questionType !== "NEW_FORM" && (
+        questionType !== "NEW_FORM" &&
+        questionType !== undefined && (
           <TitleContainer>
             <h1>
               {questionTitle === ""
@@ -74,6 +73,7 @@ const Preview = () => {
       {questionType === "LONG_DESCRIPTIVE" && <LongDescriptiveAnswer />}
       {/* {questionType === "Group" && <GroupAnswer />} */}
       {questionType === "NEW_FORM" && <NewAnswer />}
+      {questionType === undefined && <NewAnswer />}
 
       {questionType !== "COVER" && (
         <ArrowButtonContainer>
