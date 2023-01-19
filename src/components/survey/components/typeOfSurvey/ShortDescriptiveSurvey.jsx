@@ -1,18 +1,18 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
+import fonts from "../../../../styles/fonts";
 import {
   changeDescriptive,
   getCover,
-} from "../../../redux/modules/surveySlice";
+} from "../../../../redux/modules/surveySlice";
 import {
   __getSurveyQuestion,
   __getBeforeSurveyQuestion,
-} from "../../../redux/modules/surveySlice";
-import TurnAPageButtons from "../components/TurnAPageButtons";
+} from "../../../../redux/modules/surveySlice";
+import TurnAPageButtons from "../../components/TurnAPageButtons";
 
-const LongDescriptiveSurvey = () => {
+const ShortDescriptiveSurvey = () => {
   const dispatch = useDispatch();
   const question = useSelector((state) => state.survey.question);
   const questionIdList = useSelector((state) => state.survey.questionIdList);
@@ -31,7 +31,6 @@ const LongDescriptiveSurvey = () => {
       ? alert("마지막 항목입니다")
       : dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
   };
-
   const goBackPageClickHandler = () => {
     currentPageNum === 2
       ? dispatch(getCover())
@@ -45,12 +44,11 @@ const LongDescriptiveSurvey = () => {
         <h5>{question.questionSummary}</h5>
       </TitleContainer>
       <InputContainer>
-        <textarea
-          type="text"
-          placeholder="꼼꼼하게 답해주세요"
+        <input
           value={descriptive}
           onChange={answerHandler}
-        ></textarea>
+          placeholder="한문장으로 작성해주세요"
+        ></input>
       </InputContainer>
       <ArrowButtonContainer>
         <TurnAPageButtons
@@ -96,67 +94,31 @@ const TitleContainer = styled.div`
 
 const InputContainer = styled.div`
   width: 100%;
+  height: 35rem;
   display: flex;
-  margin-top: 5rem;
   justify-content: center;
   align-items: center;
-  textarea {
-    box-sizing: border-box;
-    width: 26.4rem;
-    height: 23.7rem;
-    padding: 1rem;
-    resize: none;
-
-    font-size: 18px;
-    background-color: transparent;
-    color: gray;
-    border: ${({ theme }) => `2px solid ${theme.subColor1}`};
-
-    border-radius: 1rem;
-    scroll-behavior: auto;
+  margin-top: 1rem;
+  input {
+    text-align: center;
+    padding: 1.1rem;
+    width: 27.3rem;
 
     ${fonts.Body1}
     font-weight: 600;
     font-size: 1.4rem;
     line-height: 1.7rem;
 
+    border: none;
+    border-bottom: 0.3rem solid ${({ theme }) => theme.pointColor};
     &::placeholder {
-      color: gray;
-      text-align: center;
-    }
-    div {
-      display: flex;
+      ${fonts.Body1}
+      font-weight: 600;
+      font-size: 1.4rem;
+      line-height: 1.7rem;
     }
   }
 `;
-
-// const BottomContainer = styled.div`
-//   width: 100%;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   position: absolute;
-//   bottom: 1rem;
-
-//   div {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//   }
-//   button {
-//     border: none;
-//     background: none;
-//     width: 6.2rem;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     margin: 0;
-//     padding: 1.3rem 1.6rem;
-//     color: ${({ theme }) => theme.mainColor};
-//     ${fonts.H1}
-//     cursor: pointer;
-//   }
-// `;
 
 const ArrowButtonContainer = styled.div`
   position: absolute;
@@ -164,4 +126,4 @@ const ArrowButtonContainer = styled.div`
   bottom: 5rem;
 `;
 
-export default LongDescriptiveSurvey;
+export default ShortDescriptiveSurvey;

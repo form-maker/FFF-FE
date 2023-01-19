@@ -5,7 +5,8 @@ import { baseURLApi } from "../../core/api";
 import { Link } from "react-router-dom";
 import fonts from "../../styles/fonts";
 import Google from "./outh/Google";
-import { CLIENT_ID_G, REDIRECT_URI_G } from "../../constants/env";
+import { CLIENT_ID_G,REDIRECT_URI_G } from "../../constants/env";
+
 
 export const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;

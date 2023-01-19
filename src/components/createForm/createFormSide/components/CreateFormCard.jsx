@@ -2,8 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 
-const CreateFormCard = ({ imgName, title, onClick, index }) => {
-  console.log(imgName);
+const CreateFormCard = ({
+  imgName,
+  title,
+  onClick,
+  index,
+  isCurrentPageNum,
+}) => {
   if (imgName === "SCORE") {
     imgName = "STAR";
   }
@@ -18,7 +23,11 @@ const CreateFormCard = ({ imgName, title, onClick, index }) => {
     title = "설문 타입을 선택해주세요";
   }
   return (
-    <Container onClick={onClick}>
+    <Container
+      onClick={onClick}
+      background={isCurrentPageNum ? "pointColor2" : null}
+      fontWeight={isCurrentPageNum ? "900" : null}
+    >
       <div>{index + 1}</div>
       <img
         src={process.env.PUBLIC_URL + `/img/${imgName}.svg`}
@@ -38,11 +47,12 @@ const Container = styled.div`
   div {
     ${fonts.Body1}
     font-weight: 400;
-    font-weight: 700;
+    font-weight: ${({ fontWeight }) => fontWeight || 700};
     font-size: 1.5rem;
     margin: 0;
     padding: 0;
     width: 2rem;
+    color: ${({ background, theme }) => theme[background] || theme.color};
   }
   img {
     width: 3.4rem;
@@ -50,12 +60,13 @@ const Container = styled.div`
   }
   h4 {
     ${fonts.Body1}
-    font-weight: 400;
+    font-weight: ${({ fontWeight }) => fontWeight || 400};
     font-size: 1.3rem;
     line-height: 1.6rem;
     margin: 0;
     padding: 0;
     padding-left: 1.1rem;
+    color: ${({ background, theme }) => theme[background] || theme.color};
   }
 `;
 

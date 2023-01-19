@@ -4,8 +4,10 @@ import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 import { baseURLApi } from "../../../../core/api";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CreateFormHeaderScreen = () => {
+  const navigate = useNavigate();
   const survey = useSelector((state) => state.createForm.formList);
   const title = useSelector((state) => state.createForm.formList.title);
 
@@ -13,8 +15,10 @@ const CreateFormHeaderScreen = () => {
     try {
       await baseURLApi.post("survey", survey);
       alert("등록이 완료 되었습니다.");
+      navigate("/mypage");
     } catch (error) {
       console.log(error);
+      alert(error.response.data.msg);
     }
   };
 

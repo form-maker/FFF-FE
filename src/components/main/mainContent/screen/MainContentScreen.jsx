@@ -71,6 +71,7 @@ const MainCardContainer = styled.div`
 
 const CardContainer = styled.div`
   margin-top: 4.4rem;
+  margin-bottom: 6rem;
   display: flex;
   align-items: center;
 `;

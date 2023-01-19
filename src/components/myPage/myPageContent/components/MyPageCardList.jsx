@@ -12,6 +12,7 @@ const MyPageCardList = () => {
   const myPageCardList = useSelector(
     (state) => state.myPageCardList.myPageCardList.pageData?.contents
   );
+
   const selectedCategory = useSelector(
     (state) => state.myPageCardList?.selectedCategory
   );
@@ -88,21 +89,6 @@ const MyPageCardList = () => {
             });
           }}
         />
-        <RoundButtonSmall
-          buttonValue="달성순"
-          margin="0 0 0 0.5rem"
-          background={
-            selectedCategory === "달성률" ? "subColor1" : "backgroundColor"
-          }
-          onClick={() => {
-            getCategoryHandler({
-              page: 1,
-              size: 9,
-              sortBy: "달성률",
-              status: status,
-            });
-          }}
-        />
       </ButtonContainer>
       <SurveyContainer>
         {myPageCardList?.length === 0 ? (
@@ -140,6 +126,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  flex: 1;
 `;
 
 const Background = styled.div`
@@ -149,8 +136,8 @@ const Background = styled.div`
 
   width: 100vw;
   height: 100%;
-  background: ${({ theme }) => theme.backgroundColor2};
 
+  background: ${({ theme }) => theme.backgroundColor2};
   z-index: -1;
 `;
 

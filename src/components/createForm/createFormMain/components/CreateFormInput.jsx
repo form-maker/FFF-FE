@@ -82,10 +82,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-// const TitleNumber = styled.span`
-//   font-size: 5rem;
-// `;
-
 const TitleInput = styled.input`
   text-align: center;
   ${fonts.Body1}
@@ -94,7 +90,7 @@ const TitleInput = styled.input`
   line-height: 2.9rem;
   width: 50rem;
   border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.fontColor};
+  border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
   &::placeholder {
     color: ${({ theme }) => theme.color};
   }
@@ -109,7 +105,7 @@ const SubTitleInput = styled.input`
   line-height: 1.9rem;
   width: 50rem;
   border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.fontColor};
+  border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
   &::placeholder {
     ${fonts.Body3}
   }
