@@ -7,6 +7,7 @@ import fonts from "../../styles/fonts";
 import Google from "./outh/Google";
 import { CLIENT_ID_G,REDIRECT_URI_G } from "../../constants/env";
 
+
 export const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
 
@@ -53,10 +54,7 @@ const LoginScreen = () => {
         navigate(`/login`);
       } else {
         navigate(`/`);
-        localStorage.setItem("Authorization", res.headers.authorization, {
-          path: "/",
-          maxAge: 1800,
-        });
+        localStorage.setItem("Authorization", res.headers.authorization);
       }
     });
   };
@@ -178,11 +176,14 @@ const LoginForm = styled.form`
 `;
 
 const Title = styled.title`
-  ${fonts.H1}
+  ${fonts.Body1}
+  font-size: 3.2rem;
+  font-weight: 600;
+  line-height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;
 
 const SubTitle = styled.a`
@@ -191,8 +192,11 @@ const SubTitle = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${fonts.Caption}
-  margin-bottom: 70px;
+  font-weight: 400;
+  ${fonts.Body1}
+  font-size: 12px;
+  line-height: 14px;
+  margin-bottom: 55px;
 `;
 
 const SubBox1 = styled.div`
@@ -211,7 +215,8 @@ const SubBox1 = styled.div`
     margin: 10px 10px 10px 10px;
     padding-left: 10px;
     background-color: rgb(238, 238, 238, 0.55);
-    color: #9e9e9e;
+    ${fonts.Body1}
+    //color: #9e9e9e;
     border: none;
     border-radius: 11px;
   }

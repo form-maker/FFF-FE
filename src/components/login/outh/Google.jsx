@@ -9,7 +9,7 @@ const Google = () => {
   //let code = new URL(window.location.href).searchParams.get("code");
   //console.log(code);
 
-  //google(aaa).then((res) => {
+  //google(code).then((res) => {
   //console.log(res);
   //localStorage.setItem("Authorization", res.headers.authorization);
   //navigate("/");
