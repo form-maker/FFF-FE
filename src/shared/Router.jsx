@@ -23,12 +23,12 @@ const Router = () => {
           <Route element={<Layout />}>
             <Route path="/" element={<Main />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/stats" element={<Stats />} />
+            <Route path="/stats/:surveyId" element={<Stats />} />
           </Route>
+          <Route path="/createform" element={<CreateForm />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/kakao" element={<Oauth2RedirectHandler />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/createform" element={<CreateForm />} />
           <Route path="/survey" element={<Survey />} />
         </Routes>
       </ThemeProvider>
