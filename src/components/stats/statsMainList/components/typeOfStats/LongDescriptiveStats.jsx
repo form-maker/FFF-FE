@@ -16,7 +16,7 @@ const LongDescriptiveStats = ({ stats }) => {
       </Header>
 
       <AnswerContainer>
-        {stats.selectList?.map((answer) => {
+        {stats.descriptiveList?.map((answer) => {
           return (
             <Answer key={answer.answer}>
               <h3>{answer.answer}</h3>

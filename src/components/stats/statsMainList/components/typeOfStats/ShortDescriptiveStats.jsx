@@ -21,8 +21,8 @@ const ShortDescriptiveStats = ({ stats }) => {
           background="mainColor"
           width="10.6rem"
         >
-          <h2>{stats.selectList[2]?.answer}</h2>
-          <p>총 {stats.selectList[2]?.value}회</p>
+          <h2>{stats?.descriptiveList[2]?.answer}</h2>
+          <p>총 {stats?.descriptiveList[2]?.value}회</p>
         </Circle>
         <Circle
           top="5.9rem"
@@ -30,8 +30,8 @@ const ShortDescriptiveStats = ({ stats }) => {
           background="pointColor3"
           width="17.6rem"
         >
-          <h2>{stats.selectList[0]?.answer}</h2>
-          <p>총 {stats.selectList[0]?.value}회</p>
+          <h2>{stats?.descriptiveList[0]?.answer}</h2>
+          <p>총 {stats?.descriptiveList[0]?.value}회</p>
         </Circle>
         <Circle
           top="15rem"
@@ -39,8 +39,8 @@ const ShortDescriptiveStats = ({ stats }) => {
           background="subHoverColor3"
           width="13.4rem"
         >
-          <h2>{stats.selectList[1]?.answer}</h2>
-          <p>총 {stats.selectList[1]?.value}회</p>
+          <h2>{stats?.descriptiveList[1]?.answer}</h2>
+          <p>총 {stats?.descriptiveList[1]?.value}회</p>
         </Circle>
       </CircleContainer>
       <CommentContainer>
