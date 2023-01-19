@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { instanceApi } from "../../core/api";
+import { baseURLApi, instanceApi } from "../../core/api";
 
 const initialState = {
   myPageCardList: [],
@@ -12,7 +12,7 @@ export const __getMyPageCardList = createAsyncThunk(
   "myPageCardList/getMyPageCardList",
   async ({ page, size, sortBy, status }, thunkAPI) => {
     try {
-      const { data } = await instanceApi.get(
+      const { data } = await baseURLApi.get(
         `survey/my-page?page=${page}&size=${size}&sortBy=${sortBy}&status=${status}`
       );
       return thunkAPI.fulfillWithValue({
