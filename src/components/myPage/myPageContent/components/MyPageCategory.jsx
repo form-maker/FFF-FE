@@ -1,23 +1,67 @@
 import React from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
-import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSmall";
+import { useSelector, useDispatch } from "react-redux";
+import { __getMyPageCardList } from "../../../../redux/modules/myPageListSlice";
+import StatusButton from "./StatusButton";
 
 const MyPageCategory = () => {
+  const status = useSelector((state) => state.myPageCardList.status);
+  console.log(status);
+
+  const dispatch = useDispatch();
+
+  const getStatusHandler = ({ page, size, sortBy, status }) => {
+    dispatch(
+      __getMyPageCardList({
+        page: page,
+        size: size,
+        sortBy: sortBy,
+        status: status,
+      })
+    );
+  };
+
   return (
     <Container>
       <MainCategoryContainer>
-        <div>현재 진행중인 폼</div>
-        <div>진행 완료된 폼</div>
+        <StatusButton
+          onClick={() => {
+            getStatusHandler({
+              page: 1,
+              size: 9,
+              sortBy: "최신순",
+              status: "IN_PROCEED",
+            });
+          }}
+          border={status === "IN_PROCEED" ? "subColor1" : "backgroundColor"}
+          buttonValue="현재 진행중인 폼"
+        ></StatusButton>
+        <StatusButton
+          onClick={() => {
+            getStatusHandler({
+              page: 1,
+              size: 9,
+              sortBy: "최신순",
+              status: "NOT_START",
+            });
+          }}
+          border={status === "NOT_START" ? "subColor1" : "backgroundColor"}
+          buttonValue="진행 전 폼"
+        ></StatusButton>
+        <StatusButton
+          onClick={() => {
+            getStatusHandler({
+              page: 1,
+              size: 9,
+              sortBy: "최신순",
+              status: "DONE",
+            });
+          }}
+          border={status === "DONE" ? "subColor1" : "backgroundColor"}
+          buttonValue="진행 완료된 폼"
+        ></StatusButton>
       </MainCategoryContainer>
-      <SubCategoryContainer>
-        <RoundButtonSmall buttonValue="최신순" margin="0 0.5rem 0 0" />
-        <RoundButtonSmall
-          buttonValue="마감 임박순"
-          margin="0 0.5rem 0 0.5rem"
-        />
-        <RoundButtonSmall buttonValue="달성순" margin="0 0 0 0.5rem" />
-      </SubCategoryContainer>
     </Container>
   );
 };
@@ -29,18 +73,6 @@ const Container = styled.div`
 const MainCategoryContainer = styled.div`
   display: flex;
   align-items: center;
-  border-bottom: 0.3rem solid white;
-  div {
-    ${fonts.Body1}
-    &:hover {
-      border-bottom: 0.3rem solid ${({ theme }) => theme.mainColor};
-    }
-  }
-`;
-
-const SubCategoryContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;
 
 export default MyPageCategory;
