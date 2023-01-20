@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# 폼폼폼
+### 세상에서 가장 몽글몽글한 설문조사
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 00. 배포 링크
+- http://formformform.s3-website.ap-northeast-2.amazonaws.com/
 
-## Available Scripts
+### 01. 프로젝트 소개
+1) 문제상황
+- 기업에서 가장 당연하게 사용하는 설문조사. 얼마나 진심으로 참여하나요?
+소비자의 진심이 궁금해 하는 설문조사지만 실질적으로 설문조사에서 진심을 찾기는 어렵습니다. 
+딱딱한 설문지, 불편한 사용성은 소비자의 진심과 더더욱 멀어지게 합니다.
+- 좀 더 편리하고, 부드러운 설문조사 제작 플랫폼을 만들려 합니다.
 
-In the project directory, you can run:
+2) 장점
+- 현재 어떤 기업이든 설문조사를 사용하고, 필요성을 인지하고 있습니다. 그러나, 불편한 폼이 당연한 듯 쓰고 있는 상황입니다.
+- 기업에게, 소비자에게 모두 매력적인 플랫폼을 제작한다는 장점을 가지고 있습니다.
 
-### `yarn start`
+### 02. 기획 및 개발 기간
+- 기획 기간 : 2022.12.30 ~ 2023.01.05
+- 개발 기간 : 2023.01.06 ~
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 03. 개발 조건
+- React Framework를 사용
+- Styled Component 사용
+- Redux 사용
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 04. 페이지별 구현 기능
