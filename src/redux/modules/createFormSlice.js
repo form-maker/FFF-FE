@@ -1,4 +1,5 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
+import { baseURLApi } from "../../core/api";
 
 const initialState = {
   selectedFormType: "COVER",
@@ -13,7 +14,20 @@ const initialState = {
     questionList: [],
   },
   error: null,
+  formCreateSuccess: false,
 };
+
+export const __postForm = createAsyncThunk(
+  "createForm/postForm",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await baseURLApi.post("survey", payload);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const createFormSlice = createSlice({
   name: "createForm",
@@ -103,6 +117,18 @@ const createFormSlice = createSlice({
       state.selectedFormType =
         state.formList?.questionList[action.payload - 2]["questionType"];
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(__postForm.fulfilled, (state, action) => {
+      console.log(action.payload);
+      if (action.payload.statusCode === 200) {
+        state.formCreateSuccess = true;
+        state = initialState;
+      }
+    });
+    builder.addCase(__postForm.rejected, (state, action) => {
+      console.log(current(action.payload));
+    });
   },
 });
 

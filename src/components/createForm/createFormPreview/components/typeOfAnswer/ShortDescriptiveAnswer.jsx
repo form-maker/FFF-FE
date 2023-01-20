@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
+import fonts from "../../../../../styles/fonts";
 
 const ShortDescriptiveAnswer = () => {
   return (

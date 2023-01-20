@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import fonts from "../../../../../styles/fonts";
 import { useSelector } from "react-redux";
-import fonts from "../../../styles/fonts";
+import { v4 as uuidv4 } from "uuid";
 
-const SingleChoiceAnswer = () => {
+// console.log(uuidv4());
+
+const RankAnswer = () => {
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
@@ -16,7 +19,7 @@ const SingleChoiceAnswer = () => {
   return (
     <Container>
       <CommentContainer>
-        <p>중복선택 불가</p>
+        <p>중복선택 가능</p>
       </CommentContainer>
       <ButtonBox>
         {answerList?.map((answer, index) => {
@@ -66,4 +69,4 @@ const CommentContainer = styled.div`
   }
 `;
 
-export default SingleChoiceAnswer;
+export default RankAnswer;

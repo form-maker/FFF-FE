@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import fonts from "../../../styles/fonts";
+import fonts from "../../../../../styles/fonts";
 
 const MultipleChoiceAnswer = () => {
   const currentPageNum = useSelector(

@@ -7,14 +7,7 @@ import { fillOutQuestion } from "../../../../../redux/modules/createFormSlice";
 import { Slider } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 
-// const slideTheme = createTheme({
-//   palette: {
-//     color: "#BBE0FA",
-//   },
-// });
-
 const SlideBarForm = () => {
-  const [slideValue, setSlideValue] = useState(2);
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
@@ -29,10 +22,6 @@ const SlideBarForm = () => {
       state.createForm.formList?.questionList[currentPageNum - 2]["answerList"]
   );
 
-  const plusInputHandler = (event) => {
-    setSlideValue(event.target.value);
-  };
-
   const dispatch = useDispatch();
   useEffect(() => {
     currentPageNum > 1 &&
@@ -46,15 +35,6 @@ const SlideBarForm = () => {
         })
       );
   }, []);
-
-  useEffect(() => {
-    currentPageNum > 1 &&
-      dispatch(
-        fillOutQuestion({
-          volume: slideValue,
-        })
-      );
-  }, [dispatch, currentPageNum, slideValue]);
 
   const inputHandler = (event) => {
     const { name, value } = event.target;
@@ -134,7 +114,7 @@ const SlideBarForm = () => {
         <LabelContainer>
           <p>왼쪽과 오른쪽에 들어갈 내용을 작성해 주세요</p>
           <InputContainer>
-            <div>{-slideValue}</div>
+            <div>{-value[0]}</div>
             <input
               value={answerList && answerList[0]}
               onChange={inputHandler}
@@ -143,7 +123,7 @@ const SlideBarForm = () => {
             />
           </InputContainer>
           <InputContainer>
-            <div>{slideValue}</div>
+            <div>{value[1]}</div>
             <input
               value={answerList && answerList[1]}
               onChange={inputHandler}
