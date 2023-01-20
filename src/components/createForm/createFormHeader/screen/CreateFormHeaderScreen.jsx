@@ -2,24 +2,26 @@ import React from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
-import { baseURLApi } from "../../../../core/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { __postForm } from "../../../../redux/modules/createFormSlice";
+import { batch } from "react-redux";
 
 const CreateFormHeaderScreen = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const survey = useSelector((state) => state.createForm.formList);
   const title = useSelector((state) => state.createForm.formList.title);
 
+  const isSuccess = useSelector((state) => state.createForm.formCreateSuccess);
+
+  console.log(isSuccess);
+
   const postClickHandler = async () => {
-    try {
-      await baseURLApi.post("survey", survey);
-      alert("등록이 완료 되었습니다.");
+    batch(() => {
+      dispatch(__postForm(survey));
       navigate("/mypage");
-    } catch (error) {
-      console.log(error);
-      alert(error.response.data.msg);
-    }
+    });
   };
 
   return (
@@ -39,14 +41,16 @@ const CreateFormHeaderScreen = () => {
 
 const Container = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #e1e1e1;
   height: 5rem;
   padding: 0 4.2rem;
+  z-index: 1;
+  background-color: ${({ theme }) => theme.backgroundColor};
 `;
+
 const SubContainer = styled.div`
   width: 100%;
   min-width: 800px;

@@ -31,8 +31,6 @@ const SignUpScreen = () => {
   const [hidePassword, setHidePassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  //아이디 형식
-
   //첫번째 비밀번호 보이기
   const toggle = () => {
     setHidePassword(!hidePassword);
@@ -49,14 +47,14 @@ const SignUpScreen = () => {
 
   //아이디 입력 이벤트
   const LoginIdChangeHandler = (e) => {
-    const loginIdRegex = /[a-zA-z]{4,16}$/;
+    const loginIdRegex = /[a-zA-z0-9]{4,16}$/;
     const abc = e.target.value;
     setLoginId(abc);
     if (!loginIdRegex.test(abc)) {
-      setLoginIdMassage("영문 대/소문자 4자리 이상 16자 이하로 압력해주세요.");
+      setLoginIdMassage("4-12사이 영문 대/소문자 숫자조합");
       setIsLoginId(false);
     } else {
-      setLoginIdMassage("아이디 형식에 맞습니다.");
+      setLoginIdMassage("사용가능한 아이디 입니다.");
       setIsLoginId(true);
     }
   };
@@ -113,7 +111,7 @@ const SignUpScreen = () => {
         `user/signup/loginid?loginId=${bbb.loginId}`
       );
       if (data.data.statusCode === 200) {
-        alert("사용가능한 아이디입니다.");
+        alert(data.data.msg);
         setLoginidCheck(true);
       } else {
         alert("중복된 아이디입니다.");
@@ -140,7 +138,7 @@ const SignUpScreen = () => {
   const onUserCheck = (e) => {
     e.preventDefault();
     if (username.length === 0) {
-      alert("이름을 입력해 주세요");
+      alert("한글자 이상 입력해 주세요");
       return;
     }
     UsernameCheck({ username });
@@ -173,7 +171,7 @@ const SignUpScreen = () => {
         alert("전송되었습니다.");
         return data;
       } else {
-        alert("이메일 형식이 아닙니다.");
+        alert(data.data.msg);
       }
     } catch (error) {}
   };
@@ -195,7 +193,10 @@ const SignUpScreen = () => {
         `user/mail-auth/verify?email=${email}&code=${emailnum}`
       );
       if (data.data.statusCode === 200) {
-        alert("인증번호가 일치합니다. 게속 회원가입을 진행해 주세요.");
+        alert("인증번호가 일치합니다. 계속 회원가입을 진행해 주세요.");
+      }
+      if (data.data.statusCode === 400) {
+        alert(data.data.msg);
       } else {
         alert("인증번호가 일치하지 않습니다");
       }
@@ -221,7 +222,7 @@ const SignUpScreen = () => {
       alert("빈칸을 채워주세요.");
     } else {
       dispatch(__addSignup({ loginId, email, username, password }));
-      alert("회원가입 완료");
+      alert("회원가입 완료 로그인 해주세요.");
       navigate(`/login`);
     }
   };

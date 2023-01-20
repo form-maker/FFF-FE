@@ -50,7 +50,7 @@ const SurveyView = () => {
 
   return (
     <Container>
-      <PointContext>🔥 현재 * 명이 설문을 참여 중입니다.</PointContext>
+      <PointContext>🔥 현재 1 명이 설문을 참여 중입니다.</PointContext>
       {currentFormType === "COVER" && <CoverSurvey />}
       {currentFormType === "SCORE" && <ScoreSurvey />}
       {currentFormType === "STAR" && <StarSurvey />}
