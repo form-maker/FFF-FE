@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
+import fonts from "../../../../../styles/fonts";
 import { useDispatch, useSelector } from "react-redux";
-import RoundButtonLarge from "../buttons/roundButtons/RoundButtonLarge";
+import RoundButtonLarge from "../../../../common/buttons/roundButtons/RoundButtonLarge";
 
 const CoverAnswer = () => {
   const title = useSelector((state) => state.createForm.formList.title);
