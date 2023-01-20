@@ -51,6 +51,7 @@ const Calender = ({ setIsToggleOn, startDateToggleHandler }) => {
       endDate={endDate}
       selectsRange
       inline
+      minDate={new Date()}
       locale={ko}
       calendarClassName=""
     />
