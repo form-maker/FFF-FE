@@ -5,11 +5,12 @@ import { baseURLApi } from "../../core/api";
 import { Link } from "react-router-dom";
 import fonts from "../../styles/fonts";
 import Google from "./outh/Google";
-import { CLIENT_ID_G,REDIRECT_URI_G } from "../../constants/env";
-
-
-export const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+import {
+  CLIENT_ID,
+  REDIRECT_URI,
+  CLIENT_ID_G,
+  REDIRECT_URI_G,
+} from "../../constants/env";
 
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=https://www.googleapis.com/auth/drive.metadata.readonly`;
@@ -286,6 +287,10 @@ const SnsTitle = styled.div`
   align-items: center;
   justify-content: center;
   ${fonts.Body2}
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
+
   margin-bottom: 25px;
 `;
 
