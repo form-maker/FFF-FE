@@ -1,13 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
+import { SERVER_URL_API } from "../../../../constants/env";
 
 const StatsSubHeader = () => {
   const statsList = useSelector((state) => state.stats.stats);
-
-  console.log(statsList);
+  const { surveyId } = useParams();
 
   return (
     <Container>
@@ -20,6 +21,11 @@ const StatsSubHeader = () => {
           margin="0"
           height="3.4rem"
           borderRadius="9.9rem"
+          onClick={() => {
+            window.open(
+              `${SERVER_URL_API}/survey/stats/download?surveyId=${surveyId}`
+            );
+          }}
         />
       </SubHeaderContainer>
     </Container>
