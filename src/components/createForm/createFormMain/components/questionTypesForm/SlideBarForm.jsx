@@ -114,7 +114,7 @@ const SlideBarForm = () => {
         <LabelContainer>
           <p>왼쪽과 오른쪽에 들어갈 내용을 작성해 주세요</p>
           <InputContainer>
-            <div>{-value[0]}</div>
+            <div>{value[0]}</div>
             <input
               value={answerList && answerList[0]}
               onChange={inputHandler}

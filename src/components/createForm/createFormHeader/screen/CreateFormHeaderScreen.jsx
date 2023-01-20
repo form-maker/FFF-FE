@@ -41,14 +41,16 @@ const CreateFormHeaderScreen = () => {
 
 const Container = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #e1e1e1;
   height: 5rem;
   padding: 0 4.2rem;
+  z-index: 1;
+  background-color: ${({ theme }) => theme.backgroundColor};
 `;
+
 const SubContainer = styled.div`
   width: 100%;
   min-width: 800px;
