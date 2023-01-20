@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
-import CoverAnswer from "../../../common/typeOfAnswer/CoverAnswer";
-import LongDescriptiveAnswer from "../../../common/typeOfAnswer/LongDescriptiveAnswer";
-import MultipleChoiceAnswer from "../../../common/typeOfAnswer/MultipleChoiceAnswer";
-import RankAnswer from "../../../common/typeOfAnswer/RankAnswer";
-import ScoreAnswer from "../../../common/typeOfAnswer/ScoreAnswer";
-import ShortDescriptiveAnswer from "../../../common/typeOfAnswer/ShortDescriptiveAnswer";
-import SingleChoiceAnswer from "../../../common/typeOfAnswer/SingleChoiceAnswer";
-import SlideBarAnswer from "../../../common/typeOfAnswer/SlideBarAnswer";
-import StarAnswer from "../../../common/typeOfAnswer/StarAnswer";
+import CoverAnswer from "./typeOfAnswer/CoverAnswer";
+import LongDescriptiveAnswer from "./typeOfAnswer/LongDescriptiveAnswer";
+import MultipleChoiceAnswer from "./typeOfAnswer/MultipleChoiceAnswer";
+import RankAnswer from "./typeOfAnswer/RankAnswer";
+import ScoreAnswer from "./typeOfAnswer/ScoreAnswer";
+import ShortDescriptiveAnswer from "./typeOfAnswer/ShortDescriptiveAnswer";
+import SingleChoiceAnswer from "./typeOfAnswer/SingleChoiceAnswer";
+import SlideBarAnswer from "./typeOfAnswer/SlideBarAnswer";
+import StarAnswer from "./typeOfAnswer/StarAnswer";
 import { useSelector } from "react-redux";
-import NewAnswer from "../../../common/typeOfAnswer/NewAnswer";
+import NewAnswer from "./typeOfAnswer/NewAnswer";
 import PhoneTurnAPageButtons from "./PhoneTurnAPageButtons";
 
 const Preview = () => {
