@@ -60,6 +60,7 @@ const Header = () => {
                   onClick={() => {
                     localStorage.removeItem("Authorization");
                     setIsLogin(false);
+                    navigate("/");
                   }}
                   fontSize="1.3rem"
                 />
