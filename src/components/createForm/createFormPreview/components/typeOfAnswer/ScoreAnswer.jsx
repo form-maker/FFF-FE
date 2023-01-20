@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import fonts from "../../../styles/fonts";
-import RoundButtonMedium from "../buttons/roundButtons/RoundButtonMedium";
+import fonts from "../../../../../styles/fonts";
+import RoundButtonMedium from "../../../../common/buttons/roundButtons/RoundButtonMedium";
 
 const ScoreAnswer = () => {
   return (
