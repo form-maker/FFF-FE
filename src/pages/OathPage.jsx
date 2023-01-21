@@ -1,10 +1,10 @@
 import React from "react";
-import Oauth2RedirectHandler from "../components/login/outh/Oauth2RedirectHandler";
+import KakaoRedirectHandler from "../components/login/outh/KakaoRedirectHandler";
 
 const OathPage = () => {
   return (
     <div>
-      <Oauth2RedirectHandler />
+      <KakaoRedirectHandler />
       <h4>로그인 중</h4>
     </div>
   );
