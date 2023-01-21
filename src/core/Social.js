@@ -13,7 +13,7 @@ export const kakao = async (post) => {
 export const google = async (ggg) => {
   console.log(ggg);
   try {
-    const { data } = await baseURLApi.post(`user/login/google?code=${ggg}`);
+    const data = await baseURLApi.get(`user/login/google?code=${ggg}`);
     return data;
   } catch (error) {
     alert(error.response.data.msg);
