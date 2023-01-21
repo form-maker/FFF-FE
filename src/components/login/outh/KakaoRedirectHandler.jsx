@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { kakao } from "../../../core/Social";
 
-const Oauth2RedirectHandler = () => {
+const KakaoRedirectHandler = () => {
   const navigate = useNavigate();
   let code = new URL(window.location.href).searchParams.get("code");
 
@@ -13,4 +13,4 @@ const Oauth2RedirectHandler = () => {
   });
 };
 
-export default Oauth2RedirectHandler;
+export default KakaoRedirectHandler;

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { baseURLApi } from "../../core/api";
 import { Link } from "react-router-dom";
 import fonts from "../../styles/fonts";
-import Google from "./outh/Google";
 import {
   CLIENT_ID,
   REDIRECT_URI,
@@ -15,6 +14,7 @@ import {
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=https://www.googleapis.com/auth/drive.metadata.readonly`;
 console.log(REDIRECT_URI_G);
+
 const LoginScreen = () => {
   const navigate = useNavigate();
   const [loginId, setLoginId] = useState("");
@@ -61,24 +61,23 @@ const LoginScreen = () => {
   };
 
   //카카오 인가 코드 요청
-  const ClickKakaoHandler = async (e) => {
+  const KakaoClickHandler = async (e) => {
     e.preventDefault();
     window.location.href = KAKAO_AUTH_URL;
   };
 
   //구글 요청
-  const ClickGoogleHandler = async (e) => {
+  const GoogleClickHandler = async (e) => {
     e.preventDefault();
     window.location.href = GOOGLE_AUTH_URL;
   };
 
-  //구글 테스트
-  const onGoogleSignIn = async (res) => {
-    const { credential } = res;
-    const result = await baseURLApi.post(
-      `user/login/google?code=${credential}`
-    );
+  //소셜 로그인 임시 조치
+  const onClick = (e) => {
+    e.preventDefault();
+    alert("카카오 로그인만 가능합니다.");
   };
+
   return (
     <ContainerBox>
       <LoginForm>
@@ -108,6 +107,7 @@ const LoginScreen = () => {
             }}
           />
           <img
+            alt="password"
             onClick={toggle}
             src={hidePassword ? "img/open eye.png" : "img/closeeye.png"}
           />
@@ -121,14 +121,14 @@ const LoginScreen = () => {
         </ButtonBox>
         <SnsTitle>소셜(간편) 로그인</SnsTitle>
         <SnsBox>
-          <GoogleBtn onClick={ClickGoogleHandler}>
-            <img src="img/g-logo.png" />
+          <GoogleBtn onClick={onClick}>
+            <img alt="GoogleLogin" src="img/g-logo.png" />
           </GoogleBtn>
-          <KakaoBtn onClick={ClickKakaoHandler}>
-            <img src="img/kakaotalk_sharing_btn_medium.png" />
+          <KakaoBtn onClick={KakaoClickHandler}>
+            <img alt="KakakoLogin" src="img/kakaotalk_sharing_btn_medium.png" />
           </KakaoBtn>
-          <NaverBtn>
-            <img src="img/btnG_naver.png" />
+          <NaverBtn onClick={onClick}>
+            <img alt="NaverLogin" src="img/btnG_naver.png" />
           </NaverBtn>
         </SnsBox>
         <SignUpBox>
@@ -142,21 +142,17 @@ const LoginScreen = () => {
 export default LoginScreen;
 
 const ContainerBox = styled.div`
-  margin-top: 210px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 80px auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 340px;
-  height: 670px;
 `;
 
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 100px 100px 130px 100px;
   align-items: center;
   justify-content: center;
 

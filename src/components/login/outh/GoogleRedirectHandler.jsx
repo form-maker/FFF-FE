@@ -1,9 +1,8 @@
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import React, { useRef } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { google } from "../../../core/Social";
 
-const Google = () => {
+const GoogleRedirectHandler = () => {
   const navigate = useNavigate();
 
   let code = new URL(window.location.href).searchParams.get("code");
@@ -16,4 +15,4 @@ const Google = () => {
   });
 };
 
-export default Google;
+export default GoogleRedirectHandler;
