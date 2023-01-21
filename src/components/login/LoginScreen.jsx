@@ -134,7 +134,6 @@ const LoginScreen = () => {
         <SignUpBox>
           <Link to="/signup">아직 회원이 아니신가요?</Link>
         </SignUpBox>
-        <Google />
       </LoginForm>
     </ContainerBox>
   );
