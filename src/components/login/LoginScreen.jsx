@@ -14,7 +14,7 @@ import {
 
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=https://www.googleapis.com/auth/drive.metadata.readonly`;
-
+console.log(REDIRECT_URI_G);
 const LoginScreen = () => {
   const navigate = useNavigate();
   const [loginId, setLoginId] = useState("");
