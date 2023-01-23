@@ -6,7 +6,7 @@ import CardList from "../components/CardList";
 import { useDispatch, useSelector } from "react-redux";
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 import { useEffect } from "react";
-import { createFromInitialize } from "../../../../redux/modules/createFormSlice";
+import { createFormInitialize } from "../../../../redux/modules/createFormSlice";
 
 const MainContentScreen = () => {
   const dispatch = useDispatch();
@@ -19,8 +19,8 @@ const MainContentScreen = () => {
   };
 
   useEffect(() => {
-    dispatch(createFromInitialize());
-  }, []);
+    dispatch(createFormInitialize());
+  }, [dispatch]);
 
   return (
     <Container>
