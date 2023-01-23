@@ -15,15 +15,14 @@ const CreateFormList = () => {
   const dispatch = useDispatch();
 
   const currentPageNum = useSelector(
-    (state) => state.createForm.currentPageNum
+    (state) => state.createForm?.currentPageNum
   );
 
   const questionList = useSelector(
     (state) => state.createForm.formList?.questionList
   );
 
-  const form = useSelector((state) => state.createForm);
-  console.log(form);
+  const form = useSelector((state) => state?.createForm);
 
   const goClickPageHandler = (questionId) => {
     let questionPage =
@@ -41,7 +40,7 @@ const CreateFormList = () => {
           <CreateFormCard
             imgName="COVER"
             index={-1}
-            title={form.formList.title}
+            title={form.formList?.title}
             onClick={() => {
               dispatch(goClickCover(1));
             }}
@@ -75,7 +74,17 @@ const CreateFormList = () => {
           buttonValue="임시저장"
           background="subColor1"
           width="16.4rem"
+          onClick={() => {
+            localStorage.setItem("createForm", JSON.stringify(form));
+          }}
         />
+        {/* <RoundButtonMediumWide
+          buttonValue="받아볼게"
+          onClick={() => {
+            let a = localStorage.getItem("createForm");
+            console.log(JSON.parse(a));
+          }}
+        /> */}
       </BottomContainer>
     </Container>
   );
