@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
@@ -18,12 +18,6 @@ const ScoreSurvey = () => {
   const selectedAnswerList = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
-
-  const survey = useSelector((state) => state.survey);
-
-  useEffect(() => {
-    console.log(survey);
-  }, [survey]);
 
   const answerHandler = (answer) => {
     dispatch(changeAnswer(answer));

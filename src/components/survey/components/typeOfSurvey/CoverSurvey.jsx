@@ -10,8 +10,6 @@ const CoverSurvey = () => {
   const dispatch = useDispatch();
   const survey = useSelector((state) => state.survey.survey);
   const questionIdList = useSelector((state) => state.survey?.questionIdList);
-  console.log(questionIdList);
-
   const surveyStartClickHandler = () => {
     dispatch(__getSurveyQuestion(questionIdList[0]));
   };
