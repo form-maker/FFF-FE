@@ -49,12 +49,10 @@ const CreateFormInput = () => {
 
   return (
     questionType !== "COVER" &&
-    // questionType !== "Group" &&
     questionType !== "NEW_FORM" &&
     questionType !== undefined && (
       <Container>
         <div>
-          {/* <TitleNumber>{currentPageNum - 1}</TitleNumber> */}
           <TitleInput
             placeholder="질문을 작성해주세요"
             value={questionTitle || ""}
