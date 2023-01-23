@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { instanceApi, baseURLApi } from "../../core/api";
+import { baseURLApi } from "../../core/api";
 
 const initialState = {
   currentPageNum: 1,
@@ -16,7 +16,6 @@ export const __getSurvey = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await baseURLApi.get(`survey?surveyId=${payload}`);
-      console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -67,6 +66,9 @@ const SurveySlice = createSlice({
   name: "survey",
   initialState,
   reducers: {
+    SurveySliceInitialize: (state) => ({
+      state: initialState,
+    }),
     pushAnswer: (state, action) => {
       state.answer[+state.currentPageNum - 2]["selectValue"] = [
         ...state.answer[state.currentPageNum - 2].selectValue,
@@ -97,6 +99,8 @@ const SurveySlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(__getSurvey.fulfilled, (state, action) => {
+      state.currentPageNum = 1;
+      state.currentFormType = "COVER";
       state.survey = action.payload.data;
       state.questionIdList = action.payload.data.questionIdList;
       state.answer = action.payload.data.questionIdList?.map((id, index) => {
@@ -108,7 +112,6 @@ const SurveySlice = createSlice({
           descriptive: "",
         };
       });
-      console.log(state.answer);
     });
     builder.addCase(__getSurvey.rejected, (state, action) => {
       console.log(action.payload);
@@ -153,5 +156,6 @@ export const {
   changeAnswerList,
   changeDescriptive,
   getCover,
+  SurveySliceInitialize,
 } = SurveySlice.actions;
 export default SurveySlice.reducer;
