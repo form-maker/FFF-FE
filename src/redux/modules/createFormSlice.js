@@ -36,7 +36,7 @@ const createFormSlice = createSlice({
     changeField: (state, { payload: { form, key, value } }) => {
       state[form][key] = value;
     },
-    initializeForm: (state) => ({
+    createFromInitialize: (state) => ({
       state: initialState,
     }),
     selectedFormType(state, action) {
@@ -45,7 +45,7 @@ const createFormSlice = createSlice({
     // 형식 추가
     addForm(state, action) {
       state.formList.questionList = [
-        ...state.formList.questionList,
+        ...state.formList?.questionList,
         action.payload,
       ];
       state.currentPageNum = state.currentPageNum + 1;
@@ -133,6 +133,7 @@ const createFormSlice = createSlice({
 });
 
 export const {
+  createFromInitialize,
   changeField,
   selectedFormType,
   fillOutQuestion,
