@@ -4,7 +4,7 @@ import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 
 import styled from "styled-components";
 import MainSurveySummeryCard from "./MainSurveySummeryCard";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CardList = () => {
   const dispatch = useDispatch();
