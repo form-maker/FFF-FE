@@ -13,10 +13,6 @@ const CreateFormHeaderScreen = () => {
   const survey = useSelector((state) => state.createForm?.formList);
   const title = useSelector((state) => state.createForm?.formList?.title);
 
-  const isSuccess = useSelector((state) => state.createForm.formCreateSuccess);
-
-  console.log(isSuccess);
-
   const postClickHandler = async () => {
     batch(() => {
       dispatch(__postForm(survey));
