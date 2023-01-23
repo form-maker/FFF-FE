@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import CreateFormInput from "../components/CreateFormInput";
@@ -12,16 +12,36 @@ import {
 import SelectTypeList from "../components/selectType/SelectTypeList";
 
 const CreateFromMainScreen = () => {
-  const [isSelectToggleShow, setIsSelectToggleShow] = useState(false);
-  const questionId = useRef(1);
   const dispatch = useDispatch();
-
   const questionLength = useSelector(
-    (state) => state.createForm.formList.questionList
-  ).length;
+    (state) => state.createForm.formList?.questionList
+  )?.length;
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
+  const questionId = useRef(1);
+  const wrapperRef = useRef();
+
+  const [isSelectToggleShow, setIsSelectToggleShow] = useState(false);
+
+  useEffect(() => {
+    const clickOutSide = (event) => {
+      if (
+        isSelectToggleShow &&
+        wrapperRef.current &&
+        !wrapperRef.current?.contains(event.target)
+      ) {
+        setIsSelectToggleShow(false);
+      }
+    };
+
+    document.addEventListener("mousedown", clickOutSide);
+
+    return () => {
+      document.removeEventListener("mousedown", clickOutSide);
+    };
+  }, [isSelectToggleShow]);
+
   return (
     <Container>
       <Header>
@@ -37,7 +57,7 @@ const CreateFromMainScreen = () => {
           />
         </div>
         {isSelectToggleShow && (
-          <ToggleContainer>
+          <ToggleContainer ref={wrapperRef}>
             <SelectTypeList setIsSelectToggleShow={setIsSelectToggleShow} />
           </ToggleContainer>
         )}
