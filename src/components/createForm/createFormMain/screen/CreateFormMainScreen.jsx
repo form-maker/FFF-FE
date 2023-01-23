@@ -11,7 +11,7 @@ import {
 } from "../../../../redux/modules/createFormSlice";
 import SelectTypeList from "../components/selectType/SelectTypeList";
 
-const CreateFromMainScreen = () => {
+const CreateFormMainScreen = () => {
   const dispatch = useDispatch();
   const questionLength = useSelector(
     (state) => state.createForm.formList?.questionList
@@ -34,9 +34,7 @@ const CreateFromMainScreen = () => {
         setIsSelectToggleShow(false);
       }
     };
-
     document.addEventListener("mousedown", clickOutSide);
-
     return () => {
       document.removeEventListener("mousedown", clickOutSide);
     };
@@ -79,7 +77,8 @@ const CreateFromMainScreen = () => {
       </Main>
       <Bottom>
         <p>
-          {currentPageNum}/{questionLength + 1}
+          {currentPageNum ? currentPageNum : 1}/
+          {questionLength ? questionLength + 1 : 1}
         </p>
       </Bottom>
     </Container>
@@ -146,4 +145,4 @@ const Bottom = styled.div`
   line-height: 17px;
 `;
 
-export default CreateFromMainScreen;
+export default CreateFormMainScreen;
