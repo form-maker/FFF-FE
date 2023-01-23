@@ -36,9 +36,21 @@ const createFormSlice = createSlice({
     changeField: (state, { payload: { form, key, value } }) => {
       state[form][key] = value;
     },
-    createFromInitialize: (state) => ({
-      state: initialState,
-    }),
+    createFormInitialize(state) {
+      state.selectedFormType = "COVER";
+      state.currentPageNum = 1;
+      state.formList = {
+        title: "",
+        startedAt: "",
+        endedAt: "",
+        achievement: 20,
+        groupList: [],
+        summary: "",
+        questionList: [],
+      };
+      state.error = null;
+      state.formCreateSuccess = false;
+    },
     selectedFormType(state, action) {
       state.selectedFormType = action.payload;
     },
@@ -95,7 +107,7 @@ const createFormSlice = createSlice({
     goNext(state) {
       if (
         state.currentPageNum < state.formList.questionList?.length &&
-        state.formList.questionList.length !== 0
+        state.formList.questionList?.length !== 0
       ) {
         state.currentPageNum = state.currentPageNum + 1;
         state.selectedFormType =
@@ -103,9 +115,9 @@ const createFormSlice = createSlice({
             "questionType"
           ];
       } else {
-        state.currentPageNum = state.formList.questionList.length + 1;
+        state.currentPageNum = state.formList.questionList?.length + 1;
         state.selectedFormType =
-          state.formList.questionList[state.formList.questionList.length - 1][
+          state.formList.questionList[state.formList.questionList?.length - 1][
             "questionType"
           ];
       }
@@ -135,7 +147,7 @@ const createFormSlice = createSlice({
 });
 
 export const {
-  createFromInitialize,
+  createFormInitialize,
   changeField,
   selectedFormType,
   fillOutQuestion,
