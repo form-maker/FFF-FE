@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMediumWide from "../../../common/buttons/roundButtons/RoundButtonMediumWide";
 import CreateFormCard from "./CreateFormCard";
-import { goClickPage } from "../../../../redux/modules/createFormSlice";
+import {
+  goClickPage,
+  goClickCover,
+} from "../../../../redux/modules/createFormSlice";
 
 const CreateFormList = () => {
   const navigate = useNavigate();
@@ -18,7 +21,9 @@ const CreateFormList = () => {
   const questionList = useSelector(
     (state) => state.createForm.formList?.questionList
   );
-  console.log(questionList);
+
+  const form = useSelector((state) => state.createForm);
+  console.log(form);
 
   const goClickPageHandler = (questionId) => {
     let questionPage =
@@ -33,6 +38,15 @@ const CreateFormList = () => {
       <MainContainer>
         <Title>전체 페이지</Title>
         <SurveyListContainer>
+          <CreateFormCard
+            imgName="COVER"
+            index={-1}
+            title={form.formList.title}
+            onClick={() => {
+              dispatch(goClickCover(1));
+            }}
+            isCurrentPageNum={currentPageNum === 1}
+          />
           {questionList?.map((question, index) => (
             <CreateFormCard
               key={index}

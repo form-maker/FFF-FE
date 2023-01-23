@@ -111,11 +111,13 @@ const createFormSlice = createSlice({
       }
     },
     goClickPage(state, action) {
-      console.log(action.payload);
       state.currentPageNum = action.payload;
-      console.log(current(state.formList?.questionList));
       state.selectedFormType =
         state.formList?.questionList[action.payload - 2]["questionType"];
+    },
+    goClickCover(state, action) {
+      state.currentPageNum = 1;
+      state.selectedFormType = "COVER";
     },
   },
   extraReducers: (builder) => {
@@ -143,5 +145,6 @@ export const {
   goBack,
   goNext,
   goClickPage,
+  goClickCover,
 } = createFormSlice.actions;
 export default createFormSlice.reducer;

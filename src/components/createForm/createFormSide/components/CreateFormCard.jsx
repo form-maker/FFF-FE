@@ -28,7 +28,7 @@ const CreateFormCard = ({
       background={isCurrentPageNum ? "pointColor2" : null}
       fontWeight={isCurrentPageNum ? "900" : null}
     >
-      <div>{index + 1}</div>
+      <div>{index + 2}</div>
       <img
         src={process.env.PUBLIC_URL + `/img/${imgName}.svg`}
         alt={imgName}

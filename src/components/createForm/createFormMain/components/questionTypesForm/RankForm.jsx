@@ -10,12 +10,12 @@ const RankForm = () => {
   const [questionInput, setQuestion] = useState("");
   // 현재 페이지 넘버
   const currentPageNum = useSelector(
-    (state) => state.createForm.currentPageNum
+    (state) => state.createForm?.currentPageNum
   );
   // 답으로 체크할 항목
   const answerList = useSelector(
     (state) =>
-      state.createForm.formList.questionList[currentPageNum - 2]["answerList"]
+      state.createForm.formList?.questionList[currentPageNum - 2]["answerList"]
   );
   // 타이틀이 있을 때면 기존에 값이 있다 판단, 삭제 하면 안되기 때문에 체크 포인트로 사용
   const questionTitle = useSelector(
