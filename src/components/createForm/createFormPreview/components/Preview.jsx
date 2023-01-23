@@ -24,15 +24,15 @@ const Preview = () => {
   );
   const questionTitle = useSelector(
     (state) =>
-      state.createForm.formList.questionList.length !== 0 &&
+      state.createForm.formList?.questionList?.length !== 0 &&
       questionType !== "COVER" &&
-      state.createForm.formList.questionList[currentPageNum - 2][
+      state.createForm.formList?.questionList[currentPageNum - 2][
         "questionTitle"
       ]
   );
   const questionLength = useSelector(
-    (state) => state.createForm.formList.questionList
-  ).length;
+    (state) => state.createForm.formList?.questionList
+  )?.length;
   const questionSummary = useSelector(
     (state) =>
       state.createForm.formList?.questionList.length !== 0 &&
@@ -42,7 +42,6 @@ const Preview = () => {
       ]
   );
 
-  console.log(questionType);
   return (
     <Container>
       <PointContext>🔥 현재 * 명이 설문을 참여 중입니다.</PointContext>
