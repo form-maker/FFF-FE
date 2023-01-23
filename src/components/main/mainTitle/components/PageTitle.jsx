@@ -3,9 +3,25 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
+import { baseURLApi } from "../../../../core/api";
+import { batch } from "react-redux";
 
 const PageTitle = () => {
   const navigate = useNavigate();
+  const goCreateFormHandler = async () => {
+    try {
+      const { data } = await baseURLApi.get("user");
+      !data.data
+        ? batch(() => {
+            alert("로그인을 해주세요");
+            navigate("/");
+          })
+        : navigate("/createForm");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <BackgroundContainer>
@@ -23,7 +39,7 @@ const PageTitle = () => {
           buttonValue="설문 제작하기"
           margin="0 0 0 0.85rem"
           onClick={() => {
-            navigate("/createform");
+            goCreateFormHandler();
           }}
         />
       </ButtonContainer>
