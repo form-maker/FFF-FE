@@ -16,7 +16,7 @@ const CreateFormList = () => {
   );
 
   const questionList = useSelector(
-    (state) => state.createForm.formList.questionList
+    (state) => state.createForm.formList?.questionList
   );
   console.log(questionList);
 
