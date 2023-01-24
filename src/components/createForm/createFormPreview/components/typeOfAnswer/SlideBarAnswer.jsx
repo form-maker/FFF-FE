@@ -11,7 +11,7 @@ const SlideBarAnswer = () => {
   );
   const volume = useSelector(
     (state) =>
-      state.createForm.formList.questionList[currentPageNum - 2]["volume"]
+      state.createForm.formList?.questionList[currentPageNum - 2]["volume"]
   );
 
   const inputHandler = (event) => {

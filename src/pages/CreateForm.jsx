@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CreateFormHeaderScreen from "../components/createForm/createFormHeader/screen/CreateFormHeaderScreen";
-import CreateFromMainScreen from "../components/createForm/createFormMain/screen/CreateFromMainScreen";
+import CreateFormMainScreen from "../components/createForm/createFormMain/screen/CreateFormMainScreen";
 import CreateFormPreviewScreen from "../components/createForm/createFormPreview/screen/CreateFormPreviewScreen";
 import CreateFormSideScreen from "../components/createForm/createFormSide/screen/CreateFormSideScreen";
 import CreateFormContainer from "../components/createForm/createFormContainer/CreateFormContainer";
@@ -15,7 +15,7 @@ const CreateForm = () => {
       <CreateFormContainer>
         <FormCreateContainer>
           <CreateFormSideScreen />
-          <CreateFromMainScreen />
+          <CreateFormMainScreen />
           <CreateFormPreviewScreen />
         </FormCreateContainer>
       </CreateFormContainer>

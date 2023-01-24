@@ -10,12 +10,8 @@ import { batch } from "react-redux";
 const CreateFormHeaderScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const survey = useSelector((state) => state.createForm.formList);
-  const title = useSelector((state) => state.createForm.formList.title);
-
-  const isSuccess = useSelector((state) => state.createForm.formCreateSuccess);
-
-  console.log(isSuccess);
+  const survey = useSelector((state) => state.createForm?.formList);
+  const title = useSelector((state) => state.createForm?.formList?.title);
 
   const postClickHandler = async () => {
     batch(() => {

@@ -5,17 +5,22 @@ import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSm
 import CardList from "../components/CardList";
 import { useDispatch, useSelector } from "react-redux";
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
+import { useEffect } from "react";
+import { createFormInitialize } from "../../../../redux/modules/createFormSlice";
 
 const MainContentScreen = () => {
   const dispatch = useDispatch();
+  const selectedCategory = useSelector(
+    (state) => state.mainCardList?.selectedCategory
+  );
 
   const getCategoryHandler = ({ page, size, sortBy }) => {
     dispatch(__getMainCardList({ page: page, size: size, sortBy: sortBy }));
   };
 
-  const selectedCategory = useSelector(
-    (state) => state.mainCardList?.selectedCategory
-  );
+  useEffect(() => {
+    dispatch(createFormInitialize());
+  }, [dispatch]);
 
   return (
     <Container>

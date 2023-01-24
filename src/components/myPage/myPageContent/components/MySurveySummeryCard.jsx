@@ -1,7 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
+import { __deleteStats } from "../../../../redux/modules/statsSlice";
 
 const MySurveySummeryCard = ({
   title,
@@ -12,15 +14,13 @@ const MySurveySummeryCard = ({
   achievementRate,
   totalQuestion,
   onClick,
+  surveyId,
 }) => {
   // 랜덤 색상 배정
-  const backgroundColor = ["#BBE0FA", "#B0D1FF", "#F6EAFD", "#CEDFFF"];
-  const getRandom = (min, max) =>
-    Math.floor(Math.random() * (max - min) + min) - 1;
-  let randomColor = backgroundColor[getRandom(1, backgroundColor.length + 1)];
+  const dispatch = useDispatch();
 
   return (
-    <Container backgroundColor={randomColor} onClick={onClick}>
+    <Container>
       <TitleContainer>
         <h3>{title}</h3>
         <p>생성일: {createdAt}</p>
@@ -52,12 +52,16 @@ const MySurveySummeryCard = ({
       </DetailContainer>
       <ButtonContainer>
         <RoundButtonMedium
-          buttonValue="수정하기"
+          onClick={() => {
+            dispatch(__deleteStats(surveyId));
+          }}
+          buttonValue="삭제하기"
           background="subColor1"
         ></RoundButtonMedium>
         <RoundButtonMedium
           buttonValue="결과보기"
           background="subColor1"
+          onClick={onClick}
         ></RoundButtonMedium>
       </ButtonContainer>
     </Container>
@@ -77,7 +81,6 @@ const Container = styled.div`
   box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   margin-bottom: 3.5rem;
-  cursor: pointer;
   div {
     margin: 0;
   }

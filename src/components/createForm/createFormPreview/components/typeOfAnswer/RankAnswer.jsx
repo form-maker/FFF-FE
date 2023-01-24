@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import fonts from "../../../../../styles/fonts";
 import { useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
-
-// console.log(uuidv4());
 
 const RankAnswer = () => {
   const currentPageNum = useSelector(
@@ -13,7 +10,7 @@ const RankAnswer = () => {
 
   const answerList = useSelector(
     (state) =>
-      state.createForm.formList.questionList[currentPageNum - 2]["answerList"]
+      state.createForm.formList?.questionList[currentPageNum - 2]["answerList"]
   );
 
   return (
@@ -25,7 +22,7 @@ const RankAnswer = () => {
         {answerList?.map((answer, index) => {
           return (
             <button key={index}>
-              {index + 1}. {answer}
+              {index ? index + 1 : ""}.{answer ? answer : "질문을 작성해주세요"}
             </button>
           );
         })}

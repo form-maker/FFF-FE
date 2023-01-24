@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import fonts from "../../../styles/fonts";
 
@@ -25,11 +25,7 @@ const SurveyView = () => {
   const survey = useSelector((state) => state.survey.survey);
   const currentFormType = useSelector((state) => state.survey.currentFormType);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-
   const answerList = useSelector((state) => state.survey.answer);
-
-  const surveytest = useSelector((state) => state.survey);
-  console.log(surveytest);
 
   useEffect(() => {
     dispatch(__getSurvey(surveyId));
@@ -61,7 +57,7 @@ const SurveyView = () => {
       {currentFormType === "SHORT_DESCRIPTIVE" && <ShortDescriptiveSurvey />}
       {currentFormType === "LONG_DESCRIPTIVE" && <LongDescriptiveSurvey />}
 
-      {currentPageNum === survey.questionIdList?.length + 1 && (
+      {currentPageNum === survey?.questionIdList?.length + 1 && (
         <EndButtonContainer>
           <RoundButtonLarge
             buttonValue="설문 완료"

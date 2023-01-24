@@ -1,24 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMediumWide from "../../../common/buttons/roundButtons/RoundButtonMediumWide";
 import CreateFormCard from "./CreateFormCard";
-import { goClickPage } from "../../../../redux/modules/createFormSlice";
+import {
+  goClickPage,
+  goClickCover,
+} from "../../../../redux/modules/createFormSlice";
 
 const CreateFormList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const currentPageNum = useSelector(
-    (state) => state.createForm.currentPageNum
+    (state) => state.createForm?.currentPageNum
   );
 
   const questionList = useSelector(
-    (state) => state.createForm.formList.questionList
+    (state) => state.createForm.formList?.questionList
   );
-  console.log(questionList);
+
+  const form = useSelector((state) => state?.createForm);
 
   const goClickPageHandler = (questionId) => {
     let questionPage =
@@ -28,17 +32,30 @@ const CreateFormList = () => {
     dispatch(goClickPage(questionPage));
   };
 
+  console.log(questionList);
+
   return (
     <Container>
       <MainContainer>
         <Title>전체 페이지</Title>
         <SurveyListContainer>
+          <CreateFormCard
+            imgName="COVER"
+            index={-1}
+            title={form.formList?.title}
+            onClick={() => {
+              dispatch(goClickCover(1));
+            }}
+            isCurrentPageNum={currentPageNum === 1}
+            isCover="true"
+          />
           {questionList?.map((question, index) => (
             <CreateFormCard
               key={index}
               imgName={question.questionType}
               index={index}
               title={question.questionTitle}
+              questionId={question.questionId}
               onClick={() => {
                 goClickPageHandler(question.questionId);
               }}
@@ -61,6 +78,9 @@ const CreateFormList = () => {
           buttonValue="임시저장"
           background="subColor1"
           width="16.4rem"
+          onClick={() => {
+            localStorage.setItem("createForm", JSON.stringify(form));
+          }}
         />
       </BottomContainer>
     </Container>

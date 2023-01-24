@@ -1,12 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector, batch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeField } from "../../../../../redux/modules/createFormSlice";
 import fonts from "../../../../../styles/fonts";
 import CreateFormCalender from "../calender/CreateFormCalender";
 
 const SurveyCoverForm = () => {
+  const wrapperRef = useRef();
   const [isStartDateToggleOpen, setIsStartDateToggleOpen] = useState(false);
+
+  useEffect(() => {
+    const clickOutSide = (event) => {
+      if (
+        isStartDateToggleOpen &&
+        wrapperRef.current &&
+        !wrapperRef.current?.contains(event.target)
+      ) {
+        setIsStartDateToggleOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", clickOutSide);
+    return () => {
+      document.removeEventListener("mousedown", clickOutSide);
+    };
+  }, [isStartDateToggleOpen]);
 
   const dispatch = useDispatch();
   const title = useSelector((state) => state.createForm.formList?.title);
@@ -14,9 +31,6 @@ const SurveyCoverForm = () => {
   const achievement = useSelector(
     (state) => state.createForm.formList?.achievement
   );
-
-  const test = useSelector((state) => state.createForm.formList);
-  console.log(test);
 
   const InputHandler = (event) => {
     const { name, value } = event.target;
@@ -97,7 +111,7 @@ const SurveyCoverForm = () => {
         <label onClick={startDateToggleHandler}>
           설문 기간을 설정해주세요 ▾
         </label>
-        <CalenderContainer>
+        <CalenderContainer ref={wrapperRef}>
           {isStartDateToggleOpen && (
             <CreateFormCalender
               startDateToggleHandler={startDateToggleHandler}

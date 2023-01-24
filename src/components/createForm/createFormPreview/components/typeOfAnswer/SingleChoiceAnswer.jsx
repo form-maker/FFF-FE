@@ -10,7 +10,7 @@ const SingleChoiceAnswer = () => {
 
   const answerList = useSelector(
     (state) =>
-      state.createForm.formList.questionList[currentPageNum - 2]["answerList"]
+      state.createForm.formList?.questionList[currentPageNum - 2]["answerList"]
   );
 
   return (

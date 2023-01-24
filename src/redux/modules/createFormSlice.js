@@ -33,19 +33,31 @@ const createFormSlice = createSlice({
   name: "createForm",
   initialState,
   reducers: {
-    changeField: (state, { payload: { form, key, value } }) => {
+    changeField(state, { payload: { form, key, value } }) {
       state[form][key] = value;
     },
-    initializeForm: (state) => ({
-      state: initialState,
-    }),
+    createFormInitialize(state) {
+      state.selectedFormType = "COVER";
+      state.currentPageNum = 1;
+      state.formList = {
+        title: "",
+        startedAt: "",
+        endedAt: "",
+        achievement: 20,
+        groupList: [],
+        summary: "",
+        questionList: [],
+      };
+      state.error = null;
+      state.formCreateSuccess = false;
+    },
     selectedFormType(state, action) {
       state.selectedFormType = action.payload;
     },
     // 형식 추가
     addForm(state, action) {
       state.formList.questionList = [
-        ...state.formList.questionList,
+        ...state.formList?.questionList,
         action.payload,
       ];
       state.currentPageNum = state.currentPageNum + 1;
@@ -76,9 +88,16 @@ const createFormSlice = createSlice({
           return question.questionId !== id;
         }
       );
+      console.log(state.formList.questionList);
       state.currentPageNum = state.currentPageNum - 1;
-      state.selectedFormType =
-        state.formList.questionList[state.currentPageNum - 2]["questionType"];
+      if (state.currentPageNum <= 2) {
+        state.selectedFormType = "COVER";
+      } else {
+        state.selectedFormType =
+          state.formList?.questionList[state.currentPageNum - 2][
+            "questionType"
+          ];
+      }
     },
 
     // 화살표 버튼
@@ -95,7 +114,7 @@ const createFormSlice = createSlice({
     goNext(state) {
       if (
         state.currentPageNum < state.formList.questionList?.length &&
-        state.formList.questionList.length !== 0
+        state.formList.questionList?.length !== 0
       ) {
         state.currentPageNum = state.currentPageNum + 1;
         state.selectedFormType =
@@ -103,19 +122,28 @@ const createFormSlice = createSlice({
             "questionType"
           ];
       } else {
-        state.currentPageNum = state.formList.questionList.length + 1;
+        state.currentPageNum = state.formList.questionList?.length + 1;
         state.selectedFormType =
-          state.formList.questionList[state.formList.questionList.length - 1][
+          state.formList.questionList[state.formList.questionList?.length - 1][
             "questionType"
           ];
       }
     },
     goClickPage(state, action) {
-      console.log(action.payload);
       state.currentPageNum = action.payload;
-      console.log(current(state.formList?.questionList));
       state.selectedFormType =
         state.formList?.questionList[action.payload - 2]["questionType"];
+    },
+    goClickCover(state, action) {
+      state.currentPageNum = 1;
+      state.selectedFormType = "COVER";
+    },
+    getPrevForm(state, action) {
+      state.selectedFormType = "COVER";
+      state.currentPageNum = 1;
+      state.formList = action.payload.formList;
+      state.error = null;
+      state.formCreateSuccess = false;
     },
   },
   extraReducers: (builder) => {
@@ -133,6 +161,7 @@ const createFormSlice = createSlice({
 });
 
 export const {
+  createFormInitialize,
   changeField,
   selectedFormType,
   fillOutQuestion,
@@ -142,5 +171,7 @@ export const {
   goBack,
   goNext,
   goClickPage,
+  goClickCover,
+  getPrevForm,
 } = createFormSlice.actions;
 export default createFormSlice.reducer;

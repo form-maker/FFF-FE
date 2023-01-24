@@ -27,7 +27,7 @@ const MyPageCardList = () => {
         status: "IN_PROCEED",
       })
     );
-  }, []);
+  }, [dispatch, myPageCardList]);
 
   const getCategoryHandler = ({ page, size, sortBy }) => {
     dispatch(
@@ -102,6 +102,7 @@ const MyPageCardList = () => {
             return (
               <MySurveySummeryCard
                 key={card.surveyId}
+                surveyId={card.surveyId}
                 title={card.title}
                 createdAt={card.createdAt}
                 participant={card.participant}
