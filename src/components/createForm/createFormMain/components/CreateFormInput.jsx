@@ -17,11 +17,14 @@ const CreateFormInput = () => {
     (state) => state.createForm?.selectedFormType
   );
 
+  console.log(questionType);
+
   const questionTitle = useSelector(
     (state) =>
-      state.createForm.formList?.questionList?.length !== 0 &&
+      state.createForm?.formList?.questionList?.length !== 0 &&
       questionType !== "COVER" &&
       selectedFormType !== "COVER" &&
+      questionType !== "NEW_FORM" &&
       state.createForm?.formList?.questionList[currentPageNum - 2][
         "questionTitle"
       ]
@@ -32,6 +35,7 @@ const CreateFormInput = () => {
       state.createForm.formList?.questionList.length !== 0 &&
       questionType !== "COVER" &&
       selectedFormType !== "COVER" &&
+      questionType !== "NEW_FORM" &&
       state.createForm.formList?.questionList[currentPageNum - 2][
         "questionSummary"
       ]
