@@ -33,7 +33,7 @@ const createFormSlice = createSlice({
   name: "createForm",
   initialState,
   reducers: {
-    changeField: (state, { payload: { form, key, value } }) => {
+    changeField(state, { payload: { form, key, value } }) {
       state[form][key] = value;
     },
     createFormInitialize(state) {
@@ -88,9 +88,16 @@ const createFormSlice = createSlice({
           return question.questionId !== id;
         }
       );
+      console.log(state.formList.questionList);
       state.currentPageNum = state.currentPageNum - 1;
-      state.selectedFormType =
-        state.formList.questionList[state.currentPageNum - 2]["questionType"];
+      if (state.currentPageNum <= 2) {
+        state.selectedFormType = "COVER";
+      } else {
+        state.selectedFormType =
+          state.formList?.questionList[state.currentPageNum - 2][
+            "questionType"
+          ];
+      }
     },
 
     // 화살표 버튼
@@ -131,6 +138,13 @@ const createFormSlice = createSlice({
       state.currentPageNum = 1;
       state.selectedFormType = "COVER";
     },
+    getPrevForm(state, action) {
+      state.selectedFormType = "COVER";
+      state.currentPageNum = 1;
+      state.formList = action.payload.formList;
+      state.error = null;
+      state.formCreateSuccess = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(__postForm.fulfilled, (state, action) => {
@@ -158,5 +172,6 @@ export const {
   goNext,
   goClickPage,
   goClickCover,
+  getPrevForm,
 } = createFormSlice.actions;
 export default createFormSlice.reducer;
