@@ -26,6 +26,7 @@ const Preview = () => {
     (state) =>
       state.createForm.formList?.questionList?.length !== 0 &&
       questionType !== "COVER" &&
+      questionType !== "NEW_FORM" &&
       state.createForm.formList?.questionList[currentPageNum - 2][
         "questionTitle"
       ]
@@ -37,6 +38,7 @@ const Preview = () => {
     (state) =>
       state.createForm.formList?.questionList.length !== 0 &&
       questionType !== "COVER" &&
+      questionType !== "NEW_FORM" &&
       state.createForm.formList?.questionList[currentPageNum - 2][
         "questionSummary"
       ]
