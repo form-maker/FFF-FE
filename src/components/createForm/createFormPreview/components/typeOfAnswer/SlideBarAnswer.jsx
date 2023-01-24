@@ -3,45 +3,38 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import fonts from "../../../../../styles/fonts";
 
-const SlideBarAnswer = () => {
-  const [slideValue, setSlideValue] = useState(0);
+import { Slider } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
+const SlideBarAnswer = () => {
+  const [slideVolume, setSlideVolume] = useState(2);
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
   const volume = useSelector(
     (state) =>
-      state.createForm.formList?.questionList[currentPageNum - 2]["volume"]
+      state.createForm?.formList?.questionList[currentPageNum - 2]["volume"]
   );
-
-  const inputHandler = (event) => {
-    setSlideValue(event.target.value);
-  };
-
-  const [marginLeft, setMarginLeft] = useState("");
-
   useEffect(() => {
-    setMarginLeft(`${((+volume + +slideValue) * 24) / (+volume * 2)}rem`);
-  }, [volume, slideValue]);
+    setSlideVolume((prev) => volume);
+  }, [volume]);
 
   return (
     <Container>
-      <PointerContainer marginLeft={marginLeft}>
-        <img src={process.env.PUBLIC_URL + "/img/pointer.svg"} alt="pointer" />
-      </PointerContainer>
-      <SlideContainer>
-        <Circle />
-        <input
-          type="range"
-          min={-volume}
-          max={volume}
-          value={slideValue}
-          step="1"
-          onChange={inputHandler}
+      <Box sx={{ width: 300 }}>
+        <Slider
+          defaultValue={0}
+          min={-2}
+          max={2}
+          step={1}
+          sx={{
+            color: "palette.color",
+          }}
+          marks
+          valueLabelDisplay="on"
         />
-        <Circle />
-      </SlideContainer>
-      <p>{slideValue}</p>
+      </Box>
+
       <p>점수를 선택해주세요</p>
     </Container>
   );
