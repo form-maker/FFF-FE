@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
+import { deleteQuestion } from "../../../../redux/modules/createFormSlice";
 
 const CreateFormCard = ({
   imgName,
@@ -8,7 +10,10 @@ const CreateFormCard = ({
   onClick,
   index,
   isCurrentPageNum,
+  questionId,
+  isCover,
 }) => {
+  const dispatch = useDispatch();
   if (imgName === "SCORE") {
     imgName = "STAR";
   }
@@ -34,6 +39,15 @@ const CreateFormCard = ({
         alt={imgName}
       ></img>
       <h4>{title === "" ? "질문을 작성해주세요" : title}</h4>
+      {!isCover && (
+        <img
+          src={process.env.PUBLIC_URL + "/img/circleClose.svg"}
+          alt="circleClose"
+          onClick={() => {
+            dispatch(deleteQuestion(questionId));
+          }}
+        />
+      )}
     </Container>
   );
 };

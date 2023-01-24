@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectedFormType,
   addForm,
+  deleteQuestion,
 } from "../../../../redux/modules/createFormSlice";
 import SelectTypeList from "../components/selectType/SelectTypeList";
 
@@ -19,6 +20,12 @@ const CreateFormMainScreen = () => {
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
+  const currentQuestion = useSelector(
+    (state) => state.createForm.formList?.questionList[currentPageNum - 2]
+  );
+
+  console.log(currentQuestion);
+
   const questionId = useRef(1);
   const wrapperRef = useRef();
 
@@ -43,32 +50,42 @@ const CreateFormMainScreen = () => {
   return (
     <Container>
       <Header>
-        <div
-          onClick={() => {
-            setIsSelectToggleShow((prev) => !prev);
-          }}
-        >
-          설문 개요 작성
-          <ToggleIcon
-            src={process.env.PUBLIC_URL + "/img/toggleIcon.svg"}
-            alt="toggleIcon"
-          />
+        <div>
+          <h5
+            onClick={() => {
+              dispatch(selectedFormType("NEW_FORM"));
+              dispatch(addForm({ questionId: questionId.current }));
+              questionId.current += 1;
+            }}
+          >
+            새 설문 추가하기 +
+          </h5>
+          <div
+            onClick={() => {
+              setIsSelectToggleShow((prev) => !prev);
+            }}
+          >
+            설문 개요 작성
+            <ToggleIcon
+              src={process.env.PUBLIC_URL + "/img/toggleIcon.svg"}
+              alt="toggleIcon"
+            />
+          </div>
+          {isSelectToggleShow && (
+            <ToggleContainer ref={wrapperRef}>
+              <SelectTypeList setIsSelectToggleShow={setIsSelectToggleShow} />
+            </ToggleContainer>
+          )}
         </div>
-        {isSelectToggleShow && (
-          <ToggleContainer ref={wrapperRef}>
-            <SelectTypeList setIsSelectToggleShow={setIsSelectToggleShow} />
-          </ToggleContainer>
-        )}
 
-        <h5
+        <img
+          src={process.env.PUBLIC_URL + "/img/circleClose.svg"}
+          alt="circleClose"
           onClick={() => {
-            dispatch(selectedFormType("NEW_FORM"));
-            dispatch(addForm({ questionId: questionId.current }));
-            questionId.current += 1;
+            console.log(currentQuestion?.questionId);
+            dispatch(deleteQuestion(currentQuestion?.questionId));
           }}
-        >
-          새 설문 추가하기 +
-        </h5>
+        />
       </Header>
       <Main>
         <CreateFormInput />
@@ -112,6 +129,10 @@ const Header = styled.div`
     ${fonts.Body1}
     margin: 0;
     cursor: pointer;
+  }
+  img {
+    width: 3rem;
+    height: 3rem;
   }
 `;
 

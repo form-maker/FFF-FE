@@ -32,6 +32,8 @@ const CreateFormList = () => {
     dispatch(goClickPage(questionPage));
   };
 
+  console.log(questionList);
+
   return (
     <Container>
       <MainContainer>
@@ -45,6 +47,7 @@ const CreateFormList = () => {
               dispatch(goClickCover(1));
             }}
             isCurrentPageNum={currentPageNum === 1}
+            isCover="true"
           />
           {questionList?.map((question, index) => (
             <CreateFormCard
@@ -52,6 +55,7 @@ const CreateFormList = () => {
               imgName={question.questionType}
               index={index}
               title={question.questionTitle}
+              questionId={question.questionId}
               onClick={() => {
                 goClickPageHandler(question.questionId);
               }}
@@ -78,13 +82,6 @@ const CreateFormList = () => {
             localStorage.setItem("createForm", JSON.stringify(form));
           }}
         />
-        {/* <RoundButtonMediumWide
-          buttonValue="받아볼게"
-          onClick={() => {
-            let a = localStorage.getItem("createForm");
-            console.log(JSON.parse(a));
-          }}
-        /> */}
       </BottomContainer>
     </Container>
   );
