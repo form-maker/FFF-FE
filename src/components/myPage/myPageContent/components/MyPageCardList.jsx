@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { __getMyPageCardList } from "../../../../redux/modules/myPageListSlice";
-import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSmall";
 import MySurveySummeryCard from "./MySurveySummeryCard";
 import Sort from "./Sort";
 
@@ -15,10 +14,6 @@ const MyPageCardList = () => {
   const myPageCardList = useSelector(
     (state) => state.myPageCardList.myPageCardList.pageData?.contents
   );
-  const selectedCategory = useSelector(
-    (state) => state.myPageCardList?.selectedCategory
-  );
-  const status = useSelector((state) => state.myPageCardList.status);
 
   useEffect(() => {
     dispatch(
@@ -30,17 +25,6 @@ const MyPageCardList = () => {
       })
     );
   }, [dispatch]);
-
-  const getCategoryHandler = ({ page, size, sortBy }) => {
-    dispatch(
-      __getMyPageCardList({
-        page: page,
-        size: size,
-        sortBy: sortBy,
-        status: status,
-      })
-    );
-  };
 
   return (
     <Container>
