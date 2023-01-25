@@ -1,22 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../../styles/fonts";
-import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSmall";
-import CardList from "../components/CardList";
-import { useDispatch, useSelector } from "react-redux";
-import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
-import { useEffect } from "react";
+
 import { createFormInitialize } from "../../../../redux/modules/createFormSlice";
+import fonts from "../../../../styles/fonts";
+import CardList from "../components/CardList";
+import Sort from "../components/Sort";
 
 const MainContentScreen = () => {
   const dispatch = useDispatch();
-  const selectedCategory = useSelector(
-    (state) => state.mainCardList?.selectedCategory
-  );
-
-  const getCategoryHandler = ({ page, size, sortBy }) => {
-    dispatch(__getMainCardList({ page: page, size: size, sortBy: sortBy }));
-  };
 
   useEffect(() => {
     dispatch(createFormInitialize());
@@ -26,24 +18,7 @@ const MainContentScreen = () => {
     <Container>
       <MainCardContainer>
         <h1>현재 진행중인 폼</h1>
-        <div>
-          <RoundButtonSmall
-            buttonValue="최신순"
-            margin="0 0.6rem 0 0 "
-            onClick={() => {
-              getCategoryHandler({ page: 1, size: 9, sortBy: "최신순" });
-            }}
-            background={selectedCategory === "최신순" && "subColor1"}
-          />
-          <RoundButtonSmall
-            buttonValue="마감 임박순"
-            margin="0 0.6rem 0 0.6rem"
-            onClick={() => {
-              getCategoryHandler({ page: 1, size: 9, sortBy: "마감임박순" });
-            }}
-            background={selectedCategory === "마감임박순" && "subColor1"}
-          />
-        </div>
+        <Sort />
       </MainCardContainer>
       <CardContainer>
         <CardList />
@@ -53,17 +28,17 @@ const MainContentScreen = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 const MainCardContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  width: 100%;
   padding: 4.6rem 4.1rem 0 4.1rem;
   h1 {
     ${fonts.Body1}
@@ -75,10 +50,10 @@ const MainCardContainer = styled.div`
 `;
 
 const CardContainer = styled.div`
-  margin-top: 4.4rem;
-  margin-bottom: 6rem;
   display: flex;
   align-items: center;
+  margin-top: 4.4rem;
+  margin-bottom: 6rem;
 `;
 
 export default MainContentScreen;

@@ -56,20 +56,21 @@ const CardList = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
+  width: 100%;
 `;
 
 const SurveyContainer = styled.div`
-  width: 100%;
   display: grid;
   grid-row-gap: 3rem;
   grid-column-gap: 2.4rem;
   grid-template-columns: repeat(3, 1fr);
-  margin-bottom: 3rem;
   align-items: center;
   justify-items: center;
+
+  width: 100%;
+  margin-bottom: 3rem;
 `;
 
 export default CardList;

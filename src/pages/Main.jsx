@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import MainContentScreen from "../components/main/mainContent/screen/MainContentScreen";
 import MainTitleScreen from "../components/main/mainTitle/screen/MainTitleScreen";
 

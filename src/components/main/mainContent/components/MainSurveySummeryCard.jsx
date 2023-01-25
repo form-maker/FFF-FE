@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import fonts from "../../../../styles/fonts";
 
 const MainSurveySummeryCard = ({
@@ -10,7 +11,6 @@ const MainSurveySummeryCard = ({
   participant,
   onClick,
 }) => {
-  // 랜덤 색상 배정
   const backgroundColor = ["#BBE0FA", "#B0D1FF", "#F6EAFD", "#CEDFFF"];
   const getRandom = (min, max) =>
     Math.floor(Math.random() * (max - min) + min) - 1;
@@ -42,8 +42,8 @@ const Container = styled.div`
   padding: 1.4rem 1.5rem 1.4rem 2.2rem;
   border-radius: 1rem;
 
-  cursor: pointer;
   background-color: ${({ backgroundColor }) => backgroundColor};
+  cursor: pointer;
   div {
     margin: 0;
   }
@@ -52,6 +52,7 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: flex-end;
+
   p {
     margin: 0;
     padding: 0;

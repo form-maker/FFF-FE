@@ -1,10 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { batch } from "react-redux";
 import styled from "styled-components";
+
+import { baseURLApi } from "../../../../core/api";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
-import { baseURLApi } from "../../../../core/api";
-import { batch } from "react-redux";
 
 const PageTitle = () => {
   const navigate = useNavigate();
@@ -48,19 +49,21 @@ const PageTitle = () => {
 };
 
 const Container = styled.div`
+  position: relative;
   padding-top: 20.3rem;
   padding-left: calc(50% + 11.2rem);
-  position: relative;
   h1 {
     margin: 0;
     padding: 0;
+
     ${fonts.H3}
     font-size: 3.2rem;
     line-height: 4rem;
   }
   p {
-    ${fonts.Body1}
     margin-top: 0.8rem;
+
+    ${fonts.Body1}
     font-weight: 400;
     font-size: 1.5rem;
     line-height: 1.8rem;
@@ -77,14 +80,16 @@ const BackgroundContainer = styled.div`
     z-index: -1;
 
     &:nth-child(1) {
-      background: ${({ theme }) => theme.subHoverColor3};
-      margin-left: 21rem;
       top: 11.2rem;
+      margin-left: 21rem;
+
+      background: ${({ theme }) => theme.subHoverColor3};
     }
     &:nth-child(2) {
-      background: ${({ theme }) => theme.pointColor};
-      margin-left: 6.2rem;
       top: 18.4rem;
+      margin-left: 6.2rem;
+
+      background: ${({ theme }) => theme.pointColor};
     }
   }
 `;
