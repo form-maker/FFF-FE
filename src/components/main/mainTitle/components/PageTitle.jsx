@@ -14,7 +14,7 @@ const PageTitle = () => {
       !data.data
         ? batch(() => {
             alert("로그인을 해주세요");
-            navigate("/");
+            navigate("/login");
           })
         : navigate("/createForm");
     } catch (error) {
