@@ -1,7 +1,8 @@
 import React from "react";
-import styled from "styled-components";
-import ApexCharts from "react-apexcharts";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
+
+import ApexCharts from "react-apexcharts";
 
 const DailyUserStats = () => {
   const statsList = useSelector((state) => state.stats.stats);
@@ -91,13 +92,14 @@ const DailyUserStats = () => {
 };
 
 const Container = styled.div`
-  background-color: white;
-  box-shadow: 0px 0px 9.08108px 3.89189px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+
   padding: 2rem 3rem 0rem 3rem;
+  background-color: white;
+  box-shadow: 0px 0px 9.08108px 3.89189px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 `;
 
 export default DailyUserStats;

@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+
 import { __getStats } from "../../../../redux/modules/statsSlice";
 import Stats from "./Stats";
 import DailyUserStatus from "./DailyUserStats";
-import { useParams } from "react-router-dom";
 
 const StatsList = () => {
-  const { surveyId } = useParams();
   const dispatch = useDispatch();
+  const { surveyId } = useParams();
   const statsList = useSelector((state) => state.stats.stats);
 
   useEffect(() => {
@@ -28,12 +29,11 @@ const StatsList = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
   padding: 5rem 9rem 0 9rem;
+  width: 100%;
 `;
 
 const GridContainer = styled.div`
-  width: 100%;
   display: grid;
   grid-row-gap: 3rem;
   grid-template-columns: repeat(2, 1fr);
@@ -41,6 +41,8 @@ const GridContainer = styled.div`
   margin-top: 5em;
   align-items: center;
   justify-items: center;
+
+  width: 100%;
 `;
 
 export default StatsList;

@@ -1,19 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+
 import fonts from "../../../../../styles/fonts";
+import StatsCommentContainer from "../statsContainer/StatsCommentContainer";
+import StatsHeaderContainer from "../statsContainer/StatsHeaderContainer";
+import Title from "../Title";
 
 const ShortDescriptiveStats = ({ stats }) => {
   return (
     <Container>
-      <Header>
-        <TitleContainer>
-          <p>{stats.questionType}</p>
-          <h2>
-            {stats.questionNum}. {stats.questionTitle}
-          </h2>
-          <h4>{stats.questionSummary}</h4>
-        </TitleContainer>
-      </Header>
+      <StatsHeaderContainer>
+        <Title
+          questionType={stats.questionType}
+          questionNum={stats.questionNum}
+          questionTitle={stats.questionTitle}
+          questionSummary={stats.questionSummary}
+        />
+      </StatsHeaderContainer>
       <CircleContainer>
         <Circle
           top="3.8rem"
@@ -43,94 +46,55 @@ const ShortDescriptiveStats = ({ stats }) => {
           <p>총 {stats?.descriptiveList[1]?.value}회</p>
         </Circle>
       </CircleContainer>
-      <CommentContainer>
+      <StatsCommentContainer>
         <p>가장 많이 나온 단어</p>
-      </CommentContainer>
+      </StatsCommentContainer>
     </Container>
   );
 };
 const Container = styled.div`
+  position: relative;
   width: 47.2rem;
   height: 41.6em;
+
   background: #ffffff;
   box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  position: relative;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 3rem 3rem 0 3rem;
-`;
-
-const TitleContainer = styled.div`
-  p {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.2rem;
-    margin: 0;
-  }
-  h2 {
-    ${fonts.Body1}
-    font-weight: 700;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    margin: 0;
-    margin-top: 0.6rem;
-  }
-  h4 {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1.2rem;
-    line-height: 1.4rem;
-    margin: 0;
-    margin-top: 0.7rem;
-  }
 `;
 
 const CircleContainer = styled.div`
-  padding-top: 4rem;
+  position: relative;
   display: flex;
   justify-content: space-evenly;
+
+  padding-top: 4rem;
   height: 28rem;
   width: 100%;
-  position: relative;
 `;
 
 const Circle = styled.div`
   position: absolute;
   top: ${({ top }) => top};
   left: ${({ left }) => left};
-  background: ${({ background, theme }) => theme[background]};
-  border-radius: 50%;
-  width: ${({ width }) => width};
-  height: ${({ width }) => width};
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: ${({ width }) => width};
+  height: ${({ width }) => width};
+
+  background: ${({ background, theme }) => theme[background]};
   border: 0.3rem solid #ffffff;
+  border-radius: 50%;
 
   h2 {
     margin: 0;
   }
   p {
-    ${fonts.Body3}
     margin: 0;
-  }
-`;
-
-const CommentContainer = styled.div`
-  display: flex;
-  justify-content: end;
-  padding-right: 2.9rem;
-  p {
-    ${fonts.Body1}
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1rem;
+    ${fonts.Body3}
   }
 `;
 
