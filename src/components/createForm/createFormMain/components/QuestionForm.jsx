@@ -19,8 +19,9 @@ const QuestionForm = () => {
 
   useEffect(() => {
     if (prevForm) {
-      window.confirm("임시저장한 데이터를 불러오시겠습니까?") &&
-        dispatch(getPrevForm(JSON.parse(prevForm)));
+      window.confirm("임시저장한 데이터를 불러오시겠습니까?")
+        ? dispatch(getPrevForm(JSON.parse(prevForm)))
+        : localStorage.removeItem("createForm");
     }
   }, []);
 
