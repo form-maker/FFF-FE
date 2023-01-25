@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, batch } from "react-redux";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import { changeAnswer, getCover } from "../../../../redux/modules/surveySlice";
@@ -8,23 +8,30 @@ import {
   __getBeforeSurveyQuestion,
 } from "../../../../redux/modules/surveySlice";
 import TurnAPageButtons from "../../components/TurnAPageButtons";
+import { Slider } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
 const SlideSurvey = () => {
   const dispatch = useDispatch();
   const question = useSelector((state) => state.survey.question);
   const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const selectedAnswerList = useSelector(
-    (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
+  const currentAnswer = useSelector(
+    (state) =>
+      state.survey.answer[currentPageNum - 2]["selectValue"][0] !== undefined &&
+      state.survey.answer[currentPageNum - 2]["selectValue"][0]
   );
+  console.log(currentAnswer);
+
+  const test = useSelector((state) => state.survey);
+  console.log(test);
 
   useEffect(() => {
     dispatch(changeAnswer(0));
-  }, []);
+  }, [dispatch, currentPageNum]);
 
-  const answerHandler = (event) => {
-    const { value } = event.target;
-    dispatch(changeAnswer(+value));
+  const changeHandler = (event, newValue) => {
+    dispatch(changeAnswer(newValue));
   };
 
   const nextPageClickHandler = () => {
@@ -39,16 +46,15 @@ const SlideSurvey = () => {
       : dispatch(__getBeforeSurveyQuestion(questionIdList[currentPageNum - 3]));
   };
 
-  const [marginLeft, setMarginLeft] = useState("");
+  const leftRange = [];
+  for (let i = -question.volume; i <= -1; i++) {
+    leftRange.push(i);
+  }
 
-  useEffect(() => {
-    setMarginLeft(
-      `${
-        ((+question.volume + +selectedAnswerList[0]) * 24) /
-        (+question.volume * 2)
-      }rem`
-    );
-  }, [question, selectedAnswerList]);
+  const rightRange = [];
+  for (let i = 1; i <= question.volume; i++) {
+    rightRange.push(i);
+  }
 
   return (
     <Container>
@@ -56,25 +62,28 @@ const SlideSurvey = () => {
         <h1>{question.questionTitle}</h1>
         <h5>{question.questionSummary}</h5>
       </TitleContainer>
-      <PointerContainer marginLeft={marginLeft}>
-        <img src={process.env.PUBLIC_URL + "/img/pointer.svg"} alt="pointer" />
-      </PointerContainer>
       <SlideContainer>
-        <Circle />
-        <input
-          type="range"
-          min={-question.volume}
-          max={question.volume}
-          // value={slideValue}
-          step="1"
-          onChange={answerHandler}
-          defaultValue="0"
-        />
-        <Circle />
+        <Box sx={{ width: 300 }}>
+          <Slider
+            defaultValue={0}
+            min={-question.volume}
+            max={+question.volume}
+            step={1}
+            sx={{
+              color: "palette.color",
+            }}
+            marks
+            valueLabelDisplay="on"
+            onChange={changeHandler}
+            value={currentAnswer}
+          />
+        </Box>
       </SlideContainer>
-      <CommentContainer>
-        <p>{[selectedAnswerList]}</p>
-      </CommentContainer>
+      <LabelContainer>
+        <div>{question?.answerList[0]["answerValue"]}</div>
+        <div>{question?.answerList[1]["answerValue"]}</div>
+      </LabelContainer>
+      <p>점수를 선택해주세요</p>
       <ArrowButtonContainer>
         <TurnAPageButtons
           currentPageNum={currentPageNum}
@@ -95,6 +104,14 @@ const Container = styled.div`
   align-items: center;
   position: relative;
   padding-top: 6.1rem;
+
+  p {
+    ${fonts.Body3}
+    margin-top: 1.9rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -117,28 +134,13 @@ const TitleContainer = styled.div`
   }
 `;
 
-const PointerContainer = styled.div`
-  width: 26.5rem;
-  margin-top: 11.1rem;
-  img {
-    width: 2.9rem;
-    margin-left: ${({ marginLeft }) => marginLeft || "3rem"};
-  }
-`;
-
-const Circle = styled.div`
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.gray6};
-`;
-
 const SlideContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 10px 20px;
+  margin: 20rem 0.1rem 0 0;
+  padding: auto;
   input {
     -webkit-appearance: none;
     width: 24.7rem;
@@ -160,18 +162,14 @@ const SlideContainer = styled.div`
     }
   }
 `;
-const CommentContainer = styled.div`
-  width: 100%;
-  text-align: center;
-  margin-top: 2rem;
-  p {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1.6rem;
-    line-height: 1.4rem;
-    margin: 0;
-  }
+
+const LabelContainer = styled.div`
+  margin: 1rem 0 0 1rem;
+  display: flex;
+  width: 31rem;
+  justify-content: space-between;
 `;
+
 const ArrowButtonContainer = styled.div`
   position: absolute;
   width: 100%;
