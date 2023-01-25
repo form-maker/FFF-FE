@@ -26,6 +26,8 @@ const SurveyView = () => {
   const currentFormType = useSelector((state) => state.survey.currentFormType);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
   const answerList = useSelector((state) => state.survey.answer);
+  const test = useSelector((state) => state.survey);
+  console.log(test);
 
   useEffect(() => {
     dispatch(__getSurvey(surveyId));
