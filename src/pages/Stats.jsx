@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import StatsHeaderScreen from "../components/stats/statsHeader/screen/StatsHeaderScreen";
 import StatsCategory from "../components/stats/statsMainList/components/StatsCategory";
@@ -7,6 +7,24 @@ import Calender from "../components/stats/statsMainList/components/Calender";
 
 const Stats = () => {
   const [isToggleOn, setIsToggleOn] = useState(true);
+
+  const wrapperRef = useRef();
+
+  useEffect(() => {
+    const clickOutSide = (event) => {
+      if (
+        isToggleOn &&
+        wrapperRef.current &&
+        !wrapperRef.current?.contains(event.target)
+      ) {
+        setIsToggleOn(false);
+      }
+    };
+    document.addEventListener("mousedown", clickOutSide);
+    return () => {
+      document.removeEventListener("mousedown", clickOutSide);
+    };
+  }, [isToggleOn]);
 
   return (
     <Container>
@@ -23,7 +41,7 @@ const Stats = () => {
           ></img>
         </ToggleButton>
         {isToggleOn && (
-          <ToggleMenu>
+          <ToggleMenu ref={wrapperRef}>
             <ToggleMenuContainer>
               <Calender setIsToggleOn={setIsToggleOn} />
               <StatusContainer>
