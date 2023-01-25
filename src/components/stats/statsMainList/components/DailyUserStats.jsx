@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const DailyUserStats = () => {
   const statsList = useSelector((state) => state.stats.stats);
-  console.log(statsList?.dailyParticipantList?.date);
 
   let options = {
     series: [

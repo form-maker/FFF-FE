@@ -11,8 +11,6 @@ const StatsList = () => {
   const dispatch = useDispatch();
   const statsList = useSelector((state) => state.stats.stats);
 
-  console.log(surveyId);
-
   useEffect(() => {
     dispatch(__getStats({ surveyId: surveyId, end: "", start: "" }));
   }, []);

@@ -28,8 +28,6 @@ const Calender = ({ setIsToggleOn }) => {
   const ChangedStartDate = startDate?.toISOString().slice(0, 10);
   const ChangedEndDate = endDate?.toISOString().slice(0, 10);
 
-  console.log(ChangedStartDate, ChangedEndDate);
-
   useEffect(() => {
     dispatch(
       __getStats({
