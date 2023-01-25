@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import { baseURLApi } from "../core/api";
 import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
 import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
-import { useNavigate } from "react-router-dom";
-import { baseURLApi } from "../core/api";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -89,25 +90,27 @@ const Header = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  background: ${({ theme }) => theme.subColor1};
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+
+  background: ${({ theme }) => theme.subColor1};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
-  position: relative;
   z-index: 10;
 `;
 
 const SubContainer = styled.div`
   width: 100%;
+  height: 8rem;
   min-width: 800px;
   max-width: 1200px;
-  height: 8rem;
   div {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     padding: 1rem 1rem;
   }
 `;
