@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+
 import fonts from "../../../../styles/fonts";
 import CoverAnswer from "./typeOfAnswer/CoverAnswer";
 import LongDescriptiveAnswer from "./typeOfAnswer/LongDescriptiveAnswer";
@@ -10,7 +12,6 @@ import ShortDescriptiveAnswer from "./typeOfAnswer/ShortDescriptiveAnswer";
 import SingleChoiceAnswer from "./typeOfAnswer/SingleChoiceAnswer";
 import SlideBarAnswer from "./typeOfAnswer/SlideBarAnswer";
 import StarAnswer from "./typeOfAnswer/StarAnswer";
-import { useSelector } from "react-redux";
 import NewAnswer from "./typeOfAnswer/NewAnswer";
 import PhoneTurnAPageButtons from "./PhoneTurnAPageButtons";
 
@@ -18,7 +19,6 @@ const Preview = () => {
   const questionType = useSelector(
     (state) => state.createForm?.selectedFormType
   );
-
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
@@ -90,12 +90,13 @@ const Preview = () => {
 
 const Container = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   padding-top: 4.2rem;
+  width: 100%;
+  height: 100%;
 `;
 
 const TitleContainer = styled.div`
@@ -103,8 +104,7 @@ const TitleContainer = styled.div`
   flex-direction: column;
   align-items: center;
   h1 {
-    margin: 0;
-    margin-top: 6.1rem;
+    margin-top: 6.1rem 0 0 0;
     ${fonts.Body1}
   }
   h5 {
@@ -117,21 +117,23 @@ const TitleContainer = styled.div`
 `;
 
 const PointContext = styled.div`
+  padding: 0.7rem;
+  width: 22.7rem;
+
   ${fonts.Body1}
   font-weight: 500;
   font-size: 1.2rem;
   line-height: 1.4rem;
-  width: 22.7rem;
+
   text-align: center;
   background: ${({ theme }) => theme.gray3};
-  padding: 0.7rem;
   border-radius: 9.9rem;
 `;
 
 const ArrowButtonContainer = styled.div`
   position: absolute;
-  width: 100%;
   bottom: 10rem;
+  width: 100%;
 `;
 
 export default Preview;

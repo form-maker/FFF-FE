@@ -1,22 +1,22 @@
-import React, { useRef, useState, useEffect } from "react";
-import styled from "styled-components";
-import fonts from "../../../../styles/fonts";
-import CreateFormInput from "../components/CreateFormInput";
-import QuestionForm from "../components/QuestionForm";
-import TurnAPageButtons from "../components/TurnAPageButtons";
+import React, { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+
 import {
   selectedFormType,
   addForm,
   deleteQuestion,
 } from "../../../../redux/modules/createFormSlice";
+import fonts from "../../../../styles/fonts";
+import CreateFormInput from "../components/CreateFormInput";
+import QuestionForm from "../components/QuestionForm";
+import TurnAPageButtons from "../components/TurnAPageButtons";
 import SelectTypeList from "../components/selectType/SelectTypeList";
+import useToggleShow from "../../../common/hooks/useToggleShow";
+import CreateFormPageNumber from "../components/CreateFormPageNumber";
 
 const CreateFormMainScreen = () => {
   const dispatch = useDispatch();
-  const questionLength = useSelector(
-    (state) => state.createForm.formList?.questionList
-  )?.length;
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
@@ -24,28 +24,15 @@ const CreateFormMainScreen = () => {
     (state) => state.createForm.formList?.questionList[currentPageNum - 2]
   );
 
-  console.log(currentQuestion);
-
   const questionId = useRef(1);
   const wrapperRef = useRef();
-
   const [isSelectToggleShow, setIsSelectToggleShow] = useState(false);
 
-  useEffect(() => {
-    const clickOutSide = (event) => {
-      if (
-        isSelectToggleShow &&
-        wrapperRef.current &&
-        !wrapperRef.current?.contains(event.target)
-      ) {
-        setIsSelectToggleShow(false);
-      }
-    };
-    document.addEventListener("mousedown", clickOutSide);
-    return () => {
-      document.removeEventListener("mousedown", clickOutSide);
-    };
-  }, [isSelectToggleShow]);
+  useToggleShow({
+    isSelectToggleShow,
+    setIsSelectToggleShow,
+    wrapperRef,
+  });
 
   return (
     <Container>
@@ -77,27 +64,21 @@ const CreateFormMainScreen = () => {
             </ToggleContainer>
           )}
         </div>
-
-        <img
+        {/* <img
           src={process.env.PUBLIC_URL + "/img/circleClose.svg"}
           alt="circleClose"
           onClick={() => {
             console.log(currentQuestion?.questionId);
             dispatch(deleteQuestion(currentQuestion?.questionId));
           }}
-        />
+        /> */}
       </Header>
       <Main>
         <CreateFormInput />
         <QuestionForm />
-        <TurnAPageButtons />
+        {/* <TurnAPageButtons /> */}
       </Main>
-      <Bottom>
-        <p>
-          {currentPageNum ? currentPageNum : 1}/
-          {questionLength ? questionLength + 1 : 1}
-        </p>
-      </Bottom>
+      <CreateFormPageNumber />
     </Container>
   );
 };
@@ -109,25 +90,28 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  width: 100%;
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   padding: 3.4rem 2.3rem 0 2.3rem;
-  position: relative;
+  width: 100%;
   div {
-    color: ${({ theme }) => theme.pointColor2};
     font-weight: 700;
     font-size: 2rem;
     line-height: 2.4rem;
+
+    color: ${({ theme }) => theme.pointColor2};
     cursor: pointer;
   }
   h5 {
+    margin: 0;
+    ${fonts.Body1}
     font-weight: 400;
     font-size: 1.5rem;
     line-height: 1.8rem;
-    ${fonts.Body1}
-    margin: 0;
+
     cursor: pointer;
   }
   img {
@@ -144,26 +128,17 @@ const ToggleContainer = styled.div`
 `;
 
 const ToggleIcon = styled.img`
-  width: 1.4rem;
   margin-left: 1.9rem;
+  width: 1.4rem;
 `;
 
 const Main = styled.div`
   position: relative;
   flex: 1;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Bottom = styled.div`
-  margin-bottom: 3.1rem;
-  display: flex;
-  justify-content: center;
-  ${fonts.Body3}
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
 `;
 
 export default CreateFormMainScreen;

@@ -6,13 +6,15 @@ const CreateFormQuestionTypeCard = ({ questionType, onClick }) => {
 };
 
 const Container = styled.div`
-  width: 10rem;
-  height: 10rem;
-  border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 10rem;
+  height: 10rem;
+
   background: ${({ theme }) => theme.mainColor};
+  border-radius: 1rem;
   cursor: pointer;
 `;
 

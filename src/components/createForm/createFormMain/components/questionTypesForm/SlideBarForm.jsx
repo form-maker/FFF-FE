@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import fonts from "../../../../../styles/fonts";
 import { useSelector, useDispatch } from "react-redux";
-import "./SlideBarForm.css";
+import { Slider, Box } from "@material-ui/core";
+import styled from "styled-components";
+
 import { fillOutQuestion } from "../../../../../redux/modules/createFormSlice";
-import { Slider } from "@material-ui/core";
-import { Box } from "@material-ui/core";
+import "./SlideBarForm.css";
+import fonts from "../../../../../styles/fonts";
 
 const SlideBarForm = () => {
+  const dispatch = useDispatch();
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
@@ -21,8 +22,8 @@ const SlideBarForm = () => {
     (state) =>
       state.createForm.formList?.questionList[currentPageNum - 2]["answerList"]
   );
+  const [value, setValue] = useState([-2, 2]);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     currentPageNum > 1 &&
       !questionTitle &&
@@ -56,8 +57,6 @@ const SlideBarForm = () => {
   for (let i = 1; i <= 5; i++) {
     rightRange.push(i);
   }
-
-  const [value, setValue] = useState([-2, 2]);
 
   const changeHandler = (event, newValue) => {
     const [newLeft, newRight] = newValue;
@@ -138,11 +137,12 @@ const SlideBarForm = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  margin-top: 3rem;
+  width: 100%;
   div {
     p {
       ${fonts.Body2}
@@ -151,24 +151,27 @@ const Container = styled.div`
 `;
 
 const RangeContainer = styled.div`
-  width: 56.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
+
   padding-top: 9rem;
+  width: 56.4rem;
   input {
-    margin: 0;
     -webkit-appearance: none;
+    margin: 0;
     width: 45%;
     height: 1.1rem;
+
     background: #ececec;
+    outline: none;
     border: none;
     border-radius: 1.1rem;
-    outline: none;
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
       width: 1.2rem;
       height: 1.2rem;
+
       background: ${({ theme }) => theme.pointColor2};
       border-radius: 50%;
     }
@@ -187,20 +190,21 @@ const RangeBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 51rem;
+
   margin: 1rem auto;
+  width: 51rem;
 `;
 
 const LeftRangeContainer = styled.div`
   display: flex;
-  width: 21.2rem;
   justify-content: space-between;
+  width: 21.2rem;
 `;
 
 const RightRangeContainer = styled.div`
   display: flex;
-  width: 20rem;
   justify-content: space-between;
+  width: 20rem;
 `;
 
 const LabelContainer = styled.div`
@@ -208,13 +212,14 @@ const LabelContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   margin-top: 5rem;
   p {
+    margin-bottom: 2.5rem;
     ${fonts.Body1}
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 1.8rem;
-    margin-bottom: 2.5rem;
   }
 `;
 
@@ -239,17 +244,17 @@ const InputContainer = styled.div`
     border-radius: 1.5rem;
   }
   input {
-    text-align: center;
-    width: 26.6rem;
     margin-top: 1.5rem;
     margin-left: 1.2rem;
     padding: 0.5rem;
+    width: 26.6rem;
 
     ${fonts.Body1}
     font-weight: 600;
     font-size: 1.5rem;
     line-height: 1.8rem;
 
+    text-align: center;
     border: none;
     border-bottom: 3px solid ${({ theme }) => theme.gray5};
   }

@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+
 import { fillOutQuestionTitleAndSummery } from "../../../../redux/modules/createFormSlice";
 import fonts from "../../../../styles/fonts";
 
@@ -12,13 +13,9 @@ const CreateFormInput = () => {
   const currentPageNum = useSelector(
     (state) => state.createForm?.currentPageNum
   );
-
   const selectedFormType = useSelector(
     (state) => state.createForm?.selectedFormType
   );
-
-  console.log(questionType);
-
   const questionTitle = useSelector(
     (state) =>
       state.createForm?.formList?.questionList?.length !== 0 &&
@@ -29,7 +26,6 @@ const CreateFormInput = () => {
         "questionTitle"
       ]
   );
-
   const questionSummary = useSelector(
     (state) =>
       state.createForm.formList?.questionList.length !== 0 &&
@@ -77,20 +73,23 @@ const CreateFormInput = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  padding-top: 7.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  padding-top: 7.5rem;
+  width: 100%;
 `;
 
 const TitleInput = styled.input`
-  text-align: center;
+  width: 50rem;
+
   ${fonts.Body1}
   font-weight: 700;
   font-size: 2.4rem;
   line-height: 2.9rem;
-  width: 50rem;
+
+  text-align: center;
   border: none;
   border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
   &::placeholder {
@@ -100,12 +99,14 @@ const TitleInput = styled.input`
 
 const SubTitleInput = styled.input`
   margin-top: 4.2rem;
-  text-align: center;
+  width: 50rem;
+
   ${fonts.Body3}
   font-weight: 500;
   font-size: 1.6rem;
   line-height: 1.9rem;
-  width: 50rem;
+
+  text-align: center;
   border: none;
   border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
   &::placeholder {

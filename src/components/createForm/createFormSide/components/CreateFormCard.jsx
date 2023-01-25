@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+
 import fonts from "../../../../styles/fonts";
 import { deleteQuestion } from "../../../../redux/modules/createFormSlice";
 
@@ -54,18 +55,22 @@ const CreateFormCard = ({
 
 const Container = styled.div`
   display: flex;
-  height: 3.4rem;
   align-items: center;
+
   margin-bottom: 1.7rem;
+  height: 3.4rem;
+
   cursor: pointer;
   div {
+    margin: 0;
+    padding: 0;
+    width: 2rem;
+
     ${fonts.Body1}
     font-weight: 400;
     font-weight: ${({ fontWeight }) => fontWeight || 700};
     font-size: 1.5rem;
-    margin: 0;
-    padding: 0;
-    width: 2rem;
+
     color: ${({ background, theme }) => theme[background] || theme.color};
   }
   img {
@@ -73,13 +78,14 @@ const Container = styled.div`
     height: 3.4rem;
   }
   h4 {
+    margin: 0;
+    padding: 0 0 0 1.1rem;
+
     ${fonts.Body1}
     font-weight: ${({ fontWeight }) => fontWeight || 400};
     font-size: 1.3rem;
     line-height: 1.6rem;
-    margin: 0;
-    padding: 0;
-    padding-left: 1.1rem;
+
     color: ${({ background, theme }) => theme[background] || theme.color};
   }
 `;

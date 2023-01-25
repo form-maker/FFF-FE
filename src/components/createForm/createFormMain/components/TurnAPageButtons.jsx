@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
+
 import { goBack, goNext } from "../../../../redux/modules/createFormSlice";
 
 const TurnAPageButtons = () => {
@@ -27,19 +28,20 @@ const TurnAPageButtons = () => {
 
 const Container = styled.div`
   img {
-    width: 100%;
+    position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    position: absolute;
+
+    width: 100%;
     &:nth-child(1) {
       width: 7.2rem;
-      cursor: pointer;
       left: 2.4rem;
+      cursor: pointer;
     }
     &:nth-child(2) {
       width: 7.2rem;
-      cursor: pointer;
       right: 2.4rem;
+      cursor: pointer;
     }
   }
 `;
