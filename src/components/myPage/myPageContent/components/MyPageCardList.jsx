@@ -27,7 +27,7 @@ const MyPageCardList = () => {
         status: "IN_PROCEED",
       })
     );
-  }, [dispatch, myPageCardList]);
+  }, [dispatch]);
 
   const getCategoryHandler = ({ page, size, sortBy }) => {
     dispatch(
