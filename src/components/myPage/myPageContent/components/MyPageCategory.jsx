@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import fonts from "../../../../styles/fonts";
 import { useSelector, useDispatch } from "react-redux";
 import { __getMyPageCardList } from "../../../../redux/modules/myPageListSlice";
 import StatusButton from "./StatusButton";
