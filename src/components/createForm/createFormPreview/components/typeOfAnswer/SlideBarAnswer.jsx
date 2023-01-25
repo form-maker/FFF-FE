@@ -15,8 +15,10 @@ const SlideBarAnswer = () => {
     (state) =>
       state.createForm?.formList?.questionList[currentPageNum - 2]["volume"]
   );
+
   useEffect(() => {
-    setSlideVolume((prev) => volume);
+    volume !== undefined && setSlideVolume(volume);
+    console.log(slideVolume);
   }, [volume]);
 
   return (
@@ -24,8 +26,8 @@ const SlideBarAnswer = () => {
       <Box sx={{ width: 300 }}>
         <Slider
           defaultValue={0}
-          min={-2}
-          max={2}
+          min={-slideVolume}
+          max={+slideVolume}
           step={1}
           sx={{
             color: "palette.color",
@@ -75,30 +77,6 @@ const Container = styled.div`
     font-size: 1.2rem;
     line-height: 1.4rem;
   }
-`;
-
-const PointerContainer = styled.div`
-  width: 100%;
-  margin-left: 5rem;
-  margin-bottom: 0.9rem;
-  img {
-    width: 2.9rem;
-    margin-left: ${({ marginLeft }) => marginLeft || "3rem"};
-  }
-`;
-
-const Circle = styled.div`
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.gray6};
-`;
-
-const SlideContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
 `;
 
 export default SlideBarAnswer;

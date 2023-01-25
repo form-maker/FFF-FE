@@ -59,7 +59,7 @@ const SlideBarForm = () => {
 
   const [value, setValue] = useState([-2, 2]);
 
-  const ChangeHandler = (event, newValue) => {
+  const changeHandler = (event, newValue) => {
     const [newLeft, newRight] = newValue;
     const [Left, Right] = value;
     if (newRight !== Right) {
@@ -91,7 +91,7 @@ const SlideBarForm = () => {
               marks
               valueLabelDisplay="on"
               value={value}
-              onChange={ChangeHandler}
+              onChange={changeHandler}
             />
           </Box>
         </RangeContainer>

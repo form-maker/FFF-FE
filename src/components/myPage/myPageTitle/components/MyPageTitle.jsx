@@ -1,9 +1,10 @@
 import React from "react";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
+
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
-import { useNavigate } from "react-router-dom";
 
 const MyPageTitle = () => {
   const navigate = useNavigate();

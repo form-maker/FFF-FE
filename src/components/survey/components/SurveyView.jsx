@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSelector, useDispatch, batch } from "react-redux";
 import styled from "styled-components";
+
+import { __getSurvey, __postSurvey } from "../../../redux/modules/surveySlice";
 import fonts from "../../../styles/fonts";
+import RoundButtonLarge from "../../common/buttons/roundButtons/RoundButtonLarge";
 
 import CoverSurvey from "./typeOfSurvey/CoverSurvey";
 import ScoreSurvey from "./typeOfSurvey/ScoreSurvey";
@@ -12,16 +17,12 @@ import RankSurvey from "./typeOfSurvey/RankSurvey";
 import ShortDescriptiveSurvey from "./typeOfSurvey/ShortDescriptiveSurvey";
 import LongDescriptiveSurvey from "./typeOfSurvey/LongDescriptiveSurvey";
 
-import { useSelector, useDispatch, batch } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { __getSurvey, __postSurvey } from "../../../redux/modules/surveySlice";
-import RoundButtonLarge from "../../common/buttons/roundButtons/RoundButtonLarge";
-
 const SurveyView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const surveyId = searchParams.get("surveyId");
+
   const survey = useSelector((state) => state.survey.survey);
   const currentFormType = useSelector((state) => state.survey.currentFormType);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
@@ -56,7 +57,6 @@ const SurveyView = () => {
       {currentFormType === "RANK" && <RankSurvey />}
       {currentFormType === "SHORT_DESCRIPTIVE" && <ShortDescriptiveSurvey />}
       {currentFormType === "LONG_DESCRIPTIVE" && <LongDescriptiveSurvey />}
-
       {currentPageNum === survey?.questionIdList?.length + 1 && (
         <EndButtonContainer>
           <RoundButtonLarge
@@ -72,28 +72,32 @@ const SurveyView = () => {
 };
 
 const PointContext = styled.div`
+  width: 22.7rem;
+  margin-top: 4.2rem;
+  padding: 0.7rem;
+
   ${fonts.Body1}
   font-weight: 500;
   font-size: 1.2rem;
   line-height: 1.4rem;
-  width: 22.7rem;
+
   text-align: center;
   background: ${({ theme }) => theme.gray3};
-  padding: 0.7rem;
   border-radius: 9.9rem;
-  margin-top: 4.2rem;
 `;
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+
+  width: 100%;
+  height: 100%;
+
   h5 {
-    ${fonts.Body2}
     margin: 1.5rem 0 0 0;
+    ${fonts.Body2}
   }
   p {
     margin: 1.7rem 0 0 0;

@@ -114,7 +114,12 @@ const SurveySlice = createSlice({
       });
     });
     builder.addCase(__getSurvey.rejected, (state, action) => {
-      console.log(action.payload);
+      console.log(action.payload.response.status);
+      if (action.payload.response.status === 403) {
+        alert(action.payload.response.data.msg);
+        console.log(action.payload.response.data.msg);
+        state.error = true;
+      }
     });
 
     builder.addCase(__getSurveyQuestion.fulfilled, (state, action) => {

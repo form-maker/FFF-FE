@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+
+import { __deleteStats } from "../../../../redux/modules/statsSlice";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
-import { __deleteStats } from "../../../../redux/modules/statsSlice";
 
 const MySurveySummeryCard = ({
   title,
@@ -16,9 +17,7 @@ const MySurveySummeryCard = ({
   onClick,
   surveyId,
 }) => {
-  // 랜덤 색상 배정
   const dispatch = useDispatch();
-
   return (
     <Container>
       <TitleContainer>
@@ -90,19 +89,20 @@ const TitleContainer = styled.div`
   width: 15.3rem;
   margin: 0;
   h3 {
+    margin: 0;
+
     ${fonts.Body1}
     font-weight: 600;
     font-size: 1.6rem;
     line-height: 1.9rem;
-    margin: 0;
   }
   p {
+    margin: 0.7rem 0 0 0;
+
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.4rem;
-    margin: 0;
-    margin-top: 0.7rem;
   }
 `;
 
@@ -114,22 +114,23 @@ const DetailContainer = styled.div`
   div {
     text-align: center;
     h5 {
+      margin: 0;
+
       ${fonts.Body5}
       font-weight: 500;
       font-size: 1.1rem;
       line-height: 1.3rem;
-      margin: 0;
     }
     h4 {
-      span {
-        ${fonts.Body5}
-      }
+      margin: 0.7rem 0 0 0;
+
       ${fonts.Body1}
       font-weight: 500;
       font-size: 1.5rem;
       line-height: 1.8rem;
-      margin: 0;
-      margin-top: 0.7rem;
+      span {
+        ${fonts.Body5}
+      }
     }
   }
 `;

@@ -1,21 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+
+import { changeDescriptive } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
-import {
-  changeDescriptive,
-  getCover,
-} from "../../../../redux/modules/surveySlice";
-import {
-  __getSurveyQuestion,
-  __getBeforeSurveyQuestion,
-} from "../../../../redux/modules/surveySlice";
+import Title from "../Title";
 import TurnAPageButtons from "../../components/TurnAPageButtons";
 
 const ShortDescriptiveSurvey = () => {
   const dispatch = useDispatch();
-  const question = useSelector((state) => state.survey.question);
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
   const descriptive = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["descriptive"]
@@ -26,23 +19,9 @@ const ShortDescriptiveSurvey = () => {
     dispatch(changeDescriptive(answer));
   };
 
-  const nextPageClickHandler = () => {
-    currentPageNum === questionIdList.length + 1
-      ? alert("마지막 항목입니다")
-      : dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-  };
-  const goBackPageClickHandler = () => {
-    currentPageNum === 2
-      ? dispatch(getCover())
-      : dispatch(__getBeforeSurveyQuestion(questionIdList[currentPageNum - 3]));
-  };
-
   return (
     <Container>
-      <TitleContainer>
-        <h1>{question.questionTitle}</h1>
-        <h5>{question.questionSummary}</h5>
-      </TitleContainer>
+      <Title />
       <InputContainer>
         <input
           value={descriptive}
@@ -51,53 +30,30 @@ const ShortDescriptiveSurvey = () => {
         ></input>
       </InputContainer>
       <ArrowButtonContainer>
-        <TurnAPageButtons
-          currentPageNum={currentPageNum}
-          questionLength={questionIdList.length + 1}
-          goBackPageClickHandler={goBackPageClickHandler}
-          nextPageClickHandler={nextPageClickHandler}
-        />
+        <TurnAPageButtons />
       </ArrowButtonContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+
+  width: 100%;
+  height: 100%;
   padding-top: 6.1rem;
 `;
 
-const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  h1 {
-    ${fonts.Body1}
-    margin: 0;
-    font-weight: 700;
-    font-size: 2.4rem;
-    line-height: 2.9rem;
-  }
-  h5 {
-    ${fonts.Body3}
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    margin-top: 4.6rem;
-  }
-`;
-
 const InputContainer = styled.div`
-  width: 100%;
-  height: 35rem;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  height: 35rem;
   margin-top: 1rem;
   input {
     text-align: center;
@@ -122,8 +78,8 @@ const InputContainer = styled.div`
 
 const ArrowButtonContainer = styled.div`
   position: absolute;
-  width: 100%;
   bottom: 5rem;
+  width: 100%;
 `;
 
 export default ShortDescriptiveSurvey;

@@ -1,14 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+
+import { SERVER_URL_API } from "../../../../constants/env";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
-import { SERVER_URL_API } from "../../../../constants/env";
 
 const StatsSubHeader = () => {
-  const statsList = useSelector((state) => state.stats.stats);
   const { surveyId } = useParams();
+  const statsList = useSelector((state) => state.stats.stats);
 
   return (
     <Container>
@@ -33,18 +34,20 @@ const StatsSubHeader = () => {
 };
 
 const Container = styled.div`
-  width: 100vw;
-  border-bottom: 1px solid #e1e1e1;
   display: flex;
   justify-content: center;
+
+  width: 100vw;
   height: 5rem;
+  border-bottom: 1px solid #e1e1e1;
 `;
 
 const SubHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 3rem 0 3rem;
+
+  padding: 0 3rem;
   width: 100%;
   min-width: 800px;
   max-width: 1200px;
