@@ -1,11 +1,11 @@
 import React from "react";
+import { useSelector, useDispatch, batch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import { __postForm } from "../../../../redux/modules/createFormSlice";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { __postForm } from "../../../../redux/modules/createFormSlice";
-import { batch } from "react-redux";
 
 const CreateFormHeaderScreen = () => {
   const navigate = useNavigate();
@@ -36,26 +36,28 @@ const CreateFormHeaderScreen = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #e1e1e1;
-  height: 5rem;
+
   padding: 0 4.2rem;
-  z-index: 1;
+  width: 100%;
+  height: 5rem;
+
   background-color: ${({ theme }) => theme.backgroundColor};
+  border-bottom: 1px solid #e1e1e1;
+  z-index: 1;
 `;
 
 const SubContainer = styled.div`
-  width: 100%;
-  min-width: 800px;
-  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 3rem;
 
+  padding: 0 3rem;
+  width: 100%;
+  min-width: 800px;
+  max-width: 1200px;
   div {
     ${fonts.Body1}
     font-weight: 400;

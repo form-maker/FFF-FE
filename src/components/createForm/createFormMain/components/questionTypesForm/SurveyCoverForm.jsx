@@ -1,12 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
 import { changeField } from "../../../../../redux/modules/createFormSlice";
 import fonts from "../../../../../styles/fonts";
 import CreateFormCalender from "../calender/CreateFormCalender";
 
 const SurveyCoverForm = () => {
+  const dispatch = useDispatch();
   const wrapperRef = useRef();
+  const title = useSelector((state) => state.createForm.formList?.title);
+  const summary = useSelector((state) => state.createForm.formList?.summary);
+  const achievement = useSelector(
+    (state) => state.createForm.formList?.achievement
+  );
   const [isStartDateToggleOpen, setIsStartDateToggleOpen] = useState(false);
 
   useEffect(() => {
@@ -24,13 +31,6 @@ const SurveyCoverForm = () => {
       document.removeEventListener("mousedown", clickOutSide);
     };
   }, [isStartDateToggleOpen]);
-
-  const dispatch = useDispatch();
-  const title = useSelector((state) => state.createForm.formList?.title);
-  const summary = useSelector((state) => state.createForm.formList?.summary);
-  const achievement = useSelector(
-    (state) => state.createForm.formList?.achievement
-  );
 
   const InputHandler = (event) => {
     const { name, value } = event.target;
@@ -124,27 +124,27 @@ const SurveyCoverForm = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   textarea {
     margin-top: 4.9rem;
     width: 50rem;
-    border: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
-    border-radius: 2rem;
-
-    resize: none;
     min-height: 13rem;
-    scroll-behavior: auto;
 
     ${fonts.Body3}
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 1.9rem;
 
-    background-color: transparent;
     text-align: center;
+    background-color: transparent;
+    scroll-behavior: auto;
+    resize: none;
+
+    border: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
+    border-radius: 2rem;
 
     &::placeholder {
       ${fonts.Body3}
@@ -153,19 +153,22 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  margin-top: 7.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  margin-top: 7.5rem;
 `;
 
 const TitleInput = styled.input`
-  text-align: center;
+  width: 50rem;
+
   ${fonts.Body1}
   font-weight: 700;
   font-size: 2.4rem;
   line-height: 2.9rem;
-  width: 50rem;
+
+  text-align: center;
   border: none;
   border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
   &::placeholder {
@@ -174,16 +177,16 @@ const TitleInput = styled.input`
 `;
 
 const CalenderSelectorContainer = styled.div`
-  margin-top: 1rem;
   position: relative;
-
+  margin-top: 1rem;
   label {
     ${fonts.Body1}
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 1.9rem;
-    cursor: pointer;
+
     border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
+    cursor: pointer;
   }
 `;
 
@@ -194,38 +197,43 @@ const CalenderContainer = styled.div`
 `;
 
 const AchievementContainer = styled.div`
-  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 3rem;
   label {
     ${fonts.Body1}
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 1.9rem;
-    cursor: pointer;
+
     border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
+    cursor: pointer;
   }
 `;
 
 const NumberInputContainer = styled.div`
   display: flex;
   align-items: center;
+
   margin-top: 1rem;
   button {
+    margin: 1rem;
     width: 4rem;
     height: 4rem;
-    background: ${({ theme }) => theme.mainColor};
-    margin: 1rem;
-    border: none;
-    border-radius: 50%;
+
     ${fonts.Body2}
     font-size: 3rem;
     font-weight: 100;
+
+    background: ${({ theme }) => theme.mainColor};
+    border: none;
+    border-radius: 50%;
   }
   input {
-    width: 5rem;
     padding: 1rem;
+    width: 5rem;
+
     text-align: center;
     border-radius: 0.5rem;
     border: ${({ theme }) => `0.2rem solid ${theme.gray3}`};

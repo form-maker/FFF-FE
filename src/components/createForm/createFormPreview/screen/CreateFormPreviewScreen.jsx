@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import CreateFormMobile from "../components/CreateFormMobile";
 
 const CreateFormPreviewScreen = () => {

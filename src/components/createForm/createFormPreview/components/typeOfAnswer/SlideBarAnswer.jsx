@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../../../styles/fonts";
-
 import { Slider } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 
+import fonts from "../../../../../styles/fonts";
+
 const SlideBarAnswer = () => {
-  const [slideVolume, setSlideVolume] = useState(2);
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
@@ -15,6 +14,7 @@ const SlideBarAnswer = () => {
     (state) =>
       state.createForm?.formList?.questionList[currentPageNum - 2]["volume"]
   );
+  const [slideVolume, setSlideVolume] = useState(2);
 
   useEffect(() => {
     volume !== undefined && setSlideVolume(volume);
@@ -43,26 +43,32 @@ const SlideBarAnswer = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   padding: 10px 20px;
   margin-top: 11.1rem;
+  width: 100%;
   input {
     -webkit-appearance: none;
+
+    margin: 0 2.4rem;
     width: 24.7rem;
     height: 0.9rem;
-    border-radius: 1.1rem;
+
     background: ${({ theme }) => theme.gray5};
+    border-radius: 1.1rem;
     border: none;
     outline: none;
-    margin: 0 2.4rem;
+
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
+
       width: 1.2rem;
       height: 1.2rem;
+
       background: ${({ theme }) => theme.pointColor2};
       border-radius: 50%;
     }
@@ -71,8 +77,8 @@ const Container = styled.div`
     }
   }
   p {
-    ${fonts.Body3}
     margin-top: 1.9rem;
+    ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.4rem;

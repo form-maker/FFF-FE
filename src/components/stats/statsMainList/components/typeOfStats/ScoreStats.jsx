@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import ApexCharts from "react-apexcharts";
 
 import fonts from "../../../../../styles/fonts";
-import ApexCharts from "react-apexcharts";
 import Title from "../Title";
 import StatsHeaderContainer from "../statsContainer/StatsHeaderContainer";
 

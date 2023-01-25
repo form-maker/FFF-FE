@@ -2,26 +2,24 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import fonts from "../../../../styles/fonts";
-import RoundButtonMediumWide from "../../../common/buttons/roundButtons/RoundButtonMediumWide";
-import CreateFormCard from "./CreateFormCard";
+
 import {
   goClickPage,
   goClickCover,
 } from "../../../../redux/modules/createFormSlice";
+import fonts from "../../../../styles/fonts";
+import RoundButtonMediumWide from "../../../common/buttons/roundButtons/RoundButtonMediumWide";
+import CreateFormCard from "./CreateFormCard";
 
 const CreateFormList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const currentPageNum = useSelector(
     (state) => state.createForm?.currentPageNum
   );
-
   const questionList = useSelector(
     (state) => state.createForm.formList?.questionList
   );
-
   const form = useSelector((state) => state?.createForm);
 
   const goClickPageHandler = (questionId) => {
@@ -31,8 +29,6 @@ const CreateFormList = () => {
       ) + 2;
     dispatch(goClickPage(questionPage));
   };
-
-  console.log(questionList);
 
   return (
     <Container>
@@ -88,18 +84,17 @@ const CreateFormList = () => {
 };
 
 const Container = styled.div`
-  width: 25rem;
-  height: 100%;
-
-  border: 1px solid #d9d9d9;
-  border-radius: 0px 5px 5px 0px;
-  background: ${({ theme }) => theme.sideColor2};
-
   display: flex;
   flex-direction: column;
   align-items: center;
 
   padding: 3.8rem;
+  width: 25rem;
+  height: 100%;
+
+  background: ${({ theme }) => theme.sideColor2};
+  border: 1px solid #d9d9d9;
+  border-radius: 0px 5px 5px 0px;
 `;
 
 const MainContainer = styled.div`
@@ -111,6 +106,7 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   ${fonts.Body1}
   font-weight: 600;
   font-size: 1.4rem;
@@ -118,6 +114,7 @@ const Title = styled.div`
 
   width: 16.4rem;
   height: 2.93rem;
+
   background: #f5f5f5;
   border: 1px solid #d9d9d9;
   border-radius: 6px;

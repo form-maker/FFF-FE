@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+
+import { getPrevForm } from "../../../../redux/modules/createFormSlice";
 import LongAndShortDescriptiveForm from "./questionTypesForm/LongAndShortDescriptiveForm";
 import RankForm from "./questionTypesForm/RankForm";
 import ScoreAndStarForm from "./questionTypesForm/ScoreAndStarForm";
 import SingleAndMultiChoiceForm from "./questionTypesForm/SingleAndMultiChoiceForm";
 import SlideBarForm from "./questionTypesForm/SlideBarForm";
 import SurveyCoverForm from "./questionTypesForm/SurveyCoverForm";
-import { useSelector, useDispatch } from "react-redux";
 import NewForm from "./questionTypesForm/NewForm";
-import { getPrevForm } from "../../../../redux/modules/createFormSlice";
 
 const QuestionForm = () => {
   const dispatch = useDispatch();

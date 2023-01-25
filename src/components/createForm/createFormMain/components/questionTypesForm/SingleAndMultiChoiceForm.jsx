@@ -1,38 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../../../styles/fonts";
+
 import {
   fillOutQuestion,
   selectedFormType,
-  // fillOutQuestionAnswer,
 } from "../../../../../redux/modules/createFormSlice";
+import fonts from "../../../../../styles/fonts";
 
 const SingleAndMultiChoiceForm = () => {
   const dispatch = useDispatch();
-  // 현재 타입
   const questionType = useSelector(
     (state) => state.createForm.selectedFormType
   );
-  // 입력값
   const [questionInput, setQuestion] = useState("");
-  // 현재 페이지 넘버
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
-  // 답으로 체크할 항목 리스트
   const answerList = useSelector(
     (state) =>
       state.createForm.formList?.questionList[currentPageNum - 2]["answerList"]
   );
-  // 타이틀이 있을때면 기존에 값이 있다 판단, 삭제 하면 안되기 때문에 체크 포인트로 사용
   const questionTitle = useSelector(
     (state) =>
       state.createForm.formList?.questionList[currentPageNum - 2][
         "questionTitle"
       ]
   );
-  // 처음 시작할 때 세팅 값
+
   useEffect(() => {
     currentPageNum > 1 &&
       !questionTitle &&
@@ -46,12 +41,10 @@ const SingleAndMultiChoiceForm = () => {
       );
   }, []);
 
-  // 페이지가 넘어가면 input값 초기화
   useEffect(() => {
     setQuestion("");
   }, [currentPageNum]);
 
-  // 내부에서 타입 체크에 따라 변경
   const multiCheckHandler = (event) => {
     batch(() => {
       dispatch(
@@ -67,25 +60,19 @@ const SingleAndMultiChoiceForm = () => {
         })
       );
     });
-    console.log(questionType);
   };
 
-  // answer 값 수정
   const InputChangeHandler = (event) => {
     setQuestion(event.target.value);
   };
 
-  // 엔터 버튼 눌렀을 때
   const onKeyUp = (event) => {
     if (event.target.value.length !== 0 && event.key === "Enter") {
       submitTagItem();
     }
   };
   const submitTagItem = () => {
-    dispatch(
-      // fillOutQuestionAnswer
-      fillOutQuestion({ answerList: [...answerList, questionInput] })
-    );
+    dispatch(fillOutQuestion({ answerList: [...answerList, questionInput] }));
     setQuestion("");
   };
 
@@ -130,10 +117,11 @@ const SingleAndMultiChoiceForm = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  margin-top: 5rem;
   display: flex;
   justify-content: center;
+
+  margin-top: 5rem;
+  width: 100%;
 `;
 
 const ChoiceContainer = styled.div`
@@ -155,10 +143,10 @@ const CheckContainer = styled.div`
     &:checked + label {
       &::before {
         content: "";
+        background-position: 50%;
+        background-repeat: no-repeat;
         background-color: ${({ theme }) => theme.mainColor};
         border-color: ${({ theme }) => theme.mainColor};
-        background-repeat: no-repeat;
-        background-position: 50%;
       }
     }
   }
@@ -172,6 +160,7 @@ const CheckContainer = styled.div`
       display: inline-block;
       width: 17px;
       height: 17px;
+
       border: 2px solid ${({ theme }) => theme.mainColor};
       border-radius: 4px;
       vertical-align: middle;
@@ -191,39 +180,42 @@ const QuestionInput = styled.input`
   font-weight: 500;
   font-size: 1.6rem;
   line-height: 1.9rem;
-  border: none;
-  width: 100%;
+
   margin-top: 2.2rem;
   padding: 0.8rem 0;
+  width: 100%;
+
+  border: none;
   border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
 `;
 
 const Question = styled.div`
   display: flex;
   align-items: center;
+
   ${fonts.Body1}
   font-weight: 500;
   font-size: 1.6rem;
   line-height: 1.9rem;
-  border: none;
-  width: 100%;
-  margin-top: 2.2rem;
+
   padding: 0.2rem 0;
   margin-top: 1rem;
   width: 100%;
+
+  border: none;
   border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
+
   div {
     flex: 1;
     ${fonts.Body1}
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 1.9rem;
-
     span {
+      margin-right: 1rem;
       font-weight: 800;
       font-size: 2rem;
       line-height: 1.9rem;
-      margin-right: 1rem;
     }
   }
   img {
