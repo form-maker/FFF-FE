@@ -47,6 +47,13 @@ const Container = styled.div`
   div {
     margin: 0;
   }
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+
+    height: 11rem;
+    padding: 1rem 1.5rem;
+  }
 `;
 
 const Header = styled.div`

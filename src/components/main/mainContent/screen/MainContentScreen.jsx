@@ -47,6 +47,13 @@ const MainCardContainer = styled.div`
     line-height: 2.4rem;
     margin: 0;
   }
+
+  @media screen and (max-width: 500px) {
+    padding: 3rem;
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
 `;
 
 const CardContainer = styled.div`
@@ -54,6 +61,10 @@ const CardContainer = styled.div`
   align-items: center;
   margin-top: 4.4rem;
   margin-bottom: 6rem;
+  @media screen and (max-width: 500px) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 export default MainContentScreen;

@@ -71,6 +71,12 @@ const SurveyContainer = styled.div`
 
   width: 100%;
   margin-bottom: 3rem;
+
+  @media screen and (max-width: 500px) {
+    grid-row-gap: 1rem;
+    grid-column-gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export default CardList;
