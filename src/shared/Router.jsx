@@ -30,7 +30,7 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/login/kakao" element={<KakaoRedirectHandler />} />
           <Route
-            path="/api/user/oauth/google"
+            path="/login/oauth2/code/google"
             element={<GoogleRedirectHandler />}
           />
           <Route path="/signup" element={<SignUp />} />
