@@ -47,7 +47,6 @@ const CreateFormList = () => {
 
   const [finalSelectPop, setFinalSelectPop] = useState(false);
   const [isSelectToggleShow, setIsSelectToggleShow] = useState(false);
-  const questionId = useRef(1);
   const wrapperRef = useRef();
 
   useToggleShow({
