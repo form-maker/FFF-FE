@@ -24,6 +24,14 @@ const CreateFormMainScreen = () => {
     (state) => state.createForm.formList?.questionList[currentPageNum - 2]
   );
 
+  const selectedFormType = useSelector(
+    (state) => state.createForm.selectedFormType
+  );
+
+  const test = useSelector((state) => state.createForm);
+
+  console.log(test);
+
   const questionId = useRef(1);
   const wrapperRef = useRef();
   const [isSelectToggleShow, setIsSelectToggleShow] = useState(false);
@@ -47,17 +55,22 @@ const CreateFormMainScreen = () => {
           >
             새 설문 추가하기 +
           </h5> */}
-          <div
-            onClick={() => {
-              setIsSelectToggleShow((prev) => !prev);
-            }}
-          >
-            <span> 설문 타입 변경</span>
-            <ToggleIcon
-              src={process.env.PUBLIC_URL + "/img/toggleIcon.svg"}
-              alt="toggleIcon"
-            />
-          </div>
+
+          {selectedFormType === "COVER" ? (
+            <span>표지 페이지</span>
+          ) : (
+            <div
+              onClick={() => {
+                setIsSelectToggleShow((prev) => !prev);
+              }}
+            >
+              <span>설문지 타입 변경</span>
+              <ToggleIcon
+                src={process.env.PUBLIC_URL + "/img/toggleIcon.svg"}
+                alt="toggleIcon"
+              />
+            </div>
+          )}
         </div>
         {/* <img
           src={process.env.PUBLIC_URL + "/img/circleClose.svg"}
