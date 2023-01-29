@@ -9,10 +9,14 @@ import SelectNumber from "./selectGift/SelectNumber";
 const SelectGift = () => {
   const dispatch = useDispatch();
   const giftName = useSelector(
-    (state) => state.createForm.formList?.giftList[0]["giftName"]
+    (state) =>
+      state.createForm.formList?.giftList?.length !== 0 &&
+      state.createForm.formList?.giftList[0]["giftName"]
   );
   const giftSummary = useSelector(
-    (state) => state.createForm.formList?.giftList[0]["giftSummary"]
+    (state) =>
+      state.createForm.formList?.giftList?.length !== 0 &&
+      state.createForm.formList?.giftList[0]["giftSummary"]
   );
 
   const InputHandler = (event) => {

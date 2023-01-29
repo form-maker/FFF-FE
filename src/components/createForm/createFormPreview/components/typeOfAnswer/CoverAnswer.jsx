@@ -36,6 +36,8 @@ const Container = styled.div`
 const Header = styled.div`
   margin-top: 6.1rem;
   text-align: center;
+  padding: 0 3rem;
+  word-break: break-all;
   h1 {
     margin: 0;
     ${fonts.Body1}
@@ -49,25 +51,21 @@ const Main = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   margin-top: 4.6rem;
   height: 20rem;
   text-align: center;
+
+  padding: 0 3rem;
+  word-break: break-all;
   div {
+    width: 100%;
+
     height: 13rem;
     ${fonts.Body3}
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 1.9rem;
-  }
-  div {
-    p {
-      ${fonts.Body2}
-      font-weight: 500;
-      font-size: 1.4rem;
-      line-height: 1.7rem;
-    }
   }
 `;
 

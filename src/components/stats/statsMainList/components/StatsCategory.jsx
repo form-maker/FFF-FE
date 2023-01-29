@@ -18,6 +18,7 @@ const StatsCategory = () => {
           imgName={question.questionType}
           index={index}
           title={question.questionTitle}
+          stats={true}
         />
       ))}
     </SurveyListContainer>

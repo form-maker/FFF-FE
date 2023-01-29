@@ -3,10 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import fonts from "../../../../styles/fonts";
-import {
-  deleteQuestion,
-  selectedFormType,
-} from "../../../../redux/modules/createFormSlice";
+import { deleteQuestion } from "../../../../redux/modules/createFormSlice";
 import SelectTypeList from "./selectType/SelectTypeList";
 
 const CreateFormCard = ({
@@ -17,6 +14,7 @@ const CreateFormCard = ({
   isCurrentPageNum,
   questionId,
   isCover,
+  stats,
 }) => {
   const dispatch = useDispatch();
   const wrapperRef = useRef();
@@ -31,17 +29,13 @@ const CreateFormCard = ({
   if (imgName === "LONG_DESCRIPTIVE") {
     imgName = "SHORT_DESCRIPTIVE";
   }
-  // if (imgName === undefined) {
-  //   imgName = "NEW_FORM";
-  //   title = "설문 타입을 선택해주세요";
-  // }
   return (
     <Container
       onClick={onClick}
       background={isCurrentPageNum ? "pointColor2" : null}
       fontWeight={isCurrentPageNum ? "900" : null}
     >
-      <div>{index + 2}</div>
+      <div>{stats ? index + 1 : index + 2}</div>
       <img
         src={process.env.PUBLIC_URL + `/img/${imgName}.svg`}
         alt={imgName}
@@ -50,8 +44,10 @@ const CreateFormCard = ({
       <h4>
         {title === ""
           ? isCover
-            ? "제목을 작성해주세요"
-            : "질문을 작성해주세요"
+            ? "설문 제목 입력"
+            : "질문 제목 입력"
+          : title.length > 10
+          ? title.slice(0, 10) + "..."
           : title}
       </h4>
       {!isCover && (
@@ -102,7 +98,7 @@ const Container = styled.div`
   h4 {
     margin: 0;
     padding: 0 0 0 1.1rem;
-
+    width: 7.5rem;
     ${fonts.Body1}
     font-weight: ${({ fontWeight }) => fontWeight || 400};
     font-size: 1.3rem;

@@ -59,6 +59,14 @@ const createFormSlice = createSlice({
         groupList: [],
         summary: "",
         questionList: [],
+        giftList: [
+          {
+            giftName: "",
+            giftSummary: "",
+            giftIcon: "🎁",
+            giftQuantity: 1,
+          },
+        ],
       };
       state.error = null;
       state.formCreateSuccess = false;
@@ -81,7 +89,7 @@ const createFormSlice = createSlice({
         ...state.formList?.questionList,
         action.payload,
       ];
-      state.selectedFormType = action.payload.formType;
+      state.selectedFormType = action.payload.questionType;
       state.currentPageNum = state.formList?.questionList?.length + 1;
       console.log(current(state.formList));
     },

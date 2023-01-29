@@ -18,8 +18,13 @@ const QuestionForm = () => {
   );
   let prevForm = localStorage.getItem("createForm");
 
+  console.log(JSON.parse(prevForm)?.formList);
+
   useEffect(() => {
-    if (prevForm) {
+    if (
+      prevForm &&
+      JSON.parse(prevForm)?.formList?.questionList?.length !== 0
+    ) {
       window.confirm("임시저장한 데이터를 불러오시겠습니까?")
         ? dispatch(getPrevForm(JSON.parse(prevForm)))
         : localStorage.removeItem("createForm");

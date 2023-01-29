@@ -103,9 +103,12 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 6.2rem;
   h1 {
     margin-top: 6.1rem 0 0 0;
     ${fonts.Body1}
+    padding: 0 3rem;
+    word-break: break-all;
   }
   h5 {
     margin-top: 4.6rem;
@@ -113,6 +116,8 @@ const TitleContainer = styled.div`
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 1.9rem;
+    padding: 0 3rem;
+    word-break: break-all;
   }
 `;
 

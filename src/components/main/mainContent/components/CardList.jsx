@@ -19,19 +19,23 @@ const CardList = () => {
   }, []);
 
   const goSurveyHandler = async ({ surveyId }) => {
-    try {
-      const { data } = await baseURLApi.get("user");
-      navigate(`/survey?surveyId=${surveyId}`);
-      // !data.data
-      //   ? batch(() => {
-      //       alert("로그인을 해주세요");
-      //       navigate("/login");
-      //     })
-      //   : navigate(`/survey?surveyId=${surveyId}`);
-    } catch (error) {
-      console.log(error);
-    }
+    navigate(`/survey?surveyId=${surveyId}`);
   };
+
+  // const goSurveyHandler = async ({ surveyId }) => {
+  //   try {
+  //     const { data } = await baseURLApi.get("user");
+  //     navigate(`/survey?surveyId=${surveyId}`);
+  //     // !data.data
+  //     //   ? batch(() => {
+  //     //       alert("로그인을 해주세요");
+  //     //       navigate("/login");
+  //     //     })
+  //     //   : navigate(`/survey?surveyId=${surveyId}`);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   console.log(mainCardList);
 

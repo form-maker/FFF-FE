@@ -36,13 +36,13 @@ const PageTitle = () => {
       <p>설문에 참여하고 이벤트에 응모해 보세요</p>
       <ButtonContainer>
         {/* <RoundButtonMedium buttonValue="설문 참여하기" margin="0 0.85rem 0 0" /> */}
-        <RoundButtonMedium
+        {/* <RoundButtonMedium
           buttonValue="설문 제작하기"
           margin="0 0 0 0.85rem"
           onClick={() => {
             goCreateFormHandler();
           }}
-        />
+        /> */}
       </ButtonContainer>
     </Container>
   );
