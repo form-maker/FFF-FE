@@ -49,7 +49,8 @@ const MainCardContainer = styled.div`
   }
 
   @media screen and (max-width: 500px) {
-    padding: 3rem;
+    width: 85%;
+    padding: 3rem 0 3rem 0;
     h1 {
       font-size: 1.5rem;
     }
@@ -62,8 +63,8 @@ const CardContainer = styled.div`
   margin-top: 4.4rem;
   margin-bottom: 6rem;
   @media screen and (max-width: 500px) {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 0rem 0 1rem 0;
+    width: 85%;
   }
 `;
 
