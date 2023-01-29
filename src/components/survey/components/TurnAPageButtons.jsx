@@ -60,6 +60,21 @@ const ArrowContainer = styled.div`
       cursor: pointer;
     }
   }
+  @media screen and (min-width: 500px) {
+    width: 26.3rem;
+    padding: 0 3rem;
+    img {
+      &:nth-child(1) {
+        width: 2.1rem;
+      }
+      &:nth-child(3) {
+        width: 2.1rem;
+      }
+    }
+    div {
+      font-size: 1.5rem;
+    }
+  }
 `;
 
 export default TurnAPageButtons;

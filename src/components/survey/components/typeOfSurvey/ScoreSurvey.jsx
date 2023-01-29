@@ -2,11 +2,15 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { changeAnswer } from "../../../../redux/modules/surveySlice";
+import {
+  changeAnswer,
+  __getSurveyQuestion,
+} from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 import TurnAPageButtons from "../TurnAPageButtons";
-import RoundButtonMedium from "../../../../components/common/buttons/roundButtons/RoundButtonMedium";
+import { fadeInFromBottomAnimation } from "../../../../styles/animations";
+import { batch } from "react-redux";
 
 const ScoreSurvey = () => {
   const dispatch = useDispatch();
@@ -14,9 +18,16 @@ const ScoreSurvey = () => {
   const selectedAnswerList = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
+  const questionIdList = useSelector((state) => state.survey.questionIdList);
 
   const answerHandler = (answer) => {
-    dispatch(changeAnswer(answer));
+    batch(() => {
+      dispatch(changeAnswer(answer));
+      currentPageNum !== questionIdList.length + 1 &&
+        setTimeout(() => {
+          dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
+        }, 1000);
+    });
   };
 
   const range = [];
@@ -30,19 +41,45 @@ const ScoreSurvey = () => {
       <ScoreButtonContainer>
         {range.map((score) => {
           return (
-            <RoundButtonMedium
-              key={score}
-              buttonValue={`${score}점`}
-              margin="0 0.5rem"
-              background={
-                selectedAnswerList.includes(score)
-                  ? "subHoverColor1"
-                  : "subColor1"
-              }
-              onClick={() => {
-                answerHandler(score);
-              }}
-            ></RoundButtonMedium>
+            <div key={score}>
+              {selectedAnswerList[0] > score && (
+                <RoundButton
+                  key={score}
+                  background="subHoverColor1"
+                  onClick={() => {
+                    answerHandler(score);
+                  }}
+                >
+                  {score}점
+                </RoundButton>
+              )}
+              {selectedAnswerList.includes(score) && (
+                <Picked>
+                  <div display={true}>Picked!</div>
+                  <RoundButton
+                    key={score}
+                    background="subHoverColor1"
+                    onClick={() => {
+                      answerHandler(score);
+                    }}
+                  >
+                    {score}점
+                  </RoundButton>
+                </Picked>
+              )}
+              {(selectedAnswerList[0] < score ||
+                selectedAnswerList.length === 0) && (
+                <RoundButton
+                  key={score}
+                  background="subColor1"
+                  onClick={() => {
+                    answerHandler(score);
+                  }}
+                >
+                  {score}점
+                </RoundButton>
+              )}
+            </div>
           );
         })}
       </ScoreButtonContainer>
@@ -70,11 +107,60 @@ const Container = styled.div`
     font-size: 1.2rem;
     line-height: 1.4rem;
   }
+  @media screen and (min-width: 500px) {
+    justify-content: center;
+    p {
+      margin-top: 5rem;
+      margin-bottom: 15rem;
+      font-size: 1.8rem;
+    }
+  }
 `;
 
 const ScoreButtonContainer = styled.div`
   display: flex;
-  margin-top: 10rem;
+  margin-top: 8rem;
+  align-items: flex-end;
+  height: 5rem;
+  @media screen and (min-width: 500px) {
+    margin-top: 2rem;
+    justify-content: center;
+    p {
+      margin-top: 5rem;
+      margin-bottom: 15rem;
+      font-size: 1.8rem;
+    }
+  }
+`;
+
+const Picked = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  div {
+    margin: 0;
+    ${fonts.H1}
+    color: ${({ theme }) => theme.mainHoverColor};
+    font-size: 1.4rem;
+    ${fadeInFromBottomAnimation}
+  }
+`;
+
+const RoundButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 0.5rem;
+  height: 4rem;
+  width: 6rem;
+
+  ${fonts.Body1}
+  font-size: 1.5rem;
+
+  background: ${({ background, theme }) => theme[background]};
+  border-radius: 1rem;
+  border: none;
 `;
 
 const ArrowButtonContainer = styled.div`

@@ -4,10 +4,14 @@ import styled from "styled-components";
 import { Slider } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 
-import { changeAnswer } from "../../../../redux/modules/surveySlice";
+import {
+  changeAnswer,
+  __getSurveyQuestion,
+} from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 import TurnAPageButtons from "../../components/TurnAPageButtons";
+import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 
 const SlideSurvey = () => {
   const dispatch = useDispatch();
@@ -18,6 +22,7 @@ const SlideSurvey = () => {
       state.survey.answer[currentPageNum - 2]["selectValue"][0] !== undefined &&
       state.survey.answer[currentPageNum - 2]["selectValue"][0]
   );
+  const questionIdList = useSelector((state) => state.survey.questionIdList);
 
   useEffect(() => {
     dispatch(changeAnswer(0));
@@ -25,6 +30,13 @@ const SlideSurvey = () => {
 
   const changeHandler = (event, newValue) => {
     dispatch(changeAnswer(newValue));
+  };
+
+  const goNextPageHandler = () => {
+    currentPageNum !== questionIdList.length + 1 &&
+      setTimeout(() => {
+        dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
+      }, 400);
   };
 
   const leftRange = [];
@@ -61,7 +73,17 @@ const SlideSurvey = () => {
         <div>{question?.answerList[0]["answerValue"]}</div>
         <div>{question?.answerList[1]["answerValue"]}</div>
       </LabelContainer>
-      <p>점수를 선택해주세요</p>
+      {currentPageNum !== questionIdList.length + 1 && (
+        <ButtonContainer>
+          <RoundButtonMedium
+            buttonValue="Picked"
+            background="subColor1"
+            onClick={() => {
+              goNextPageHandler();
+            }}
+          ></RoundButtonMedium>
+        </ButtonContainer>
+      )}
       <ArrowButtonContainer>
         <TurnAPageButtons />
       </ArrowButtonContainer>
@@ -75,15 +97,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
+  padding-top: 6.1rem;
   width: 100%;
   height: 100%;
-  padding-top: 6.1rem;
-  p {
-    margin-top: 1.9rem;
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1.2rem;
-    line-height: 1.4rem;
+
+  @media screen and (min-width: 500px) {
+    justify-content: center;
   }
 `;
 
@@ -93,8 +112,12 @@ const SlideContainer = styled.div`
   align-items: center;
 
   width: 100%;
-  margin: 20rem 0.1rem 0 0;
+  margin: 8rem 0.1rem 0 0;
   padding: auto;
+  @media screen and (min-width: 500px) {
+    margin-top: 2rem;
+    justify-content: center;
+  }
 `;
 
 const LabelContainer = styled.div`
@@ -102,6 +125,11 @@ const LabelContainer = styled.div`
   justify-content: space-between;
   margin: 1rem 0 0 1rem;
   width: 31rem;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 2rem;
+  margin-bottom: 15rem;
 `;
 
 const ArrowButtonContainer = styled.div`
