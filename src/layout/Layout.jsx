@@ -31,7 +31,6 @@ const MainLayout = styled.div`
   justify-content: center;
 
   width: 100%;
-  /* min-width: 800px; */
   max-width: 1200px;
   min-height: 80vh;
 `;
