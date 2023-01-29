@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -26,7 +26,7 @@ const StarSurvey = () => {
       currentPageNum !== questionIdList.length + 1 &&
         setTimeout(() => {
           dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-        }, 1000);
+        }, 900);
     });
   };
 

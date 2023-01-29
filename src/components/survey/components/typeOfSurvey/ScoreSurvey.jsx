@@ -26,7 +26,7 @@ const ScoreSurvey = () => {
       currentPageNum !== questionIdList.length + 1 &&
         setTimeout(() => {
           dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-        }, 1000);
+        }, 900);
     });
   };
 
