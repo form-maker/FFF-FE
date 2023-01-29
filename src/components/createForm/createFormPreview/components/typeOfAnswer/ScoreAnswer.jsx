@@ -45,7 +45,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin-top: 15rem;
+  margin-top: 10rem;
   width: 100%;
 
   p {
