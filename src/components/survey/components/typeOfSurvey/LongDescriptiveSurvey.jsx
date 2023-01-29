@@ -123,6 +123,7 @@ const InputContainer = styled.div`
   }
   @media screen and (min-width: 500px) {
     div {
+      margin-bottom: 15rem;
       textarea {
         width: 40rem;
         font-size: 1.8rem;

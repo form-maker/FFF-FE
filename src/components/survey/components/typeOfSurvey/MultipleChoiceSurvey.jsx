@@ -103,6 +103,7 @@ const Container = styled.div`
     justify-content: center;
     width: 40rem;
     padding: 0;
+    padding-bottom: 3rem;
   }
 `;
 
