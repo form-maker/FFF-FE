@@ -17,6 +17,10 @@ const Container = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
+
+  @media screen and (min-width: 500px) {
+    background-color: ${({ theme }) => theme.backgroundColor2};
+  }
 `;
 
 export default Survey;
