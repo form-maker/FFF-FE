@@ -101,14 +101,14 @@ const ToggleMenu = styled.div`
   position: absolute;
   top: 0;
   width: 100vw;
-  height: 50rem;
+  height: 34rem;
   z-index: 1;
   background: ${({ theme }) => theme.backgroundColor};
   border-bottom: ${({ theme }) => `1px solid ${theme.gray6}`};
 `;
 
 const StatusContainer = styled.div`
-  height: 40rem;
+  height: 23rem;
   overflow: auto;
   margin-left: 3.7rem;
 `;
