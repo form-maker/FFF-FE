@@ -42,13 +42,13 @@ const LongDescriptiveSurvey = () => {
             value={descriptive}
             onChange={answerHandler}
           ></textarea>
-          {descriptive.length > 200 && (
-            <p>200자 이내로 줄여주세요 (현 {descriptive.length}자)</p>
+          {descriptive?.length > 200 && (
+            <p>200자 이내로 줄여주세요 (현 {descriptive?.length}자)</p>
           )}
-          {descriptive.length <= 200 && <p>{descriptive.length}자 작성</p>}
+          {descriptive?.length <= 200 && <p>{descriptive?.length}자 작성</p>}
         </div>
       </InputContainer>
-      {currentPageNum !== questionIdList.length + 1 && (
+      {currentPageNum !== questionIdList?.length + 1 && (
         <ButtonContainer>
           <RoundButtonMedium
             buttonValue="Picked"
