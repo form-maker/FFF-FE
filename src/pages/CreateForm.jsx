@@ -28,7 +28,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 100vw;
   height: 100vh;
 `;
 
@@ -36,8 +35,10 @@ const FormCreateContainer = styled.div`
   display: flex;
   flex-direction: row;
 
-  height: 77.3rem;
-  width: 139.1rem;
+  height: 93%;
+  width: 100%;
+  min-width: 800px;
+  max-width: 1200px;
 
   background-color: ${({ theme }) => theme.backgroundColor};
   border-radius: 0px 4.4rem 4.4rem 0rem;

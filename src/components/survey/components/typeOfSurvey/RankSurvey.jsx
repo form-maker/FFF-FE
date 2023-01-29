@@ -3,10 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import { changeAnswerList } from "../../../../redux/modules/surveySlice";
+import {
+  changeAnswerList,
+  __getSurveyQuestion,
+} from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 import TurnAPageButtons from "../../components/TurnAPageButtons";
+import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 
 const RankSurvey = () => {
   const dispatch = useDispatch();
@@ -18,12 +22,21 @@ const RankSurvey = () => {
       answerNum: answer.answerNum,
     };
   });
+  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
+  const questionIdList = useSelector((state) => state.survey.questionIdList);
   const [characters, updateCharacters] = useState(addAnswerId);
 
   let answerNumList = [];
   for (let i = 1; i <= question.answerList?.length; i++) {
     answerNumList.push(i);
   }
+
+  const goNextPageHandler = () => {
+    currentPageNum !== questionIdList.length + 1 &&
+      setTimeout(() => {
+        dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
+      }, 400);
+  };
 
   useEffect(() => {
     let answerList = characters?.map((character) => {
@@ -42,7 +55,7 @@ const RankSurvey = () => {
 
   return (
     <Container>
-      <Title />
+      <Title marginTop="0.4rem" />
       <CommentContainer>
         <p>드래그 앤 드롭으로 원하는 순위를 조정해주세요</p>
       </CommentContainer>
@@ -81,6 +94,17 @@ const RankSurvey = () => {
           </Droppable>
         </DragDropContext>
       </DragDropContainer>
+      {currentPageNum !== questionIdList.length + 1 && (
+        <ButtonContainer>
+          <RoundButtonMedium
+            buttonValue="Picked"
+            background="subColor1"
+            onClick={() => {
+              goNextPageHandler();
+            }}
+          ></RoundButtonMedium>
+        </ButtonContainer>
+      )}
       <ArrowButtonContainer>
         <TurnAPageButtons />
       </ArrowButtonContainer>
@@ -97,11 +121,16 @@ const Container = styled.div`
   width: 26.5rem;
   height: 100%;
   padding-top: 6.1rem;
+  @media screen and (min-width: 500px) {
+    justify-content: center;
+    width: 40rem;
+    padding: 0;
+  }
 `;
 
 const CommentContainer = styled.div`
   display: flex;
-  margin-top: 5rem;
+  margin-top: 2rem;
   width: 100%;
   p {
     margin: 0;
@@ -110,6 +139,13 @@ const CommentContainer = styled.div`
     font-size: 1.2rem;
     line-height: 1.4rem;
   }
+  @media screen and (min-width: 500px) {
+    margin-top: 2rem;
+    p {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+  }
 `;
 
 const DragDropContainer = styled.div`
@@ -117,6 +153,10 @@ const DragDropContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   width: 100%;
+  @media screen and (min-width: 500px) {
+    margin-top: 2rem;
+    justify-content: center;
+  }
 `;
 
 const AnswerNumberContainer = styled.div`
@@ -162,7 +202,7 @@ const DNDList = styled.div`
 
   ${fonts.Body1}
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1.8rem;
 
   background-color: ${({ theme }) => theme.subColor1};
@@ -170,6 +210,16 @@ const DNDList = styled.div`
   p {
     margin: 0;
   }
+
+  @media screen and (min-width: 500px) {
+    font-size: 1.6rem;
+    width: 37rem;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const ArrowButtonContainer = styled.div`

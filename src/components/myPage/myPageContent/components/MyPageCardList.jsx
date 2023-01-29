@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { batch } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { __getMyPageCardList } from "../../../../redux/modules/myPageListSlice";
@@ -8,12 +9,13 @@ import MySurveySummeryCard from "./MySurveySummeryCard";
 import Sort from "./Sort";
 
 const MyPageCardList = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const myPageCardList = useSelector(
-    (state) => state.myPageCardList.myPageCardList.pageData?.contents
+    (state) => state.myPageCardList.myPageCardList?.pageData?.contents
   );
+  const loginError = useSelector((state) => state.myPageCardList?.error);
 
   useEffect(() => {
     dispatch(
@@ -24,7 +26,12 @@ const MyPageCardList = () => {
         status: "IN_PROCEED",
       })
     );
-  }, [dispatch]);
+    loginError &&
+      batch(() => {
+        alert("로그인을 해주세요");
+        navigate("/login");
+      });
+  }, [loginError, dispatch, navigate]);
 
   return (
     <Container>
@@ -52,9 +59,6 @@ const MyPageCardList = () => {
                 status={card.status}
                 achievementRate={card.achievementRate}
                 totalQuestion={card.totalQuestion}
-                onClick={() => {
-                  navigate(`/stats/${card.surveyId}`);
-                }}
               />
             );
           })

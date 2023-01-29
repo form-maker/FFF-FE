@@ -8,8 +8,6 @@ import RoundButtonLarge from "../../../../common/buttons/roundButtons/RoundButto
 const CoverAnswer = () => {
   const title = useSelector((state) => state.createForm.formList.title);
   const summary = useSelector((state) => state.createForm.formList.summary);
-  const startedAt = useSelector((state) => state.createForm.formList.startedAt);
-  const endedAt = useSelector((state) => state.createForm.formList.endedAt);
 
   return (
     <Container>
@@ -18,11 +16,6 @@ const CoverAnswer = () => {
       </Header>
       <Main>
         <div>{summary ? summary : "설문에 관해 간단하게 설명해주세요"}</div>
-        <div>
-          <p>
-            {startedAt} ~ {endedAt}
-          </p>
-        </div>
       </Main>
       <Bottom>
         <RoundButtonLarge buttonValue="시작하기" width="28.3rem" />

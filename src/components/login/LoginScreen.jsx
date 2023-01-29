@@ -10,6 +10,9 @@ import {
   CLIENT_ID_G,
   REDIRECT_URI_G,
 } from "../../constants/env";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { loginErrorClose } from "../../redux/modules/myPageListSlice";
 
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=https://www.googleapis.com/auth/drive.metadata.readonly`;
@@ -17,6 +20,7 @@ console.log(REDIRECT_URI_G);
 
 const LoginScreen = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(false);
@@ -24,6 +28,13 @@ const LoginScreen = () => {
   const toggle = () => {
     setHidePassword(!hidePassword);
   };
+
+  const loginCheck = useSelector((state) => state.myPageCardList.error);
+  console.log(loginCheck);
+
+  useEffect(() => {
+    dispatch(loginErrorClose());
+  }, [dispatch]);
 
   //로그인 통신
   const Login = async (aaa) => {

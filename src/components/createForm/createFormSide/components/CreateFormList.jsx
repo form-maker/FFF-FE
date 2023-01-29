@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -6,10 +6,16 @@ import styled from "styled-components";
 import {
   goClickPage,
   goClickCover,
+  selectedFormType,
+  addForm,
+  __postForm,
 } from "../../../../redux/modules/createFormSlice";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMediumWide from "../../../common/buttons/roundButtons/RoundButtonMediumWide";
+import useToggleShow from "../../../common/hooks/useToggleShow";
+import CreateFormFinalSelect from "../../createFormMain/components/CreateFormFinalSelect";
 import CreateFormCard from "./CreateFormCard";
+import SelectTypeList from "./selectType/SelectTypeList";
 
 const CreateFormList = () => {
   const navigate = useNavigate();
@@ -17,6 +23,7 @@ const CreateFormList = () => {
   const currentPageNum = useSelector(
     (state) => state.createForm?.currentPageNum
   );
+  const survey = useSelector((state) => state.createForm?.formList);
   const questionList = useSelector(
     (state) => state.createForm.formList?.questionList
   );
@@ -30,10 +37,46 @@ const CreateFormList = () => {
     dispatch(goClickPage(questionPage));
   };
 
+  const postClickHandler = () => {
+    dispatch(__postForm(survey));
+  };
+
+  const finalSelectPopHandler = () => {
+    setFinalSelectPop(true);
+  };
+
+  const [finalSelectPop, setFinalSelectPop] = useState(false);
+  const [isSelectToggleShow, setIsSelectToggleShow] = useState(false);
+  const questionId = useRef(1);
+  const wrapperRef = useRef();
+
+  useToggleShow({
+    isSelectToggleShow,
+    setIsSelectToggleShow,
+    wrapperRef,
+  });
+
   return (
     <Container>
       <MainContainer>
-        <Title>전체 페이지</Title>
+        <PlusContainer>
+          <Button
+            onClick={() => {
+              setIsSelectToggleShow((prev) => !prev);
+            }}
+          >
+            ➕
+          </Button>
+          {isSelectToggleShow && (
+            <ToggleContainer ref={wrapperRef}>
+              <SelectTypeList
+                setIsSelectToggleShow={setIsSelectToggleShow}
+                isCreateForm={true}
+              />
+            </ToggleContainer>
+          )}
+        </PlusContainer>
+
         <SurveyListContainer>
           <CreateFormCard
             imgName="COVER"
@@ -62,23 +105,22 @@ const CreateFormList = () => {
       </MainContainer>
       <BottomContainer>
         <RoundButtonMediumWide
-          buttonValue="그만두기"
-          background="gray1"
-          width="16.4rem"
-          hoverBackground="gray2"
-          onClick={() => {
-            navigate("/");
-          }}
-        />
-        <RoundButtonMediumWide
-          buttonValue="임시저장"
+          buttonValue="등록하기"
           background="subColor1"
           width="16.4rem"
           onClick={() => {
-            localStorage.setItem("createForm", JSON.stringify(form));
+            finalSelectPopHandler();
+            // postClickHandler();
           }}
         />
       </BottomContainer>
+      {finalSelectPop && (
+        <CreateFormFinalSelect
+          closePop={() => {
+            setFinalSelectPop(false);
+          }}
+        />
+      )}
     </Container>
   );
 };
@@ -97,22 +139,32 @@ const Container = styled.div`
   border-radius: 0px 5px 5px 0px;
 `;
 
+const PlusContainer = styled.div`
+  position: relative;
+`;
+
+const ToggleContainer = styled.div`
+  position: absolute;
+  top: 4rem;
+  z-index: 1;
+`;
+
 const MainContainer = styled.div`
   flex: 1;
   width: 17.6rem;
 `;
 
-const Title = styled.div`
+const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
 
   ${fonts.Body1}
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 2rem;
   line-height: 1.7rem;
 
-  width: 16.4rem;
+  width: 100%;
   height: 2.93rem;
 
   background: #f5f5f5;
@@ -121,8 +173,10 @@ const Title = styled.div`
 `;
 
 const SurveyListContainer = styled.div`
-  margin-top: 3.7rem;
+  margin-top: 2rem;
   width: 100%;
+  height: 50rem;
+  overflow-y: auto;
 `;
 
 const BottomContainer = styled.div`

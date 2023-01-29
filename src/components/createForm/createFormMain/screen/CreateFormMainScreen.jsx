@@ -11,7 +11,7 @@ import fonts from "../../../../styles/fonts";
 import CreateFormInput from "../components/CreateFormInput";
 import QuestionForm from "../components/QuestionForm";
 import TurnAPageButtons from "../components/TurnAPageButtons";
-import SelectTypeList from "../components/selectType/SelectTypeList";
+import SelectTypeList from "../../createFormSide/components/selectType/SelectTypeList";
 import useToggleShow from "../../../common/hooks/useToggleShow";
 import CreateFormPageNumber from "../components/CreateFormPageNumber";
 
@@ -38,7 +38,7 @@ const CreateFormMainScreen = () => {
     <Container>
       <Header>
         <div>
-          <h5
+          {/* <h5
             onClick={() => {
               dispatch(selectedFormType("NEW_FORM"));
               dispatch(addForm({ questionId: questionId.current }));
@@ -46,23 +46,18 @@ const CreateFormMainScreen = () => {
             }}
           >
             새 설문 추가하기 +
-          </h5>
+          </h5> */}
           <div
             onClick={() => {
               setIsSelectToggleShow((prev) => !prev);
             }}
           >
-            설문 개요 작성
+            <span> 설문 타입 변경</span>
             <ToggleIcon
               src={process.env.PUBLIC_URL + "/img/toggleIcon.svg"}
               alt="toggleIcon"
             />
           </div>
-          {isSelectToggleShow && (
-            <ToggleContainer ref={wrapperRef}>
-              <SelectTypeList setIsSelectToggleShow={setIsSelectToggleShow} />
-            </ToggleContainer>
-          )}
         </div>
         {/* <img
           src={process.env.PUBLIC_URL + "/img/circleClose.svg"}
@@ -73,6 +68,11 @@ const CreateFormMainScreen = () => {
           }}
         /> */}
       </Header>
+      {isSelectToggleShow && (
+        <ToggleContainer ref={wrapperRef}>
+          <SelectTypeList />
+        </ToggleContainer>
+      )}
       <Main>
         <CreateFormInput />
         <QuestionForm />
@@ -84,52 +84,40 @@ const CreateFormMainScreen = () => {
 };
 
 const Container = styled.div`
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
 `;
 
 const Header = styled.div`
-  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 
   padding: 3.4rem 2.3rem 0 2.3rem;
   width: 100%;
   div {
-    font-weight: 700;
-    font-size: 2rem;
-    line-height: 2.4rem;
-
-    color: ${({ theme }) => theme.pointColor2};
     cursor: pointer;
-  }
-  h5 {
-    margin: 0;
-    ${fonts.Body1}
-    font-weight: 400;
-    font-size: 1.5rem;
-    line-height: 1.8rem;
+    span {
+      font-weight: 700;
+      font-size: 2rem;
+      line-height: 2.4rem;
 
-    cursor: pointer;
+      color: ${({ theme }) => theme.pointColor2};
+    }
   }
-  img {
-    width: 3rem;
-    height: 3rem;
-  }
+`;
+const ToggleIcon = styled.img`
+  margin-left: 1.9rem;
+  width: 1.2rem;
 `;
 
 const ToggleContainer = styled.div`
   position: absolute;
-  top: 7.4rem;
-  left: 1.4rem;
-  z-index: 1;
-`;
-
-const ToggleIcon = styled.img`
-  margin-left: 1.9rem;
-  width: 1.4rem;
+  top: 7rem;
+  right: 1.5rem;
+  z-index: 3;
 `;
 
 const Main = styled.div`

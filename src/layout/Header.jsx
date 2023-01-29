@@ -36,7 +36,7 @@ const Header = () => {
             />
           </div>
           <div>
-            <NoOutLineSmall buttonValue="진행중인 폼" font="Body2" />
+            {/* <NoOutLineSmall buttonValue="진행중인 폼" font="Body2" /> */}
             <NoOutLineSmall
               buttonValue="폼 제작하기"
               font="Body2"
@@ -104,14 +104,17 @@ const Container = styled.div`
 const SubContainer = styled.div`
   width: 100%;
   height: 8rem;
-  min-width: 800px;
   max-width: 1200px;
   div {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    padding: 1rem 1rem;
+    padding: 1rem;
+  }
+  @media screen and (max-width: 500px) {
+    padding: 0.1rem;
+    height: 7rem;
   }
 `;
 

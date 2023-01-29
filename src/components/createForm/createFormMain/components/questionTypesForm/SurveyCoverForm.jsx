@@ -79,7 +79,7 @@ const SurveyCoverForm = () => {
         resize="none"
         onChange={InputHandler}
       />
-      <AchievementContainer>
+      {/* <AchievementContainer>
         <label>목표 인원을 설정해주세요</label>
         <NumberInputContainer>
           <button
@@ -118,7 +118,7 @@ const SurveyCoverForm = () => {
             />
           )}
         </CalenderContainer>
-      </CalenderSelectorContainer>
+      </CalenderSelectorContainer> */}
     </Container>
   );
 };

@@ -1,10 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { __deleteStats } from "../../../../redux/modules/statsSlice";
+import { __deleteCard } from "../../../../redux/modules/myPageListSlice";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
+import useCopyClipBoard from "../hooks/useCopyClipBoard";
 
 const MySurveySummeryCard = ({
   title,
@@ -14,10 +16,16 @@ const MySurveySummeryCard = ({
   status,
   achievementRate,
   totalQuestion,
-  onClick,
   surveyId,
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isCopy, onCopy] = useCopyClipBoard();
+
+  const copyClipBoardHandler = (text) => {
+    onCopy(text);
+  };
+
   return (
     <Container>
       <TitleContainer>
@@ -52,7 +60,14 @@ const MySurveySummeryCard = ({
       <ButtonContainer>
         <RoundButtonMedium
           onClick={() => {
-            dispatch(__deleteStats(surveyId));
+            copyClipBoardHandler(`localhost:3000/survey?surveyId=${surveyId}`);
+          }}
+          buttonValue="링크공유"
+          background="subColor1"
+        ></RoundButtonMedium>
+        <RoundButtonMedium
+          onClick={() => {
+            dispatch(__deleteCard(surveyId));
           }}
           buttonValue="삭제하기"
           background="subColor1"
@@ -60,7 +75,9 @@ const MySurveySummeryCard = ({
         <RoundButtonMedium
           buttonValue="결과보기"
           background="subColor1"
-          onClick={onClick}
+          onClick={() => {
+            navigate(`/stats/${surveyId}`);
+          }}
         ></RoundButtonMedium>
       </ButtonContainer>
     </Container>

@@ -2,10 +2,14 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { changeAnswer } from "../../../../redux/modules/surveySlice";
+import {
+  changeAnswer,
+  __getSurveyQuestion,
+} from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 import TurnAPageButtons from "../../components/TurnAPageButtons";
+import { batch } from "react-redux";
 
 const SingleChoiceSurvey = () => {
   const dispatch = useDispatch();
@@ -14,9 +18,16 @@ const SingleChoiceSurvey = () => {
   const selectedAnswerList = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
+  const questionIdList = useSelector((state) => state.survey.questionIdList);
 
   const answerHandler = (answerNum) => {
-    dispatch(changeAnswer(answerNum));
+    batch(() => {
+      dispatch(changeAnswer(answerNum));
+      currentPageNum !== questionIdList.length + 1 &&
+        setTimeout(() => {
+          dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
+        }, 1000);
+    });
   };
 
   return (
@@ -28,20 +39,30 @@ const SingleChoiceSurvey = () => {
       <ButtonBox>
         {question.answerList?.map((answer) => {
           return (
-            <Button
-              key={answer.answerNum}
-              id={answer.answerNum}
-              onClick={() => {
-                answerHandler(answer.answerNum);
-              }}
-              background={
-                selectedAnswerList.includes(+answer.answerNum)
-                  ? "subHoverColor1"
-                  : "subColor1"
-              }
-            >
-              {answer.answerNum}. {answer.answerValue}
-            </Button>
+            <div key={answer.answerNum}>
+              {selectedAnswerList.includes(+answer.answerNum) ? (
+                <Button
+                  id={answer.answerNum}
+                  onClick={() => {
+                    answerHandler(answer.answerNum);
+                  }}
+                  background="subHoverColor1"
+                >
+                  {answer.answerNum}. {answer.answerValue}
+                  <span>Picked!</span>
+                </Button>
+              ) : (
+                <Button
+                  id={answer.answerNum}
+                  onClick={() => {
+                    answerHandler(answer.answerNum);
+                  }}
+                  background="subColor1"
+                >
+                  {answer.answerNum}. {answer.answerValue}
+                </Button>
+              )}
+            </div>
           );
         })}
       </ButtonBox>
@@ -62,19 +83,30 @@ const Container = styled.div`
   width: 26.5rem;
   height: 100%;
   padding-top: 6.1rem;
+  @media screen and (min-width: 500px) {
+    justify-content: center;
+    width: 40rem;
+    padding: 0;
+  }
 `;
 
 const CommentContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  margin-top: 5rem;
   p {
     margin: 0;
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.4rem;
+  }
+  @media screen and (min-width: 500px) {
+    margin-top: 2rem;
+    p {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
   }
 `;
 
@@ -83,10 +115,24 @@ const ButtonBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  font-size: 1.3rem;
+  font-weight: 500;
+  span {
+    color: ${({ theme }) => theme.backgroundColor};
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+  @media screen and (min-width: 500px) {
+    margin-top: 2rem;
+    justify-content: center;
+    margin-bottom: 10rem;
+  }
 `;
 
 const Button = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
 
   width: 26.5rem;
@@ -98,6 +144,11 @@ const Button = styled.div`
   border-radius: 1rem;
 
   cursor: pointer;
+
+  @media screen and (min-width: 500px) {
+    font-size: 1.6rem;
+    width: 40rem;
+  }
 `;
 
 const ArrowButtonContainer = styled.div`

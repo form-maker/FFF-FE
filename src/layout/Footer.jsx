@@ -29,7 +29,6 @@ const FooterContainer = styled.div`
 
   padding: 2rem 0;
   width: 100%;
-  min-width: 800px;
   max-width: 1200px;
 
   h3 {

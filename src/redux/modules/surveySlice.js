@@ -55,6 +55,7 @@ export const __postSurvey = createAsyncThunk(
         `survey/${payload.surveyId}/reply`,
         payload.answerList
       );
+      console.log("post된것1");
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -95,6 +96,10 @@ const SurveySlice = createSlice({
       state.currentPageNum = 1;
       state.currentFormType = "COVER";
     },
+    goEnd: (state, action) => {
+      state.currentPageNum = 0;
+      state.currentFormType = "SURVEY_END";
+    },
   },
 
   extraReducers: (builder) => {
@@ -102,8 +107,8 @@ const SurveySlice = createSlice({
       state.currentPageNum = 1;
       state.currentFormType = "COVER";
       state.survey = action.payload.data;
-      state.questionIdList = action.payload.data.questionIdList;
-      state.answer = action.payload.data.questionIdList?.map((id, index) => {
+      state.questionIdList = action.payload.data?.questionIdList;
+      state.answer = action.payload.data?.questionIdList?.map((id, index) => {
         return {
           questionId: id,
           questionNum: index + 1,
@@ -114,8 +119,8 @@ const SurveySlice = createSlice({
       });
     });
     builder.addCase(__getSurvey.rejected, (state, action) => {
-      console.log(action.payload.response.status);
-      if (action.payload.response.status === 403) {
+      console.log(action.payload.response?.status);
+      if (action.payload.response?.status === 403) {
         alert(action.payload.response.data.msg);
         console.log(action.payload.response.data.msg);
         state.error = true;
@@ -161,6 +166,7 @@ export const {
   changeAnswerList,
   changeDescriptive,
   getCover,
+  goEnd,
   SurveySliceInitialize,
 } = SurveySlice.actions;
 export default SurveySlice.reducer;

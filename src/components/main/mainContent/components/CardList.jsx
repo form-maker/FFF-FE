@@ -21,16 +21,19 @@ const CardList = () => {
   const goSurveyHandler = async ({ surveyId }) => {
     try {
       const { data } = await baseURLApi.get("user");
-      !data.data
-        ? batch(() => {
-            alert("로그인을 해주세요");
-            navigate("/login");
-          })
-        : navigate(`/survey?surveyId=${surveyId}`);
+      navigate(`/survey?surveyId=${surveyId}`);
+      // !data.data
+      //   ? batch(() => {
+      //       alert("로그인을 해주세요");
+      //       navigate("/login");
+      //     })
+      //   : navigate(`/survey?surveyId=${surveyId}`);
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(mainCardList);
 
   return (
     <Container>
@@ -44,6 +47,10 @@ const CardList = () => {
               summary={card.summary}
               createdAt={card.createdAt}
               participant={card.participant}
+              totalQuestion={card.totalQuestion}
+              totalTime={card.totalTime}
+              gift="커피"
+              probability="80"
               onClick={() => {
                 goSurveyHandler({ surveyId: card.surveyId });
               }}
@@ -71,6 +78,12 @@ const SurveyContainer = styled.div`
 
   width: 100%;
   margin-bottom: 3rem;
+
+  @media screen and (max-width: 500px) {
+    grid-row-gap: 1rem;
+    grid-column-gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export default CardList;
