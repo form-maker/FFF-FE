@@ -12,6 +12,14 @@ const initialState = {
     groupList: [],
     summary: "",
     questionList: [],
+    giftList: [
+      {
+        giftName: "",
+        giftSummary: "",
+        giftIcon: "🎁",
+        giftQuantity: 1,
+      },
+    ],
   },
   error: null,
   formCreateSuccess: false,
@@ -35,6 +43,10 @@ const createFormSlice = createSlice({
   reducers: {
     changeField(state, { payload: { form, key, value } }) {
       state[form][key] = value;
+    },
+    changeGiftField(state, { payload: { index, key, value } }) {
+      state.formList.giftList[index][key] = value;
+      console.log(current(state.formList));
     },
     createFormInitialize(state) {
       state.selectedFormType = "COVER";
@@ -62,6 +74,18 @@ const createFormSlice = createSlice({
       ];
       state.currentPageNum = state.currentPageNum + 1;
     },
+
+    // 수정된 추가 방식
+    selectNewForm(state, action) {
+      state.formList.questionList = [
+        ...state.formList?.questionList,
+        action.payload,
+      ];
+      state.selectedFormType = action.payload.formType;
+      state.currentPageNum = state.formList?.questionList?.length + 1;
+      console.log(current(state.formList));
+    },
+
     // 설문 전체의 제목 작성
     fillOutTitle(state, action) {
       state.formList.questionList = [
@@ -151,6 +175,7 @@ const createFormSlice = createSlice({
       console.log(action.payload);
       if (action.payload.statusCode === 200) {
         state.formCreateSuccess = true;
+        alert("폼 제작 완료");
         state = initialState;
       }
     });
@@ -163,6 +188,7 @@ const createFormSlice = createSlice({
 export const {
   createFormInitialize,
   changeField,
+  changeGiftField,
   selectedFormType,
   fillOutQuestion,
   fillOutQuestionTitleAndSummery,
@@ -173,5 +199,6 @@ export const {
   goClickPage,
   goClickCover,
   getPrevForm,
+  selectNewForm,
 } = createFormSlice.actions;
 export default createFormSlice.reducer;
