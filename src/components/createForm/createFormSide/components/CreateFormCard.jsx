@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import fonts from "../../../../styles/fonts";
-import { deleteQuestion } from "../../../../redux/modules/createFormSlice";
+import {
+  deleteQuestion,
+  selectedFormType,
+} from "../../../../redux/modules/createFormSlice";
+import SelectTypeList from "./selectType/SelectTypeList";
 
 const CreateFormCard = ({
   imgName,
@@ -15,6 +19,9 @@ const CreateFormCard = ({
   isCover,
 }) => {
   const dispatch = useDispatch();
+  const wrapperRef = useRef();
+  const [isSelectToggleShow, setIsSelectToggleShow] = useState(false);
+
   if (imgName === "SCORE") {
     imgName = "STAR";
   }
@@ -24,10 +31,10 @@ const CreateFormCard = ({
   if (imgName === "LONG_DESCRIPTIVE") {
     imgName = "SHORT_DESCRIPTIVE";
   }
-  if (imgName === undefined) {
-    imgName = "NEW_FORM";
-    title = "설문 타입을 선택해주세요";
-  }
+  // if (imgName === undefined) {
+  //   imgName = "NEW_FORM";
+  //   title = "설문 타입을 선택해주세요";
+  // }
   return (
     <Container
       onClick={onClick}
@@ -38,8 +45,15 @@ const CreateFormCard = ({
       <img
         src={process.env.PUBLIC_URL + `/img/${imgName}.svg`}
         alt={imgName}
+        onClick={() => {}}
       ></img>
-      <h4>{title === "" ? "질문을 작성해주세요" : title}</h4>
+      <h4>
+        {title === ""
+          ? isCover
+            ? "제목을 작성해주세요"
+            : "질문을 작성해주세요"
+          : title}
+      </h4>
       {!isCover && (
         <img
           src={process.env.PUBLIC_URL + "/img/circleClose.svg"}
@@ -48,6 +62,14 @@ const CreateFormCard = ({
             dispatch(deleteQuestion(questionId));
           }}
         />
+      )}
+      {isSelectToggleShow && (
+        <ToggleContainer ref={wrapperRef}>
+          <SelectTypeList
+            setIsSelectToggleShow={setIsSelectToggleShow}
+            isCreateForm={true}
+          />
+        </ToggleContainer>
       )}
     </Container>
   );
@@ -88,6 +110,12 @@ const Container = styled.div`
 
     color: ${({ background, theme }) => theme[background] || theme.color};
   }
+`;
+
+const ToggleContainer = styled.div`
+  position: absolute;
+  top: 4rem;
+  z-index: 1;
 `;
 
 export default CreateFormCard;

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -12,24 +13,36 @@ const CreateFormHeaderScreen = () => {
   const dispatch = useDispatch();
   const survey = useSelector((state) => state.createForm?.formList);
   const title = useSelector((state) => state.createForm?.formList?.title);
+  const formCreateSuccess = useSelector(
+    (state) => state.createForm?.formCreateSuccess
+  );
+  const form = useSelector((state) => state?.createForm);
+  console.log(formCreateSuccess);
 
-  const postClickHandler = async () => {
-    batch(() => {
-      dispatch(__postForm(survey));
-      navigate("/mypage");
-    });
-  };
+  useEffect(() => {
+    formCreateSuccess && navigate("/mypage");
+  }, [formCreateSuccess, navigate]);
 
   return (
     <Container>
       <SubContainer>
         <div>{title === "" ? "Title을 작성해주세요" : title}</div>
-        <RoundButtonMedium
-          buttonValue="등록하기"
-          background="subColor1"
-          margin="0"
-          onClick={postClickHandler}
-        />
+        <div>
+          <RoundButtonMedium
+            buttonValue="임시저장"
+            background="subColor1"
+            margin="0 1rem"
+            onClick={localStorage.setItem("createForm", JSON.stringify(form))}
+          />
+          <RoundButtonMedium
+            buttonValue="그만두기"
+            background="subColor1"
+            margin="0"
+            onClick={() => {
+              navigate("/");
+            }}
+          />
+        </div>
       </SubContainer>
     </Container>
   );
@@ -42,7 +55,7 @@ const Container = styled.div`
 
   padding: 0 4.2rem;
   width: 100%;
-  height: 5rem;
+  height: 6rem;
 
   background-color: ${({ theme }) => theme.backgroundColor};
   border-bottom: 1px solid #e1e1e1;
@@ -63,6 +76,7 @@ const SubContainer = styled.div`
     font-weight: 400;
     font-size: 15px;
     line-height: 18px;
+    display: flex;
   }
 `;
 
