@@ -17,7 +17,7 @@ const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${C
 
 const LoginScreen = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(false);
@@ -26,12 +26,12 @@ const LoginScreen = () => {
     setHidePassword(!hidePassword);
   };
 
-  const loginCheck = useSelector((state) => state.myPageCardList.error);
-  console.log(loginCheck);
+  // const loginCheck = useSelector((state) => state.myPageCardList.error);
+  // console.log(loginCheck);
 
-  useEffect(() => {
-    dispatch(loginErrorClose());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(loginErrorClose());
+  // }, [dispatch]);
 
   //로그인 통신
   const Login = async (login) => {
