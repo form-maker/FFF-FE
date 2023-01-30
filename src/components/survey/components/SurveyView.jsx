@@ -42,7 +42,6 @@ const SurveyView = () => {
 
   useEffect(() => {
     dispatch(__getSurvey(surveyId));
-    error && navigate("/login");
   }, [dispatch, surveyId]);
 
   // let id;
