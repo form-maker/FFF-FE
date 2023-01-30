@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import fonts from "../../../../../styles/fonts";
 
 const NewForm = () => {
@@ -18,19 +19,18 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   h1 {
+    margin: 0;
     ${fonts.Body1}
     font-weight: 700;
     font-size: 2.4rem;
     line-height: 2.9rem;
-    margin: 0;
   }
   h5 {
+    margin: 4.9rem 0 0 0;
     ${fonts.Body3}
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 1.9rem;
-    margin: 0;
-    margin-top: 4.9rem;
   }
 `;
 

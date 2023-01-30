@@ -1,44 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+
+import { createFormInitialize } from "../../../../redux/modules/createFormSlice";
 import fonts from "../../../../styles/fonts";
-import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSmall";
 import CardList from "../components/CardList";
-import { useDispatch, useSelector } from "react-redux";
-import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
+import Sort from "../components/Sort";
 
 const MainContentScreen = () => {
   const dispatch = useDispatch();
 
-  const getCategoryHandler = ({ page, size, sortBy }) => {
-    dispatch(__getMainCardList({ page: page, size: size, sortBy: sortBy }));
-  };
-
-  const selectedCategory = useSelector(
-    (state) => state.mainCardList?.selectedCategory
-  );
+  useEffect(() => {
+    dispatch(createFormInitialize());
+  }, [dispatch]);
 
   return (
     <Container>
       <MainCardContainer>
         <h1>현재 진행중인 폼</h1>
-        <div>
-          <RoundButtonSmall
-            buttonValue="최신순"
-            margin="0 0.6rem 0 0 "
-            onClick={() => {
-              getCategoryHandler({ page: 1, size: 9, sortBy: "최신순" });
-            }}
-            background={selectedCategory === "최신순" && "subColor1"}
-          />
-          <RoundButtonSmall
-            buttonValue="마감 임박순"
-            margin="0 0.6rem 0 0.6rem"
-            onClick={() => {
-              getCategoryHandler({ page: 1, size: 9, sortBy: "마감임박순" });
-            }}
-            background={selectedCategory === "마감임박순" && "subColor1"}
-          />
-        </div>
+        <Sort />
       </MainCardContainer>
       <CardContainer>
         <CardList />
@@ -48,17 +28,17 @@ const MainContentScreen = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 const MainCardContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  width: 100%;
   padding: 4.6rem 4.1rem 0 4.1rem;
   h1 {
     ${fonts.Body1}
@@ -67,13 +47,25 @@ const MainCardContainer = styled.div`
     line-height: 2.4rem;
     margin: 0;
   }
+
+  @media screen and (max-width: 500px) {
+    width: 85%;
+    padding: 3rem 0 3rem 0;
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
 `;
 
 const CardContainer = styled.div`
-  margin-top: 4.4rem;
-  margin-bottom: 6rem;
   display: flex;
   align-items: center;
+  margin-top: 4.4rem;
+  margin-bottom: 6rem;
+  @media screen and (max-width: 500px) {
+    margin: 0rem 0 1rem 0;
+    width: 85%;
+  }
 `;
 
 export default MainContentScreen;

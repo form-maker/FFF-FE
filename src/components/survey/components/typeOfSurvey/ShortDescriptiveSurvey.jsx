@@ -1,129 +1,147 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../../styles/fonts";
+
 import {
   changeDescriptive,
-  getCover,
-} from "../../../../redux/modules/surveySlice";
-import {
   __getSurveyQuestion,
-  __getBeforeSurveyQuestion,
 } from "../../../../redux/modules/surveySlice";
+import fonts from "../../../../styles/fonts";
+import Title from "../Title";
 import TurnAPageButtons from "../../components/TurnAPageButtons";
+import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 
 const ShortDescriptiveSurvey = () => {
   const dispatch = useDispatch();
-  const question = useSelector((state) => state.survey.question);
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
   const descriptive = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["descriptive"]
   );
+  const questionIdList = useSelector((state) => state.survey.questionIdList);
 
   const answerHandler = (event) => {
     const answer = event.target.value;
     dispatch(changeDescriptive(answer));
   };
 
-  const nextPageClickHandler = () => {
-    currentPageNum === questionIdList.length + 1
-      ? alert("마지막 항목입니다")
-      : dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-  };
-  const goBackPageClickHandler = () => {
-    currentPageNum === 2
-      ? dispatch(getCover())
-      : dispatch(__getBeforeSurveyQuestion(questionIdList[currentPageNum - 3]));
+  const goNextPageHandler = () => {
+    currentPageNum !== questionIdList.length + 1 &&
+      setTimeout(() => {
+        dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
+      }, 400);
   };
 
   return (
     <Container>
-      <TitleContainer>
-        <h1>{question.questionTitle}</h1>
-        <h5>{question.questionSummary}</h5>
-      </TitleContainer>
+      <Title />
       <InputContainer>
-        <input
-          value={descriptive}
-          onChange={answerHandler}
-          placeholder="한문장으로 작성해주세요"
-        ></input>
+        <div>
+          <input
+            value={descriptive}
+            onChange={answerHandler}
+            placeholder="20자 이내로 작성해주세요"
+          ></input>
+          {descriptive.length > 20 && (
+            <p>20자 이내로 줄여주세요 (현 {descriptive.length}자)</p>
+          )}
+          {descriptive.length <= 20 && <p>{descriptive.length}자 작성</p>}
+        </div>
       </InputContainer>
+      {currentPageNum !== questionIdList.length + 1 && (
+        <ButtonContainer>
+          <RoundButtonMedium
+            buttonValue="Picked"
+            background="subColor1"
+            onClick={() => {
+              goNextPageHandler();
+            }}
+          ></RoundButtonMedium>
+        </ButtonContainer>
+      )}
       <ArrowButtonContainer>
-        <TurnAPageButtons
-          currentPageNum={currentPageNum}
-          questionLength={questionIdList.length + 1}
-          goBackPageClickHandler={goBackPageClickHandler}
-          nextPageClickHandler={nextPageClickHandler}
-        />
+        <TurnAPageButtons />
       </ArrowButtonContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 6.1rem;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding-top: 6.1rem;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  h1 {
-    ${fonts.Body1}
-    margin: 0;
-    font-weight: 700;
-    font-size: 2.4rem;
-    line-height: 2.9rem;
-  }
-  h5 {
-    ${fonts.Body3}
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    margin-top: 4.6rem;
+  @media screen and (min-width: 500px) {
+    justify-content: center;
   }
 `;
 
 const InputContainer = styled.div`
-  width: 100%;
-  height: 35rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  height: 20rem;
   margin-top: 1rem;
-  input {
+  div {
+    height: 5rem;
     text-align: center;
-    padding: 1.1rem;
-    width: 27.3rem;
+    input {
+      text-align: center;
+      padding: 1.1rem;
+      width: 27.3rem;
 
-    ${fonts.Body1}
-    font-weight: 600;
-    font-size: 1.4rem;
-    line-height: 1.7rem;
-
-    border: none;
-    border-bottom: 0.3rem solid ${({ theme }) => theme.pointColor};
-    &::placeholder {
       ${fonts.Body1}
       font-weight: 600;
       font-size: 1.4rem;
       line-height: 1.7rem;
+
+      border: none;
+      border-bottom: 0.3rem solid ${({ theme }) => theme.pointColor};
+      &::placeholder {
+        ${fonts.Body1}
+        font-weight: 600;
+        font-size: 1.4rem;
+        line-height: 1.7rem;
+
+        color: ${({ theme }) => theme.gray4};
+      }
+    }
+    p {
+      font-weight: 700;
+      font-size: 1.4rem;
+
+      color: ${({ theme }) => theme.pointColor};
+    }
+  }
+  @media screen and (min-width: 500px) {
+    height: 10rem;
+    margin-bottom: 2rem;
+    div {
+      input {
+        width: 40rem;
+        font-size: 1.8rem;
+        &::placeholder {
+          font-size: 1.8rem;
+        }
+      }
     }
   }
 `;
 
+const ButtonContainer = styled.div`
+  margin-bottom: 15rem;
+`;
+
 const ArrowButtonContainer = styled.div`
   position: absolute;
-  width: 100%;
   bottom: 5rem;
+  width: 100%;
 `;
 
 export default ShortDescriptiveSurvey;

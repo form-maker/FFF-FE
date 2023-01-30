@@ -1,215 +1,172 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../../styles/fonts";
-import { changeAnswer, getCover } from "../../../../redux/modules/surveySlice";
+
 import {
+  changeAnswer,
   __getSurveyQuestion,
-  __getBeforeSurveyQuestion,
 } from "../../../../redux/modules/surveySlice";
+import fonts from "../../../../styles/fonts";
+import Title from "../Title";
 import TurnAPageButtons from "../../components/TurnAPageButtons";
+import { batch } from "react-redux";
+import { fadeInFromBottomAnimation } from "../../../../styles/animations";
 
 const StarSurvey = () => {
   const dispatch = useDispatch();
-  const question = useSelector((state) => state.survey.question);
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
   const selectedAnswerList = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
+  const questionIdList = useSelector((state) => state.survey.questionIdList);
 
   const answerHandler = (answer) => {
-    dispatch(changeAnswer(answer));
+    batch(() => {
+      dispatch(changeAnswer(answer));
+      currentPageNum !== questionIdList.length + 1 &&
+        setTimeout(() => {
+          dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
+        }, 900);
+    });
   };
 
-  const nextPageClickHandler = () => {
-    currentPageNum === questionIdList.length + 1
-      ? alert("마지막 항목입니다")
-      : dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-  };
-
-  const goBackPageClickHandler = () => {
-    currentPageNum === 2
-      ? dispatch(getCover())
-      : dispatch(__getBeforeSurveyQuestion(questionIdList[currentPageNum - 3]));
-  };
+  const range = [];
+  for (let i = 1; i <= 5; i++) {
+    range.push(i);
+  }
 
   return (
     <Container>
-      <TitleContainer>
-        <h1>{question.questionTitle}</h1>
-        <h5>{question.questionSummary}</h5>
-      </TitleContainer>
+      <Title />
       <ScoreButtonContainer>
-        <div
-          onClick={() => {
-            answerHandler(1);
-          }}
-        >
-          {selectedAnswerList.includes(1) ? (
-            <img
-              src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
-              alt="starIcon"
-            />
-          ) : (
-            <img
-              src={process.env.PUBLIC_URL + "/img/starIcon.svg"}
-              alt="starIcon"
-            />
-          )}
-          <h3>1점</h3>
-        </div>
-        <div
-          onClick={() => {
-            answerHandler(2);
-          }}
-        >
-          {selectedAnswerList.includes(2) ? (
-            <img
-              src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
-              alt="starIcon"
-            />
-          ) : (
-            <img
-              src={process.env.PUBLIC_URL + "/img/starIcon.svg"}
-              alt="starIcon"
-            />
-          )}
-          <h3>2점</h3>
-        </div>
-        <div
-          onClick={() => {
-            answerHandler(3);
-          }}
-        >
-          {selectedAnswerList.includes(3) ? (
-            <img
-              src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
-              alt="starIcon"
-            />
-          ) : (
-            <img
-              src={process.env.PUBLIC_URL + "/img/starIcon.svg"}
-              alt="starIcon"
-            />
-          )}
-          <h3>3점</h3>
-        </div>
-        <div
-          onClick={() => {
-            answerHandler(4);
-          }}
-        >
-          {selectedAnswerList.includes(4) ? (
-            <img
-              src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
-              alt="starIcon"
-            />
-          ) : (
-            <img
-              src={process.env.PUBLIC_URL + "/img/starIcon.svg"}
-              alt="starIcon"
-            />
-          )}
-          <h3>4점</h3>
-        </div>
-        <div
-          onClick={() => {
-            answerHandler(5);
-          }}
-        >
-          {selectedAnswerList.includes(5) ? (
-            <img
-              src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
-              alt="starIcon"
-            />
-          ) : (
-            <img
-              src={process.env.PUBLIC_URL + "/img/starIcon.svg"}
-              alt="starIcon"
-            />
-          )}
-          <h3>5점</h3>
-        </div>
+        {range.map((score) => {
+          return (
+            <div
+              onClick={() => {
+                answerHandler(score);
+              }}
+              key={score}
+            >
+              {selectedAnswerList[0] > score && (
+                <img
+                  src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
+                  alt="starIcon"
+                />
+              )}
+              {selectedAnswerList.includes(score) && (
+                <Picked>
+                  <div display={true}>Picked!</div>
+                  <img
+                    src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
+                    alt="starIcon"
+                  />
+                </Picked>
+              )}
+              {(selectedAnswerList[0] < score ||
+                selectedAnswerList.length === 0) && (
+                <img
+                  src={process.env.PUBLIC_URL + "/img/starIcon.svg"}
+                  alt="starIcon"
+                />
+              )}
+
+              <h3>{score}점</h3>
+            </div>
+          );
+        })}
       </ScoreButtonContainer>
       <p>원하시는 별점을 선택해주세요</p>
       <ArrowButtonContainer>
-        <TurnAPageButtons
-          currentPageNum={currentPageNum}
-          questionLength={questionIdList.length + 1}
-          goBackPageClickHandler={goBackPageClickHandler}
-          nextPageClickHandler={nextPageClickHandler}
-        />
+        <TurnAPageButtons />
       </ArrowButtonContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+
+  width: 100%;
+  height: 100%;
   padding-top: 6.1rem;
   p {
-    ${fonts.Body3}
     margin-top: 1.9rem;
+    ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.4rem;
   }
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  h1 {
-    ${fonts.Body1}
-    margin: 0;
-    font-weight: 700;
-    font-size: 2.4rem;
-    line-height: 2.9rem;
-  }
-  h5 {
-    ${fonts.Body3}
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    margin-top: 4.6rem;
+  @media screen and (min-width: 500px) {
+    justify-content: center;
+    p {
+      margin-top: 5rem;
+      margin-bottom: 15rem;
+      font-size: 1.8rem;
+    }
   }
 `;
 
 const ScoreButtonContainer = styled.div`
   display: flex;
-  margin-top: 11.8rem;
+  margin-top: 6rem;
   div {
-    margin: 0 0.5rem 0 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
+    margin: 0 0.3rem;
     cursor: pointer;
     img {
       width: 4.8rem;
     }
     h3 {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      padding: 0;
+
       ${fonts.Body1}
       font-weight: 400;
       font-size: 1.6rem;
       line-height: 1.9rem;
-      margin-top: 1rem;
-      margin-bottom: 0;
-      padding: 0;
     }
+  }
+  @media screen and (min-width: 500px) {
+    margin-top: 2rem;
+    height: 7rem;
+    div {
+      img {
+        width: 6rem;
+      }
+      h3 {
+        margin-top: 1rem;
+        margin-bottom: 0;
+        padding: 0;
+        font-size: 2rem;
+      }
+    }
+  }
+`;
+
+const Picked = styled.div`
+  div {
+    margin: 0;
+    ${fonts.H1}
+    color: ${({ theme }) => theme.mainHoverColor};
+    font-size: 1.4rem;
+    ${fadeInFromBottomAnimation}
+  }
+  img {
+    margin: 0;
   }
 `;
 
 const ArrowButtonContainer = styled.div`
   position: absolute;
-  width: 100%;
   bottom: 5rem;
+  width: 100%;
 `;
 
 export default StarSurvey;

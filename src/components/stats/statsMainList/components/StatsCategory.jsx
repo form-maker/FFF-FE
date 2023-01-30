@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+
 import CreateFormCard from "../../../createForm/createFormSide/components/CreateFormCard";
 
 const StatsCategory = () => {
@@ -17,6 +18,7 @@ const StatsCategory = () => {
           imgName={question.questionType}
           index={index}
           title={question.questionTitle}
+          stats={true}
         />
       ))}
     </SurveyListContainer>

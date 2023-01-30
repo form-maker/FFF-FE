@@ -1,122 +1,112 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../../styles/fonts";
-import { changeAnswer, getCover } from "../../../../redux/modules/surveySlice";
+
 import {
+  changeAnswer,
   __getSurveyQuestion,
-  __getBeforeSurveyQuestion,
 } from "../../../../redux/modules/surveySlice";
+import fonts from "../../../../styles/fonts";
+import Title from "../Title";
 import TurnAPageButtons from "../../components/TurnAPageButtons";
+import { batch } from "react-redux";
 
 const SingleChoiceSurvey = () => {
   const dispatch = useDispatch();
   const question = useSelector((state) => state.survey.question);
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
   const selectedAnswerList = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
+  const questionIdList = useSelector((state) => state.survey.questionIdList);
 
   const answerHandler = (answerNum) => {
-    dispatch(changeAnswer(answerNum));
-  };
-
-  const nextPageClickHandler = () => {
-    currentPageNum === questionIdList.length + 1
-      ? alert("마지막 항목입니다")
-      : dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-  };
-
-  const goBackPageClickHandler = () => {
-    currentPageNum === 2
-      ? dispatch(getCover())
-      : dispatch(__getBeforeSurveyQuestion(questionIdList[currentPageNum - 3]));
+    batch(() => {
+      dispatch(changeAnswer(answerNum));
+      currentPageNum !== questionIdList.length + 1 &&
+        setTimeout(() => {
+          dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
+        }, 900);
+    });
   };
 
   return (
     <Container>
-      <TitleContainer>
-        <h1>{question.questionTitle}</h1>
-        <h5>{question.questionSummary}</h5>
-      </TitleContainer>
+      <Title />
       <CommentContainer>
         <p>*다중선택 불가</p>
       </CommentContainer>
       <ButtonBox>
         {question.answerList?.map((answer) => {
           return (
-            <Button
-              key={answer.answerNum}
-              id={answer.answerNum}
-              onClick={() => {
-                answerHandler(answer.answerNum);
-              }}
-              background={
-                selectedAnswerList.includes(+answer.answerNum)
-                  ? "subHoverColor1"
-                  : "subColor1"
-              }
-            >
-              {answer.answerNum}. {answer.answerValue}
-            </Button>
+            <div key={answer.answerNum}>
+              {selectedAnswerList.includes(+answer.answerNum) ? (
+                <Button
+                  id={answer.answerNum}
+                  onClick={() => {
+                    answerHandler(answer.answerNum);
+                  }}
+                  background="subHoverColor1"
+                >
+                  {answer.answerNum}. {answer.answerValue}
+                  <span>Picked!</span>
+                </Button>
+              ) : (
+                <Button
+                  id={answer.answerNum}
+                  onClick={() => {
+                    answerHandler(answer.answerNum);
+                  }}
+                  background="subColor1"
+                >
+                  {answer.answerNum}. {answer.answerValue}
+                </Button>
+              )}
+            </div>
           );
         })}
       </ButtonBox>
 
       <ArrowButtonContainer>
-        <TurnAPageButtons
-          currentPageNum={currentPageNum}
-          questionLength={questionIdList.length + 1}
-          goBackPageClickHandler={goBackPageClickHandler}
-          nextPageClickHandler={nextPageClickHandler}
-        />
+        <TurnAPageButtons />
       </ArrowButtonContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   width: 26.5rem;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
   padding-top: 6.1rem;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  h1 {
-    ${fonts.Body1}
-    margin: 0;
-    font-weight: 700;
-    font-size: 2.4rem;
-    line-height: 2.9rem;
-  }
-  h5 {
-    ${fonts.Body3}
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    margin-top: 4.6rem;
+  @media screen and (min-width: 500px) {
+    justify-content: center;
+    width: 40rem;
+    padding: 0;
   }
 `;
 
 const CommentContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-top: 5rem;
+  width: 100%;
   p {
+    margin: 0;
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.4rem;
-    margin: 0;
+  }
+  @media screen and (min-width: 500px) {
+    margin-top: 2rem;
+    p {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
   }
 `;
 
@@ -125,24 +115,46 @@ const ButtonBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  font-size: 1.3rem;
+  font-weight: 500;
+  span {
+    color: ${({ theme }) => theme.backgroundColor};
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+  @media screen and (min-width: 500px) {
+    margin-top: 2rem;
+    justify-content: center;
+    margin-bottom: 10rem;
+  }
 `;
 
 const Button = styled.div`
-  width: 26.5rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+
+  width: 26.5rem;
   padding: 1.2rem;
   margin: 0.6em 0;
+
+  background: ${({ theme, background }) => theme[background]};
   border: none;
   border-radius: 1rem;
-  background: ${({ theme, background }) => theme[background]};
+
   cursor: pointer;
+
+  @media screen and (min-width: 500px) {
+    font-size: 1.6rem;
+    width: 40rem;
+  }
 `;
 
 const ArrowButtonContainer = styled.div`
   position: absolute;
-  width: 100%;
   bottom: 5rem;
+  width: 100%;
 `;
 
 export default SingleChoiceSurvey;

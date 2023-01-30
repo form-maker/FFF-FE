@@ -43,4 +43,8 @@ export default {
 
     color: #999999;
   `,
+  Body7: css`
+    font-family: "Pretendard";
+    color: #737d81;
+  `,
 };

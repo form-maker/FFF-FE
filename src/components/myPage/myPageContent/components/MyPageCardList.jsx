@@ -1,22 +1,21 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
+import { batch } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
-import { __getMyPageCardList } from "../../../../redux/modules/myPageListSlice";
-import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSmall";
-import MySurveySummeryCard from "./MySurveySummeryCard";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+import { __getMyPageCardList } from "../../../../redux/modules/myPageListSlice";
+import MySurveySummeryCard from "./MySurveySummeryCard";
+import Sort from "./Sort";
 
 const MyPageCardList = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const myPageCardList = useSelector(
-    (state) => state.myPageCardList.myPageCardList.pageData?.contents
-  );
+  const navigate = useNavigate();
 
-  const selectedCategory = useSelector(
-    (state) => state.myPageCardList?.selectedCategory
+  const myPageCardList = useSelector(
+    (state) => state.myPageCardList.myPageCardList?.pageData?.contents
   );
-  const status = useSelector((state) => state.myPageCardList.status);
+  const loginError = useSelector((state) => state.myPageCardList?.error);
 
   useEffect(() => {
     dispatch(
@@ -27,69 +26,19 @@ const MyPageCardList = () => {
         status: "IN_PROCEED",
       })
     );
-  }, []);
-
-  const getCategoryHandler = ({ page, size, sortBy }) => {
-    dispatch(
-      __getMyPageCardList({
-        page: page,
-        size: size,
-        sortBy: sortBy,
-        status: status,
-      })
-    );
-  };
+    loginError &&
+      batch(() => {
+        alert("로그인을 해주세요");
+        navigate("/login");
+      });
+  }, [loginError, dispatch, navigate]);
 
   return (
     <Container>
       <Background />
-      <ButtonContainer>
-        <RoundButtonSmall
-          buttonValue="최신순"
-          margin="0 0.5rem 0 0"
-          background={
-            selectedCategory === "최신순" ? "subColor1" : "backgroundColor"
-          }
-          onClick={() => {
-            getCategoryHandler({
-              page: 1,
-              size: 9,
-              sortBy: "최신순",
-              status: status,
-            });
-          }}
-        />
-        <RoundButtonSmall
-          buttonValue="마감 임박순"
-          margin="0 0.5rem 0 0.5rem"
-          background={
-            selectedCategory === "마감임박순" ? "subColor1" : "backgroundColor"
-          }
-          onClick={() => {
-            getCategoryHandler({
-              page: 1,
-              size: 9,
-              sortBy: "마감임박순",
-              status: status,
-            });
-          }}
-        />
-        <RoundButtonSmall
-          buttonValue="참여순"
-          margin="0 0 0 0.5rem"
-          background={
-            selectedCategory === "참여자수" ? "subColor1" : "backgroundColor"
-          }
-          onClick={() => {
-            getCategoryHandler({
-              page: 1,
-              size: 9,
-              sortBy: "참여자수",
-              status: status,
-            });
-          }}
-        />
-      </ButtonContainer>
+      <SortContainer>
+        <Sort />
+      </SortContainer>
       <SurveyContainer>
         {myPageCardList?.length === 0 ? (
           <>
@@ -102,6 +51,7 @@ const MyPageCardList = () => {
             return (
               <MySurveySummeryCard
                 key={card.surveyId}
+                surveyId={card.surveyId}
                 title={card.title}
                 createdAt={card.createdAt}
                 participant={card.participant}
@@ -109,9 +59,6 @@ const MyPageCardList = () => {
                 status={card.status}
                 achievementRate={card.achievementRate}
                 totalQuestion={card.totalQuestion}
-                onClick={() => {
-                  navigate(`/stats/${card.surveyId}`);
-                }}
               />
             );
           })
@@ -141,7 +88,7 @@ const Background = styled.div`
   z-index: -1;
 `;
 
-const ButtonContainer = styled.div`
+const SortContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 2.4rem 0 2.5rem 0;

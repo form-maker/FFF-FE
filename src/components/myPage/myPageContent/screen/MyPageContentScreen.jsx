@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import MyPageCardList from "../components/MyPageCardList";
 import MyPageCategory from "../components/MyPageCategory";
 
@@ -13,12 +14,14 @@ const MyPageContentScreen = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
+  flex: 1;
+
   display: flex;
   flex-direction: column;
-  padding: 9.1rem 3rem 0 3rem;
+
+  width: 100%;
   height: 100%;
-  flex: 1;
+  padding: 9.1rem 3rem 0 3rem;
 `;
 
 export default MyPageContentScreen;

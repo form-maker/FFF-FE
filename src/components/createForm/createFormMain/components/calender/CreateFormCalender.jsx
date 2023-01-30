@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, batch } from "react-redux";
+
 import DatePicker from "react-datepicker";
+import ko from "date-fns/esm/locale/ko/index.js";
 import "react-datepicker/dist/react-datepicker.css";
 import "./CreateFormCalender.css";
-import ko from "date-fns/esm/locale/ko/index.js";
-import { useDispatch, batch } from "react-redux";
+
 import { changeField } from "../../../../../redux/modules/createFormSlice";
 
 const Calender = ({ setIsToggleOn, startDateToggleHandler }) => {
   const dispatch = useDispatch();
 
-  // 달력 날짜 변경시 기준점이 되는 날짜
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
   const onChange = (dates) => {
@@ -21,8 +21,6 @@ const Calender = ({ setIsToggleOn, startDateToggleHandler }) => {
 
   const ChangedStartDate = startDate?.toISOString().slice(0, 10);
   const ChangedEndDate = endDate?.toISOString().slice(0, 10);
-
-  console.log(ChangedStartDate, ChangedEndDate);
 
   useEffect(() => {
     batch(() => {

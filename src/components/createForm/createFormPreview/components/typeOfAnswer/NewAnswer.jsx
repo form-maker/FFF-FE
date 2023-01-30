@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import fonts from "../../../../../styles/fonts";
 
 const NewAnswer = () => {
@@ -11,12 +12,14 @@ const NewAnswer = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
-  margin-top: 25rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  margin-top: 25rem;
+  width: 100%;
+
   h2 {
     ${fonts.Body3}
     font-weight: 500;

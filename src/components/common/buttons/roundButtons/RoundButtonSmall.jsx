@@ -37,6 +37,10 @@ const Button = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.subColor1};
   }
+  @media screen and (max-width: 500px) {
+    padding: 0.4rem 1.2rem;
+    margin: 0.2rem;
+  }
 `;
 
 export default RoundButtonSmall;
