@@ -12,8 +12,8 @@ const MainSurveySummeryCard = ({
   onClick,
   totalQuestion,
   totalTime,
-  gift,
-  probability,
+  giftName,
+  totalGiftQuantity,
 }) => {
   const backgroundColor = [
     ["#BBE0FA", "#8CB7D7"],
@@ -27,9 +27,13 @@ const MainSurveySummeryCard = ({
   return (
     <Container backgroundColor={randomColor[0]} onClick={onClick}>
       <Header>
-        <div>
-          {totalTime}분이면 {gift} 응모 완료!
-        </div>
+        {giftName ? (
+          <div>
+            {totalTime}분이면 {giftName} 응모 완료!
+          </div>
+        ) : (
+          <div>{totalTime}분이면 완료!</div>
+        )}
       </Header>
       <Main backgroundColor={randomColor[1]}>
         <div>
@@ -49,9 +53,7 @@ const MainSurveySummeryCard = ({
         </div>
       </Main>
       <Footer>
-        <div>
-          총 {totalQuestion} 문항 / 당첨률 {probability}%
-        </div>
+        <div>총 {totalQuestion} 문항</div>
       </Footer>
     </Container>
   );

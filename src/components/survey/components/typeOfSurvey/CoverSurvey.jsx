@@ -23,6 +23,7 @@ const CoverSurvey = () => {
   const surveyStartClickHandler = () => {
     dispatch(__getSurveyQuestion(questionIdList[0]));
   };
+  console.log(survey?.giftList);
 
   return (
     <Container>
@@ -32,12 +33,22 @@ const CoverSurvey = () => {
 
         <GiftContainer>
           <div>
-            <h2>{giftList[0].giftIcon}</h2>
+            {survey?.giftList && survey?.giftList?.length !== 0 ? (
+              <h2>survey?.giftList[0]?.giftIcon</h2>
+            ) : (
+              <h2>{totalTime}</h2>
+            )}
           </div>
-          <p>
-            <span>{totalTime}분</span>이면 &nbsp;
-            <span> {giftList[0].giftName}</span> 응모 완료!
-          </p>
+          {survey?.giftList && survey?.giftList?.length !== 0 ? (
+            <p>
+              <span>{totalTime}분</span>이면 &nbsp;
+              <span> {survey?.giftList[0]?.giftName}</span> 응모 완료!
+            </p>
+          ) : (
+            <p>
+              <span>{totalTime}분</span>이면 끝
+            </p>
+          )}
         </GiftContainer>
         <h5>{survey?.endedAt}까지</h5>
       </Main>

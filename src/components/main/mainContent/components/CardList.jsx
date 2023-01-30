@@ -5,7 +5,6 @@ import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 import styled from "styled-components";
 import MainSurveySummeryCard from "./MainSurveySummeryCard";
 import { useNavigate } from "react-router-dom";
-import { baseURLApi } from "../../../../core/api";
 
 const CardList = () => {
   const dispatch = useDispatch();
@@ -53,8 +52,8 @@ const CardList = () => {
               participant={card.participant}
               totalQuestion={card.totalQuestion}
               totalTime={card.totalTime}
-              gift="커피"
-              probability="80"
+              giftName={card.giftName}
+              totalGiftQuantity={card.totalGiftQuantity}
               onClick={() => {
                 goSurveyHandler({ surveyId: card.surveyId });
               }}
