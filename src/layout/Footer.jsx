@@ -42,6 +42,10 @@ const FooterContainer = styled.div`
   width: 100%;
   max-width: 1200px;
 
+  @media screen and (max-width: 500px) {
+    padding: 3rem;
+  }
+
   div {
     &:nth-child(1) {
       h3 {
@@ -55,6 +59,23 @@ const FooterContainer = styled.div`
         ${fonts.Body7}
         font-size: 1.2rem;
         font-weight: 400;
+      }
+      @media screen and (max-width: 500px) {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        h3 {
+          margin: 0;
+          font-size: 1.2rem;
+        }
+        p {
+          margin: 0;
+          font-size: 1rem;
+          &:nth-child(2) {
+            display: none;
+          }
+        }
       }
     }
     &:nth-child(2) {
@@ -73,6 +94,9 @@ const FooterContainer = styled.div`
         ${fonts.Body7}
         font-size: 1.4rem;
         font-weight: 400;
+      }
+      @media screen and (max-width: 500px) {
+        display: none;
       }
     }
   }
