@@ -13,10 +13,10 @@ const ShortDescriptiveAnswer = () => {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  margin: 7rem;
   width: 100%;
   input {
     margin-bottom: 5rem;

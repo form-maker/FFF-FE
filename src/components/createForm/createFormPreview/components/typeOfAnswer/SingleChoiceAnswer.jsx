@@ -44,7 +44,7 @@ const ButtonBox = styled.div`
     display: flex;
     align-items: center;
 
-    padding: 1.2rem;
+    padding: 0.5rem 1rem;
     margin: 0.4em 0;
     width: 26.5rem;
 

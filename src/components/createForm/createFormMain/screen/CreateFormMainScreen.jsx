@@ -97,8 +97,8 @@ const ToggleContainer = styled.div`
 `;
 
 const Main = styled.div`
-  position: relative;
   flex: 1;
+  position: relative;
 
   display: flex;
   flex-direction: column;

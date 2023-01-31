@@ -89,17 +89,19 @@ const SingleAndMultiChoiceForm = () => {
   return (
     <Container>
       <ChoiceContainer>
-        <p>앤터를 눌러 항목을 추가할 수 있습니다</p>
         <CheckContainer>
-          <input
-            type="checkbox"
-            id="MULTIPLE_CHOICE"
-            onClick={multiCheckHandler}
-            checked={questionType === "MULTIPLE_CHOICE"}
-          />
-          <label htmlFor="MULTIPLE_CHOICE">
-            <span>다중선택 허용</span>
-          </label>
+          <p>앤터를 눌러 항목을 추가할 수 있습니다</p>
+          <div>
+            <input
+              type="checkbox"
+              id="MULTIPLE_CHOICE"
+              onClick={multiCheckHandler}
+              checked={questionType === "MULTIPLE_CHOICE"}
+            />
+            <label htmlFor="MULTIPLE_CHOICE">
+              <span>다중선택 허용</span>
+            </label>
+          </div>
         </CheckContainer>
         <InputContainer>
           <QuestionInput
@@ -138,7 +140,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-top: 2rem;
   width: 100%;
 `;
 
@@ -149,14 +150,14 @@ const ChoiceContainer = styled.div`
     font-weight: 500;
     font-size: 1.2rem;
     line-height: 1.9rem;
+    margin: 0.2rem 0;
   }
 `;
 
 const CheckContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  margin-top: 1rem;
+  justify-content: space-between;
   input {
     display: none;
     &:checked + label {
@@ -199,8 +200,7 @@ const QuestionInput = styled.input`
   font-weight: 500;
   font-size: 1.4rem;
 
-  margin-top: 1rem;
-  padding: 0.8rem 0;
+  padding: 0.4rem 0;
   width: 95%;
 
   border: none;

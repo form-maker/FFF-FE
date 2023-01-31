@@ -81,8 +81,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  margin-top: 11.6rem;
+  justify-content: center;
   width: 100%;
   p {
     ${fonts.Body1}
