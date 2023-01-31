@@ -33,11 +33,11 @@ const TitleContainer = styled.div`
   }
   @media screen and (min-width: 500px) {
     h1 {
-      font-size: 3rem;
+      font-size: 2rem;
     }
     h5:nth-of-type(1) {
-      margin-top: 1.5rem;
-      font-size: 2rem;
+      margin-top: 0.2rem;
+      font-size: 1.6rem;
     }
   }
 `;

@@ -22,7 +22,6 @@ const CoverSurvey = () => {
       <Main>
         <h1>{survey?.title}</h1>
         <h5>{survey?.summary}</h5>
-
         <GiftContainer>
           <div>
             {survey?.giftList && survey?.giftList?.length !== 0 ? (
@@ -104,11 +103,11 @@ const Main = styled.div`
     justify-content: center;
     align-items: center;
     h1 {
-      font-size: 3rem;
+      font-size: 2rem;
     }
     h5:nth-of-type(1) {
-      margin-top: 1.5rem;
-      font-size: 2rem;
+      margin-top: 0.2rem;
+      font-size: 1.6rem;
     }
     h5:nth-of-type(2) {
       margin-top: 2rem;
@@ -149,6 +148,17 @@ const GiftContainer = styled.div`
       font-size: 1.4rem;
     }
   }
+  @media screen and (min-width: 500px) {
+    margin-top: 0rem;
+    div {
+      width: 10rem;
+      height: 10rem;
+      h2 {
+        margin: 0;
+        font-size: 6rem;
+      }
+    }
+  }
 `;
 
 const Bottom = styled.div`
@@ -156,7 +166,7 @@ const Bottom = styled.div`
   justify-content: center;
   padding-bottom: 4.6rem;
   @media screen and (min-width: 500px) {
-    padding-bottom: 5rem;
+    padding-bottom: 2rem;
   }
 `;
 

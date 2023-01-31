@@ -9,8 +9,6 @@ import {
 } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
-import TurnAPageButtons from "../../components/TurnAPageButtons";
-import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 
 const RankSurvey = () => {
   const dispatch = useDispatch();
@@ -22,21 +20,12 @@ const RankSurvey = () => {
       answerNum: answer.answerNum,
     };
   });
-  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
   const [characters, updateCharacters] = useState(addAnswerId);
 
   let answerNumList = [];
   for (let i = 1; i <= question.answerList?.length; i++) {
     answerNumList.push(i);
   }
-
-  const goNextPageHandler = () => {
-    currentPageNum !== questionIdList.length + 1 &&
-      setTimeout(() => {
-        dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-      }, 400);
-  };
 
   useEffect(() => {
     let answerList = characters?.map((character) => {
@@ -112,6 +101,7 @@ const Container = styled.div`
   @media screen and (min-width: 500px) {
     justify-content: center;
     width: 40rem;
+    padding-top: 3rem;
   }
 `;
 
@@ -121,6 +111,9 @@ const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media screen and (min-width: 500px) {
+    margin-right: 2rem;
+  }
 `;
 
 const CommentContainer = styled.div`
@@ -128,6 +121,7 @@ const CommentContainer = styled.div`
   justify-content: flex-end;
   width: 100%;
   p {
+    margin: 0;
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
@@ -184,6 +178,7 @@ const DNDListContainer = styled.ul`
 const DNDList = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 
   margin: 0.4rem 0;
   padding: 0.8rem;
@@ -201,7 +196,7 @@ const DNDList = styled.div`
 
   @media screen and (min-width: 500px) {
     font-size: 1.2rem;
-    width: 37rem;
+    width: 36rem;
   }
 `;
 

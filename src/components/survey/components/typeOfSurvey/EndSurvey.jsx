@@ -63,13 +63,13 @@ const Main = styled.div`
   }
   @media screen and (min-width: 500px) {
     justify-content: center;
-    padding-bottom: 2rem;
+    padding-bottom: 0;
     img {
       width: 10rem;
     }
     h1 {
       margin-top: 2rem;
-      font-size: 2.5rem;
+      font-size: 2rem;
     }
   }
 `;

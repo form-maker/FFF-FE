@@ -5,12 +5,9 @@ import styled from "styled-components";
 import {
   pushAnswer,
   deleteAnswer,
-  __getSurveyQuestion,
 } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
-import TurnAPageButtons from "../../components/TurnAPageButtons";
-import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 
 const MultipleChoiceSurvey = () => {
   const dispatch = useDispatch();
@@ -81,6 +78,7 @@ const Container = styled.div`
   @media screen and (min-width: 500px) {
     justify-content: center;
     width: 40rem;
+    padding-top: 3rem;
   }
 `;
 
@@ -124,9 +122,9 @@ const ButtonBox = styled.div`
     font-weight: 800;
   }
   @media screen and (min-width: 500px) {
-    margin-top: 1.4rem;
+    margin-top: 0.2rem;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -137,7 +135,7 @@ const Button = styled.div`
 
   width: 26.5rem;
   padding: 0.8rem;
-  margin: 0.4em 0;
+  margin: 0.2em 0;
   background: ${({ theme, background }) => theme[background]};
   border: none;
   border-radius: 1rem;
