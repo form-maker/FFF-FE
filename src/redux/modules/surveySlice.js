@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { baseURLApi } from "../../core/api";
+import { instanceApi } from "../../core/api";
 
 const initialState = {
   currentPageNum: 1,
@@ -15,7 +15,7 @@ export const __getSurvey = createAsyncThunk(
   "survey/getSurvey",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await baseURLApi.get(`survey?surveyId=${payload}`);
+      const { data } = await instanceApi.get(`survey?surveyId=${payload}`);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -27,7 +27,7 @@ export const __getSurveyQuestion = createAsyncThunk(
   "survey/getSurveyQuestion",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await baseURLApi.get(`question?questionId=${payload}`);
+      const { data } = await instanceApi.get(`question?questionId=${payload}`);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -39,7 +39,7 @@ export const __getBeforeSurveyQuestion = createAsyncThunk(
   "survey/getBeforeSurveyQuestion",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await baseURLApi.get(`question?questionId=${payload}`);
+      const { data } = await instanceApi.get(`question?questionId=${payload}`);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -51,7 +51,7 @@ export const __postSurvey = createAsyncThunk(
   "survey/postSurvey",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await baseURLApi.post(
+      const { data } = await instanceApi.post(
         `survey/${payload.surveyId}/reply`,
         payload.answerList
       );
