@@ -107,7 +107,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-top: 2rem;
   width: 100%;
 `;
 
@@ -118,6 +117,7 @@ const ChoiceContainer = styled.div`
     font-weight: 500;
     font-size: 1.2rem;
     line-height: 1.9rem;
+    margin: 0.2rem 0;
   }
 `;
 
@@ -133,7 +133,7 @@ const QuestionInput = styled.input`
   font-size: 1.4rem;
 
   width: 100%;
-  padding: 0.8rem 0;
+  padding: 0.4rem 0;
   width: 95%;
 
   border: none;

@@ -47,7 +47,7 @@ const Container = styled.div`
   align-items: center;
   position: relative;
 
-  padding-top: 6.1rem;
+  padding-top: 4rem;
   width: 100%;
   height: 100%;
 
@@ -108,7 +108,6 @@ const InputContainer = styled.div`
       textarea {
         width: 40rem;
         font-size: 1.8rem;
-        margin-top: 3rem;
         &::placeholder {
           font-size: 1.8rem;
         }

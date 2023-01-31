@@ -98,7 +98,7 @@ const Container = styled.div`
     justify-content: center;
     p {
       margin-top: 1.2rem;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
   }
 `;

@@ -16,7 +16,7 @@ const RankAnswer = () => {
   return (
     <Container>
       <CommentContainer>
-        <p>중복선택 가능</p>
+        <p>꾹 눌러 드래그 해주세요</p>
       </CommentContainer>
       <ButtonBox>
         {answerList?.map((answer, index) => {
@@ -44,7 +44,7 @@ const ButtonBox = styled.div`
     display: flex;
     align-items: center;
 
-    padding: 1.2rem;
+    padding: 0.5rem 1rem;
     margin: 0.4em 0;
     width: 26.5rem;
 

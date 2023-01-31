@@ -88,7 +88,7 @@ const Container = styled.div`
   @media screen and (min-width: 500px) {
     p {
       margin-top: 1.2rem;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
   }
 `;

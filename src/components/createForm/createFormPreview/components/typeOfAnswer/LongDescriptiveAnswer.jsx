@@ -20,12 +20,13 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-content: center;
 
   width: 100%;
   textarea {
     box-sizing: border-box;
     width: 26.4rem;
-    height: 23.7rem;
+    height: 20rem;
     padding: 1rem;
 
     ${fonts.Body1}

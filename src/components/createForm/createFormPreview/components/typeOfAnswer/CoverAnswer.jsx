@@ -72,7 +72,7 @@ const Main = styled.div`
 const Bottom = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 12.4rem;
+  margin-bottom: 4rem;
 `;
 
 export default CoverAnswer;

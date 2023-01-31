@@ -141,6 +141,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   width: 100%;
   div {
@@ -155,7 +156,6 @@ const RangeContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  padding-top: 9rem;
   width: 56.4rem;
   input {
     -webkit-appearance: none;

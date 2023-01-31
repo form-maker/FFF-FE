@@ -161,7 +161,13 @@ const SurveyView = () => {
   return (
     <Container>
       <Header>
-        <PointContext>🔥 현재 1명이 커피를 노리고 있어요.</PointContext>
+        {survey?.giftList?.length === 0 ? (
+          <PointContext>🔥 현재 1명이 함께 설문에 참여하고 있어요</PointContext>
+        ) : (
+          <PointContext>
+            🔥 현재 1명이 {survey?.giftList?.[0]?.giftName} 노리고 있어요
+          </PointContext>
+        )}
       </Header>
       <Main>
         {currentFormType === "COVER" && <CoverSurvey />}
