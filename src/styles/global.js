@@ -61,6 +61,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button{
+    word-break: keep-all;
     cursor: pointer;
   }
 `;

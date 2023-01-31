@@ -18,6 +18,11 @@ const Button = styled.button`
   line-height: 1.8rem;
   border: none;
   background: transparent;
+
+  @media screen and (max-width: 500px) {
+    padding: 0.1rem 0.5rem;
+    font-size: 1.3rem;
+  }
 `;
 
 export default NoOutLineSmall;

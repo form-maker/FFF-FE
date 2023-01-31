@@ -35,6 +35,7 @@ export const lightTheme = {
   gray5: "#ECECEC",
   gray6: "#C9C9C9",
   gray7: "#E1E1E1",
+  gray8: "#737D81",
 
   lightMainColor: "#E3F4FE",
 };

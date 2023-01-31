@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { baseURLApi } from "../../core/api";
 import { Link } from "react-router-dom";
 import fonts from "../../styles/fonts";
-import Google from "./outh/Google";
 import {
   CLIENT_ID,
   REDIRECT_URI,
@@ -13,22 +12,22 @@ import {
 } from "../../constants/env";
 
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=https://www.googleapis.com/auth/drive.metadata.readonly`;
-console.log(REDIRECT_URI_G);
+const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=email profile openid&access_type=offline`;
+
 const LoginScreen = () => {
   const navigate = useNavigate();
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(false);
 
-  const toggle = () => {
+  const showPasswordhandler = () => {
     setHidePassword(!hidePassword);
   };
 
   //로그인 통신
-  const Login = async (aaa) => {
+  const Login = async (login) => {
     try {
-      const data = await baseURLApi.post("user/login", aaa);
+      const data = await baseURLApi.post("user/login", login);
       if (data.data.statusCode === 200) {
         alert("로그인 성공");
         return data;
@@ -41,7 +40,7 @@ const LoginScreen = () => {
   };
 
   //로그인 버튼 이벤트
-  const submiHandler = (e) => {
+  const submihandler = (e) => {
     e.preventDefault();
     if (loginId === "" || password === "") {
       alert("아이디, 비밀번호를 입력해 주세요!");
@@ -54,31 +53,34 @@ const LoginScreen = () => {
       if (res === undefined) {
         navigate(`/login`);
       } else {
-        navigate(`/`);
         localStorage.setItem("Authorization", res.headers.authorization);
+        localStorage.setItem(
+          "REFRESH_Authorization",
+          res.headers.refresh_authorization
+        );
+        navigate(`/`);
       }
     });
   };
 
   //카카오 인가 코드 요청
-  const ClickKakaoHandler = async (e) => {
+  const ClickKakaohandler = async (e) => {
     e.preventDefault();
     window.location.href = KAKAO_AUTH_URL;
   };
 
   //구글 요청
-  const ClickGoogleHandler = async (e) => {
+  const ClickGooglehandler = async (e) => {
     e.preventDefault();
     window.location.href = GOOGLE_AUTH_URL;
   };
 
-  //구글 테스트
-  const onGoogleSignIn = async (res) => {
-    const { credential } = res;
-    const result = await baseURLApi.post(
-      `user/login/google?code=${credential}`
-    );
+  //소셜 로그인 임시 조치
+  const Clickhandler = (e) => {
+    e.preventDefault();
+    alert("카카오, 구글 로그인만 가능합니다.");
   };
+
   return (
     <ContainerBox>
       <LoginForm>
@@ -108,27 +110,28 @@ const LoginScreen = () => {
             }}
           />
           <img
-            onClick={toggle}
+            alt="paaword"
+            onClick={showPasswordhandler}
             src={hidePassword ? "img/open eye.png" : "img/closeeye.png"}
           />
         </SubBox2>
         <ButtonBox
           onClick={(event) => {
-            submiHandler(event);
+            submihandler(event);
           }}
         >
           로그인
         </ButtonBox>
         <SnsTitle>소셜(간편) 로그인</SnsTitle>
         <SnsBox>
-          <GoogleBtn onClick={ClickGoogleHandler}>
-            <img src="img/g-logo.png" />
+          <GoogleBtn onClick={ClickGooglehandler}>
+            <img alt="GoogleLogin" src="img/Google.png" />
           </GoogleBtn>
-          <KakaoBtn onClick={ClickKakaoHandler}>
-            <img src="img/kakaotalk_sharing_btn_medium.png" />
+          <KakaoBtn onClick={ClickKakaohandler}>
+            <img alt="KakakoLogin" src="img/kakao.png" />
           </KakaoBtn>
-          <NaverBtn>
-            <img src="img/btnG_naver.png" />
+          <NaverBtn onClick={Clickhandler}>
+            <img alt="NaverLogin" src="img/btnG_naver.png" />
           </NaverBtn>
         </SnsBox>
         <SignUpBox>

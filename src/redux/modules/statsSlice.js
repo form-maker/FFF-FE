@@ -20,6 +20,18 @@ export const __getStats = createAsyncThunk(
   }
 );
 
+export const __deleteStats = createAsyncThunk(
+  "stats/deleteStats",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await baseURLApi.delete(`survey/${payload}`);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const statsSlice = createSlice({
   name: "stats",
   initialState,
@@ -30,6 +42,15 @@ const statsSlice = createSlice({
     });
     builder.addCase(__getStats.rejected, (state, action) => {
       console.log(action.payload);
+    });
+    builder.addCase(__deleteStats.fulfilled, (state, action) => {
+      // alert(action.payload.msg);
+    });
+    builder.addCase(__deleteStats.rejected, (state, action) => {
+      console.log(action.payload);
+      if (action.payload.statusCode === 403) {
+        state.error = true;
+      }
     });
   },
 });

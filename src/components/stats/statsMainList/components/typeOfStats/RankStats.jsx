@@ -1,19 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+
 import fonts from "../../../../../styles/fonts";
+import StatsCommentContainer from "../statsContainer/StatsCommentContainer";
+import StatsHeaderContainer from "../statsContainer/StatsHeaderContainer";
+import Title from "../Title";
 
 const RankStats = ({ stats }) => {
   return (
     <Container>
-      <Header>
-        <TitleContainer>
-          <p>{stats.questionType}</p>
-          <h2>
-            {stats.questionNum}. {stats.questionTitle}
-          </h2>
-          <h4>{stats.questionSummary}</h4>
-        </TitleContainer>
-      </Header>
+      <StatsHeaderContainer>
+        <Title
+          questionType={stats.questionType}
+          questionNum={stats.questionNum}
+          questionTitle={stats.questionTitle}
+          questionSummary={stats.questionSummary}
+        />
+      </StatsHeaderContainer>
       <RankContainer>
         {stats.selectList?.map((answer, index) => (
           <div key={answer.answer}>
@@ -35,9 +38,9 @@ const RankStats = ({ stats }) => {
           </div>
         ))}
       </RankContainer>
-      <CommentContainer>
+      <StatsCommentContainer>
         <p>평균 점수를 반영한 순위 입니다.</p>
-      </CommentContainer>
+      </StatsCommentContainer>
     </Container>
   );
 };
@@ -49,38 +52,6 @@ const Container = styled.div`
   box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   position: relative;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 3rem 3rem 0 3rem;
-`;
-
-const TitleContainer = styled.div`
-  p {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.2rem;
-    margin: 0;
-  }
-  h2 {
-    ${fonts.Body1}
-    font-weight: 700;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    margin: 0;
-    margin-top: 0.6rem;
-  }
-  h4 {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1.2rem;
-    line-height: 1.4rem;
-    margin: 0;
-    margin-top: 0.7rem;
-  }
 `;
 
 const RankContainer = styled.div`
@@ -117,18 +88,6 @@ const Rank = styled.div`
   line-height: 1.4rem;
   border-radius: 1rem;
   background: ${({ theme }) => theme.pointColor3};
-`;
-
-const CommentContainer = styled.div`
-  display: flex;
-  justify-content: end;
-  padding-right: 2.9rem;
-  p {
-    ${fonts.Body1}
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1rem;
-  }
 `;
 
 const RankList = styled.div`

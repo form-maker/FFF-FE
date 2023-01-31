@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { __addSignup } from "../../redux/modules/signupSlice";
 import { baseURLApi, instanceApi } from "../../core/api";
 import fonts from "../../styles/fonts";
-import { da, el } from "date-fns/locale";
+import Header from "../../layout/Header";
 
 const SignUpScreen = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const SignUpScreen = () => {
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailnum, setEmailNum] = useState("");
+  const [emailNum, setEmailNum] = useState("");
 
   const [loginIdMessage, setLoginIdMassage] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -24,29 +24,32 @@ const SignUpScreen = () => {
   const [emailMessage, setEmailMessage] = useState("");
 
   const [isLoginId, setIsLoginId] = useState(false);
+  const [isLoginIdCheck, setIsLoginIdCheck] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-  const [isemail, setIsEmail] = useState(false);
-  const [isLogindCheck, setLoginidCheck] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
+  const [isEmailNumCheck, setIsEmailNumCheck] = useState(false);
+  const [isusename, setIsUserName] = useState(false);
+
   const [hidePassword, setHidePassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   //첫번째 비밀번호 보이기
-  const toggle = () => {
+  const ShowPasswordClickhandler = () => {
     setHidePassword(!hidePassword);
   };
 
   //두번째 비밀번호 보이기
-  const toggle2 = () => {
+  const ShowPasswordClickhandler2 = () => {
     setShowPassword(!showPassword);
   };
 
   //이메일 형식
-  const emailRegex =
+  const EmailRegex =
     /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,4}$/;
 
   //아이디 입력 이벤트
-  const LoginIdChangeHandler = (e) => {
+  const LoginIdChangehandler = (e) => {
     const loginIdRegex = /[a-zA-z0-9]{4,16}$/;
     const abc = e.target.value;
     setLoginId(abc);
@@ -60,7 +63,7 @@ const SignUpScreen = () => {
   };
 
   //비밀번호 입력 이벤트
-  const PasswordChangeHandler = (e) => {
+  const passwordChangehandler = (e) => {
     const passwordRegex =
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
     const passwordCurrent = e.target.value;
@@ -78,7 +81,7 @@ const SignUpScreen = () => {
   };
 
   //비밀번호 확인 이벤트
-  const ChangePasswordConfirm = (e) => {
+  const passwordConfirmChangehandler = (e) => {
     const passwordConfirmCurrent = e.target.value;
     setPasswordConfirm(passwordConfirmCurrent);
 
@@ -92,27 +95,27 @@ const SignUpScreen = () => {
   };
 
   //아이디 중복체크 버튼 이벤트
-  const LoginIdCheckHandler = (e) => {
+  const loginIdCheckClickhandler = (e) => {
     e.preventDefault();
     if (loginId.length === 0) {
       alert("영문 대/소문자 6자리이상 입력해주세요.");
       return;
     } else {
     }
-    LoginId({
+    loginIdGet({
       loginId,
     });
   };
 
   //아이디 중복 체크 통신
-  const LoginId = async (bbb) => {
+  const loginIdGet = async (Id) => {
     try {
       const data = await instanceApi.get(
-        `user/signup/loginid?loginId=${bbb.loginId}`
+        `user/signup/loginid?loginId=${Id.loginId}`
       );
       if (data.data.statusCode === 200) {
         alert(data.data.msg);
-        setLoginidCheck(true);
+        setIsLoginIdCheck(true);
       } else {
         alert("중복된 아이디입니다.");
       }
@@ -120,13 +123,15 @@ const SignUpScreen = () => {
   };
 
   //유저이름 중복확인 통신
-  const UsernameCheck = async (post) => {
+  const userNameCheck = async (Name) => {
     try {
       const data = await instanceApi.get(
-        `user/signup/username?username=${post.username}`
+        `user/signup/username?username=${Name.username}`
       );
+      console.log(data);
       if (data.data.statusCode === 200) {
         alert("사용가능한 이름입니다.");
+        setIsUserName(true);
       } else {
         alert("중복된 이름입니다.");
       }
@@ -135,26 +140,26 @@ const SignUpScreen = () => {
   };
 
   //유저이름 중복확인 버튼 이벤트
-  const onUserCheck = (e) => {
+  const userCheckClickhandler = (e) => {
     e.preventDefault();
     if (username.length === 0) {
       alert("한글자 이상 입력해 주세요");
       return;
     }
-    UsernameCheck({ username });
+    userNameCheck({ username });
   };
 
   //유저이름 입력 이벤트
-  const UsernamChangeeHandler = (e) => {
+  const userNamChangeehandler = (e) => {
     setUserName(e.target.value);
   };
 
   //이메일 입력 이벤트
-  const EmailChangeHandler = (e) => {
+  const emailChangehandler = (e) => {
     const emailCurrent = e.target.value;
     setEmail(emailCurrent);
 
-    if (!emailRegex.test(emailCurrent)) {
+    if (!EmailRegex.test(emailCurrent)) {
       setEmailMessage("올바른 이메일 형식이 아닙니다");
       setIsEmail(false);
     } else {
@@ -164,11 +169,11 @@ const SignUpScreen = () => {
   };
 
   //이메일 인증번호 보내기 통신
-  const EmailNum = async (g) => {
+  const emailNumSend = async (Email) => {
     try {
-      const data = await baseURLApi.post(`user/mail-auth?email=${g}`);
+      const data = await baseURLApi.post(`user/mail-auth?email=${Email}`);
       if (data.data.statusCode === 200) {
-        alert("전송되었습니다.");
+        alert("인증번호가 전송되었습니다.");
         return data;
       } else {
         alert(data.data.msg);
@@ -177,202 +182,197 @@ const SignUpScreen = () => {
   };
 
   //이메일 인증번호 버튼 이벤트
-  const EmailNumber = (e) => {
+  const emailNumberClickhandler = (e) => {
     e.preventDefault();
-    EmailNum(email);
+    emailNumSend(email);
   };
   //이메일 인증번호 입력 이벤트
-  const EmailNumberChangeHandler = (e) => {
+  const emailNumberChangehandler = (e) => {
     setEmailNum(e.target.value);
   };
 
   //이메일 인증번호 확인 통신
-  const Emailcode = async (email, emailnum) => {
+  const emailCodeCheck = async (Email, EmailNum) => {
     try {
       const data = await baseURLApi.post(
-        `user/mail-auth/verify?email=${email}&code=${emailnum}`
+        `user/mail-auth/verify?email=${Email}&code=${EmailNum}`
       );
       if (data.data.statusCode === 200) {
         alert("인증번호가 일치합니다. 계속 회원가입을 진행해 주세요.");
-      }
-      if (data.data.statusCode === 400) {
-        alert(data.data.msg);
+        setIsEmailNumCheck(true);
+        return data;
       } else {
         alert("인증번호가 일치하지 않습니다");
       }
-      return data;
     } catch (error) {}
   };
 
   //인증번호 확인 버튼
-  const EmailCheckNumberHandeler = (e) => {
+  const emailCheckNumberClickhandler = (e) => {
     e.preventDefault();
-    Emailcode(email, emailnum);
+    emailCodeCheck(email, emailNum);
   };
 
   //회원가입 버튼 온클릭
-  const ClickSignupHandler = () => {
-    if (
-      emailnum.length &&
-      loginId.length &&
-      email.length &&
-      username.length &&
-      password.length === 0
-    ) {
-      alert("빈칸을 채워주세요.");
-    } else {
-      dispatch(__addSignup({ loginId, email, username, password }));
-      alert("회원가입 완료 로그인 해주세요.");
-      navigate(`/login`);
-    }
+  const signupClickhandler = () => {
+    dispatch(__addSignup({ loginId, email, username, password }));
+    alert("회원가입 완료 로그인 해주세요.");
+    navigate(`/login`);
   };
 
   return (
-    <StcontainerBox>
-      <StForm>
-        <StTitle>회원가입</StTitle>
-        <Stlabel>아이디</Stlabel>
-        <IdBox>
-          <IdCheckBox>
-            <StInput
-              placeholder="아이디를 입력해 주세요"
-              onChange={LoginIdChangeHandler}
+    <>
+      {/* <Header /> */}
+      <ContainerBox>
+        <Form>
+          <Title>회원가입</Title>
+          <Label>아이디</Label>
+          <IdBox>
+            <IdCheckBox>
+              <Input
+                placeholder="아이디를 입력해 주세요"
+                onChange={LoginIdChangehandler}
+                type="text"
+              ></Input>
+              <CheckBox
+                onClick={(event) => {
+                  loginIdCheckClickhandler(event);
+                }}
+              >
+                중복체크
+              </CheckBox>
+            </IdCheckBox>{" "}
+            {loginId.length > 0 && (
+              <Span
+                className={`message ${isLoginId} ? '"영문 대/소문자 6자리 이상으로 압력해주세요."' : "아이디 형식에 맞습니다."`}
+              >
+                {loginIdMessage}
+              </Span>
+            )}
+          </IdBox>
+
+          <Label>비밀번호</Label>
+          <PwTotalBox>
+            <Pwbox>
+              <input
+                placeholder="숫자+영문자+특수문자  8자리이상"
+                type={!hidePassword ? "password" : "text"}
+                onChange={passwordChangehandler}
+              />
+              <img
+                alt="password"
+                onClick={ShowPasswordClickhandler}
+                src={hidePassword ? "img/open eye.png" : "img/closeeye.png"}
+              />
+            </Pwbox>
+            {password.length > 0 && (
+              <Span
+                className={`message ${isPassword} ? '숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!' : "안전한 비밀번호 입니다."`}
+              >
+                {passwordMessage}
+              </Span>
+            )}
+          </PwTotalBox>
+          <Label>비밀번호 확인</Label>
+          <PwTotalBox>
+            <Pwbox>
+              <input
+                type={!showPassword ? "password" : "text"}
+                placeholder="숫자+영문자+특수문자  8자리이상"
+                onChange={passwordConfirmChangehandler}
+              />
+              <img
+                alt="password"
+                onClick={ShowPasswordClickhandler2}
+                src={showPassword ? "img/open eye.png" : "img/closeeye.png"}
+              />
+            </Pwbox>
+            {passwordConfirm.length > 0 && (
+              <Span
+                className={`message ${isPasswordConfirm} ? '비밀번호가 일치합니다.' : '비밀번호가 틀려요. 다시 확인해주세요!'`}
+              >
+                {passwordConfirmMessage}
+              </Span>
+            )}
+          </PwTotalBox>
+
+          <Label>이메일</Label>
+          <EmailBox>
+            <EmailNumCeek>
+              <EmailNumChekBox>
+                <Input
+                  type="email"
+                  placeholder="이메일"
+                  onChange={emailChangehandler}
+                ></Input>
+                <CheckBox onClick={emailNumberClickhandler}>
+                  인증번호 받기
+                </CheckBox>
+              </EmailNumChekBox>
+              {email.length > 0 && (
+                <Span
+                  className={`message ${isEmail} ? "올바른 이메일 형식입니다.": "이메일 형식이 아닙니다"`}
+                >
+                  {emailMessage}
+                </Span>
+              )}
+            </EmailNumCeek>
+            <IdCheckBox>
+              <IdCheckBox>
+                <Input
+                  onChange={emailNumberChangehandler}
+                  type="text"
+                  placeholder="인증번호"
+                ></Input>
+                <CheckBox onClick={emailCheckNumberClickhandler}>
+                  인증번호 확인
+                </CheckBox>
+              </IdCheckBox>
+            </IdCheckBox>
+          </EmailBox>
+
+          <Label>닉네임</Label>
+          <InputBox>
+            <Input
               type="text"
-              //disabled={isLogindCheck}
-            ></StInput>
+              placeholder="별명을 작성해주세요"
+              onChange={userNamChangeehandler}
+            ></Input>
             <CheckBox
               onClick={(event) => {
-                LoginIdCheckHandler(event);
+                userCheckClickhandler(event);
               }}
             >
               중복체크
             </CheckBox>
-          </IdCheckBox>{" "}
-          {loginId.length > 0 && (
-            <Span
-              className={`message ${isLoginId} ? '"영문 대/소문자 6자리 이상으로 압력해주세요."' : "아이디 형식에 맞습니다."`}
-            >
-              {loginIdMessage}
-            </Span>
-          )}
-        </IdBox>
-
-        <Stlabel>비밀번호</Stlabel>
-        <PwTotalBox>
-          <Pwbox>
-            <input
-              placeholder="숫자+영문자+특수문자  8자리이상"
-              type={!hidePassword ? "password" : "text"}
-              onChange={PasswordChangeHandler}
-            />
-            <img
-              onClick={toggle}
-              src={hidePassword ? "img/open eye.png" : "img/closeeye.png"}
-            />
-          </Pwbox>{" "}
-          {password.length > 0 && (
-            <Span
-              className={`message ${isPassword} ? '숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!' : "안전한 비밀번호 입니다."`}
-            >
-              {passwordMessage}
-            </Span>
-          )}
-        </PwTotalBox>
-        <Stlabel>비밀번호 확인</Stlabel>
-        <PwTotalBox>
-          <Pwbox>
-            <input
-              type={!showPassword ? "password" : "text"}
-              placeholder="숫자+영문자+특수문자  8자리이상"
-              onChange={ChangePasswordConfirm}
-            />
-            <img
-              onClick={toggle2}
-              src={showPassword ? "img/open eye.png" : "img/closeeye.png"}
-            />
-          </Pwbox>{" "}
-          {passwordConfirm.length > 0 && (
-            <Span
-              className={`message ${isPasswordConfirm} ? '비밀번호가 일치합니다.' : '비밀번호가 틀려요. 다시 확인해주세요!'`}
-            >
-              {passwordConfirmMessage}
-            </Span>
-          )}
-        </PwTotalBox>
-
-        <Stlabel>이메일</Stlabel>
-        <EmailBox>
-          <EmailNumCeek>
-            <EmailNumChekBox>
-              <StInput
-                type="email"
-                placeholder="이메일"
-                onChange={EmailChangeHandler}
-              ></StInput>
-              <CheckBox onClick={EmailNumber}>인증번호 받기</CheckBox>
-            </EmailNumChekBox>
-            {email.length > 0 && (
-              <Span
-                style={{ marginbottom: "10px" }}
-                className={`message ${isemail} ? "올바른 이메일 형식입니다.": "이메일 형식이 아닙니다"`}
-              >
-                {emailMessage}
-              </Span>
-            )}
-          </EmailNumCeek>
-          <IdCheckBox>
-            <IdCheckBox>
-              <StInput
-                onChange={EmailNumberChangeHandler}
-                type="text"
-                placeholder="인증번호"
-              ></StInput>
-              <CheckBox onClick={EmailCheckNumberHandeler}>
-                인증번호 확인
-              </CheckBox>
-            </IdCheckBox>
-          </IdCheckBox>
-        </EmailBox>
-
-        <Stlabel>닉네임</Stlabel>
-        <InputBox>
-          <StInput
-            type="text"
-            placeholder="별명을 작성해주세요"
-            onChange={UsernamChangeeHandler}
-          ></StInput>
-          <CheckBox
-            onClick={(event) => {
-              onUserCheck(event);
-            }}
+          </InputBox>
+          <ButtonBox
+            type="submit"
+            disabled={
+              !(
+                isLoginId &&
+                isPassword &&
+                isPasswordConfirm &&
+                isEmail &&
+                isLoginIdCheck &&
+                isusename &&
+                isEmailNumCheck
+              )
+            }
+            onClick={signupClickhandler}
           >
-            중복체크
-          </CheckBox>
-        </InputBox>
-        <ButtonBox
-          type="submit"
-          disabled={
-            !(
-              isLoginId &&
-              isPassword &&
-              isPasswordConfirm &&
-              isemail &&
-              isLogindCheck
-            )
-          }
-          onClick={ClickSignupHandler}
-        >
-          가입하기
-        </ButtonBox>
-      </StForm>
-    </StcontainerBox>
+            가입하기
+          </ButtonBox>
+        </Form>
+      </ContainerBox>
+    </>
   );
 };
 
 export default SignUpScreen;
 
-const StcontainerBox = styled.div`
-  margin-top: 95px;
+const ContainerBox = styled.div`
+  padding: 4rem;
   width: 310px;
   height: 800px;
   display: flex;
@@ -383,15 +383,16 @@ const StcontainerBox = styled.div`
   margin-right: auto;
 `;
 
-const StForm = styled.form`
+const Form = styled.form`
+  padding: 4rem;
+  margin-top: 120px;
   display: flex;
   flex-direction: column;
-  padding: 100px 100px 130px 100px;
   justify-content: center;
   position: relative;
 `;
 
-const StTitle = styled.div`
+const Title = styled.div`
   ${fonts.Body1}
   font-weight: 600;
   font-size: 32px;
@@ -399,11 +400,11 @@ const StTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 95px;
+  margin-top: 10px;
   margin-bottom: 50px;
 `;
 
-const Stlabel = styled.label`
+const Label = styled.label`
   margin-bottom: 10px;
   ${fonts.Body1}
   font-weight: 700;
@@ -416,9 +417,9 @@ const InputBox = styled.div`
   width: 310px;
   height: 40px;
   border: none;
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 `;
-const StInput = styled.input`
+const Input = styled.input`
   border-radius: 11px;
   ${fonts.Body5}
   font-weight: 400;
@@ -446,7 +447,7 @@ const CheckBox = styled.button`
 `;
 
 const IdBox = styled.div`
-  margin-bottom: 45px;
+  margin-bottom: 40px;
 `;
 
 const IdCheckBox = styled.div`
@@ -508,8 +509,8 @@ const ButtonBox = styled.button`
   background-color: #bbe0fa;
   border: none;
   border-radius: 20px;
-  margin-top: 50px;
-  margin-bottom: 75px;
+  margin-top: 40px;
+  margin-bottom: 10px;
   ${fonts.Body1}
   font-weight: 600;
   font-size: 14px;

@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
+
 import fonts from "../../../../../styles/fonts";
 
 const MultipleChoiceAnswer = () => {
@@ -10,7 +11,7 @@ const MultipleChoiceAnswer = () => {
 
   const answerList = useSelector(
     (state) =>
-      state.createForm.formList.questionList[currentPageNum - 2]["answerList"]
+      state.createForm.formList?.questionList[currentPageNum - 2]["answerList"]
   );
 
   return (
@@ -33,7 +34,6 @@ const MultipleChoiceAnswer = () => {
 
 const Container = styled.div`
   width: 26.5rem;
-  margin-top: 3rem;
 `;
 
 const ButtonBox = styled.div`
@@ -42,27 +42,29 @@ const ButtonBox = styled.div`
   justify-content: center;
   align-items: center;
   button {
-    width: 26.5rem;
     display: flex;
     align-items: center;
-    padding: 1.2rem;
-    margin: 0.85em 0;
+
+    padding: 0.5rem 1rem;
+    margin: 0.4em 0;
+    width: 26.5rem;
+
+    background: ${({ theme }) => theme.subColor1};
     border: none;
     border-radius: 0.5rem;
-    background: ${({ theme }) => theme.subColor1};
   }
 `;
 
 const CommentContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
+  width: 100%;
   p {
+    margin: 0;
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.4rem;
-    margin: 0;
   }
 `;
 

@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import fonts from "../../../../../styles/fonts";
 import ApexCharts from "react-apexcharts";
+
+import Title from "../Title";
+import StatsHeaderContainer from "../statsContainer/StatsHeaderContainer";
 
 const MultiChoiceStats = ({ stats }) => {
   let answerList = stats.selectList?.map((answer) => answer.answer);
@@ -86,8 +88,6 @@ const MultiChoiceStats = ({ stats }) => {
         },
         labels: {
           show: true,
-          offsetY: -20,
-          offsetX: 40,
           style: {
             color: "#000000",
             fontSize: "1.2rem",
@@ -116,22 +116,21 @@ const MultiChoiceStats = ({ stats }) => {
 
   return (
     <Container>
-      <Header>
-        <TitleContainer>
-          <p>{stats.questionType}</p>
-          <h2>
-            {stats.questionNum}. {stats.questionTitle}
-          </h2>
-          <h4>{stats.questionSummary}</h4>
-        </TitleContainer>
-      </Header>
+      <StatsHeaderContainer>
+        <Title
+          questionType={stats.questionType}
+          questionNum={stats.questionNum}
+          questionTitle={stats.questionTitle}
+          questionSummary={stats.questionSummary}
+        />
+      </StatsHeaderContainer>
       <ChartContainer>
         <ApexCharts
           options={options.options}
           series={options.series}
           type="bar"
           height={300}
-          width={460}
+          width={420}
         />
       </ChartContainer>
     </Container>
@@ -139,46 +138,17 @@ const MultiChoiceStats = ({ stats }) => {
 };
 
 const Container = styled.div`
+  position: relative;
   width: 47.2rem;
   height: 41.6em;
+
   background: #ffffff;
   box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  position: relative;
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 3rem 3rem 0 3rem;
+const ChartContainer = styled.div`
+  margin-left: 2.2rem;
 `;
-
-const TitleContainer = styled.div`
-  p {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.2rem;
-    margin: 0;
-  }
-  h2 {
-    ${fonts.Body1}
-    font-weight: 700;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    margin: 0;
-    margin-top: 0.6rem;
-  }
-  h4 {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1.2rem;
-    line-height: 1.4rem;
-    margin: 0;
-    margin-top: 0.7rem;
-  }
-`;
-
-const ChartContainer = styled.div``;
 
 export default MultiChoiceStats;

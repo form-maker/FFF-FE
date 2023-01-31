@@ -1,7 +1,6 @@
-import { baseURLApi, instanceApi } from "./api";
+import { baseURLApi } from "./api";
 
 export const kakao = async (post) => {
-  console.log(post);
   try {
     const data = await baseURLApi.get(`/user/login/kakao?code=${post}`);
     return data;
@@ -11,7 +10,6 @@ export const kakao = async (post) => {
 };
 
 export const google = async (ggg) => {
-  console.log(ggg);
   try {
     const data = await baseURLApi.get(`user/login/google?code=${ggg}`);
     return data;

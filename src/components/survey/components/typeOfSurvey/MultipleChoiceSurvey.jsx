@@ -1,130 +1,110 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../../styles/fonts";
+
 import {
   pushAnswer,
   deleteAnswer,
-  getCover,
 } from "../../../../redux/modules/surveySlice";
-import {
-  __getSurveyQuestion,
-  __getBeforeSurveyQuestion,
-} from "../../../../redux/modules/surveySlice";
-import TurnAPageButtons from "../../components/TurnAPageButtons";
+import fonts from "../../../../styles/fonts";
+import Title from "../Title";
 
 const MultipleChoiceSurvey = () => {
   const dispatch = useDispatch();
   const question = useSelector((state) => state.survey.question);
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
   const selectedAnswerList = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
-
   const answerHandler = (answerNum) => {
     if (selectedAnswerList !== [] && selectedAnswerList.includes(answerNum)) {
       dispatch(deleteAnswer(answerNum));
     } else {
-      console.log(answerNum);
       dispatch(pushAnswer(answerNum));
     }
   };
 
-  const nextPageClickHandler = () => {
-    currentPageNum === questionIdList.length + 1
-      ? alert("마지막 항목입니다")
-      : dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-  };
-  const goBackPageClickHandler = () => {
-    currentPageNum === 2
-      ? dispatch(getCover())
-      : dispatch(__getBeforeSurveyQuestion(questionIdList[currentPageNum - 3]));
-  };
-
   return (
     <Container>
-      <TitleContainer>
-        <h1>{question.questionTitle}</h1>
-        <h5>{question.questionSummary}</h5>
-      </TitleContainer>
-      <CommentContainer>
-        <p>다중 선택 가능</p>
-      </CommentContainer>
-      <ButtonBox>
-        {question.answerList?.map((answer) => {
-          return (
-            <Button
-              key={answer.answerNum}
-              id={answer.answerNum}
-              onClick={() => {
-                answerHandler(answer.answerNum);
-              }}
-              background={
-                selectedAnswerList.includes(+answer.answerNum)
-                  ? "subHoverColor1"
-                  : "subColor1"
-              }
-            >
-              {answer.answerNum}. {answer.answerValue}
-            </Button>
-          );
-        })}
-      </ButtonBox>
-
-      <ArrowButtonContainer>
-        <TurnAPageButtons
-          currentPageNum={currentPageNum}
-          questionLength={questionIdList.length + 1}
-          goBackPageClickHandler={goBackPageClickHandler}
-          nextPageClickHandler={nextPageClickHandler}
-        />
-      </ArrowButtonContainer>
+      <Title />
+      <Main>
+        <CommentContainer>
+          <p>다중 선택 가능</p>
+        </CommentContainer>
+        <ButtonBox>
+          {question.answerList?.map((answer) => {
+            return (
+              <div key={answer.answerNum}>
+                {selectedAnswerList.includes(+answer.answerNum) ? (
+                  <Button
+                    id={answer.answerNum}
+                    onClick={() => {
+                      answerHandler(answer.answerNum);
+                    }}
+                    background="subHoverColor1"
+                  >
+                    {answer.answerNum}. {answer.answerValue}
+                    <span>Picked!</span>
+                  </Button>
+                ) : (
+                  <Button
+                    id={answer.answerNum}
+                    onClick={() => {
+                      answerHandler(answer.answerNum);
+                    }}
+                    background="subColor1"
+                  >
+                    {answer.answerNum}. {answer.answerValue}
+                  </Button>
+                )}
+              </div>
+            );
+          })}
+        </ButtonBox>
+      </Main>
     </Container>
   );
 };
 
 const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   width: 26.5rem;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
   padding-top: 6.1rem;
+  @media screen and (min-width: 500px) {
+    justify-content: center;
+    width: 40rem;
+    padding-top: 3rem;
+  }
 `;
 
-const TitleContainer = styled.div`
+const Main = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  h1 {
-    ${fonts.Body1}
-    margin: 0;
-    font-weight: 700;
-    font-size: 2.4rem;
-    line-height: 2.9rem;
-  }
-  h5 {
-    ${fonts.Body3}
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    margin-top: 4.6rem;
-  }
 `;
 
 const CommentContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-top: 5rem;
+  width: 100%;
   p {
+    margin: 0;
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
-    line-height: 1.4rem;
-    margin: 0;
+  }
+  @media screen and (min-width: 500px) {
+    p {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
   }
 `;
 
@@ -133,18 +113,44 @@ const ButtonBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  font-size: 1.3rem;
+  font-weight: 500;
+  span {
+    color: ${({ theme }) => theme.backgroundColor};
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+  @media screen and (min-width: 500px) {
+    margin-top: 0.2rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
 `;
 
 const Button = styled.div`
-  width: 26.5rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 1.2rem;
-  margin: 0.6em 0;
+
+  width: 26.5rem;
+  padding: 0.8rem;
+  margin: 0.2em 0;
+  background: ${({ theme, background }) => theme[background]};
   border: none;
   border-radius: 1rem;
-  background: ${({ theme, background }) => theme[background]};
+
   cursor: pointer;
+
+  @media screen and (min-width: 500px) {
+    font-size: 1.2rem;
+    width: 40rem;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const ArrowButtonContainer = styled.div`

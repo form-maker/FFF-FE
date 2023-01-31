@@ -6,14 +6,20 @@ const TitleBackground = () => {
 };
 
 const Container = styled.div`
-  background: ${({ theme }) => theme.subColor1};
-  width: 100vw;
-  height: 55.1rem;
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 0px 0px 0px 142px;
+  width: 100vw;
+  height: 55.1rem;
+
+  background: ${({ theme }) => theme.subColor1};
+  border-radius: 0px 0px 0px 14.2rem;
   z-index: -2;
+
+  @media screen and (max-width: 500px) {
+    height: 39rem;
+    border-radius: 0px 0px 0px 9rem;
+  }
 `;
 
 export default TitleBackground;

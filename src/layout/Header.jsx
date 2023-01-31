@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import { baseURLApi } from "../core/api";
 import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
 import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
-import { useNavigate } from "react-router-dom";
-import { baseURLApi } from "../core/api";
+import { batch } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ const Header = () => {
     const checkToken = async () => {
       try {
         const { data } = await baseURLApi.get("user");
-        setIsLogin(data.data);
+        setIsLogin(data.data ? data.data : false);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -21,6 +23,8 @@ const Header = () => {
     };
     checkToken();
   }, [isLogin]);
+
+  console.log(isLogin);
 
   return (
     <Container>
@@ -35,12 +39,17 @@ const Header = () => {
             />
           </div>
           <div>
-            <NoOutLineSmall buttonValue="진행중인 폼" font="Body2" />
+            {/* <NoOutLineSmall buttonValue="진행중인 폼" font="Body2" /> */}
             <NoOutLineSmall
               buttonValue="폼 제작하기"
               font="Body2"
               onClick={() => {
-                navigate("/createform");
+                isLogin
+                  ? navigate("/createform")
+                  : batch(() => {
+                      alert("로그인 해주세요");
+                      navigate("/login");
+                    });
               }}
             />
           </div>
@@ -89,26 +98,31 @@ const Header = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  background: ${({ theme }) => theme.subColor1};
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+
+  background: ${({ theme }) => theme.subColor1};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
-  position: relative;
-  z-index: 1;
+  z-index: 10;
 `;
 
 const SubContainer = styled.div`
   width: 100%;
-  min-width: 800px;
-  max-width: 1200px;
   height: 8rem;
+  max-width: 1200px;
   div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1rem;
+
+    padding: 1rem;
+  }
+  @media screen and (max-width: 500px) {
+    padding: 0.1rem;
+    height: 7rem;
   }
 `;
 

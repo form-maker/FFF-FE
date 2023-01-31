@@ -23,12 +23,12 @@ const Container = styled.div`
     margin-top: 1.7rem;
   }
   img {
-    width: 3.4rem;
-    height: 3.4rem;
+    width: 3.2rem;
+    height: 3.2rem;
   }
   h4 {
     ${fonts.Body1}
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.3rem;
     line-height: 1.6rem;
     padding-left: 1.1rem;

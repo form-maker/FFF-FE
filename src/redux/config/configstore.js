@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import signup from "../modules/signupSlice";
 
+import signup from "../modules/signupSlice";
 import darkTheme from "../modules/themeSlice";
 import mainCardList from "../modules/mainCardListSlice";
 import createForm from "../modules/createFormSlice";
 import survey from "../modules/surveySlice";
 import myPageCardList from "../modules/myPageListSlice";
 import stats from "../modules/statsSlice";
+import modal from "../modules/modalSlice";
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     signup,
     myPageCardList,
     stats,
+    modal,
   },
 });
 

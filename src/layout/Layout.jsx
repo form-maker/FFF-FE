@@ -18,10 +18,10 @@ const Layout = () => {
 };
 
 const Container = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 `;
 
 const MainLayout = styled.div`
@@ -30,10 +30,9 @@ const MainLayout = styled.div`
   display: flex;
   justify-content: center;
 
-  min-height: 80vh;
   width: 100%;
-  min-width: 800px;
   max-width: 1200px;
+  min-height: 80vh;
 `;
 
 export default Layout;

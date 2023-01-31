@@ -1,31 +1,28 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import fonts from "../../../../../styles/fonts";
+import React from "react";
 import { useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components";
 
-// console.log(uuidv4());
+import fonts from "../../../../../styles/fonts";
 
 const RankAnswer = () => {
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
-
   const answerList = useSelector(
     (state) =>
-      state.createForm.formList.questionList[currentPageNum - 2]["answerList"]
+      state.createForm.formList?.questionList[currentPageNum - 2]["answerList"]
   );
 
   return (
     <Container>
       <CommentContainer>
-        <p>중복선택 가능</p>
+        <p>꾹 눌러 드래그 해주세요</p>
       </CommentContainer>
       <ButtonBox>
         {answerList?.map((answer, index) => {
           return (
             <button key={index}>
-              {index + 1}. {answer}
+              {index ? index + 1 : 1}.{answer ? answer : "질문을 작성해주세요"}
             </button>
           );
         })}
@@ -36,7 +33,6 @@ const RankAnswer = () => {
 
 const Container = styled.div`
   width: 26.5rem;
-  margin-top: 3rem;
 `;
 
 const ButtonBox = styled.div`
@@ -45,27 +41,30 @@ const ButtonBox = styled.div`
   justify-content: center;
   align-items: center;
   button {
-    width: 26.5rem;
     display: flex;
     align-items: center;
-    padding: 1.2rem;
-    margin: 0.85em 0;
+
+    padding: 0.5rem 1rem;
+    margin: 0.4em 0;
+    width: 26.5rem;
+
+    background: ${({ theme }) => theme.subColor1};
     border: none;
     border-radius: 0.5rem;
-    background: ${({ theme }) => theme.subColor1};
   }
 `;
 
 const CommentContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
+
+  width: 100%;
   p {
+    margin: 0;
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.4rem;
-    margin: 0;
   }
 `;
 

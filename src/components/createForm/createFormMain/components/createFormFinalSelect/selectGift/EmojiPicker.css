@@ -1,0 +1,3 @@
+.EmojiPickerReact li.epr-emoji-category > .epr-emoji-category-content {
+  grid-template-columns: repeat(5, var(--epr-emoji-fullsize));
+}

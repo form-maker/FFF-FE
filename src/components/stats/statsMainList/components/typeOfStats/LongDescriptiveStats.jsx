@@ -1,113 +1,114 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+
 import fonts from "../../../../../styles/fonts";
+import StatsCommentContainer from "../statsContainer/StatsCommentContainer";
+import StatsHeaderContainer from "../statsContainer/StatsHeaderContainer";
+import Title from "../Title";
+import ListPopUp from "./ListPopUp";
 
 const LongDescriptiveStats = ({ stats }) => {
+  const [popUpShow, setPopUpShow] = useState(false);
+  console.log(stats);
   return (
-    <Container>
-      <Header>
-        <TitleContainer>
-          <p>{stats.questionType}</p>
-          <h2>
-            {stats.questionNum}. {stats.questionTitle}
-          </h2>
-          <h4>{stats.questionSummary}</h4>
-        </TitleContainer>
-      </Header>
-
-      <AnswerContainer>
-        {stats.descriptiveList?.map((answer) => {
-          return (
-            <Answer key={answer.answer}>
-              <h3>{answer.answer}</h3>
-            </Answer>
-          );
-        })}
-      </AnswerContainer>
-      <CommentContainer>
-        <p>랜덤 3가지 답문</p>
-      </CommentContainer>
-    </Container>
+    <>
+      {popUpShow && (
+        <PopUpContainer>
+          <ListPopUp
+            closePop={() => {
+              setPopUpShow(false);
+            }}
+            stats={stats}
+          />
+        </PopUpContainer>
+      )}
+      <Container>
+        <StatsHeaderContainer>
+          <Title
+            questionType={stats.questionType}
+            questionNum={stats.questionNum}
+            questionTitle={stats.questionTitle}
+            questionSummary={stats.questionSummary}
+          />
+          <Icon
+            onClick={() => {
+              setPopUpShow(true);
+            }}
+          >
+            🔍
+          </Icon>
+        </StatsHeaderContainer>
+        <AnswerContainer>
+          {stats.descriptiveList?.statsList?.map((answer) => {
+            return (
+              <Answer key={answer.answer}>
+                <h3>{answer.answer}</h3>
+              </Answer>
+            );
+          })}
+        </AnswerContainer>
+        <StatsCommentContainer>
+          <p>랜덤 3가지 답문</p>
+        </StatsCommentContainer>
+      </Container>
+    </>
   );
 };
 
 const Container = styled.div`
+  position: relative;
   width: 47.2rem;
   height: 41.6em;
+
   background: #ffffff;
   box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  position: relative;
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 3rem 3rem 0 3rem;
+const Icon = styled.div`
+  font-size: 3rem;
+  cursor: pointer;
 `;
 
-const TitleContainer = styled.div`
-  p {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.2rem;
-    margin: 0;
-  }
-  h2 {
-    ${fonts.Body1}
-    font-weight: 700;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
-    margin: 0;
-    margin-top: 0.6rem;
-  }
-  h4 {
-    ${fonts.Body3}
-    font-weight: 400;
-    font-size: 1.2rem;
-    line-height: 1.4rem;
-    margin: 0;
-    margin-top: 0.7rem;
-  }
+const PopUpContainer = styled.div`
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
 `;
+
 const AnswerContainer = styled.div`
-  margin-top: 3.7rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  margin-top: 3.7rem;
   height: 24rem;
   overflow: auto;
 `;
 
 const Answer = styled.div`
-  background: ${({ theme }) => theme.lightMainColor};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 41.4rem;
-  border-radius: 1rem;
+
   margin-bottom: 1rem;
   padding: 0.5rem;
+  width: 41.4rem;
+
+  background: ${({ theme }) => theme.lightMainColor};
+  border-radius: 1rem;
   h3 {
+    margin: 0;
     ${fonts.Body1}
     font-weight: 600;
     font-size: 1.4rem;
     line-height: 1.7rem;
-    margin: 0;
-  }
-`;
-
-const CommentContainer = styled.div`
-  display: flex;
-  justify-content: end;
-  padding-right: 2.9rem;
-  p {
-    ${fonts.Body1}
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1rem;
   }
 `;
 

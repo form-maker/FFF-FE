@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
 
 const PhoneTurnAPageButtons = ({ currentPageNum, questionLength }) => {
-  const dispatch = useDispatch();
   return (
     <ArrowContainer>
       <img
@@ -22,17 +20,16 @@ const PhoneTurnAPageButtons = ({ currentPageNum, questionLength }) => {
 };
 
 const ArrowContainer = styled.div`
-  width: 26.3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   margin: 0 auto;
+  width: 26.3rem;
   img {
     &:nth-child(1) {
       width: 1.6rem;
       cursor: pointer;
-    }
-    &:nth-child(2) {
     }
     &:nth-child(3) {
       width: 1.6rem;

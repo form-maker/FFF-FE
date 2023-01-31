@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import fonts from "../../../../../styles/fonts";
 import RoundButtonMedium from "../../../../common/buttons/roundButtons/RoundButtonMedium";
 
@@ -39,12 +40,13 @@ const ScoreAnswer = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
-  margin-top: 15rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+
   p {
     ${fonts.Body3}
     margin-top: 1.9rem;
