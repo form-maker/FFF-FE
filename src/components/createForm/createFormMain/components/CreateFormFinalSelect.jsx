@@ -63,9 +63,12 @@ const PopContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 90rem;
-  height: 76%;
+  height: 88%;
   background-color: white;
   border-radius: 1rem;
+  @media screen and (min-height: 780px) {
+    height: 76%;
+  }
 `;
 
 const Header = styled.div`

@@ -34,6 +34,22 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
       <Title>설문 타입을 선택해 주세요</Title>
       <div>
         <SelectType
+          imgName="CONSENT"
+          typeName="정보동의"
+          questionType="정보동의"
+          onClick={() => {
+            isCreateForm
+              ? selectNewFormHandler({
+                  questionId: uuid(),
+                  questionType: "CONSENT",
+                  questionTitle: "정보 이용 동의서",
+                  questionSummary: "",
+                })
+              : selectTypeHandler("CONSENT");
+            setIsSelectToggleShow((prev) => !prev);
+          }}
+        />
+        <SelectType
           imgName="STAR"
           typeName="별점형"
           onClick={() => {
