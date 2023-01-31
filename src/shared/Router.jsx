@@ -29,10 +29,7 @@ const Router = () => {
           <Route path="/createform" element={<CreateForm />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/kakao" element={<KakaoRedirectHandler />} />
-          <Route
-            path="/login/oauth2/code/google"
-            element={<GoogleRedirectHandler />}
-          />
+          <Route path="/login/google" element={<GoogleRedirectHandler />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/survey" element={<Survey />} />
         </Routes>

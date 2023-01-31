@@ -10,14 +10,12 @@ import {
   CLIENT_ID_G,
   REDIRECT_URI_G,
 } from "../../constants/env";
-import Header from "../../layout/Header";
 
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=email%20profile%20openid&access_type=offline`;
+const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=email profile openid&access_type=offline`;
 
 const LoginScreen = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(false);
@@ -25,13 +23,6 @@ const LoginScreen = () => {
   const showPasswordhandler = () => {
     setHidePassword(!hidePassword);
   };
-
-  // const loginCheck = useSelector((state) => state.myPageCardList.error);
-  // console.log(loginCheck);
-
-  // useEffect(() => {
-  //   dispatch(loginErrorClose());
-  // }, [dispatch]);
 
   //로그인 통신
   const Login = async (login) => {
@@ -49,7 +40,7 @@ const LoginScreen = () => {
   };
 
   //로그인 버튼 이벤트
-  const submitHandler = (e) => {
+  const submihandler = (e) => {
     e.preventDefault();
     if (loginId === "" || password === "") {
       alert("아이디, 비밀번호를 입력해 주세요!");
@@ -59,7 +50,6 @@ const LoginScreen = () => {
       loginId,
       password,
     }).then((res) => {
-      console.log(res);
       if (res === undefined) {
         navigate(`/login`);
       } else {
@@ -74,13 +64,13 @@ const LoginScreen = () => {
   };
 
   //카카오 인가 코드 요청
-  const KakaoClickhandler = async (e) => {
+  const ClickKakaohandler = async (e) => {
     e.preventDefault();
     window.location.href = KAKAO_AUTH_URL;
   };
 
   //구글 요청
-  const GoogleClickhandler = async (e) => {
+  const ClickGooglehandler = async (e) => {
     e.preventDefault();
     window.location.href = GOOGLE_AUTH_URL;
   };
@@ -88,87 +78,88 @@ const LoginScreen = () => {
   //소셜 로그인 임시 조치
   const Clickhandler = (e) => {
     e.preventDefault();
-    alert("카카오 로그인만 가능합니다.");
+    alert("카카오, 구글 로그인만 가능합니다.");
   };
 
   return (
-    <>
-      {/* <Header /> */}
-      <ContainerBox>
-        <LoginForm>
-          <Title>Log In</Title>
-          <SubTitle>
-            로그인을 하시면 더욱 편리하게 사이트를 이용하실 수 있습니다.
-          </SubTitle>
-          <SubBox1>
-            <input
-              placeholder="   아이디"
-              name="loginId"
-              type="text"
-              onChange={(e) => {
-                const { value } = e.target;
-                setLoginId(value);
-              }}
-            />
-          </SubBox1>
-          <SubBox2>
-            <input
-              placeholder="   비밀번호"
-              type={!hidePassword ? "password" : "text"}
-              name="password"
-              onChange={(e) => {
-                const { value } = e.target;
-                setPassword(value);
-              }}
-            />
-            <img
-              alt="password"
-              onClick={showPasswordhandler}
-              src={hidePassword ? "img/open eye.png" : "img/closeeye.png"}
-            />
-          </SubBox2>
-          <ButtonBox
-            onClick={(event) => {
-              submitHandler(event);
+    <ContainerBox>
+      <LoginForm>
+        <Title>Log In</Title>
+        <SubTitle>
+          로그인을 하시면 더욱 편리하게 사이트를 이용하실 수 있습니다.
+        </SubTitle>
+        <SubBox1>
+          <input
+            placeholder="   아이디"
+            name="loginId"
+            type="text"
+            onChange={(e) => {
+              const { value } = e.target;
+              setLoginId(value);
             }}
-          >
-            로그인
-          </ButtonBox>
-          <SnsTitle>소셜(간편) 로그인</SnsTitle>
-          <SnsBox>
-            <GoogleBtn onClick={GoogleClickhandler}>
-              <img alt="GoogleLogin" src="img/Google.png" />
-            </GoogleBtn>
-            <KakaoBtn onClick={KakaoClickhandler}>
-              <img alt="KakakoLogin" src="img/kakao.png" />
-            </KakaoBtn>
-            <NaverBtn onClick={Clickhandler}>
-              <img alt="NaverLogin" src="img/naver.png" />
-            </NaverBtn>
-          </SnsBox>
-          <SignUpBox>
-            <Link to="/signup">아직 회원이 아니신가요?</Link>
-          </SignUpBox>
-        </LoginForm>
-      </ContainerBox>
-    </>
+          />
+        </SubBox1>
+        <SubBox2>
+          <input
+            placeholder="   비밀번호"
+            type={!hidePassword ? "password" : "text"}
+            name="password"
+            onChange={(e) => {
+              const { value } = e.target;
+              setPassword(value);
+            }}
+          />
+          <img
+            alt="paaword"
+            onClick={showPasswordhandler}
+            src={hidePassword ? "img/open eye.png" : "img/closeeye.png"}
+          />
+        </SubBox2>
+        <ButtonBox
+          onClick={(event) => {
+            submihandler(event);
+          }}
+        >
+          로그인
+        </ButtonBox>
+        <SnsTitle>소셜(간편) 로그인</SnsTitle>
+        <SnsBox>
+          <GoogleBtn onClick={ClickGooglehandler}>
+            <img alt="GoogleLogin" src="img/Google.png" />
+          </GoogleBtn>
+          <KakaoBtn onClick={ClickKakaohandler}>
+            <img alt="KakakoLogin" src="img/kakao.png" />
+          </KakaoBtn>
+          <NaverBtn onClick={Clickhandler}>
+            <img alt="NaverLogin" src="img/btnG_naver.png" />
+          </NaverBtn>
+        </SnsBox>
+        <SignUpBox>
+          <Link to="/signup">아직 회원이 아니신가요?</Link>
+        </SignUpBox>
+      </LoginForm>
+    </ContainerBox>
   );
 };
 
 export default LoginScreen;
 
 const ContainerBox = styled.div`
-  margin: 80px auto;
+  margin-top: 210px;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 340px;
+  height: 670px;
 `;
 
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
+  padding: 100px 100px 130px 100px;
   align-items: center;
   justify-content: center;
 
@@ -228,6 +219,7 @@ const SubBox1 = styled.div`
     padding-left: 10px;
     background-color: rgb(238, 238, 238, 0.55);
     ${fonts.Body1}
+    //color: #9e9e9e;
     border: none;
     border-radius: 11px;
   }
@@ -269,15 +261,11 @@ const ButtonBox = styled.button`
   border-radius: 20px;
   margin-top: 50px;
   margin-bottom: 75px;
-  ${fonts.Body1}
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
+  ${fonts.Body2}
 `;
 
 const SnsBox = styled.div`
-  width: 320px;
-  height: 80px;
+  width: 300px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -289,6 +277,11 @@ const SnsBox = styled.div`
     border: 1px solid #ececec;
     cursor: pointer;
   }
+  img {
+    width: 42px;
+    height: 35px;
+    border-radius: 70%;
+  }
 `;
 
 const SnsTitle = styled.div`
@@ -299,7 +292,7 @@ const SnsTitle = styled.div`
   font-weight: 600;
   font-size: 12px;
   line-height: 14px;
-  color: #5e5e5e;
+
   margin-bottom: 25px;
 `;
 
@@ -309,36 +302,23 @@ const GoogleBtn = styled.button`
   justify-content: center;
   cursor: pointer;
   background-color: ${({ theme }) => theme.backgroundColor};
-  img {
-    width: 42px;
-    height: 35px;
-  }
 `;
 
 const KakaoBtn = styled.button`
+  padding: 10px 10px 10px 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   border: 1px solid #ececec;
   background-color: #ffe812;
-  img {
-    width: 78px;
-    height: 42px;
-  }
 `;
 
 const NaverBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #27d34a;
-  border: 1px solid #ececec;
-  border-radius: none;
-  img {
-    width: 32px;
-    height: 35px;
-  }
+  background-color: #03c75a;
 `;
 
 const SignUpBox = styled.div`
@@ -350,7 +330,6 @@ const SignUpBox = styled.div`
   flex-direction: row;
   margin-top: 50px;
   ${fonts.Body2}
-  color:  #686868;
-  font-size: 11px;
+  color: #9E9E9E;
   text-decoration-line: underline;
 `;
