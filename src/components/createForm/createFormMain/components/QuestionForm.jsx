@@ -9,7 +9,7 @@ import ScoreAndStarForm from "./questionTypesForm/ScoreAndStarForm";
 import SingleAndMultiChoiceForm from "./questionTypesForm/SingleAndMultiChoiceForm";
 import SlideBarForm from "./questionTypesForm/SlideBarForm";
 import SurveyCoverForm from "./questionTypesForm/SurveyCoverForm";
-import NewForm from "./questionTypesForm/NewForm";
+import Consent from "./questionTypesForm/Consent";
 
 const QuestionForm = () => {
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ const QuestionForm = () => {
   return (
     <Container>
       {questionType === "COVER" && <SurveyCoverForm />}
+      {questionType === "CONSENT" && <Consent />}
       {(questionType === "SCORE" || questionType === "STAR") && (
         <ScoreAndStarForm />
       )}

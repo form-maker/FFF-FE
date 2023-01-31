@@ -48,6 +48,7 @@ const CreateFormInput = () => {
   };
 
   return (
+    questionType !== "CONSENT" &&
     questionType !== "COVER" &&
     questionType !== "NEW_FORM" &&
     questionType !== undefined && (
