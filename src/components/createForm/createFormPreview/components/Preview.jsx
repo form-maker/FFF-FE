@@ -14,6 +14,7 @@ import SlideBarAnswer from "./typeOfAnswer/SlideBarAnswer";
 import StarAnswer from "./typeOfAnswer/StarAnswer";
 import NewAnswer from "./typeOfAnswer/NewAnswer";
 import PhoneTurnAPageButtons from "./PhoneTurnAPageButtons";
+import Consent from "./typeOfAnswer/Consent";
 
 const Preview = () => {
   const questionType = useSelector(
@@ -48,6 +49,7 @@ const Preview = () => {
     <Container>
       <PointContext>🔥 현재 * 명이 설문을 참여 중입니다.</PointContext>
       {questionType !== "COVER" &&
+        questionType !== "CONSENT" &&
         questionType !== "NEW_FORM" &&
         questionType !== undefined && (
           <TitleContainer>
@@ -65,6 +67,7 @@ const Preview = () => {
         )}
       <MainContainer>
         {questionType === "COVER" && <CoverAnswer />}
+        {questionType === "CONSENT" && <Consent />}
         {questionType === "SCORE" && <ScoreAnswer />}
         {questionType === "STAR" && <StarAnswer />}
         {questionType === "SINGLE_CHOICE" && <SingleChoiceAnswer />}
@@ -73,8 +76,6 @@ const Preview = () => {
         {questionType === "RANK" && <RankAnswer />}
         {questionType === "SHORT_DESCRIPTIVE" && <ShortDescriptiveAnswer />}
         {questionType === "LONG_DESCRIPTIVE" && <LongDescriptiveAnswer />}
-        {/* {questionType === "Group" && <GroupAnswer />} */}
-        {questionType === "NEW_FORM" && <NewAnswer />}
         {questionType === undefined && <NewAnswer />}
       </MainContainer>
 
@@ -99,6 +100,19 @@ const Container = styled.div`
   padding-top: 4.2rem;
   width: 100%;
   height: 100%;
+
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.subColor1};
+
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, 0.1);
+  }
 `;
 
 const TitleContainer = styled.div`

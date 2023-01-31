@@ -29,6 +29,7 @@ import uuid from "react-uuid";
 import { instanceApi } from "../../../core/api";
 import EndSurvey from "./typeOfSurvey/EndSurvey";
 import TurnAPageButtons from "./TurnAPageButtons";
+import Consent from "./typeOfSurvey/Consent";
 
 const SurveyView = () => {
   const dispatch = useDispatch();
@@ -171,6 +172,7 @@ const SurveyView = () => {
       </Header>
       <Main>
         {currentFormType === "COVER" && <CoverSurvey />}
+        {currentFormType === "CONSENT" && <Consent />}
         {currentFormType === "SCORE" && <ScoreSurvey />}
         {currentFormType === "STAR" && <StarSurvey />}
         {currentFormType === "SINGLE_CHOICE" && <SingleChoiceSurvey />}

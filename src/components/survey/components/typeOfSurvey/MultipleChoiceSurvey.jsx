@@ -148,15 +148,4 @@ const Button = styled.div`
   }
 `;
 
-const ButtonContainer = styled.div`
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-`;
-
-const ArrowButtonContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  bottom: 5rem;
-`;
-
 export default MultipleChoiceSurvey;
