@@ -38,7 +38,7 @@ const StatsSubHeader = () => {
             borderRadius="9.9rem"
             onClick={() => {
               window.open(
-                `${SERVER_URL_API}/survey/stats/download/xls?surveyId=${surveyId}`
+                `${SERVER_URL_API}/survey/stats/download/xlsx?surveyId=${surveyId}`
               );
             }}
           />
