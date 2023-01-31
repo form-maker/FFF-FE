@@ -1,35 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import fonts from "../../../../../styles/fonts";
 import StatsCommentContainer from "../statsContainer/StatsCommentContainer";
 import StatsHeaderContainer from "../statsContainer/StatsHeaderContainer";
 import Title from "../Title";
+import ListPopUp from "./ListPopUp";
 
 const LongDescriptiveStats = ({ stats }) => {
+  const [popUpShow, setPopUpShow] = useState(false);
+  console.log(stats);
   return (
-    <Container>
-      <StatsHeaderContainer>
-        <Title
-          questionType={stats.questionType}
-          questionNum={stats.questionNum}
-          questionTitle={stats.questionTitle}
-          questionSummary={stats.questionSummary}
-        />
-      </StatsHeaderContainer>
-      <AnswerContainer>
-        {stats.descriptiveList?.map((answer) => {
-          return (
-            <Answer key={answer.answer}>
-              <h3>{answer.answer}</h3>
-            </Answer>
-          );
-        })}
-      </AnswerContainer>
-      <StatsCommentContainer>
-        <p>랜덤 3가지 답문</p>
-      </StatsCommentContainer>
-    </Container>
+    <>
+      {popUpShow && (
+        <PopUpContainer>
+          <ListPopUp
+            closePop={() => {
+              setPopUpShow(false);
+            }}
+            stats={stats}
+          />
+        </PopUpContainer>
+      )}
+      <Container>
+        <StatsHeaderContainer>
+          <Title
+            questionType={stats.questionType}
+            questionNum={stats.questionNum}
+            questionTitle={stats.questionTitle}
+            questionSummary={stats.questionSummary}
+          />
+          <Icon
+            onClick={() => {
+              setPopUpShow(true);
+            }}
+          >
+            🔍
+          </Icon>
+        </StatsHeaderContainer>
+        <AnswerContainer>
+          {stats.descriptiveList?.statsList?.map((answer) => {
+            return (
+              <Answer key={answer.answer}>
+                <h3>{answer.answer}</h3>
+              </Answer>
+            );
+          })}
+        </AnswerContainer>
+        <StatsCommentContainer>
+          <p>랜덤 3가지 답문</p>
+        </StatsCommentContainer>
+      </Container>
+    </>
   );
 };
 
@@ -41,6 +63,22 @@ const Container = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+`;
+
+const Icon = styled.div`
+  font-size: 3rem;
+  cursor: pointer;
+`;
+
+const PopUpContainer = styled.div`
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
 `;
 
 const AnswerContainer = styled.div`

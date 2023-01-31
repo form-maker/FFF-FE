@@ -15,19 +15,34 @@ const StatsSubHeader = () => {
     <Container>
       <SubHeaderContainer>
         <h5>{statsList.surveyTitle}</h5>
-        <RoundButtonMedium
-          buttonValue="파일 다운로드"
-          background="subColor1"
-          fontSize="1.5rem"
-          margin="0"
-          height="3.4rem"
-          borderRadius="9.9rem"
-          onClick={() => {
-            window.open(
-              `${SERVER_URL_API}/survey/stats/download?surveyId=${surveyId}`
-            );
-          }}
-        />
+        <div>
+          <RoundButtonMedium
+            buttonValue="CSV 다운로드"
+            background="subColor1"
+            fontSize="1.5rem"
+            margin="0 1rem 0 0 "
+            height="3.4rem"
+            borderRadius="9.9rem"
+            onClick={() => {
+              window.open(
+                `${SERVER_URL_API}/survey/stats/download/csv?surveyId=${surveyId}`
+              );
+            }}
+          />
+          <RoundButtonMedium
+            buttonValue="엑셀 다운로드"
+            background="subColor1"
+            fontSize="1.5rem"
+            margin="0"
+            height="3.4rem"
+            borderRadius="9.9rem"
+            onClick={() => {
+              window.open(
+                `${SERVER_URL_API}/survey/stats/download/xls?surveyId=${surveyId}`
+              );
+            }}
+          />
+        </div>
       </SubHeaderContainer>
     </Container>
   );
@@ -56,6 +71,9 @@ const SubHeaderContainer = styled.div`
     font-weight: 400;
     font-size: 15px;
     line-height: 18px;
+  }
+  div {
+    display: flex;
   }
 `;
 
