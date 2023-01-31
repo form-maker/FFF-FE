@@ -63,18 +63,20 @@ const Preview = () => {
             </h5>
           </TitleContainer>
         )}
-      {questionType === "COVER" && <CoverAnswer />}
-      {questionType === "SCORE" && <ScoreAnswer />}
-      {questionType === "STAR" && <StarAnswer />}
-      {questionType === "SINGLE_CHOICE" && <SingleChoiceAnswer />}
-      {questionType === "MULTIPLE_CHOICE" && <MultipleChoiceAnswer />}
-      {questionType === "SLIDE" && <SlideBarAnswer />}
-      {questionType === "RANK" && <RankAnswer />}
-      {questionType === "SHORT_DESCRIPTIVE" && <ShortDescriptiveAnswer />}
-      {questionType === "LONG_DESCRIPTIVE" && <LongDescriptiveAnswer />}
-      {/* {questionType === "Group" && <GroupAnswer />} */}
-      {questionType === "NEW_FORM" && <NewAnswer />}
-      {questionType === undefined && <NewAnswer />}
+      <MainContainer>
+        {questionType === "COVER" && <CoverAnswer />}
+        {questionType === "SCORE" && <ScoreAnswer />}
+        {questionType === "STAR" && <StarAnswer />}
+        {questionType === "SINGLE_CHOICE" && <SingleChoiceAnswer />}
+        {questionType === "MULTIPLE_CHOICE" && <MultipleChoiceAnswer />}
+        {questionType === "SLIDE" && <SlideBarAnswer />}
+        {questionType === "RANK" && <RankAnswer />}
+        {questionType === "SHORT_DESCRIPTIVE" && <ShortDescriptiveAnswer />}
+        {questionType === "LONG_DESCRIPTIVE" && <LongDescriptiveAnswer />}
+        {/* {questionType === "Group" && <GroupAnswer />} */}
+        {questionType === "NEW_FORM" && <NewAnswer />}
+        {questionType === undefined && <NewAnswer />}
+      </MainContainer>
 
       {questionType !== "COVER" && (
         <ArrowButtonContainer>
@@ -103,22 +105,31 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 6.2rem;
+  padding-top: 4rem;
   h1 {
     margin-top: 6.1rem 0 0 0;
     ${fonts.Body1}
+    font-size: 2rem;
     padding: 0 3rem;
     word-break: break-all;
   }
   h5 {
-    margin-top: 4.6rem;
+    margin-top: 3rem;
     ${fonts.Body3}
     font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
+    font-size: 1.4rem;
     padding: 0 3rem;
     word-break: break-all;
   }
+`;
+
+const MainContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1rem;
 `;
 
 const PointContext = styled.div`
@@ -136,9 +147,8 @@ const PointContext = styled.div`
 `;
 
 const ArrowButtonContainer = styled.div`
-  position: absolute;
-  bottom: 10rem;
   width: 100%;
+  padding-bottom: 5rem;
 `;
 
 export default Preview;

@@ -33,7 +33,6 @@ const MultipleChoiceAnswer = () => {
 };
 
 const Container = styled.div`
-  margin-top: 3rem;
   width: 26.5rem;
 `;
 
@@ -47,7 +46,7 @@ const ButtonBox = styled.div`
     align-items: center;
 
     padding: 1.2rem;
-    margin: 0.85em 0;
+    margin: 0.4em 0;
     width: 26.5rem;
 
     background: ${({ theme }) => theme.subColor1};

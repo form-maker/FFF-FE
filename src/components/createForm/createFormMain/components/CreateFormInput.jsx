@@ -58,11 +58,9 @@ const CreateFormInput = () => {
             value={questionTitle || ""}
             name="questionTitle"
             onChange={InputHandler}
+            maxLength={24}
           ></TitleInput>
-          {questionTitle?.length > 24 && (
-            <p>24자 이내로 줄여주세요 (현 {questionTitle?.length}자)</p>
-          )}
-          {questionTitle?.length <= 24 && <p>{questionTitle?.length}자 작성</p>}
+          <p>24자 이내로 작성해주세요 ({questionTitle?.length}자)</p>
         </div>
         <br />
         <SubTitleInput
@@ -70,13 +68,9 @@ const CreateFormInput = () => {
           value={questionSummary || ""}
           name="questionSummary"
           onChange={InputHandler}
+          maxLength={50}
         ></SubTitleInput>
-        {questionSummary?.length > 50 && (
-          <p>50자 이내로 줄여주세요 (현 {questionSummary?.length}자)</p>
-        )}
-        {questionSummary?.length <= 50 && (
-          <p>{questionSummary?.length}자 작성</p>
-        )}
+        <p>50자 이내로 작성해주세요 ({questionSummary?.length}자)</p>
       </Container>
     )
   );
@@ -87,12 +81,14 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding-top: 7.5rem;
+  padding-top: 6.5rem;
   width: 100%;
 
   p {
+    margin: 0.3rem 0 0 0;
+
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     text-align: center;
 
     color: ${({ theme }) => theme.pointColor};
@@ -104,8 +100,7 @@ const TitleInput = styled.input`
 
   ${fonts.Body1}
   font-weight: 700;
-  font-size: 2.4rem;
-  line-height: 2.9rem;
+  font-size: 2rem;
 
   border: none;
   text-align: center;
@@ -116,12 +111,12 @@ const TitleInput = styled.input`
 `;
 
 const SubTitleInput = styled.input`
-  margin-top: 0;
+  margin-top: 0.8rem;
   width: 50rem;
 
   ${fonts.Body1}
   font-weight: 500;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   line-height: 1.9rem;
 
   text-align: center;

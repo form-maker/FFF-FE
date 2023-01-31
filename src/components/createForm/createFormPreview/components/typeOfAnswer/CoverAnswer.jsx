@@ -42,7 +42,7 @@ const Header = styled.div`
     margin: 0;
     ${fonts.Body1}
     font-weight: 700;
-    font-size: 2.4rem;
+    font-size: 2rem;
     line-height: 2.9rem;
   }
 `;
@@ -52,7 +52,7 @@ const Main = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin-top: 4.6rem;
+  margin-top: 8rem;
   height: 20rem;
   text-align: center;
 
@@ -64,7 +64,7 @@ const Main = styled.div`
     height: 13rem;
     ${fonts.Body3}
     font-weight: 500;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.9rem;
   }
 `;

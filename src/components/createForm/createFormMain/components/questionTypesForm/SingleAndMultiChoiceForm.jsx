@@ -3,6 +3,7 @@ import { useSelector, useDispatch, batch } from "react-redux";
 import styled from "styled-components";
 
 import {
+  deleteAnswer,
   fillOutQuestion,
   selectedFormType,
 } from "../../../../../redux/modules/createFormSlice";
@@ -63,7 +64,12 @@ const SingleAndMultiChoiceForm = () => {
   };
 
   const InputChangeHandler = (event) => {
-    setQuestion(event.target.value);
+    event.target.value?.length >= 20
+      ? batch(() => {
+          alert("20자까지 가능합니다");
+          setQuestion(event.target.value);
+        })
+      : setQuestion(event.target.value);
   };
 
   const onKeyUp = (event) => {
@@ -72,7 +78,11 @@ const SingleAndMultiChoiceForm = () => {
     }
   };
   const submitTagItem = () => {
-    dispatch(fillOutQuestion({ answerList: [...answerList, questionInput] }));
+    answerList?.length >= 5
+      ? alert("항목은 5개까지 추가 가능합니다")
+      : dispatch(
+          fillOutQuestion({ answerList: [...answerList, questionInput] })
+        );
     setQuestion("");
   };
 
@@ -91,12 +101,17 @@ const SingleAndMultiChoiceForm = () => {
             <span>다중선택 허용</span>
           </label>
         </CheckContainer>
-        <QuestionInput
-          placeholder="질문을 작성해주세요"
-          value={questionInput}
-          onChange={InputChangeHandler}
-          onKeyUp={onKeyUp}
-        ></QuestionInput>
+        <InputContainer>
+          <QuestionInput
+            placeholder="질문을 작성해주세요"
+            value={questionInput}
+            onChange={InputChangeHandler}
+            onKeyUp={onKeyUp}
+            maxLength={20}
+          ></QuestionInput>
+          <p>{questionInput?.length}자</p>
+        </InputContainer>
+
         {answerList?.map((answer, index) => {
           return (
             <Question>
@@ -105,8 +120,11 @@ const SingleAndMultiChoiceForm = () => {
                 {answer}
               </div>
               <img
-                src={process.env.PUBLIC_URL + "/img/roundX.svg"}
+                src={process.env.PUBLIC_URL + "/img/circleClose.svg"}
                 alt="xIcon"
+                onClick={() => {
+                  dispatch(deleteAnswer(index));
+                }}
               />
             </Question>
           );
@@ -120,16 +138,16 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-top: 5rem;
+  margin-top: 2rem;
   width: 100%;
 `;
 
 const ChoiceContainer = styled.div`
   width: 50rem;
   p {
-    ${fonts.Body1}
+    ${fonts.Body2}
     font-weight: 500;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     line-height: 1.9rem;
   }
 `;
@@ -137,7 +155,8 @@ const ChoiceContainer = styled.div`
 const CheckContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 1.9rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
   input {
     display: none;
     &:checked + label {
@@ -168,9 +187,9 @@ const CheckContainer = styled.div`
     span {
       ${fonts.Body1}
       font-weight: 500;
-      font-size: 1.6rem;
+      font-size: 1.2rem;
       line-height: 1.9rem;
-      margin-left: 1.6rem;
+      margin-left: 1rem;
     }
   }
 `;
@@ -178,28 +197,31 @@ const CheckContainer = styled.div`
 const QuestionInput = styled.input`
   ${fonts.Body1}
   font-weight: 500;
-  font-size: 1.6rem;
-  line-height: 1.9rem;
+  font-size: 1.4rem;
 
-  margin-top: 2.2rem;
+  margin-top: 1rem;
   padding: 0.8rem 0;
-  width: 100%;
+  width: 95%;
 
   border: none;
   border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
 `;
 
+const InputContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+
 const Question = styled.div`
   display: flex;
-  align-items: center;
 
   ${fonts.Body1}
   font-weight: 500;
-  font-size: 1.6rem;
-  line-height: 1.9rem;
+  font-size: 1.4rem;
 
   padding: 0.2rem 0;
-  margin-top: 1rem;
+  margin-top: 0.2rem;
   width: 100%;
 
   border: none;
@@ -209,18 +231,17 @@ const Question = styled.div`
     flex: 1;
     ${fonts.Body1}
     font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
+    font-size: 1.4rem;
+
     span {
       margin-right: 1rem;
       font-weight: 800;
-      font-size: 2rem;
-      line-height: 1.9rem;
+      font-size: 1.6rem;
     }
   }
   img {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 `;
 

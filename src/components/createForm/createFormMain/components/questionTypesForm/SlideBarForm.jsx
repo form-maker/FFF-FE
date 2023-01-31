@@ -111,7 +111,7 @@ const SlideBarForm = () => {
           </RangeBox>
         </RangeNumberContainer>
         <LabelContainer>
-          <p>왼쪽과 오른쪽에 들어갈 내용을 작성해 주세요</p>
+          {/* <p>왼쪽과 오른쪽에 들어갈 내용을 작성해 주세요</p> */}
           <InputContainer>
             <div>{value[0]}</div>
             <input
@@ -137,11 +137,11 @@ const SlideBarForm = () => {
 };
 
 const Container = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  margin-top: 3rem;
   width: 100%;
   div {
     p {
@@ -212,46 +212,44 @@ const LabelContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
 
-  margin-top: 5rem;
   p {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.9rem;
     ${fonts.Body1}
     font-weight: 500;
-    font-size: 1.5rem;
-    line-height: 1.8rem;
+    font-size: 1.2rem;
   }
 `;
 
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 2.2rem;
+  margin-bottom: 0.5rem;
   div {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    width: 5.6rem;
-    height: 4.6rem;
+    width: 4rem;
+    height: 4rem;
 
     ${fonts.Body1}
     font-weight: 600;
     font-size: 1.5rem;
-    line-height: 1.8rem;
 
     background: ${({ theme }) => theme.subColor1};
     border-radius: 1.5rem;
   }
   input {
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
     margin-left: 1.2rem;
     padding: 0.5rem;
     width: 26.6rem;
 
     ${fonts.Body1}
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     line-height: 1.8rem;
 
     text-align: center;

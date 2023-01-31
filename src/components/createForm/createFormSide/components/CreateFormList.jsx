@@ -1,14 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import {
   goClickPage,
   goClickCover,
-  selectedFormType,
-  addForm,
-  __postForm,
 } from "../../../../redux/modules/createFormSlice";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMediumWide from "../../../common/buttons/roundButtons/RoundButtonMediumWide";
@@ -18,12 +14,10 @@ import CreateFormCard from "./CreateFormCard";
 import SelectTypeList from "./selectType/SelectTypeList";
 
 const CreateFormList = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentPageNum = useSelector(
     (state) => state.createForm?.currentPageNum
   );
-  const survey = useSelector((state) => state.createForm?.formList);
   const questionList = useSelector(
     (state) => state.createForm.formList?.questionList
   );
@@ -35,10 +29,6 @@ const CreateFormList = () => {
         (question) => question?.questionId === questionId
       ) + 2;
     dispatch(goClickPage(questionPage));
-  };
-
-  const postClickHandler = () => {
-    dispatch(__postForm(survey));
   };
 
   const finalSelectPopHandler = () => {
@@ -75,7 +65,6 @@ const CreateFormList = () => {
             </ToggleContainer>
           )}
         </PlusContainer>
-
         <SurveyListContainer>
           <CreateFormCard
             imgName="COVER"
@@ -132,25 +121,23 @@ const Container = styled.div`
   padding: 3.8rem;
   width: 25rem;
   height: 100%;
+  ${fonts.Body1}
 
   background: ${({ theme }) => theme.sideColor2};
   border: 1px solid #d9d9d9;
   border-radius: 0px 5px 5px 0px;
 `;
 
-const PlusContainer = styled.div`
-  position: relative;
-`;
-
-const ToggleContainer = styled.div`
-  position: absolute;
-  top: 4rem;
-  z-index: 1;
-`;
-
 const MainContainer = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
   width: 17.6rem;
+  height: 60%;
+`;
+
+const PlusContainer = styled.div`
+  position: relative;
 `;
 
 const Button = styled.button`
@@ -171,16 +158,22 @@ const Button = styled.button`
   border-radius: 6px;
 `;
 
+const ToggleContainer = styled.div`
+  position: absolute;
+  top: 4rem;
+  z-index: 1;
+`;
+
 const SurveyListContainer = styled.div`
+  flex: 1;
   margin-top: 2rem;
   width: 100%;
-  height: 50rem;
   overflow-y: auto;
 `;
 
 const BottomContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  padding: 3rem auto;
+  margin-top: 2.5rem;
 `;
 
 export default CreateFormList;
