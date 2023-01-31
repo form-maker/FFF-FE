@@ -21,8 +21,7 @@ const TitleContainer = styled.div`
     margin: 0;
     ${fonts.Body1}
     font-weight: 700;
-    font-size: 2.4rem;
-    line-height: 2.9rem;
+    font-size: 2rem;
     ${fadeInFromLeftAnimation}
   }
   h5 {
@@ -30,7 +29,6 @@ const TitleContainer = styled.div`
     ${fonts.Body3};
     font-weight: 500;
     font-size: 1.6rem;
-    line-height: 1.9rem;
     ${fadeInFromLeftAnimation}
   }
   @media screen and (min-width: 500px) {

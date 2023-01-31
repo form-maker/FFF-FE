@@ -19,8 +19,6 @@ const MultipleChoiceSurvey = () => {
   const selectedAnswerList = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
-
   const answerHandler = (answerNum) => {
     if (selectedAnswerList !== [] && selectedAnswerList.includes(answerNum)) {
       dispatch(deleteAnswer(answerNum));
@@ -29,63 +27,44 @@ const MultipleChoiceSurvey = () => {
     }
   };
 
-  const goNextPageHandler = () => {
-    currentPageNum !== questionIdList.length + 1 &&
-      setTimeout(() => {
-        dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-      }, 400);
-  };
-
   return (
     <Container>
-      <Title marginTop="0.4rem" />
-      <CommentContainer>
-        <p>다중 선택 가능</p>
-      </CommentContainer>
-      <ButtonBox>
-        {question.answerList?.map((answer) => {
-          return (
-            <div key={answer.answerNum}>
-              {selectedAnswerList.includes(+answer.answerNum) ? (
-                <Button
-                  id={answer.answerNum}
-                  onClick={() => {
-                    answerHandler(answer.answerNum);
-                  }}
-                  background="subHoverColor1"
-                >
-                  {answer.answerNum}. {answer.answerValue}
-                  <span>Picked!</span>
-                </Button>
-              ) : (
-                <Button
-                  id={answer.answerNum}
-                  onClick={() => {
-                    answerHandler(answer.answerNum);
-                  }}
-                  background="subColor1"
-                >
-                  {answer.answerNum}. {answer.answerValue}
-                </Button>
-              )}
-            </div>
-          );
-        })}
-      </ButtonBox>
-      {currentPageNum !== questionIdList.length + 1 && (
-        <ButtonContainer>
-          <RoundButtonMedium
-            buttonValue="Picked"
-            background="subColor1"
-            onClick={() => {
-              goNextPageHandler();
-            }}
-          ></RoundButtonMedium>
-        </ButtonContainer>
-      )}
-      <ArrowButtonContainer>
-        <TurnAPageButtons />
-      </ArrowButtonContainer>
+      <Title />
+      <Main>
+        <CommentContainer>
+          <p>다중 선택 가능</p>
+        </CommentContainer>
+        <ButtonBox>
+          {question.answerList?.map((answer) => {
+            return (
+              <div key={answer.answerNum}>
+                {selectedAnswerList.includes(+answer.answerNum) ? (
+                  <Button
+                    id={answer.answerNum}
+                    onClick={() => {
+                      answerHandler(answer.answerNum);
+                    }}
+                    background="subHoverColor1"
+                  >
+                    {answer.answerNum}. {answer.answerValue}
+                    <span>Picked!</span>
+                  </Button>
+                ) : (
+                  <Button
+                    id={answer.answerNum}
+                    onClick={() => {
+                      answerHandler(answer.answerNum);
+                    }}
+                    background="subColor1"
+                  >
+                    {answer.answerNum}. {answer.answerValue}
+                  </Button>
+                )}
+              </div>
+            );
+          })}
+        </ButtonBox>
+      </Main>
     </Container>
   );
 };
@@ -102,28 +81,31 @@ const Container = styled.div`
   @media screen and (min-width: 500px) {
     justify-content: center;
     width: 40rem;
-    padding: 0;
-    padding-bottom: 3rem;
   }
+`;
+
+const Main = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CommentContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  align-items: center;
   width: 100%;
   p {
     margin: 0;
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
-    line-height: 1.4rem;
   }
   @media screen and (min-width: 500px) {
-    margin-top: 2rem;
     p {
       margin-top: 0;
-      font-size: 1.8rem;
+      font-size: 1.2rem;
     }
   }
 `;
@@ -142,8 +124,9 @@ const ButtonBox = styled.div`
     font-weight: 800;
   }
   @media screen and (min-width: 500px) {
-    margin-top: 2rem;
+    margin-top: 1.4rem;
     justify-content: center;
+    margin-bottom: 2rem;
   }
 `;
 
@@ -153,14 +136,8 @@ const Button = styled.div`
   align-items: center;
 
   width: 26.5rem;
-  padding: 1.2rem;
-  margin: 0.6em 0;
-
-  ${fonts.Body1}
-  font-weight: 500;
-  font-size: 1.4rem;
-  line-height: 1.8rem;
-
+  padding: 0.8rem;
+  margin: 0.4em 0;
   background: ${({ theme, background }) => theme[background]};
   border: none;
   border-radius: 1rem;
@@ -168,7 +145,7 @@ const Button = styled.div`
   cursor: pointer;
 
   @media screen and (min-width: 500px) {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     width: 40rem;
   }
 `;

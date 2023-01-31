@@ -49,7 +49,7 @@ const ArrowContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 26.3rem;
-  margin: 0 auto;
+  margin: 3rem auto 0 auto;
   img {
     &:nth-child(1) {
       width: 1.6rem;
