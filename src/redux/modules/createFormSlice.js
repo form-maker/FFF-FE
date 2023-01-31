@@ -74,7 +74,7 @@ const createFormSlice = createSlice({
     selectedFormType(state, action) {
       state.selectedFormType = action.payload;
     },
-    // 형식 추가
+
     addForm(state, action) {
       state.formList.questionList = [
         ...state.formList?.questionList,
@@ -94,25 +94,35 @@ const createFormSlice = createSlice({
       console.log(current(state.formList));
     },
 
-    // 설문 전체의 제목 작성
     fillOutTitle(state, action) {
       state.formList.questionList = [
         ...state.formList.questionList,
         action.payload,
       ];
     },
-    // 설문 전체의 제목 및 개요 작성
+
     fillOutQuestionTitleAndSummery(state, { payload: { key, value } }) {
       state.formList.questionList[state.currentPageNum - 2][key] = value;
     },
-    // 질문 내용 채우기
+
     fillOutQuestion(state, action) {
       state.formList.questionList[state.currentPageNum - 2] = {
         ...state.formList.questionList[state.currentPageNum - 2],
         ...action.payload,
       };
     },
-    // 질문 삭제하기
+
+    deleteAnswer(state, action) {
+      console.log(action.payload);
+      console.log(
+        state.formList.questionList[state.currentPageNum - 2]["answerList"]
+      );
+
+      state.formList.questionList[state.currentPageNum - 2][
+        "answerList"
+      ]?.splice(action.payload, 1);
+    },
+
     deleteQuestion(state, action) {
       const id = action.payload;
       state.formList.questionList = state.formList.questionList.filter(
@@ -120,7 +130,6 @@ const createFormSlice = createSlice({
           return question.questionId !== id;
         }
       );
-      console.log(state.formList.questionList);
       state.currentPageNum = state.currentPageNum - 1;
       if (state.currentPageNum <= 2) {
         state.selectedFormType = "COVER";
@@ -132,7 +141,6 @@ const createFormSlice = createSlice({
       }
     },
 
-    // 화살표 버튼
     goBack(state) {
       if (state.currentPageNum > 2) {
         state.currentPageNum = state.currentPageNum - 1;
@@ -201,6 +209,7 @@ export const {
   fillOutQuestion,
   fillOutQuestionTitleAndSummery,
   deleteQuestion,
+  deleteAnswer,
   addForm,
   goBack,
   goNext,
