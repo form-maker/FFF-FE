@@ -12,12 +12,10 @@ const CoverSurvey = () => {
   const survey = useSelector((state) => state.survey?.survey);
   const questionIdList = useSelector((state) => state.survey?.questionIdList);
 
-  const totalTime = 5;
-
   const surveyStartClickHandler = () => {
     dispatch(__getSurveyQuestion(questionIdList[0]));
   };
-  console.log(survey?.giftList);
+  console.log(survey);
 
   return (
     <Container>
@@ -30,17 +28,17 @@ const CoverSurvey = () => {
             {survey?.giftList && survey?.giftList?.length !== 0 ? (
               <h2>{survey?.giftList[0]?.giftIcon}</h2>
             ) : (
-              <h2>{totalTime}</h2>
+              <h2>{survey?.totalTime}</h2>
             )}
           </div>
           {survey?.giftList && survey?.giftList?.length !== 0 ? (
             <p>
-              <span>{totalTime}분</span>이면 &nbsp;
+              <span>{survey?.totalTime}분</span>이면 &nbsp;
               <span> {survey?.giftList[0]?.giftName}</span> 응모 완료!
             </p>
           ) : (
             <p>
-              <span>{totalTime}분</span>이면 끝
+              <span>{survey?.totalTime}분</span>이면 끝
             </p>
           )}
         </GiftContainer>
