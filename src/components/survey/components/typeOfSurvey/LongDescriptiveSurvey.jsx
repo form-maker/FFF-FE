@@ -1,15 +1,11 @@
 import React from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import {
-  changeDescriptive,
-  __getSurveyQuestion,
-} from "../../../../redux/modules/surveySlice";
+import { changeDescriptive } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
-import TurnAPageButtons from "../../components/TurnAPageButtons";
-import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 
 const LongDescriptiveSurvey = () => {
   const dispatch = useDispatch();
@@ -17,51 +13,30 @@ const LongDescriptiveSurvey = () => {
   const descriptive = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["descriptive"]
   );
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
 
   const answerHandler = (event) => {
     const answer = event.target.value;
     dispatch(changeDescriptive(answer));
-  };
-
-  const goNextPageHandler = () => {
-    currentPageNum !== questionIdList.length + 1 &&
-      setTimeout(() => {
-        dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-      }, 400);
+    descriptive.length === 200 && alert("200자 이내로 작성해주세요");
   };
 
   return (
     <Container>
       <Title />
-      <InputContainer>
-        <div>
-          <textarea
-            type="text"
-            placeholder="200자 이내로 답해주세요"
-            value={descriptive}
-            onChange={answerHandler}
-          ></textarea>
-          {descriptive?.length > 200 && (
-            <p>200자 이내로 줄여주세요 (현 {descriptive?.length}자)</p>
-          )}
-          {descriptive?.length <= 200 && <p>{descriptive?.length}자 작성</p>}
-        </div>
-      </InputContainer>
-      {currentPageNum !== questionIdList?.length + 1 && (
-        <ButtonContainer>
-          <RoundButtonMedium
-            buttonValue="Picked"
-            background="subColor1"
-            onClick={() => {
-              goNextPageHandler();
-            }}
-          ></RoundButtonMedium>
-        </ButtonContainer>
-      )}
-      <ArrowButtonContainer>
-        <TurnAPageButtons />
-      </ArrowButtonContainer>
+      <Main>
+        <InputContainer>
+          <div>
+            <textarea
+              type="text"
+              placeholder="200자 이내로 답해주세요"
+              value={descriptive}
+              onChange={answerHandler}
+              maxLength={200}
+            ></textarea>
+            <p>200자 이내로 작성해주세요 ({descriptive?.length}자)</p>
+          </div>
+        </InputContainer>
+      </Main>
     </Container>
   );
 };
@@ -79,6 +54,13 @@ const Container = styled.div`
   @media screen and (min-width: 500px) {
     justify-content: center;
   }
+`;
+const Main = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const InputContainer = styled.div`
@@ -123,7 +105,6 @@ const InputContainer = styled.div`
   }
   @media screen and (min-width: 500px) {
     div {
-      margin-bottom: 15rem;
       textarea {
         width: 40rem;
         font-size: 1.8rem;
@@ -134,16 +115,6 @@ const InputContainer = styled.div`
       }
     }
   }
-`;
-const ButtonContainer = styled.div`
-  margin-top: 2rem;
-  margin-bottom: 11rem;
-`;
-
-const ArrowButtonContainer = styled.div`
-  position: absolute;
-  bottom: 5rem;
-  width: 100%;
 `;
 
 export default LongDescriptiveSurvey;

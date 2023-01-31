@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { baseURLApi } from "../core/api";
 import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
 import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
+import { batch } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Header = () => {
     const checkToken = async () => {
       try {
         const { data } = await baseURLApi.get("user");
-        setIsLogin(data.data);
+        setIsLogin(data.data ? data.data : false);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -22,6 +23,8 @@ const Header = () => {
     };
     checkToken();
   }, [isLogin]);
+
+  console.log(isLogin);
 
   return (
     <Container>
@@ -41,7 +44,12 @@ const Header = () => {
               buttonValue="폼 제작하기"
               font="Body2"
               onClick={() => {
-                navigate("/createform");
+                isLogin
+                  ? navigate("/createform")
+                  : batch(() => {
+                      alert("로그인 해주세요");
+                      navigate("/login");
+                    });
               }}
             />
           </div>

@@ -33,7 +33,6 @@ const SingleChoiceAnswer = () => {
 
 const Container = styled.div`
   width: 26.5rem;
-  margin-top: 3rem;
 `;
 
 const ButtonBox = styled.div`
@@ -46,7 +45,7 @@ const ButtonBox = styled.div`
     align-items: center;
 
     padding: 1.2rem;
-    margin: 0.85em 0;
+    margin: 0.4em 0;
     width: 26.5rem;
 
     background: ${({ theme }) => theme.subColor1};

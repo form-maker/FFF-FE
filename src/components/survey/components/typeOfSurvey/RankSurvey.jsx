@@ -55,59 +55,47 @@ const RankSurvey = () => {
 
   return (
     <Container>
-      <Title marginTop="0.4rem" />
-      <CommentContainer>
-        <p>드래그 앤 드롭으로 원하는 순위를 조정해주세요</p>
-      </CommentContainer>
-      <DragDropContainer>
-        <AnswerNumberContainer>
-          {answerNumList.map((answerNum) => (
-            <div>{answerNum}</div>
-          ))}
-        </AnswerNumberContainer>
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="characters">
-            {(provided) => (
-              <DNDListContainer
-                className="characters"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {characters?.map(({ id, answer }, index) => {
-                  return (
-                    <Draggable key={id} draggableId={id} index={index}>
-                      {(provided) => (
-                        <DNDList
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          {`${answer}`}
-                        </DNDList>
-                      )}
-                    </Draggable>
-                  );
-                })}
-                {provided.placeholder}
-              </DNDListContainer>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </DragDropContainer>
-      {currentPageNum !== questionIdList.length + 1 && (
-        <ButtonContainer>
-          <RoundButtonMedium
-            buttonValue="Picked"
-            background="subColor1"
-            onClick={() => {
-              goNextPageHandler();
-            }}
-          ></RoundButtonMedium>
-        </ButtonContainer>
-      )}
-      <ArrowButtonContainer>
-        <TurnAPageButtons />
-      </ArrowButtonContainer>
+      <Title />
+      <Main>
+        <CommentContainer>
+          <p>드래그 앤 드롭으로 원하는 순위를 조정해주세요</p>
+        </CommentContainer>
+        <DragDropContainer>
+          <AnswerNumberContainer>
+            {answerNumList.map((answerNum) => (
+              <div>{answerNum}</div>
+            ))}
+          </AnswerNumberContainer>
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="characters">
+              {(provided) => (
+                <DNDListContainer
+                  className="characters"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {characters?.map(({ id, answer }, index) => {
+                    return (
+                      <Draggable key={id} draggableId={id} index={index}>
+                        {(provided) => (
+                          <DNDList
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            {`${answer}`}
+                          </DNDList>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </DNDListContainer>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </DragDropContainer>
+      </Main>
     </Container>
   );
 };
@@ -124,26 +112,30 @@ const Container = styled.div`
   @media screen and (min-width: 500px) {
     justify-content: center;
     width: 40rem;
-    padding: 0;
   }
+`;
+
+const Main = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CommentContainer = styled.div`
   display: flex;
-  margin-top: 2rem;
+  justify-content: flex-end;
   width: 100%;
   p {
-    margin: 0;
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
-    line-height: 1.4rem;
   }
   @media screen and (min-width: 500px) {
-    margin-top: 2rem;
     p {
       margin-top: 0;
-      font-size: 1.8rem;
+      font-size: 1.2rem;
     }
   }
 `;
@@ -154,7 +146,6 @@ const DragDropContainer = styled.div`
   align-items: flex-start;
   width: 100%;
   @media screen and (min-width: 500px) {
-    margin-top: 2rem;
     justify-content: center;
   }
 `;
@@ -169,15 +160,14 @@ const AnswerNumberContainer = styled.div`
     align-items: center;
     justify-content: center;
 
-    margin: 6px;
-    padding: 1.2rem 2.2rem;
-    width: 4.2rem;
-    height: 4.2rem;
+    margin: 0.4rem 1rem;
+    padding: 1rem 1rem;
+    width: 3rem;
+    height: 3rem;
 
     ${fonts.Body1}
     font-weight: 500;
-    font-size: 1.5rem;
-    line-height: 1.8rem;
+    font-size: 1.2rem;
 
     background-color: ${({ theme }) => theme.subColor2};
     border-radius: 10px;
@@ -195,15 +185,13 @@ const DNDList = styled.div`
   display: flex;
   align-items: center;
 
-  margin: 0.6rem;
-  padding: 1.2rem 2.2rem;
+  margin: 0.4rem 0;
+  padding: 0.8rem;
   width: 21rem;
-  height: 4.2rem;
 
   ${fonts.Body1}
   font-weight: 500;
-  font-size: 1.4rem;
-  line-height: 1.8rem;
+  font-size: 1.2rem;
 
   background-color: ${({ theme }) => theme.subColor1};
   border-radius: 10px;
@@ -212,20 +200,9 @@ const DNDList = styled.div`
   }
 
   @media screen and (min-width: 500px) {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     width: 37rem;
   }
-`;
-
-const ButtonContainer = styled.div`
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-`;
-
-const ArrowButtonContainer = styled.div`
-  position: absolute;
-  bottom: 5rem;
-  width: 100%;
 `;
 
 export default RankSurvey;

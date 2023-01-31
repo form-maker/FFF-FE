@@ -21,7 +21,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin-top: 5rem;
   width: 100%;
   textarea {
     box-sizing: border-box;

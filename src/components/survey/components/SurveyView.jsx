@@ -7,6 +7,7 @@ import styled from "styled-components";
 import {
   goEnd,
   __getSurvey,
+  __getSurveyQuestion,
   __postSurvey,
 } from "../../../redux/modules/surveySlice";
 import fonts from "../../../styles/fonts";
@@ -27,18 +28,18 @@ import SSE from "./SSE";
 import uuid from "react-uuid";
 import { instanceApi } from "../../../core/api";
 import EndSurvey from "./typeOfSurvey/EndSurvey";
+import TurnAPageButtons from "./TurnAPageButtons";
 
 const SurveyView = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const surveyId = searchParams.get("surveyId");
 
+  const questionIdList = useSelector((state) => state.survey.questionIdList);
   const survey = useSelector((state) => state.survey.survey);
   const currentFormType = useSelector((state) => state.survey.currentFormType);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
   const answerList = useSelector((state) => state.survey.answer);
-  const error = useSelector((state) => state.survey.error);
 
   useEffect(() => {
     dispatch(__getSurvey(surveyId));
@@ -160,35 +161,71 @@ const SurveyView = () => {
   return (
     <Container>
       <Header>
-        <PointContext>🔥 현재 1명이 설문을 참여 중입니다.</PointContext>
+        <PointContext>🔥 현재 1명이 커피를 노리고 있어요.</PointContext>
       </Header>
-
-      {currentFormType === "COVER" && <CoverSurvey />}
-      {currentFormType === "SCORE" && <ScoreSurvey />}
-      {currentFormType === "STAR" && <StarSurvey />}
-      {currentFormType === "SINGLE_CHOICE" && <SingleChoiceSurvey />}
-      {currentFormType === "MULTIPLE_CHOICE" && <MultipleChoiceSurvey />}
-      {currentFormType === "SLIDE" && <SlideSurvey />}
-      {currentFormType === "RANK" && <RankSurvey />}
-      {currentFormType === "SHORT_DESCRIPTIVE" && <ShortDescriptiveSurvey />}
-      {currentFormType === "LONG_DESCRIPTIVE" && <LongDescriptiveSurvey />}
-      {currentFormType === "SURVEY_END" && <EndSurvey />}
-      {currentPageNum === survey?.questionIdList?.length + 1 && (
-        <EndButtonContainer>
-          <RoundButtonLarge
-            buttonValue="설문 완료"
-            onClick={endSurveyClickHandler}
-            background="subColor1"
-            width="28.3rem"
-          ></RoundButtonLarge>
-        </EndButtonContainer>
-      )}
+      <Main>
+        {currentFormType === "COVER" && <CoverSurvey />}
+        {currentFormType === "SCORE" && <ScoreSurvey />}
+        {currentFormType === "STAR" && <StarSurvey />}
+        {currentFormType === "SINGLE_CHOICE" && <SingleChoiceSurvey />}
+        {currentFormType === "MULTIPLE_CHOICE" && <MultipleChoiceSurvey />}
+        {currentFormType === "SLIDE" && <SlideSurvey />}
+        {currentFormType === "RANK" && <RankSurvey />}
+        {currentFormType === "SHORT_DESCRIPTIVE" && <ShortDescriptiveSurvey />}
+        {currentFormType === "LONG_DESCRIPTIVE" && <LongDescriptiveSurvey />}
+        {currentFormType === "SURVEY_END" && <EndSurvey />}
+      </Main>
+      <EndButtonContainer>
+        {currentFormType !== "COVER" &&
+          currentFormType !== "SURVEY_END" &&
+          (currentPageNum === survey?.questionIdList?.length + 1 ? (
+            <RoundButtonLarge
+              buttonValue="설문 완료"
+              onClick={endSurveyClickHandler}
+              background="subColor1"
+              width="28.3rem"
+            ></RoundButtonLarge>
+          ) : (
+            <div>
+              <RoundButtonLarge
+                buttonValue="Picked!"
+                onClick={() => {
+                  dispatch(
+                    __getSurveyQuestion(questionIdList[currentPageNum - 1])
+                  );
+                }}
+                background="subColor1"
+                width="28.3rem"
+              ></RoundButtonLarge>
+              <TurnAPageButtons />
+            </div>
+          ))}
+      </EndButtonContainer>
     </Container>
   );
 };
 
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 4.2rem;
+  height: 100%;
+  ${fonts.Body1}
+
+  @media screen and (min-width: 500px) {
+    height: 80%;
+    width: 60%;
+    background-color: ${({ theme }) => theme.backgroundColor};
+    border-radius: 2rem;
+    box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
+  }
+`;
+
 const Header = styled.div`
-  margin-top: 4.2rem;
+  /* margin-top: 4.2rem; */
 `;
 
 const PointContext = styled.div`
@@ -215,31 +252,13 @@ const PointContext = styled.div`
   }
 `;
 
-const Container = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
-
-  @media screen and (min-width: 500px) {
-    width: 60%;
-    height: 80%;
-
-    background-color: ${({ theme }) => theme.backgroundColor};
-    border-radius: 4.4rem;
-    box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
-  }
+const Main = styled.div`
+  flex: 1;
 `;
 
 const EndButtonContainer = styled.div`
-  position: absolute;
-  bottom: 10rem;
-  @media screen and (min-width: 500px) {
-    margin-bottom: 1.5rem;
-  }
+  display: flex;
+  flex-direction: column;
 `;
 
 export default SurveyView;

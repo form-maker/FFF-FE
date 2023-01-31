@@ -49,7 +49,6 @@ const Container = styled.div`
   justify-content: center;
 
   padding: 10px 20px;
-  margin-top: 11.1rem;
   width: 100%;
   input {
     -webkit-appearance: none;

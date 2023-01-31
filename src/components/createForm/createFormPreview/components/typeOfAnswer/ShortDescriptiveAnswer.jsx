@@ -19,8 +19,8 @@ const Container = styled.div`
   margin: 7rem;
   width: 100%;
   input {
+    margin-bottom: 5rem;
     padding: 1.1rem;
-    margin-top: 1.5rem;
     width: 27.3rem;
 
     ${fonts.Body1}

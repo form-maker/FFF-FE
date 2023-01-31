@@ -1,38 +1,19 @@
 import React, { useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import {
-  selectedFormType,
-  addForm,
-  deleteQuestion,
-} from "../../../../redux/modules/createFormSlice";
-import fonts from "../../../../styles/fonts";
 import CreateFormInput from "../components/CreateFormInput";
 import QuestionForm from "../components/QuestionForm";
-import TurnAPageButtons from "../components/TurnAPageButtons";
 import SelectTypeList from "../../createFormSide/components/selectType/SelectTypeList";
 import useToggleShow from "../../../common/hooks/useToggleShow";
 import CreateFormPageNumber from "../components/CreateFormPageNumber";
+import fonts from "../../../../styles/fonts";
 
 const CreateFormMainScreen = () => {
-  const dispatch = useDispatch();
-  const currentPageNum = useSelector(
-    (state) => state.createForm.currentPageNum
-  );
-  const currentQuestion = useSelector(
-    (state) => state.createForm.formList?.questionList[currentPageNum - 2]
-  );
-
   const selectedFormType = useSelector(
     (state) => state.createForm.selectedFormType
   );
 
-  const test = useSelector((state) => state.createForm);
-
-  console.log(test);
-
-  const questionId = useRef(1);
   const wrapperRef = useRef();
   const [isSelectToggleShow, setIsSelectToggleShow] = useState(false);
 
@@ -46,16 +27,6 @@ const CreateFormMainScreen = () => {
     <Container>
       <Header>
         <div>
-          {/* <h5
-            onClick={() => {
-              dispatch(selectedFormType("NEW_FORM"));
-              dispatch(addForm({ questionId: questionId.current }));
-              questionId.current += 1;
-            }}
-          >
-            새 설문 추가하기 +
-          </h5> */}
-
           {selectedFormType === "COVER" ? (
             <span>표지 페이지</span>
           ) : (
@@ -72,14 +43,6 @@ const CreateFormMainScreen = () => {
             </div>
           )}
         </div>
-        {/* <img
-          src={process.env.PUBLIC_URL + "/img/circleClose.svg"}
-          alt="circleClose"
-          onClick={() => {
-            console.log(currentQuestion?.questionId);
-            dispatch(deleteQuestion(currentQuestion?.questionId));
-          }}
-        /> */}
       </Header>
       {isSelectToggleShow && (
         <ToggleContainer ref={wrapperRef}>
@@ -89,7 +52,6 @@ const CreateFormMainScreen = () => {
       <Main>
         <CreateFormInput />
         <QuestionForm />
-        {/* <TurnAPageButtons /> */}
       </Main>
       <CreateFormPageNumber />
     </Container>
@@ -101,6 +63,7 @@ const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  ${fonts.Body1}
 `;
 
 const Header = styled.div`
@@ -114,7 +77,7 @@ const Header = styled.div`
     cursor: pointer;
     span {
       font-weight: 700;
-      font-size: 2rem;
+      font-size: 1.6rem;
       line-height: 2.4rem;
 
       color: ${({ theme }) => theme.pointColor2};

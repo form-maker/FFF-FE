@@ -53,7 +53,6 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
-  padding-top: 10rem;
   width: 100%;
   p {
     margin-top: 1.9rem;

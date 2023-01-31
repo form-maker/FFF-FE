@@ -2,14 +2,9 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import {
-  changeAnswer,
-  __getSurveyQuestion,
-} from "../../../../redux/modules/surveySlice";
+import { changeAnswer } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
-import TurnAPageButtons from "../../components/TurnAPageButtons";
-import { batch } from "react-redux";
 import { fadeInFromBottomAnimation } from "../../../../styles/animations";
 
 const StarSurvey = () => {
@@ -18,16 +13,9 @@ const StarSurvey = () => {
   const selectedAnswerList = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
 
   const answerHandler = (answer) => {
-    batch(() => {
-      dispatch(changeAnswer(answer));
-      currentPageNum !== questionIdList.length + 1 &&
-        setTimeout(() => {
-          dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-        }, 900);
-    });
+    dispatch(changeAnswer(answer));
   };
 
   const range = [];
@@ -38,47 +26,46 @@ const StarSurvey = () => {
   return (
     <Container>
       <Title />
-      <ScoreButtonContainer>
-        {range.map((score) => {
-          return (
-            <div
-              onClick={() => {
-                answerHandler(score);
-              }}
-              key={score}
-            >
-              {selectedAnswerList[0] > score && (
-                <img
-                  src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
-                  alt="starIcon"
-                />
-              )}
-              {selectedAnswerList.includes(score) && (
-                <Picked>
-                  <div display={true}>Picked!</div>
+      <Main>
+        <ScoreButtonContainer>
+          {range.map((score) => {
+            return (
+              <div
+                onClick={() => {
+                  answerHandler(score);
+                }}
+                key={score}
+              >
+                {selectedAnswerList[0] > score && (
                   <img
                     src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
                     alt="starIcon"
                   />
-                </Picked>
-              )}
-              {(selectedAnswerList[0] < score ||
-                selectedAnswerList.length === 0) && (
-                <img
-                  src={process.env.PUBLIC_URL + "/img/starIcon.svg"}
-                  alt="starIcon"
-                />
-              )}
+                )}
+                {selectedAnswerList.includes(score) && (
+                  <Picked>
+                    <div display={true}>Picked!</div>
+                    <img
+                      src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
+                      alt="starIcon"
+                    />
+                  </Picked>
+                )}
+                {(selectedAnswerList[0] < score ||
+                  selectedAnswerList.length === 0) && (
+                  <img
+                    src={process.env.PUBLIC_URL + "/img/starIcon.svg"}
+                    alt="starIcon"
+                  />
+                )}
 
-              <h3>{score}점</h3>
-            </div>
-          );
-        })}
-      </ScoreButtonContainer>
-      <p>원하시는 별점을 선택해주세요</p>
-      <ArrowButtonContainer>
-        <TurnAPageButtons />
-      </ArrowButtonContainer>
+                <h3>{score}점</h3>
+              </div>
+            );
+          })}
+        </ScoreButtonContainer>
+        <p>원하시는 별점을 선택해주세요</p>
+      </Main>
     </Container>
   );
 };
@@ -88,25 +75,30 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
-  width: 100%;
-  height: 100%;
   padding-top: 6.1rem;
+  height: 100%;
   p {
     margin-top: 1.9rem;
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
-    line-height: 1.4rem;
   }
   @media screen and (min-width: 500px) {
-    justify-content: center;
     p {
-      margin-top: 5rem;
-      margin-bottom: 15rem;
-      font-size: 1.8rem;
+      margin-top: 1.2rem;
+      font-size: 1.6rem;
     }
   }
+`;
+
+const Main = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ScoreButtonContainer = styled.div`
@@ -126,7 +118,6 @@ const ScoreButtonContainer = styled.div`
       margin-top: 1rem;
       margin-bottom: 0;
       padding: 0;
-
       ${fonts.Body1}
       font-weight: 400;
       font-size: 1.6rem;
@@ -138,13 +129,13 @@ const ScoreButtonContainer = styled.div`
     height: 7rem;
     div {
       img {
-        width: 6rem;
+        width: 5rem;
       }
       h3 {
         margin-top: 1rem;
         margin-bottom: 0;
         padding: 0;
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
     }
   }
@@ -161,12 +152,6 @@ const Picked = styled.div`
   img {
     margin: 0;
   }
-`;
-
-const ArrowButtonContainer = styled.div`
-  position: absolute;
-  bottom: 5rem;
-  width: 100%;
 `;
 
 export default StarSurvey;

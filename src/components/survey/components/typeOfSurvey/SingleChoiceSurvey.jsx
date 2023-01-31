@@ -2,14 +2,9 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import {
-  changeAnswer,
-  __getSurveyQuestion,
-} from "../../../../redux/modules/surveySlice";
+import { changeAnswer } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
-import TurnAPageButtons from "../../components/TurnAPageButtons";
-import { batch } from "react-redux";
 
 const SingleChoiceSurvey = () => {
   const dispatch = useDispatch();
@@ -18,58 +13,49 @@ const SingleChoiceSurvey = () => {
   const selectedAnswerList = useSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
 
   const answerHandler = (answerNum) => {
-    batch(() => {
-      dispatch(changeAnswer(answerNum));
-      currentPageNum !== questionIdList.length + 1 &&
-        setTimeout(() => {
-          dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
-        }, 900);
-    });
+    dispatch(changeAnswer(answerNum));
   };
 
   return (
     <Container>
       <Title />
-      <CommentContainer>
-        <p>*다중선택 불가</p>
-      </CommentContainer>
-      <ButtonBox>
-        {question.answerList?.map((answer) => {
-          return (
-            <div key={answer.answerNum}>
-              {selectedAnswerList.includes(+answer.answerNum) ? (
-                <Button
-                  id={answer.answerNum}
-                  onClick={() => {
-                    answerHandler(answer.answerNum);
-                  }}
-                  background="subHoverColor1"
-                >
-                  {answer.answerNum}. {answer.answerValue}
-                  <span>Picked!</span>
-                </Button>
-              ) : (
-                <Button
-                  id={answer.answerNum}
-                  onClick={() => {
-                    answerHandler(answer.answerNum);
-                  }}
-                  background="subColor1"
-                >
-                  {answer.answerNum}. {answer.answerValue}
-                </Button>
-              )}
-            </div>
-          );
-        })}
-      </ButtonBox>
-
-      <ArrowButtonContainer>
-        <TurnAPageButtons />
-      </ArrowButtonContainer>
+      <Main>
+        <CommentContainer>
+          <p> 다중선택 불가</p>
+        </CommentContainer>
+        <ButtonBox>
+          {question.answerList?.map((answer) => {
+            return (
+              <div key={answer.answerNum}>
+                {selectedAnswerList.includes(+answer.answerNum) ? (
+                  <Button
+                    id={answer.answerNum}
+                    onClick={() => {
+                      answerHandler(answer.answerNum);
+                    }}
+                    background="subHoverColor1"
+                  >
+                    {answer.answerNum}. {answer.answerValue}
+                    <span>Picked!</span>
+                  </Button>
+                ) : (
+                  <Button
+                    id={answer.answerNum}
+                    onClick={() => {
+                      answerHandler(answer.answerNum);
+                    }}
+                    background="subColor1"
+                  >
+                    {answer.answerNum}. {answer.answerValue}
+                  </Button>
+                )}
+              </div>
+            );
+          })}
+        </ButtonBox>
+      </Main>
     </Container>
   );
 };
@@ -86,8 +72,15 @@ const Container = styled.div`
   @media screen and (min-width: 500px) {
     justify-content: center;
     width: 40rem;
-    padding: 0;
   }
+`;
+
+const Main = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CommentContainer = styled.div`
@@ -99,13 +92,11 @@ const CommentContainer = styled.div`
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;
-    line-height: 1.4rem;
   }
   @media screen and (min-width: 500px) {
-    margin-top: 2rem;
     p {
       margin-top: 0;
-      font-size: 1.8rem;
+      font-size: 1.2rem;
     }
   }
 `;
@@ -124,9 +115,9 @@ const ButtonBox = styled.div`
     font-weight: 800;
   }
   @media screen and (min-width: 500px) {
-    margin-top: 2rem;
+    margin-top: 1.4rem;
     justify-content: center;
-    margin-bottom: 10rem;
+    margin-bottom: 2rem;
   }
 `;
 
@@ -136,8 +127,8 @@ const Button = styled.div`
   align-items: center;
 
   width: 26.5rem;
-  padding: 1.2rem;
-  margin: 0.6em 0;
+  padding: 0.8rem;
+  margin: 0.4em 0;
 
   background: ${({ theme, background }) => theme[background]};
   border: none;
@@ -146,15 +137,9 @@ const Button = styled.div`
   cursor: pointer;
 
   @media screen and (min-width: 500px) {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     width: 40rem;
   }
-`;
-
-const ArrowButtonContainer = styled.div`
-  position: absolute;
-  bottom: 5rem;
-  width: 100%;
 `;
 
 export default SingleChoiceSurvey;

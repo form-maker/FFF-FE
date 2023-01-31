@@ -29,24 +29,24 @@ const SurveyCoverForm = () => {
           value={title}
           name="title"
           onChange={InputHandler}
+          maxLength={24}
         ></TitleInput>
-        {title?.length > 24 && (
-          <p>24자 이내로 줄여주세요 (현 {title?.length}자)</p>
-        )}
-        {title?.length <= 24 && <p>{title?.length}자 작성</p>}
+        <p>24자 이내로 작성해주세요 (현 {title?.length}자)</p>
       </Header>
       <textarea
         type="text"
-        placeholder="설문에 관해 간단하게 설명해주세요"
+        placeholder="설문에 관해 간단하게 설명해주세요.&#13;&#10;응답자를 위한 상품을 준비하셨다면,&#13;&#10;상품을 언제 발 어디로 발송한다는 안내 문구도 함께
+        작성해주세요.
+        "
         name="summary"
         value={summary}
         resize="none"
         onChange={InputHandler}
+        maxLength={100}
       />
-      {summary?.length > 100 && (
-        <p>100자 이내로 줄여주세요 (현 {summary?.length}자)</p>
-      )}
-      {summary?.length <= 100 && <p>{summary?.length}자 작성</p>}
+      <p>
+        100자 이내로 작성해주세요 (현 {summary?.length}자) <br />
+      </p>
     </Container>
   );
 };
@@ -64,7 +64,7 @@ const Container = styled.div`
 
     ${fonts.Body1}
     font-weight: 500;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.9rem;
 
     text-align: center;
@@ -81,8 +81,10 @@ const Container = styled.div`
     }
   }
   p {
+    margin: 0.5rem 0 0 0;
+
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 
     color: ${({ theme }) => theme.pointColor};
   }
@@ -101,7 +103,7 @@ const TitleInput = styled.input`
 
   ${fonts.Body1}
   font-weight: 700;
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 2.9rem;
 
   text-align: center;
