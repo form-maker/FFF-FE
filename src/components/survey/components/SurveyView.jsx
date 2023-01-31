@@ -165,7 +165,7 @@ const SurveyView = () => {
           <PointContext>🔥 현재 1명이 함께 설문에 참여하고 있어요</PointContext>
         ) : (
           <PointContext>
-            🔥 현재 1명이 {survey?.giftList?.[0]?.giftName} 노리고 있어요
+            🔥 현재 1명이 {survey?.giftList?.[0]?.giftName}을(를) 노리고 있어요
           </PointContext>
         )}
       </Header>
