@@ -372,7 +372,7 @@ const SignUpScreen = () => {
 export default SignUpScreen;
 
 const ContainerBox = styled.div`
-  //margin: 10px auto;
+  padding: 4rem;
   width: 310px;
   height: 800px;
   display: flex;
@@ -384,6 +384,7 @@ const ContainerBox = styled.div`
 `;
 
 const Form = styled.form`
+  padding: 4rem;
   margin-top: 120px;
   display: flex;
   flex-direction: column;
