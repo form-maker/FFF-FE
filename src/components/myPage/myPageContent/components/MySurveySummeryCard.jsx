@@ -60,7 +60,9 @@ const MySurveySummeryCard = ({
       <ButtonContainer>
         <RoundButtonMedium
           onClick={() => {
-            copyClipBoardHandler(`localhost:3000/survey?surveyId=${surveyId}`);
+            copyClipBoardHandler(
+              `https://www.foamfoamform.com/survey?surveyId=${surveyId}`
+            );
           }}
           buttonValue="링크공유"
           background="subColor1"
