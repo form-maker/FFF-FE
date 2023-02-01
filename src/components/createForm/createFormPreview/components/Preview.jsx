@@ -100,19 +100,6 @@ const Container = styled.div`
   padding-top: 4.2rem;
   width: 100%;
   height: 100%;
-
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.subColor1};
-
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-track {
-    background: rgba(33, 122, 244, 0.1);
-  }
 `;
 
 const TitleContainer = styled.div`

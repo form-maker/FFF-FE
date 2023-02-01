@@ -13,14 +13,9 @@ import uuid from "react-uuid";
 
 const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
   const dispatch = useDispatch();
-  const questionType = useSelector(
-    (state) => state.createForm.selectedFormType
-  );
 
   const selectNewFormHandler = (fillType) => {
-    batch(() => {
-      dispatch(selectNewForm(fillType));
-    });
+    dispatch(selectNewForm(fillType));
   };
 
   const selectTypeHandler = (type) => {
@@ -36,13 +31,12 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
         <SelectType
           imgName="CONSENT"
           typeName="정보동의"
-          questionType="정보동의"
           onClick={() => {
             isCreateForm
               ? selectNewFormHandler({
                   questionId: uuid(),
                   questionType: "CONSENT",
-                  questionTitle: "정보 이용 동의서",
+                  questionTitle: "",
                   questionSummary: "",
                 })
               : selectTypeHandler("CONSENT");
