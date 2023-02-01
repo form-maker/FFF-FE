@@ -131,6 +131,7 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding-bottom: 1rem;
+  overflow: hidden;
 `;
 
 const PointContext = styled.div`
