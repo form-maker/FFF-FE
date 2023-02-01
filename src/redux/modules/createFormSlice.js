@@ -73,6 +73,9 @@ const createFormSlice = createSlice({
     },
     selectedFormType(state, action) {
       state.selectedFormType = action.payload;
+      state.formList.questionList[state.currentPageNum - 2]["questionType"] =
+        action.payload;
+      state.formList.questionList[state.currentPageNum - 2]["answerList"] = [];
     },
 
     addForm(state, action) {

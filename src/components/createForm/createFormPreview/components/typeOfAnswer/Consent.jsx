@@ -7,6 +7,13 @@ const Consent = () => {
   const currentPageNum = useSelector(
     (state) => state.createForm.currentPageNum
   );
+  const questionTitle = useSelector(
+    (state) =>
+      state.createForm.formList?.questionList?.length !== 0 &&
+      state.createForm.formList?.questionList[currentPageNum - 2][
+        "questionTitle"
+      ]
+  );
   const questionSummary = useSelector(
     (state) =>
       state.createForm.formList?.questionList.length !== 0 &&
@@ -17,36 +24,42 @@ const Consent = () => {
 
   return (
     <Container>
-      <Header>
-        <h1>정보 이용 동의서</h1>
-        <h5>
-          {questionSummary === ""
-            ? "정보 동의에 필요한 추가 사항을 작성해 주세요(선택사항)"
-            : questionSummary}
-        </h5>
-      </Header>
-      <Main>
-        <div>
-          <input type="checkbox" id="MULTIPLE_CHOICE" />
-          <label htmlFor="MULTIPLE_CHOICE">
-            <span>동의합니다</span>
-          </label>
-        </div>
-        <div>
-          <h5>이벤트 상품 지급을 위한 개인 정보 이용 동의</h5>
-          <p>동의하지 않을 경우, 이벤트 참여가 어렵습니다.</p>
-        </div>
-        <div>
-          <h5>개인 정보 수집 및 이용 동의</h5>
-          <p>
-            1. 개인 정보의 수집.이용 목적 : 이벤트 진행 및 경품 배송 <br />
-            2. 수집하는 개인 정보의 항목 : 이름, 휴대폰번호, 이메일 <br />
-            3. 개인 정보의 보유. 이용 기간 : 이벤트 종료 후 즉시 파기 <br />
-            4. 개인 정보의 수집 및 이용에 대한 동의를 거부할 수 있으며, 이 경우
-            이벤트 참여가 제한됩니다.
-          </p>
-        </div>
-      </Main>
+      <ScrollContainer>
+        <Header>
+          <h1>
+            {questionTitle === ""
+              ? "정보 이용 동의서 제목을 작성해 주세요"
+              : questionTitle}
+          </h1>
+          <h5>
+            {questionSummary === ""
+              ? "정보 동의에 필요한 추가 사항을 작성해 주세요(선택사항)"
+              : questionSummary}
+          </h5>
+        </Header>
+        <Main>
+          <div>
+            <input type="checkbox" id="MULTIPLE_CHOICE" />
+            <label htmlFor="MULTIPLE_CHOICE">
+              <span>동의합니다</span>
+            </label>
+          </div>
+          <div>
+            <h5>이벤트 상품 지급을 위한 개인 정보 이용 동의</h5>
+            <p>동의하지 않을 경우, 이벤트 참여가 어렵습니다.</p>
+          </div>
+          <div>
+            <h5>개인 정보 수집 및 이용 동의</h5>
+            <p>
+              1. 개인 정보의 수집.이용 목적 : 이벤트 진행 및 경품 배송 <br />
+              2. 수집하는 개인 정보의 항목 : 이름, 휴대폰번호, 이메일 <br />
+              3. 개인 정보의 보유. 이용 기간 : 이벤트 종료 후 즉시 파기 <br />
+              4. 개인 정보의 수집 및 이용에 대한 동의를 거부할 수 있으며, 이
+              경우 이벤트 참여가 제한됩니다.
+            </p>
+          </div>
+        </Main>
+      </ScrollContainer>
     </Container>
   );
 };
@@ -60,6 +73,22 @@ const Container = styled.div`
   height: 100%;
   div {
     margin-bottom: 1rem;
+  }
+`;
+
+const ScrollContainer = styled.div`
+  overflow-y: auto;
+  height: 100%;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.subColor1};
+
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, 0.1);
   }
 `;
 
