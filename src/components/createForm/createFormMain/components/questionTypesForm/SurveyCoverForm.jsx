@@ -43,10 +43,10 @@ const SurveyCoverForm = () => {
           value={summary}
           resize="none"
           onChange={InputHandler}
-          maxLength={100}
+          maxLength={200}
         />
         <p>
-          100자 이내로 작성해주세요 (현 {summary?.length}자) <br />
+          200자 이내로 작성해주세요 (현 {summary?.length}자) <br />
         </p>
       </Main>
     </Container>
@@ -59,6 +59,36 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+`;
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6.5rem;
+`;
+
+const TitleInput = styled.input`
+  width: 50rem;
+
+  ${fonts.Body1}
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.9rem;
+
+  text-align: center;
+  border: none;
+  border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
+  &::placeholder {
+    color: ${({ theme }) => theme.gray8};
+  }
+`;
+
+const Main = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
   textarea {
     margin-top: 4.9rem;
     padding: 1rem;
@@ -91,36 +121,6 @@ const Container = styled.div`
 
     color: ${({ theme }) => theme.pointColor};
   }
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 6.5rem;
-`;
-
-const TitleInput = styled.input`
-  width: 50rem;
-
-  ${fonts.Body1}
-  font-weight: 700;
-  font-size: 2rem;
-  line-height: 2.9rem;
-
-  text-align: center;
-  border: none;
-  border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
-  &::placeholder {
-    color: ${({ theme }) => theme.gray8};
-  }
-`;
-
-const Main = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
 `;
 
 export default SurveyCoverForm;
