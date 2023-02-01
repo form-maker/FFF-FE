@@ -223,6 +223,8 @@ const Container = styled.div`
   height: 100%;
   ${fonts.Body1}
 
+  overflow-y: auto;
+
   @media screen and (min-width: 500px) {
     height: 80%;
     width: 60%;

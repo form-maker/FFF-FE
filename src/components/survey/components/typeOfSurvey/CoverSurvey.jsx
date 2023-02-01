@@ -18,39 +18,37 @@ const CoverSurvey = () => {
 
   return (
     <Container>
-      <ScrollContainer>
-        <Main>
-          <h1>{survey?.title}</h1>
-          <h5>{survey?.summary}</h5>
-          <GiftContainer>
-            <div>
-              {survey?.giftList && survey?.giftList?.length !== 0 ? (
-                <h2>{survey?.giftList[0]?.giftIcon}</h2>
-              ) : (
-                <h2>{survey?.totalTime}</h2>
-              )}
-            </div>
+      <Main>
+        <h1>{survey?.title}</h1>
+        <h5>{survey?.summary}</h5>
+        <GiftContainer>
+          <div>
             {survey?.giftList && survey?.giftList?.length !== 0 ? (
-              <p>
-                <span>{survey?.totalTime}분</span>이면 &nbsp;
-                <span> {survey?.giftList[0]?.giftName}</span> 응모 완료!
-              </p>
+              <h2>{survey?.giftList[0]?.giftIcon}</h2>
             ) : (
-              <p>
-                <span>{survey?.totalTime}분</span>이면 끝
-              </p>
+              <h2>{survey?.totalTime}</h2>
             )}
-          </GiftContainer>
-          <h5>{survey?.endedAt}까지</h5>
-        </Main>
-        <Bottom>
-          <RoundButtonLarge
-            buttonValue="시작하기"
-            width="28.3rem"
-            onClick={surveyStartClickHandler}
-          />
-        </Bottom>
-      </ScrollContainer>
+          </div>
+          {survey?.giftList && survey?.giftList?.length !== 0 ? (
+            <p>
+              <span>{survey?.totalTime}분</span>이면 &nbsp;
+              <span> {survey?.giftList[0]?.giftName}</span> 응모 완료!
+            </p>
+          ) : (
+            <p>
+              <span>{survey?.totalTime}분</span>이면 끝
+            </p>
+          )}
+        </GiftContainer>
+        <h5>{survey?.endedAt}까지</h5>
+      </Main>
+      <Bottom>
+        <RoundButtonLarge
+          buttonValue="시작하기"
+          width="28.3rem"
+          onClick={surveyStartClickHandler}
+        />
+      </Bottom>
     </Container>
   );
 };
@@ -64,10 +62,6 @@ const Container = styled.div`
   @media screen and (min-width: 500px) {
     align-items: center;
   }
-`;
-
-const ScrollContainer = styled.div`
-  overflow-y: auto;
 `;
 
 const Main = styled.div`
