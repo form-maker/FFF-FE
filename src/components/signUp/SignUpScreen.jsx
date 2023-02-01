@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { __addSignup } from "../../redux/modules/signupSlice";
 import { baseURLApi, instanceApi } from "../../core/api";
 import fonts from "../../styles/fonts";
-import Header from "../../layout/Header";
+import { da } from "date-fns/locale";
 
 const SignUpScreen = () => {
   const navigate = useNavigate();
@@ -98,7 +98,7 @@ const SignUpScreen = () => {
   const loginIdCheckClickhandler = (e) => {
     e.preventDefault();
     if (loginId.length === 0) {
-      alert("영문 대/소문자 6자리이상 입력해주세요.");
+      alert("영문자 + 숫자 4자리이상 16자리이하로 입력해주세요.");
       return;
     } else {
     }
@@ -116,6 +116,8 @@ const SignUpScreen = () => {
       if (data.data.statusCode === 200) {
         alert(data.data.msg);
         setIsLoginIdCheck(true);
+      } else if (data.data.statusCode === 400) {
+        alert(data.data.msg);
       } else {
         alert("중복된 아이디입니다.");
       }
@@ -214,15 +216,44 @@ const SignUpScreen = () => {
   };
 
   //회원가입 버튼 온클릭
-  const signupClickhandler = () => {
-    dispatch(__addSignup({ loginId, email, username, password }));
-    alert("회원가입 완료 로그인 해주세요.");
-    navigate(`/login`);
+  // const signupClickhandler = () => {
+  //   dispatch(__addSignup({ loginId, email, username, password }));
+  //   alert("회원가입 완료 로그인 해주세요.");
+  //   navigate(`/login`);
+  // };
+
+  const postSignup = async (post) => {
+    try {
+      const data = await baseURLApi.post("user/signup", post);
+      if (data.data.statusCode === 200) {
+        alert(data.data.msg);
+        return data;
+      } else {
+        alert("회원가입에 실패했습니다.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const signupClickhandler = (e) => {
+    e.preventDefault();
+    postSignup({
+      loginId,
+      password,
+      username,
+      email,
+    }).then((res) => {
+      if (res === undefined) {
+        navigate("/signup");
+      } else {
+        navigate("/login");
+      }
+    });
   };
 
   return (
     <>
-      {/* <Header /> */}
       <ContainerBox>
         <Form>
           <Title>회원가입</Title>
@@ -244,7 +275,7 @@ const SignUpScreen = () => {
             </IdCheckBox>{" "}
             {loginId.length > 0 && (
               <Span
-                className={`message ${isLoginId} ? '"영문 대/소문자 6자리 이상으로 압력해주세요."' : "아이디 형식에 맞습니다."`}
+                className={`message ${isLoginId} ? '"영문자 + 숫자 4자리 이상 16자리이하로 작성해주세요."' : "아이디 형식에 맞습니다."`}
               >
                 {loginIdMessage}
               </Span>

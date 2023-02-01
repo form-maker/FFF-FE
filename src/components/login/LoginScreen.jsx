@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
-import { baseURLApi } from "../../core/api";
 import { Link } from "react-router-dom";
 import fonts from "../../styles/fonts";
 import {
@@ -10,59 +8,13 @@ import {
   CLIENT_ID_G,
   REDIRECT_URI_G,
 } from "../../constants/env";
+import LoginInputScreen from "./logininput/LoiginInputScreen";
+import Header from "../../layout/Header";
 
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=email profile openid&access_type=offline`;
 
 const LoginScreen = () => {
-  const navigate = useNavigate();
-  const [loginId, setLoginId] = useState("");
-  const [password, setPassword] = useState("");
-  const [hidePassword, setHidePassword] = useState(false);
-
-  const showPasswordhandler = () => {
-    setHidePassword(!hidePassword);
-  };
-
-  //로그인 통신
-  const Login = async (login) => {
-    try {
-      const data = await baseURLApi.post("user/login", login);
-      if (data.data.statusCode === 200) {
-        alert("로그인 성공");
-        return data;
-      } else {
-        alert("아이디, 비밀번호를 잘못입력했습니다.");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //로그인 버튼 이벤트
-  const submihandler = (e) => {
-    e.preventDefault();
-    if (loginId === "" || password === "") {
-      alert("아이디, 비밀번호를 입력해 주세요!");
-      return;
-    }
-    Login({
-      loginId,
-      password,
-    }).then((res) => {
-      if (res === undefined) {
-        navigate(`/login`);
-      } else {
-        localStorage.setItem("Authorization", res.headers.authorization);
-        localStorage.setItem(
-          "REFRESH_Authorization",
-          res.headers.refresh_authorization
-        );
-        navigate(`/`);
-      }
-    });
-  };
-
   //카카오 인가 코드 요청
   const ClickKakaohandler = async (e) => {
     e.preventDefault();
@@ -82,70 +34,40 @@ const LoginScreen = () => {
   };
 
   return (
-    <ContainerBox>
-      <LoginForm>
-        <Title>Log In</Title>
-        <SubTitle>
-          로그인을 하시면 더욱 편리하게 사이트를 이용하실 수 있습니다.
-        </SubTitle>
-        <SubBox1>
-          <input
-            placeholder="   아이디"
-            name="loginId"
-            type="text"
-            onChange={(e) => {
-              const { value } = e.target;
-              setLoginId(value);
-            }}
-          />
-        </SubBox1>
-        <SubBox2>
-          <input
-            placeholder="   비밀번호"
-            type={!hidePassword ? "password" : "text"}
-            name="password"
-            onChange={(e) => {
-              const { value } = e.target;
-              setPassword(value);
-            }}
-          />
-          <img
-            alt="paaword"
-            onClick={showPasswordhandler}
-            src={hidePassword ? "img/open eye.png" : "img/closeeye.png"}
-          />
-        </SubBox2>
-        <ButtonBox
-          onClick={(event) => {
-            submihandler(event);
-          }}
-        >
-          로그인
-        </ButtonBox>
-        <SnsTitle>소셜(간편) 로그인</SnsTitle>
-        <SnsBox>
-          <GoogleBtn onClick={ClickGooglehandler}>
-            <img alt="GoogleLogin" src="img/Google.png" />
-          </GoogleBtn>
-          <KakaoBtn onClick={ClickKakaohandler}>
-            <img alt="KakakoLogin" src="img/kakao.png" />
-          </KakaoBtn>
-          <NaverBtn onClick={Clickhandler}>
-            <img alt="NaverLogin" src="img/btnG_naver.png" />
-          </NaverBtn>
-        </SnsBox>
-        <SignUpBox>
-          <Link to="/signup">아직 회원이 아니신가요?</Link>
-        </SignUpBox>
-      </LoginForm>
-    </ContainerBox>
+    <>
+      <Header />
+      <ContainerBox>
+        <LoginForm>
+          <Title>Log In</Title>
+          <SubTitle>
+            로그인을 하시면 더욱 편리하게 사이트를 이용하실 수 있습니다.
+          </SubTitle>
+          <LoginInputScreen />
+          <SnsTitle>소셜(간편) 로그인</SnsTitle>
+          <SnsBox>
+            <GoogleBtn onClick={ClickGooglehandler}>
+              <img alt="GoogleLogin" src="img/Google.png" />
+            </GoogleBtn>
+            <KakaoBtn onClick={ClickKakaohandler}>
+              <img alt="KakakoLogin" src="img/kakao.png" />
+            </KakaoBtn>
+            <NaverBtn onClick={Clickhandler}>
+              <img alt="NaverLogin" src="img/btnG_naver.png" />
+            </NaverBtn>
+          </SnsBox>
+          <SignUpBox>
+            <Link to="/signup">아직 회원이 아니신가요?</Link>
+          </SignUpBox>
+        </LoginForm>
+      </ContainerBox>
+    </>
   );
 };
 
 export default LoginScreen;
 
 const ContainerBox = styled.div`
-  margin-top: 210px;
+  margin-top: 4rem;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -164,8 +86,6 @@ const LoginForm = styled.form`
   justify-content: center;
 
   img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
     cursor: pointer;
   }
@@ -200,68 +120,6 @@ const SubTitle = styled.a`
   font-size: 12px;
   line-height: 14px;
   margin-bottom: 55px;
-`;
-
-const SubBox1 = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 11px;
-  width: 310px;
-  height: 40px;
-  margin-bottom: 25px;
-  input {
-    position: absolute;
-    font-size: 12px;
-    width: 300px;
-    height: 40px;
-    margin: 10px 10px 10px 10px;
-    padding-left: 10px;
-    background-color: rgb(238, 238, 238, 0.55);
-    ${fonts.Body1}
-    //color: #9e9e9e;
-    border: none;
-    border-radius: 11px;
-  }
-`;
-
-const SubBox2 = styled.div`
-  display: flex;
-  width: 310px;
-  height: 40px;
-  border: none;
-  border-radius: 11px;
-  background-color: rgb(238, 238, 238, 0.55);
-  input {
-    font-size: 12px;
-    width: 300px;
-    height: 30px;
-    padding-left: 10px;
-    padding-top: 5px;
-    background-color: transparent;
-    color: #9e9e9e;
-    border: none;
-  }
-  img {
-    width: 15px;
-    height: 15px;
-    padding-right: 10px;
-    padding-top: 15px;
-    filter: opacity(0.5) drop-shadow(0 0 0 #c9c9c9);
-  }
-`;
-
-const ButtonBox = styled.button`
-  margin-top: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #bbe0fa;
-  border: none;
-  border-radius: 20px;
-  margin-top: 50px;
-  margin-bottom: 75px;
-  ${fonts.Body2}
 `;
 
 const SnsBox = styled.div`
