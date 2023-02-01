@@ -17,7 +17,6 @@ const CreateFormHeaderScreen = () => {
     (state) => state.createForm?.formCreateSuccess
   );
   const form = useSelector((state) => state?.createForm);
-  console.log(formCreateSuccess);
 
   useEffect(() => {
     formCreateSuccess && navigate("/mypage");

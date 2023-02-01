@@ -9,6 +9,9 @@ const CoverAnswer = () => {
   const title = useSelector((state) => state.createForm.formList.title);
   const summary = useSelector((state) => state.createForm.formList.summary);
 
+  console.log(summary);
+  console.log(summary.replace(/(?:\r\n|\r|\n)/g, "<br />"));
+
   return (
     <Container>
       <Header>
@@ -57,11 +60,13 @@ const Main = styled.div`
   text-align: center;
 
   padding: 0 3rem;
-  word-break: break-all;
   div {
+    word-break: break-all;
+    white-space: pre-wrap;
     width: 100%;
 
-    height: 13rem;
+    height: 80%;
+    overflow-y: auto;
     ${fonts.Body3}
     font-weight: 500;
     font-size: 1.4rem;

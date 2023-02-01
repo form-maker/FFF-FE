@@ -15,41 +15,42 @@ const CoverSurvey = () => {
   const surveyStartClickHandler = () => {
     dispatch(__getSurveyQuestion(questionIdList[0]));
   };
-  console.log(survey);
 
   return (
     <Container>
-      <Main>
-        <h1>{survey?.title}</h1>
-        <h5>{survey?.summary}</h5>
-        <GiftContainer>
-          <div>
+      <ScrollContainer>
+        <Main>
+          <h1>{survey?.title}</h1>
+          <h5>{survey?.summary}</h5>
+          <GiftContainer>
+            <div>
+              {survey?.giftList && survey?.giftList?.length !== 0 ? (
+                <h2>{survey?.giftList[0]?.giftIcon}</h2>
+              ) : (
+                <h2>{survey?.totalTime}</h2>
+              )}
+            </div>
             {survey?.giftList && survey?.giftList?.length !== 0 ? (
-              <h2>{survey?.giftList[0]?.giftIcon}</h2>
+              <p>
+                <span>{survey?.totalTime}분</span>이면 &nbsp;
+                <span> {survey?.giftList[0]?.giftName}</span> 응모 완료!
+              </p>
             ) : (
-              <h2>{survey?.totalTime}</h2>
+              <p>
+                <span>{survey?.totalTime}분</span>이면 끝
+              </p>
             )}
-          </div>
-          {survey?.giftList && survey?.giftList?.length !== 0 ? (
-            <p>
-              <span>{survey?.totalTime}분</span>이면 &nbsp;
-              <span> {survey?.giftList[0]?.giftName}</span> 응모 완료!
-            </p>
-          ) : (
-            <p>
-              <span>{survey?.totalTime}분</span>이면 끝
-            </p>
-          )}
-        </GiftContainer>
-        <h5>{survey?.endedAt}까지</h5>
-      </Main>
-      <Bottom>
-        <RoundButtonLarge
-          buttonValue="시작하기"
-          width="28.3rem"
-          onClick={surveyStartClickHandler}
-        />
-      </Bottom>
+          </GiftContainer>
+          <h5>{survey?.endedAt}까지</h5>
+        </Main>
+        <Bottom>
+          <RoundButtonLarge
+            buttonValue="시작하기"
+            width="28.3rem"
+            onClick={surveyStartClickHandler}
+          />
+        </Bottom>
+      </ScrollContainer>
     </Container>
   );
 };
@@ -65,12 +66,15 @@ const Container = styled.div`
   }
 `;
 
+const ScrollContainer = styled.div`
+  overflow-y: auto;
+`;
+
 const Main = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   padding-top: 6.1rem;
-  height: 20rem;
 
   text-align: center;
   h1 {
@@ -82,6 +86,9 @@ const Main = styled.div`
     ${fadeInFromLeftAnimation}
   }
   h5:nth-of-type(1) {
+    word-break: break-all;
+    white-space: pre-wrap;
+
     margin-top: 2rem;
     ${fonts.Body1}
     font-weight: 500;

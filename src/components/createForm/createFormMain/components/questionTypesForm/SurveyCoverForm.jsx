@@ -16,7 +16,7 @@ const SurveyCoverForm = () => {
       changeField({
         form: "formList",
         key: name,
-        value,
+        value: value,
       })
     );
   };
