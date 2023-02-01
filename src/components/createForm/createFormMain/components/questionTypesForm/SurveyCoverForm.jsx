@@ -66,6 +66,14 @@ const Header = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 6.5rem;
+  p {
+    margin: 0.5rem 0 0 0;
+
+    font-weight: 700;
+    font-size: 1.2rem;
+
+    color: ${({ theme }) => theme.pointColor};
+  }
 `;
 
 const TitleInput = styled.input`
