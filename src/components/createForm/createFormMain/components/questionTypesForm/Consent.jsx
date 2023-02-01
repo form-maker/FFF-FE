@@ -35,7 +35,7 @@ const Consent = () => {
       dispatch(
         fillOutQuestion({
           questionType: "CONSENT",
-          questionTitle: "정보 이용 동의서",
+          questionTitle: "",
           questionSummary: "",
           answerList: [],
         })
@@ -55,7 +55,18 @@ const Consent = () => {
   return (
     <Container>
       <TitleContainer>
-        <div>{questionTitle}</div>
+        <div>
+          <TitleInput
+            placeholder="정보 이용 동의서 제목을 작성해주세요"
+            value={questionTitle || ""}
+            name="questionTitle"
+            onChange={InputHandler}
+            maxLength={24}
+          ></TitleInput>
+          <p>24자 이내로 작성해주세요 ({questionTitle?.length}자)</p>
+        </div>
+      </TitleContainer>
+      <Main>
         <SubTitleInput
           placeholder="정보 동의에 필요한 추가 사항을 작성해주세요(선택사항)"
           value={questionSummary || ""}
@@ -64,8 +75,7 @@ const Consent = () => {
           maxLength={500}
         ></SubTitleInput>
         <p>500자 이내로 작성해주세요 ({questionSummary?.length}자)</p>
-      </TitleContainer>
-      ㅇ라ㅓ
+      </Main>
     </Container>
   );
 };
@@ -74,14 +84,28 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 6.5rem 2.3rem 0 2.3rem;
 
   width: 26.5rem;
   height: 100%;
-  padding-top: 6.1rem;
   @media screen and (min-width: 500px) {
     justify-content: center;
     width: 40rem;
-    padding-top: 3rem;
+  }
+`;
+
+const TitleInput = styled.input`
+  width: 50rem;
+
+  ${fonts.Body1}
+  font-weight: 700;
+  font-size: 2rem;
+
+  border: none;
+  text-align: center;
+  border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
+  &::placeholder {
+    color: ${({ theme }) => theme.gray8};
   }
 `;
 
@@ -90,7 +114,6 @@ const TitleContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding-top: 6.5rem;
   width: 100%;
   div {
     &:nth-child(1) {
