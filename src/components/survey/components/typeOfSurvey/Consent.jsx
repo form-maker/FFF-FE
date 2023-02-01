@@ -81,7 +81,8 @@ const Main = styled.div`
   justify-content: center;
   align-items: center;
   div {
-    width: 40rem;
+    width: 30rem;
+
     &:nth-child(1) {
       display: flex;
       justify-content: flex-end;
@@ -134,6 +135,11 @@ const Main = styled.div`
       }
       border: 1px solid #c9c9c9;
       border-radius: 10px;
+    }
+  }
+  @media screen and (min-width: 500px) {
+    div {
+      width: 40rem;
     }
   }
 `;

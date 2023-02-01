@@ -65,7 +65,6 @@ const Consent = () => {
         ></SubTitleInput>
         <p>500자 이내로 작성해주세요 ({questionSummary?.length}자)</p>
       </TitleContainer>
-      ㅇ라ㅓ
     </Container>
   );
 };
