@@ -98,6 +98,7 @@ const SingleAndMultiChoiceForm = () => {
               onClick={multiCheckHandler}
               checked={questionType === "MULTIPLE_CHOICE"}
             />
+
             <label htmlFor="MULTIPLE_CHOICE">
               <span>다중선택 허용</span>
             </label>
@@ -162,10 +163,18 @@ const CheckContainer = styled.div`
     display: none;
     &:checked + label {
       &::before {
-        content: "";
+        content: "✓";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 1.8rem;
+        ${fonts.Body1}
+        color: ${({ theme }) => theme.mainColor};
+        font-weight: 900;
+
         background-position: 50%;
         background-repeat: no-repeat;
-        background-color: ${({ theme }) => theme.mainColor};
         border-color: ${({ theme }) => theme.mainColor};
       }
     }
