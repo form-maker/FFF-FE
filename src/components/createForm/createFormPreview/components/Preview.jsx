@@ -47,7 +47,7 @@ const Preview = () => {
 
   return (
     <Container>
-      <PointContext>🔥 현재 * 명이 설문을 참여 중입니다.</PointContext>
+      <PointContext>[ 모바일 환경 설문 응답지 미리보기 ]</PointContext>
       {questionType !== "COVER" &&
         questionType !== "CONSENT" &&
         questionType !== "NEW_FORM" &&
@@ -136,16 +136,16 @@ const MainContainer = styled.div`
 
 const PointContext = styled.div`
   padding: 0.7rem;
-  width: 22.7rem;
+  width: 100%;
 
   ${fonts.Body1}
-  font-weight: 500;
+  font-weight: 700;
   font-size: 1.2rem;
   line-height: 1.4rem;
 
   text-align: center;
-  background: ${({ theme }) => theme.gray3};
-  border-radius: 9.9rem;
+  color: ${({ theme }) => theme.gray8};
+  background: ${({ theme }) => theme.gray2};
 `;
 
 const ArrowButtonContainer = styled.div`
