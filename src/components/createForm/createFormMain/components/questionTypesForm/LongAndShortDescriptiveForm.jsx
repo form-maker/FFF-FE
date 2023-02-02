@@ -51,6 +51,15 @@ const LongAndShortDescriptiveForm = () => {
   return (
     <Container>
       <p>장문형과 단문형을 선택해 주세요</p>
+      {questionType === "SHORT_DESCRIPTIVE" && (
+        <p>
+          * 예상 응답을 단어나 간결한 단문으로 받을 때만 사용해주세요. <br />
+          예시) 사과 , 바나나 , 좋다 , 별로다.
+        </p>
+      )}
+      {questionType === "LONG_DESCRIPTIVE" && (
+        <p>최대 입력 가능 글자수는 500자입니다</p>
+      )}
       <RoundButtonLarge
         buttonValue="단문형"
         width="28.3rem"
@@ -84,10 +93,17 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   p {
+    margin: 1rem 0 1rem 0;
     ${fonts.Body1}
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 1.9rem;
+    &:nth-child(2) {
+      color: ${({ theme }) => theme.gray8};
+      font-size: 1.4rem;
+      margin: 0 0 2rem 0;
+      text-align: center;
+    }
   }
 `;
 
