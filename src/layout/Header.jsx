@@ -39,7 +39,6 @@ const Header = () => {
             />
           </div>
           <div>
-            {/* <NoOutLineSmall buttonValue="진행중인 폼" font="Body2" /> */}
             <NoOutLineSmall
               buttonValue="폼 제작하기"
               font="Body2"
@@ -53,44 +52,43 @@ const Header = () => {
               }}
             />
           </div>
-          <div>
-            {isLogin ? (
-              <>
-                <NoOutLineSmall
-                  buttonValue="마이페이지"
-                  onClick={() => {
-                    navigate("/mypage");
-                  }}
-                  fontSize="1.3rem"
-                />
-                ⎮
-                <NoOutLineSmall
-                  buttonValue="로그아웃"
-                  onClick={() => {
-                    localStorage.removeItem("Authorization");
-                    setIsLogin(false);
-                    navigate("/");
-                  }}
-                  fontSize="1.3rem"
-                />
-              </>
-            ) : (
-              <>
-                <NoOutLineSmall
-                  buttonValue="로그인"
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                />
-                <NoOutLineSmall
-                  buttonValue="회원가입"
-                  onClick={() => {
-                    navigate("/signup");
-                  }}
-                />
-              </>
-            )}
-          </div>
+
+          {isLogin ? (
+            <LoginContainer>
+              <NoOutLineSmall
+                buttonValue="마이페이지"
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+                fontSize="1.3rem"
+              />
+              <span>⎮</span>
+              <NoOutLineSmall
+                buttonValue="로그아웃"
+                onClick={() => {
+                  localStorage.removeItem("Authorization");
+                  setIsLogin(false);
+                  navigate("/");
+                }}
+                fontSize="1.3rem"
+              />
+            </LoginContainer>
+          ) : (
+            <div>
+              <NoOutLineSmall
+                buttonValue="로그인"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              />
+              <NoOutLineSmall
+                buttonValue="회원가입"
+                onClick={() => {
+                  navigate("/signup");
+                }}
+              />
+            </div>
+          )}
         </div>
       </SubContainer>
     </Container>
@@ -119,10 +117,29 @@ const SubContainer = styled.div`
     align-items: center;
 
     padding: 1rem;
+    &:nth-child(2) {
+      @media screen and (max-width: 500px) {
+        display: none;
+      }
+    }
   }
   @media screen and (max-width: 500px) {
     padding: 0.1rem;
     height: 7rem;
+  }
+`;
+const LoginContainer = styled.div`
+  button {
+    &:nth-child(1) {
+      @media screen and (max-width: 500px) {
+        display: none;
+      }
+    }
+  }
+  span {
+    @media screen and (max-width: 500px) {
+      display: none;
+    }
   }
 `;
 

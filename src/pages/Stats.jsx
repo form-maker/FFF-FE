@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import CanNotBeUsedForMobile from "../components/common/canNotBeUsedForMobile/CanNotBeUsedForMobile";
 
 import StatsHeaderScreen from "../components/stats/statsHeader/screen/StatsHeaderScreen";
 import StatsMainListScreen from "../components/stats/statsMainList/screen/StatsMainListScreen";
@@ -8,13 +9,18 @@ import StatsSortToggleScreen from "../components/stats/statsSortToggle/screen/St
 const Stats = () => {
   return (
     <Container>
-      <StatsHeaderScreen />
-      <StatsMainContainer>
-        <StatsSortToggleScreen />
-        <StatsMainItemContainer>
-          <StatsMainListScreen />
-        </StatsMainItemContainer>
-      </StatsMainContainer>
+      <Mobile>
+        <CanNotBeUsedForMobile pageText="통계 페이지" />
+      </Mobile>
+      <DeskTop>
+        <StatsHeaderScreen />
+        <StatsMainContainer>
+          <StatsSortToggleScreen />
+          <StatsMainItemContainer>
+            <StatsMainListScreen />
+          </StatsMainItemContainer>
+        </StatsMainContainer>
+      </DeskTop>
     </Container>
   );
 };
@@ -49,6 +55,24 @@ const StatsMainItemContainer = styled.div`
   width: 100%;
   margin: 0;
   padding-top: 3rem;
+`;
+
+const Mobile = styled.div`
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media screen and (min-width: 500px) {
+    display: none;
+  }
+`;
+
+const DeskTop = styled.div`
+  height: 100%;
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export default Stats;
