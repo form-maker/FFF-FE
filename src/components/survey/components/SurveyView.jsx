@@ -33,6 +33,7 @@ import Consent from "./typeOfSurvey/Consent";
 
 const SurveyView = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const surveyId = searchParams.get("surveyId");
 
@@ -161,6 +162,15 @@ const SurveyView = () => {
 
   return (
     <Container>
+      <HomeContainer>
+        <img
+          src={process.env.PUBLIC_URL + "/img/home.svg"}
+          alt="home"
+          onClick={() => {
+            navigate("/");
+          }}
+        ></img>
+      </HomeContainer>
       <Header>
         {survey?.giftList?.length === 0 ? (
           <PointContext>🔥 현재 1명이 함께 설문에 참여하고 있어요</PointContext>
@@ -219,7 +229,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding: 4.2rem;
+  padding: 2rem 2rem 4.2rem 2rem;
   height: 100%;
   ${fonts.Body1}
 
@@ -234,8 +244,15 @@ const Container = styled.div`
   }
 `;
 
+const HomeContainer = styled.div`
+  width: 100%;
+  img {
+    width: 3rem;
+  }
+`;
+
 const Header = styled.div`
-  /* margin-top: 4.2rem; */
+  margin-top: 1rem;
 `;
 
 const PointContext = styled.div`
