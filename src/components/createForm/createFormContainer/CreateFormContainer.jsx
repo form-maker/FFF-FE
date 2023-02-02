@@ -12,7 +12,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 80%;
+  height: 100%;
 
   background-color: ${({ theme }) => theme.backgroundColor2};
 `;

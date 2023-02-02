@@ -28,7 +28,6 @@ const Container = styled.div`
 
 const Mobile = styled.div`
   flex: 1;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,7 +37,9 @@ const Mobile = styled.div`
 `;
 
 const DeskTop = styled.div`
-  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   @media screen and (max-width: 500px) {
     display: none;
   }
