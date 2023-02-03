@@ -1,27 +1,53 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 
 import styled from "styled-components";
 import MainSurveySummeryCard from "./MainSurveySummeryCard";
 import { useNavigate } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 
 const CardList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const mainCardList = useSelector(
-    (state) => state.mainCardList?.mainCardList.contents
+  const [ref, inView] = useInView();
+  const mainCardList = useSelector((state) => state.mainCardList?.mainCardList);
+  const page = useSelector((state) => state.mainCardList?.pageStatus);
+  const selectedCategory = useSelector(
+    (state) => state.mainCardList?.selectedCategory
   );
 
   useEffect(() => {
-    dispatch(__getMainCardList({ page: 1, size: 9, sortBy: "최신순" }));
-  }, []);
+    if (mainCardList?.length === 0) {
+      console.log("첫 포스팅 로딩");
+      dispatch(__getMainCardList({ page: 1, size: 9, sortBy: "최신순" }));
+      return;
+    }
+  }, [dispatch, mainCardList?.length]);
+
+  useEffect(() => {
+    if (mainCardList?.length !== 0 && page?.next && inView) {
+      console.log("첫 로딩 이후 무한 스크롤");
+      dispatch(
+        __getMainCardList({
+          page: page?.page + 1,
+          size: 9,
+          sortBy: selectedCategory,
+        })
+      );
+    }
+  }, [
+    inView,
+    mainCardList?.length,
+    page?.next,
+    page?.page,
+    selectedCategory,
+    dispatch,
+  ]);
 
   const goSurveyHandler = async ({ surveyId }) => {
     navigate(`/survey?surveyId=${surveyId}`);
   };
-
-  console.log(mainCardList);
 
   return (
     <Container>
@@ -45,6 +71,7 @@ const CardList = () => {
             />
           );
         })}
+        <div ref={ref}></div>
       </SurveyContainer>
     </Container>
   );
