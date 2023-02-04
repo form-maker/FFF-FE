@@ -86,7 +86,7 @@ const Main = styled.div`
     margin-top: 2rem;
     ${fonts.Body1}
     font-weight: 500;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.9rem;
     ${fadeInFromLeftAnimation}
   }
@@ -94,7 +94,7 @@ const Main = styled.div`
     margin-top: 5rem;
     ${fonts.Body3}
     font-weight: 500;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.9rem;
     ${fadeInFromLeftAnimation}
   }
@@ -165,7 +165,7 @@ const GiftContainer = styled.div`
 const Bottom = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 4.6rem;
+  padding-bottom: 3rem;
   @media screen and (min-width: 500px) {
     padding-bottom: 2rem;
   }
