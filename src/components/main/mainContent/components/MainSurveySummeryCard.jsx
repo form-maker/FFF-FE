@@ -37,9 +37,13 @@ const MainSurveySummeryCard = ({
       </Header>
       <Main backgroundColor={randomColor[1]}>
         <div>
-          {deadLine <= 0 ? (
-            <div>마감 완료</div>
-          ) : (
+          {deadLine < 0 && <div>마감 완료</div>}
+          {deadLine === 0 && (
+            <div>
+              <span>⏱️오늘 </span>마감
+            </div>
+          )}
+          {deadLine > 0 && (
             <div>
               <span>⏱️{deadLine}일</span>후 마감
             </div>
@@ -47,7 +51,7 @@ const MainSurveySummeryCard = ({
           <div>
             <h3>{title?.length > 17 ? title.slice(0, 17) + "..." : title}</h3>
             <p>
-              {summary?.length > 19 ? summary.slice(0, 18) + "..." : summary}
+              {summary?.length > 24 ? summary.slice(0, 24) + "..." : summary}
             </p>
           </div>
         </div>
