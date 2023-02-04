@@ -9,9 +9,6 @@ const CoverAnswer = () => {
   const title = useSelector((state) => state.createForm.formList.title);
   const summary = useSelector((state) => state.createForm.formList.summary);
 
-  console.log(summary);
-  console.log(summary.replace(/(?:\r\n|\r|\n)/g, "<br />"));
-
   return (
     <Container>
       <Header>
