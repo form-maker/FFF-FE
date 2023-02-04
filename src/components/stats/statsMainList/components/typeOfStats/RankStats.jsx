@@ -68,7 +68,7 @@ const RankContainer = styled.div`
 `;
 
 const AnswerContainer = styled.div`
-  width: 24.7rem;
+  width: 35rem;
   height: 4.1rem;
   background-color: ${({ theme }) => theme.lightMainColor};
   border-radius: 1rem;
@@ -92,6 +92,10 @@ const Rank = styled.div`
 
 const RankList = styled.div`
   margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+
   h3 {
     ${fonts.Body1}
     margin: 0;
@@ -109,8 +113,6 @@ const RankList = styled.div`
   }
 `;
 
-const AnswerRankList = styled.div`
-  display: flex;
-`;
+const AnswerRankList = styled.div``;
 
 export default RankStats;

@@ -4,6 +4,7 @@ import { instanceApi } from "../../core/api";
 const initialState = {
   currentPageNum: 1,
   currentFormType: "COVER",
+  required: true,
   survey: {},
   questionIdList: [],
   question: {},
@@ -130,8 +131,10 @@ const SurveySlice = createSlice({
     builder.addCase(__getSurveyQuestion.fulfilled, (state, action) => {
       state.question = action.payload.data;
       state.currentPageNum = state.currentPageNum + 1;
-      state.currentFormType = action.payload.data.questionType;
-      console.log(action.payload.data);
+      state.currentFormType = action?.payload?.data?.questionType;
+      if (action.payload?.data?.required) {
+        state.required = action.payload?.data?.required;
+      }
       state.answer[state.currentPageNum - 2]["questionType"] =
         action.payload.data.questionType;
     });

@@ -22,6 +22,13 @@ const CreateFormHeaderScreen = () => {
     formCreateSuccess && navigate("/mypage");
   }, [formCreateSuccess, navigate]);
 
+  const subSaveHandler = () => {
+    batch(() => {
+      localStorage.setItem("createForm", JSON.stringify(form));
+      alert("임시 저장 완료");
+    });
+  };
+
   return (
     <Container>
       <SubContainer>
@@ -31,7 +38,7 @@ const CreateFormHeaderScreen = () => {
             buttonValue="임시저장"
             background="subColor1"
             margin="0 1rem"
-            onClick={localStorage.setItem("createForm", JSON.stringify(form))}
+            onClick={subSaveHandler}
           />
           <RoundButtonMedium
             buttonValue="그만두기"

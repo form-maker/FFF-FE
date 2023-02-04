@@ -6,9 +6,13 @@ import fonts from "../../../styles/fonts";
 
 const Title = ({ marginTop }) => {
   const question = useSelector((state) => state.survey.question);
+
   return (
     <TitleContainer marginTop={marginTop}>
-      <h1>{question.questionTitle}</h1>
+      <h1>
+        {question.required ? <div>*</div> : <div></div>}
+        {question.questionTitle}
+      </h1>
       <h5>{question.questionSummary}</h5>
     </TitleContainer>
   );
@@ -22,7 +26,12 @@ const TitleContainer = styled.div`
     ${fonts.Body1}
     font-weight: 700;
     font-size: 2rem;
+    text-align: center;
     ${fadeInFromLeftAnimation}
+    div {
+      height: 2.1rem;
+      color: ${({ theme }) => theme.pointColor2};
+    }
   }
   h5 {
     margin-top: ${({ marginTop }) => marginTop || "2rem"};

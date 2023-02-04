@@ -12,6 +12,7 @@ const TurnAPageButtons = () => {
   const dispatch = useDispatch();
   const questionIdList = useSelector((state) => state.survey.questionIdList);
   const currentPageNum = useSelector((state) => state.survey.currentPageNum);
+  const survey = useSelector((state) => state.survey.survey);
 
   const nextPageClickHandler = () => {
     currentPageNum === questionIdList.length + 1
@@ -35,11 +36,21 @@ const TurnAPageButtons = () => {
       <div>
         {currentPageNum}/{questionIdList.length + 1}
       </div>
-      <img
-        src={process.env.PUBLIC_URL + "/img/phoneRightArrow.svg"}
-        alt="RightButton"
-        onClick={nextPageClickHandler}
-      />
+      {currentPageNum !== survey?.questionIdList?.length + 1 ? (
+        <img
+          src={process.env.PUBLIC_URL + "/img/phoneRightArrow.svg"}
+          alt="RightButton"
+          onClick={nextPageClickHandler}
+        />
+      ) : (
+        <img
+          src={process.env.PUBLIC_URL + "/img/disablePhoneRightArrow.svg"}
+          alt="RightButton"
+          onClick={() => {
+            alert("마지막 페이지입니다");
+          }}
+        />
+      )}
     </ArrowContainer>
   );
 };

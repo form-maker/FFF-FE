@@ -37,6 +37,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionId: uuid(),
                   questionType: "CONSENT",
                   questionTitle: "",
+                  isRequired: true,
                   questionSummary: "",
                 })
               : selectTypeHandler("CONSENT");
@@ -53,6 +54,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SCORE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SCORE");
@@ -69,6 +71,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SLIDE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SLIDE");
@@ -85,6 +88,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SINGLE_CHOICE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SINGLE_CHOICE");
@@ -101,6 +105,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "RANK",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("RANK");
@@ -118,6 +123,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SHORT_DESCRIPTIVE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SHORT_DESCRIPTIVE");

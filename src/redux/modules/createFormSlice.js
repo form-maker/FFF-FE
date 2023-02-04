@@ -58,6 +58,7 @@ const createFormSlice = createSlice({
         achievement: 20,
         groupList: [],
         summary: "",
+        isRequired: true,
         questionList: [],
         giftList: [
           {
@@ -115,12 +116,12 @@ const createFormSlice = createSlice({
       };
     },
 
-    deleteAnswer(state, action) {
-      console.log(action.payload);
-      console.log(
-        state.formList.questionList[state.currentPageNum - 2]["answerList"]
-      );
+    fillOutRequired(state, action) {
+      state.formList.questionList[state.currentPageNum - 2]["isRequired"] =
+        action.payload;
+    },
 
+    deleteAnswer(state, action) {
       state.formList.questionList[state.currentPageNum - 2][
         "answerList"
       ]?.splice(action.payload, 1);
@@ -199,7 +200,8 @@ const createFormSlice = createSlice({
       }
     });
     builder.addCase(__postForm.rejected, (state, action) => {
-      console.log(current(action.payload));
+      console.log(action.payload.response.data.msg);
+      alert(action.payload.response.data.msg);
     });
   },
 });
@@ -220,5 +222,6 @@ export const {
   goClickCover,
   getPrevForm,
   selectNewForm,
+  fillOutRequired,
 } = createFormSlice.actions;
 export default createFormSlice.reducer;

@@ -43,7 +43,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding-top: 6.1rem;
+  padding-top: 4rem;
   width: 100%;
   height: 100%;
   @media screen and (min-width: 500px) {

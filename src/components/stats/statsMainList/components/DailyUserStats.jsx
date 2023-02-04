@@ -10,6 +10,7 @@ const DailyUserStats = () => {
   let options = {
     series: [
       {
+        name: "날짜 별 응답자 수",
         data: statsList?.dailyParticipantList?.participant,
       },
     ],

@@ -9,7 +9,6 @@ import ListPopUp from "./ListPopUp";
 
 const LongDescriptiveStats = ({ stats }) => {
   const [popUpShow, setPopUpShow] = useState(false);
-  console.log(stats);
   return (
     <>
       {popUpShow && (
