@@ -173,10 +173,13 @@ const SurveyView = () => {
       </HomeContainer>
       <Header>
         {survey?.giftList?.length === 0 ? (
-          <PointContext>🔥 현재 1명이 함께 설문에 참여하고 있어요</PointContext>
+          <PointContext>
+            🔥 현재 {survey.participant}명이 함께 설문에 참여하고 있어요
+          </PointContext>
         ) : (
           <PointContext>
-            🔥 현재 1명이 {survey?.giftList?.[0]?.giftName}을(를) 노리고 있어요
+            🔥 현재 {survey.participant}명이 {survey?.giftList?.[0]?.giftName}
+            을(를) 노리고 있어요
           </PointContext>
         )}
       </Header>
@@ -197,12 +200,15 @@ const SurveyView = () => {
         {currentFormType !== "COVER" &&
           currentFormType !== "SURVEY_END" &&
           (currentPageNum === survey?.questionIdList?.length + 1 ? (
-            <RoundButtonLarge
-              buttonValue="설문 완료"
-              onClick={endSurveyClickHandler}
-              background="subColor1"
-              width="28.3rem"
-            ></RoundButtonLarge>
+            <div>
+              <RoundButtonLarge
+                buttonValue="설문 완료"
+                onClick={endSurveyClickHandler}
+                background="subColor1"
+                width="28.3rem"
+              ></RoundButtonLarge>
+              <TurnAPageButtons />
+            </div>
           ) : (
             <div>
               <RoundButtonLarge
@@ -229,15 +235,15 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding: 2rem 2rem 4.2rem 2rem;
+  padding: 2rem;
   height: 100%;
   ${fonts.Body1}
 
   overflow-y: auto;
 
   @media screen and (min-width: 500px) {
-    height: 80%;
     width: 60%;
+    height: 95%;
     background-color: ${({ theme }) => theme.backgroundColor};
     border-radius: 2rem;
     box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.25);
@@ -247,16 +253,19 @@ const Container = styled.div`
 const HomeContainer = styled.div`
   width: 100%;
   img {
-    width: 3rem;
+    width: 2.5rem;
   }
 `;
 
 const Header = styled.div`
   margin-top: 1rem;
+
+  @media screen and (min-width: 500px) {
+    margin-top: 0.5rem;
+  }
 `;
 
 const PointContext = styled.div`
-  width: 22.7rem;
   padding: 0.7rem;
 
   ${fonts.Body1}
@@ -269,10 +278,9 @@ const PointContext = styled.div`
   border-radius: 9.9rem;
 
   @media screen and (min-width: 500px) {
-    width: 35rem;
-    padding: 1rem;
+    padding: 0.5rem 2rem;
 
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.8rem;
 
     border-radius: 2rem;
@@ -286,6 +294,7 @@ const Main = styled.div`
 const EndButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding-bottom: 3rem;
 `;
 
 export default SurveyView;
