@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { baseURLApi, instanceApi } from "../../core/api";
 import fonts from "../../styles/fonts";
 import Header from "../../layout/Header";
 import { da } from "date-fns/locale";
+import { useCallback } from "react";
 
 const SignUpScreen = () => {
   const navigate = useNavigate();
@@ -93,8 +94,19 @@ const SignUpScreen = () => {
     }
   };
 
+  useEffect(() => {
+    if (passwordConfirm === "" || null || undefined) {
+      setIsPasswordConfirm(false);
+    } else if (password === passwordConfirm) {
+      setIsPasswordConfirm(true);
+    } else {
+      setIsPasswordConfirm(false);
+      setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
+    }
+  }, [password, passwordConfirm, isPassword, isPasswordConfirm]);
+
   //비밀번호 확인 이벤트
-  const passwordConfirmChangehandler = (e) => {
+  const passwordConfirmChangehandler = useCallback((e) => {
     const passwordConfirmCurrent = e.target.value;
     setPasswordConfirm(passwordConfirmCurrent);
     if (password === passwordConfirmCurrent) {
@@ -104,7 +116,7 @@ const SignUpScreen = () => {
       setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
       setIsPasswordConfirm(false);
     }
-  };
+  });
 
   //아이디 중복체크 버튼 이벤트
   const loginIdCheckClickhandler = (e) => {
@@ -373,10 +385,18 @@ const SignUpScreen = () => {
                 src={showPassword ? "img/open eye.png" : "img/closeeye.png"}
               />
             </Pwbox>
-            {passwordConfirm.length > 0 && (
+            {isPasswordConfirm && isPassword ? (
               <Span
                 style={{
-                  color: isPasswordConfirm ? "#6BBBF3" : "red",
+                  color: "#6BBBF3",
+                }}
+              >
+                {passwordConfirmMessage}
+              </Span>
+            ) : (
+              <Span
+                style={{
+                  color: "red",
                 }}
               >
                 {passwordConfirmMessage}
