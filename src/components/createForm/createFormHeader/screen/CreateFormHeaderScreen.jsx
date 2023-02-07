@@ -3,15 +3,13 @@ import { useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
-import { __postForm } from "../../../../redux/modules/createFormSlice";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 
 const CreateFormHeaderScreen = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const survey = useSelector((state) => state.createForm?.formList);
   const title = useSelector((state) => state.createForm?.formList?.title);
   const formCreateSuccess = useSelector(
     (state) => state.createForm?.formCreateSuccess
@@ -24,8 +22,12 @@ const CreateFormHeaderScreen = () => {
 
   const subSaveHandler = () => {
     batch(() => {
-      localStorage.setItem("createForm", JSON.stringify(form));
-      alert("임시 저장 완료");
+      localStorage.setItem("create", JSON.stringify(form));
+      Swal.fire({
+        text: "임시 저장 완료",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
     });
   };
 

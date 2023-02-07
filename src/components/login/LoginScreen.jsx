@@ -10,6 +10,7 @@ import {
 } from "../../constants/env";
 import LoginInputScreen from "./logininput/LoiginInputScreen";
 import Header from "../../layout/Header";
+import Swal from "sweetalert2";
 
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID_G}&redirect_uri=${REDIRECT_URI_G}&response_type=code&scope=email profile openid&access_type=offline`;
@@ -30,7 +31,11 @@ const LoginScreen = () => {
   //소셜 로그인 임시 조치
   const Clickhandler = (e) => {
     e.preventDefault();
-    alert("카카오, 구글 로그인만 가능합니다.");
+    Swal.fire({
+      text: "카카오, 구글 로그인만 가능합니다.",
+      confirmButtonColor: "#7AB0FE",
+      confirmButtonText: "확인",
+    });
   };
 
   return (

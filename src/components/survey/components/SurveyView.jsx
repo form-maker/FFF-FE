@@ -30,6 +30,7 @@ import { instanceApi } from "../../../core/api";
 import EndSurvey from "./typeOfSurvey/EndSurvey";
 import TurnAPageButtons from "./TurnAPageButtons";
 import Consent from "./typeOfSurvey/Consent";
+import Swal from "sweetalert2";
 
 const SurveyView = () => {
   const dispatch = useDispatch();
@@ -153,7 +154,12 @@ const SurveyView = () => {
       (answer) => answer.selectValue.length === 0 && answer.descriptive === ""
     );
     BlankAnswer.length !== 0
-      ? alert("체크하지 않은 문항이 있습니다!")
+      ? Swal.fire({
+          text: "체크하지 않은 문항이 있습니다!",
+          icon: "warning",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        })
       : batch(() => {
           dispatch(__postSurvey({ surveyId, answerList }));
           dispatch(goEnd());

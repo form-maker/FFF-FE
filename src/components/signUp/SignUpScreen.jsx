@@ -5,6 +5,7 @@ import { baseURLApi, instanceApi } from "../../core/api";
 import fonts from "../../styles/fonts";
 import Header from "../../layout/Header";
 import { da } from "date-fns/locale";
+import Swal from "sweetalert2";
 
 const SignUpScreen = () => {
   const navigate = useNavigate();
@@ -110,7 +111,12 @@ const SignUpScreen = () => {
   const loginIdCheckClickhandler = (e) => {
     e.preventDefault();
     if (loginId.length === 0) {
-      alert("영문자 + 숫자 4자리이상 16자리이하로 입력해주세요.");
+      Swal.fire({
+        text: "영문자 + 숫자 4자리이상 16자리이하로 입력해주세요.",
+        icon: "warning",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
       return;
     } else {
     }
@@ -126,7 +132,12 @@ const SignUpScreen = () => {
         `user/signup/loginid?loginId=${Id.loginId}`
       );
       if (data.data.statusCode === 200) {
-        alert(data.data.msg);
+        Swal.fire({
+          text: data.data.msg,
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
+
         setIsLoginIdCheck(true);
       } else if (data.data.statusCode === 400) {
         alert(data.data.msg);
@@ -158,7 +169,12 @@ const SignUpScreen = () => {
   const userCheckClickhandler = (e) => {
     e.preventDefault();
     if (username.length === 0) {
-      alert("한글자 이상 입력해 주세요");
+      Swal.fire({
+        text: "한글자 이상 입력해 주세요",
+        icon: "warning",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
       return;
     }
     userNameCheck({ username });
@@ -192,12 +208,23 @@ const SignUpScreen = () => {
     try {
       const data = await baseURLApi.post(`user/mail-auth?email=${Email}`);
       if (data.data.statusCode === 200) {
-        alert("인증번호가 전송되었습니다.");
+        Swal.fire({
+          text: "인증번호가 전송되었습니다.",
+
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
+
         return data;
       } else if (data.data.statusCode === 400) {
         alert(data.data.msg);
       } else {
-        alert(data.data.msg);
+        Swal.fire({
+          text: data.data.msg,
+          icon: "warning",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
       }
     } catch (error) {}
   };
@@ -220,7 +247,11 @@ const SignUpScreen = () => {
         `user/mail-auth/verify?email=${Email}&code=${EmailNum}`
       );
       if (data.data.statusCode === 200) {
-        alert("인증번호가 일치합니다. 계속 회원가입을 진행해 주세요.");
+        Swal.fire({
+          text: "인증번호가 일치합니다. 계속 회원가입을 진행해 주세요.",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         setIsEmailNumCheck(true);
         return data;
       } else if (emailNum.length === 0) {
@@ -247,7 +278,11 @@ const SignUpScreen = () => {
     try {
       const data = await baseURLApi.post("user/signup", post);
       if (data.data.statusCode === 200) {
-        alert(data.data.msg);
+        Swal.fire({
+          text: data.data.msg,
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         return data;
       } else if (data.data.statusCode === 400) {
         alert(data.data.msg);
