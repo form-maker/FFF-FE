@@ -47,7 +47,7 @@ const RankSurvey = () => {
       <Title />
       <Main>
         <CommentContainer>
-          <p>드래그 앤 드롭으로 원하는 순위를 조정해주세요</p>
+          <p>순서 변경을 원하는 항목을 꾹~ 눌러 순위를 조정해주세요</p>
         </CommentContainer>
         <DragDropContainer>
           <AnswerNumberContainer>
