@@ -16,7 +16,7 @@ const SurveyCoverForm = () => {
       changeField({
         form: "formList",
         key: name,
-        value,
+        value: value,
       })
     );
   };
@@ -33,20 +33,22 @@ const SurveyCoverForm = () => {
         ></TitleInput>
         <p>24자 이내로 작성해주세요 (현 {title?.length}자)</p>
       </Header>
-      <textarea
-        type="text"
-        placeholder="설문에 관해 간단하게 설명해주세요.&#13;&#10;응답자를 위한 상품을 준비하셨다면,&#13;&#10;상품을 언제 발 어디로 발송한다는 안내 문구도 함께
+      <Main>
+        <textarea
+          type="text"
+          placeholder="설문에 관해 간단하게 설명해주세요.&#13;&#10;응답자를 위한 상품을 준비하셨다면,&#13;&#10;상품을 언제 어디로 발송한다는 안내 문구도 함께
         작성해주세요.
         "
-        name="summary"
-        value={summary}
-        resize="none"
-        onChange={InputHandler}
-        maxLength={100}
-      />
-      <p>
-        100자 이내로 작성해주세요 (현 {summary?.length}자) <br />
-      </p>
+          name="summary"
+          value={summary}
+          resize="none"
+          onChange={InputHandler}
+          maxLength={200}
+        />
+        <p>
+          200자 이내로 작성해주세요 (현 {summary?.length}자) <br />
+        </p>
+      </Main>
     </Container>
   );
 };
@@ -56,6 +58,45 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
+`;
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6.5rem;
+  p {
+    margin: 0.5rem 0 0 0;
+
+    font-weight: 700;
+    font-size: 1.2rem;
+
+    color: ${({ theme }) => theme.pointColor};
+  }
+`;
+
+const TitleInput = styled.input`
+  width: 50rem;
+
+  ${fonts.Body1}
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.9rem;
+
+  text-align: center;
+  border: none;
+  border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
+  &::placeholder {
+    color: ${({ theme }) => theme.gray8};
+  }
+`;
+
+const Main = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
   textarea {
     margin-top: 4.9rem;
     padding: 1rem;
@@ -87,30 +128,6 @@ const Container = styled.div`
     font-size: 1.2rem;
 
     color: ${({ theme }) => theme.pointColor};
-  }
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin-top: 7.5rem;
-`;
-
-const TitleInput = styled.input`
-  width: 50rem;
-
-  ${fonts.Body1}
-  font-weight: 700;
-  font-size: 2rem;
-  line-height: 2.9rem;
-
-  text-align: center;
-  border: none;
-  border-bottom: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
-  &::placeholder {
-    color: ${({ theme }) => theme.gray8};
   }
 `;
 

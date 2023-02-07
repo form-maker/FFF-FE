@@ -8,7 +8,7 @@ const LongDescriptiveAnswer = () => {
     <Container>
       <textarea
         type="text"
-        placeholder="꼼꼼하게 작성해주세요"
+        placeholder="500자 이내로 작성해주세요"
         name="content"
         resize="none"
       />
@@ -41,6 +41,7 @@ const Container = styled.div`
     background-color: transparent;
     color: gray;
     border: ${({ theme }) => `2px solid ${theme.subColor1}`};
+    text-align: center;
 
     &::placeholder {
       color: gray;

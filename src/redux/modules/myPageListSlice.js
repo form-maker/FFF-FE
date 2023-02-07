@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 import { baseURLApi } from "../../core/api";
 
 const initialState = {
@@ -66,7 +67,11 @@ const myPageCardListSlice = createSlice({
         state.myPageCardList.pageData.contents.filter((content) => {
           return content.surveyId !== id;
         });
-      alert("설문이 삭제되었습니다");
+      Swal.fire({
+        text: "설문이 삭제되었습니다",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
     });
     builder.addCase(__deleteCard.rejected, (state, action) => {
       console.log(action.payload);

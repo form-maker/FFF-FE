@@ -15,7 +15,6 @@ const CoverSurvey = () => {
   const surveyStartClickHandler = () => {
     dispatch(__getSurveyQuestion(questionIdList[0]));
   };
-  console.log(survey);
 
   return (
     <Container>
@@ -70,7 +69,6 @@ const Main = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 6.1rem;
-  height: 20rem;
 
   text-align: center;
   h1 {
@@ -82,10 +80,13 @@ const Main = styled.div`
     ${fadeInFromLeftAnimation}
   }
   h5:nth-of-type(1) {
+    word-break: break-all;
+    white-space: pre-wrap;
+
     margin-top: 2rem;
     ${fonts.Body1}
     font-weight: 500;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.9rem;
     ${fadeInFromLeftAnimation}
   }
@@ -93,7 +94,7 @@ const Main = styled.div`
     margin-top: 5rem;
     ${fonts.Body3}
     font-weight: 500;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.9rem;
     ${fadeInFromLeftAnimation}
   }
@@ -164,7 +165,7 @@ const GiftContainer = styled.div`
 const Bottom = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 4.6rem;
+  padding-bottom: 3rem;
   @media screen and (min-width: 500px) {
     padding-bottom: 2rem;
   }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 import {
   deleteAnswer,
@@ -66,7 +67,11 @@ const SingleAndMultiChoiceForm = () => {
   const InputChangeHandler = (event) => {
     event.target.value?.length >= 20
       ? batch(() => {
-          alert("20자까지 가능합니다");
+          Swal.fire({
+            text: "20자까지 가능합니다",
+            confirmButtonColor: "#7AB0FE",
+            confirmButtonText: "확인",
+          });
           setQuestion(event.target.value);
         })
       : setQuestion(event.target.value);
@@ -79,7 +84,11 @@ const SingleAndMultiChoiceForm = () => {
   };
   const submitTagItem = () => {
     answerList?.length >= 5
-      ? alert("항목은 5개까지 추가 가능합니다")
+      ? Swal.fire({
+          text: "항목은 5개까지 추가 가능합니다",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        })
       : dispatch(
           fillOutQuestion({ answerList: [...answerList, questionInput] })
         );
@@ -98,6 +107,7 @@ const SingleAndMultiChoiceForm = () => {
               onClick={multiCheckHandler}
               checked={questionType === "MULTIPLE_CHOICE"}
             />
+
             <label htmlFor="MULTIPLE_CHOICE">
               <span>다중선택 허용</span>
             </label>
@@ -162,10 +172,18 @@ const CheckContainer = styled.div`
     display: none;
     &:checked + label {
       &::before {
-        content: "";
+        content: "✓";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 1.8rem;
+        ${fonts.Body1}
+        color: ${({ theme }) => theme.mainColor};
+        font-weight: 900;
+
         background-position: 50%;
         background-repeat: no-repeat;
-        background-color: ${({ theme }) => theme.mainColor};
         border-color: ${({ theme }) => theme.mainColor};
       }
     }

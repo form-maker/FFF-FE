@@ -12,9 +12,12 @@ const StarStats = ({ stats }) => {
     answerNameList.push(i);
   }
 
+  console.log(stats.questionTitle);
+
   let options = {
     series: [
       {
+        name: stats?.questionTitle,
         data: stats?.satisfactionList,
       },
     ],

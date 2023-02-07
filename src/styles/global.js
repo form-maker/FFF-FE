@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     margin: 0;
     padding: 0;
+    height: 100vh;
   }
   a {
     text-decoration: none;

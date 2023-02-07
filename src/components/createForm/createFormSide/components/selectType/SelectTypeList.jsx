@@ -13,14 +13,9 @@ import uuid from "react-uuid";
 
 const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
   const dispatch = useDispatch();
-  const questionType = useSelector(
-    (state) => state.createForm.selectedFormType
-  );
 
   const selectNewFormHandler = (fillType) => {
-    batch(() => {
-      dispatch(selectNewForm(fillType));
-    });
+    dispatch(selectNewForm(fillType));
   };
 
   const selectTypeHandler = (type) => {
@@ -34,6 +29,22 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
       <Title>설문 타입을 선택해 주세요</Title>
       <div>
         <SelectType
+          imgName="CONSENT"
+          typeName="정보동의"
+          onClick={() => {
+            isCreateForm
+              ? selectNewFormHandler({
+                  questionId: uuid(),
+                  questionType: "CONSENT",
+                  questionTitle: "",
+                  isRequired: true,
+                  questionSummary: "",
+                })
+              : selectTypeHandler("CONSENT");
+            setIsSelectToggleShow((prev) => !prev);
+          }}
+        />
+        <SelectType
           imgName="STAR"
           typeName="별점형"
           onClick={() => {
@@ -43,6 +54,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SCORE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SCORE");
@@ -59,6 +71,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SLIDE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SLIDE");
@@ -75,6 +88,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SINGLE_CHOICE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SINGLE_CHOICE");
@@ -91,6 +105,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "RANK",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("RANK");
@@ -108,6 +123,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SHORT_DESCRIPTIVE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SHORT_DESCRIPTIVE");

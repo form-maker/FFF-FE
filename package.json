@@ -30,11 +30,13 @@
     "react-google-login": "^5.2.2",
     "react-hooks-sse": "^2.1.0",
     "react-icons": "^4.7.1",
+    "react-intersection-observer": "^9.4.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "react-uuid": "^2.0.0",
     "styled-components": "^5.3.6",
+    "sweetalert2": "^11.7.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {

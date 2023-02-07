@@ -97,7 +97,7 @@ const Container = styled.div`
 
   width: 26.5rem;
   height: 100%;
-  padding-top: 6.1rem;
+  padding-top: 4rem;
   @media screen and (min-width: 500px) {
     justify-content: center;
     width: 40rem;

@@ -50,7 +50,7 @@ const CreateFormCard = ({
           ? title.slice(0, 10) + "..."
           : title}
       </h4>
-      {!isCover && (
+      {!isCover && !stats && (
         <img
           src={process.env.PUBLIC_URL + "/img/circleClose.svg"}
           alt="circleClose"

@@ -77,7 +77,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  padding-top: 6.1rem;
+  padding-top: 4rem;
   height: 100%;
   p {
     margin-top: 1.9rem;

@@ -9,31 +9,27 @@ import ScoreAndStarForm from "./questionTypesForm/ScoreAndStarForm";
 import SingleAndMultiChoiceForm from "./questionTypesForm/SingleAndMultiChoiceForm";
 import SlideBarForm from "./questionTypesForm/SlideBarForm";
 import SurveyCoverForm from "./questionTypesForm/SurveyCoverForm";
-import NewForm from "./questionTypesForm/NewForm";
+import Consent from "./questionTypesForm/Consent";
 
 const QuestionForm = () => {
   const dispatch = useDispatch();
   const questionType = useSelector(
     (state) => state.createForm?.selectedFormType
   );
-  let prevForm = localStorage.getItem("createForm");
-
-  console.log(JSON.parse(prevForm)?.formList);
+  let prevForm = localStorage.getItem("create");
 
   useEffect(() => {
-    if (
-      prevForm &&
-      JSON.parse(prevForm)?.formList?.questionList?.length !== 0
-    ) {
+    if (prevForm) {
       window.confirm("임시저장한 데이터를 불러오시겠습니까?")
         ? dispatch(getPrevForm(JSON.parse(prevForm)))
-        : localStorage.removeItem("createForm");
+        : localStorage.removeItem("create");
     }
   }, []);
 
   return (
     <Container>
       {questionType === "COVER" && <SurveyCoverForm />}
+      {questionType === "CONSENT" && <Consent />}
       {(questionType === "SCORE" || questionType === "STAR") && (
         <ScoreAndStarForm />
       )}

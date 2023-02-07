@@ -46,7 +46,7 @@ const GiftNumberContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 15.3rem;
+  width: 18rem;
   margin-left: 1rem;
   padding: 3.5rem 1rem;
   h5 {

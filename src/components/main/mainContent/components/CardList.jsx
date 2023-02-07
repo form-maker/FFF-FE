@@ -1,30 +1,33 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
+import React, { memo, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 
 import styled from "styled-components";
 import MainSurveySummeryCard from "./MainSurveySummeryCard";
 import { useNavigate } from "react-router-dom";
+import fonts from "../../../../styles/fonts";
+import InfiniteScroll from "./InfiniteScroll";
 
 const CardList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const mainCardList = useSelector(
-    (state) => state.mainCardList?.mainCardList.contents
-  );
+  const mainCardList = useSelector((state) => state.mainCardList?.mainCardList);
 
   useEffect(() => {
-    dispatch(__getMainCardList({ page: 1, size: 9, sortBy: "최신순" }));
-  }, []);
+    if (mainCardList?.length === 0) {
+      console.log("첫 포스팅 로딩");
+      dispatch(__getMainCardList({ page: 1, size: 9, sortBy: "최신순" }));
+    }
+  }, [dispatch, mainCardList?.length]);
 
   const goSurveyHandler = async ({ surveyId }) => {
     navigate(`/survey?surveyId=${surveyId}`);
   };
 
-  console.log(mainCardList);
-
   return (
     <Container>
+      {mainCardList?.length === 0 && <h3>현재 진행중인 폼이 없습니다</h3>}
+
       <SurveyContainer>
         {mainCardList?.map((card) => {
           return (
@@ -45,6 +48,7 @@ const CardList = () => {
             />
           );
         })}
+        <InfiniteScroll />
       </SurveyContainer>
     </Container>
   );
@@ -52,7 +56,10 @@ const CardList = () => {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
   width: 100%;
 `;
 
@@ -70,8 +77,8 @@ const SurveyContainer = styled.div`
   @media screen and (max-width: 500px) {
     grid-row-gap: 1rem;
     grid-column-gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
-export default CardList;
+export default memo(CardList);

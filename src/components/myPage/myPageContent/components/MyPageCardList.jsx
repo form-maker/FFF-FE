@@ -3,6 +3,7 @@ import { batch } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 import { __getMyPageCardList } from "../../../../redux/modules/myPageListSlice";
 import MySurveySummeryCard from "./MySurveySummeryCard";
@@ -28,7 +29,11 @@ const MyPageCardList = () => {
     );
     loginError &&
       batch(() => {
-        alert("로그인을 해주세요");
+        Swal.fire({
+          text: "로그인을 해주세요",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         navigate("/login");
       });
   }, [loginError, dispatch, navigate]);
@@ -70,6 +75,7 @@ const MyPageCardList = () => {
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;

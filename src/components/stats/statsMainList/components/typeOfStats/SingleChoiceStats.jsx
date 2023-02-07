@@ -12,6 +12,7 @@ const SingleChoiceStats = ({ stats }) => {
   let options = {
     series: [
       {
+        name: stats?.questionTitle,
         data: answerValueList,
       },
     ],

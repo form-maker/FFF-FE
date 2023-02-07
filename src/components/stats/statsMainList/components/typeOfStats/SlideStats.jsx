@@ -18,12 +18,12 @@ const SlideStats = ({ stats }) => {
 
   let options = {
     series: answerList,
+
     options: {
       chart: {
         type: "bar",
         height: 400,
         stacked: true,
-        stackType: "100%",
         toolbar: {
           show: false,
         },
@@ -104,7 +104,7 @@ const SlideStats = ({ stats }) => {
           series={options.series}
           type="bar"
           height={100}
-          width={450}
+          width={540}
         />
       </ChartContainer>
       <LabelContainer>

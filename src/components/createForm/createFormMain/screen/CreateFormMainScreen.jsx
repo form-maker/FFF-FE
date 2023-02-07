@@ -46,7 +46,7 @@ const CreateFormMainScreen = () => {
       </Header>
       {isSelectToggleShow && (
         <ToggleContainer ref={wrapperRef}>
-          <SelectTypeList />
+          <SelectTypeList setIsSelectToggleShow={setIsSelectToggleShow} />
         </ToggleContainer>
       )}
       <Main>

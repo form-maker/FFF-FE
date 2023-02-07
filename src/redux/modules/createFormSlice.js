@@ -1,4 +1,5 @@
 import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 import { baseURLApi } from "../../core/api";
 
 const initialState = {
@@ -58,6 +59,7 @@ const createFormSlice = createSlice({
         achievement: 20,
         groupList: [],
         summary: "",
+        isRequired: true,
         questionList: [],
         giftList: [
           {
@@ -73,6 +75,9 @@ const createFormSlice = createSlice({
     },
     selectedFormType(state, action) {
       state.selectedFormType = action.payload;
+      state.formList.questionList[state.currentPageNum - 2]["questionType"] =
+        action.payload;
+      state.formList.questionList[state.currentPageNum - 2]["answerList"] = [];
     },
 
     addForm(state, action) {
@@ -112,12 +117,12 @@ const createFormSlice = createSlice({
       };
     },
 
-    deleteAnswer(state, action) {
-      console.log(action.payload);
-      console.log(
-        state.formList.questionList[state.currentPageNum - 2]["answerList"]
-      );
+    fillOutRequired(state, action) {
+      state.formList.questionList[state.currentPageNum - 2]["isRequired"] =
+        action.payload;
+    },
 
+    deleteAnswer(state, action) {
       state.formList.questionList[state.currentPageNum - 2][
         "answerList"
       ]?.splice(action.payload, 1);
@@ -191,12 +196,22 @@ const createFormSlice = createSlice({
       console.log(action.payload);
       if (action.payload.statusCode === 200) {
         state.formCreateSuccess = true;
-        alert("폼 제작 완료");
+        Swal.fire({
+          text: "폼 제작 완료",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         state = initialState;
       }
     });
     builder.addCase(__postForm.rejected, (state, action) => {
-      console.log(current(action.payload));
+      console.log(action.payload.response.data.msg);
+      Swal.fire({
+        text: action.payload.response.data.msg,
+        icon: "warning",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
     });
   },
 });
@@ -217,5 +232,6 @@ export const {
   goClickCover,
   getPrevForm,
   selectNewForm,
+  fillOutRequired,
 } = createFormSlice.actions;
 export default createFormSlice.reducer;
