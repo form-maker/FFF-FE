@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 import { changeDescriptive } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
@@ -16,7 +17,12 @@ const ShortDescriptiveSurvey = () => {
   const answerHandler = (event) => {
     const answer = event.target.value;
     dispatch(changeDescriptive(answer));
-    descriptive.length > 20 && alert("20자 이내로 작성해주세요");
+    descriptive.length > 20 &&
+      Swal.fire({
+        text: "20자 이내로 작성해주세요",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
   };
 
   return (

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { kakao } from "../../../core/Social";
 
 const KakaoRedirectHandler = () => {
@@ -8,11 +9,20 @@ const KakaoRedirectHandler = () => {
   kakao(code).then((res) => {
     if (res.status === 200) {
       console.log(res);
-      alert("카카오 로그인 성공!");
+      Swal.fire({
+        text: "카카오 로그인 성공!",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
       localStorage.setItem("Authorization", res.headers.authorization);
       navigate("/");
     } else {
-      alert("카카오 로그인 실패 다시시도해 주세요.");
+      Swal.fire({
+        text: "카카오 로그인 실패 다시시도해 주세요.",
+        icon: "warning",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
       navigate("/login");
     }
   });

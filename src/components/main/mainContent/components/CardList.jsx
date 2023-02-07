@@ -1,22 +1,17 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 
 import styled from "styled-components";
 import MainSurveySummeryCard from "./MainSurveySummeryCard";
 import { useNavigate } from "react-router-dom";
-import { useInView } from "react-intersection-observer";
 import fonts from "../../../../styles/fonts";
+import InfiniteScroll from "./InfiniteScroll";
 
 const CardList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ref, inView] = useInView();
   const mainCardList = useSelector((state) => state.mainCardList?.mainCardList);
-  const page = useSelector((state) => state.mainCardList?.pageStatus);
-  const selectedCategory = useSelector(
-    (state) => state.mainCardList?.selectedCategory
-  );
 
   useEffect(() => {
     if (mainCardList?.length === 0) {
@@ -24,26 +19,6 @@ const CardList = () => {
       dispatch(__getMainCardList({ page: 1, size: 9, sortBy: "최신순" }));
     }
   }, [dispatch, mainCardList?.length]);
-
-  useEffect(() => {
-    if (mainCardList?.length !== 0 && page?.next && inView) {
-      console.log("첫 로딩 이후 무한 스크롤");
-      dispatch(
-        __getMainCardList({
-          page: page?.page + 1,
-          size: 9,
-          sortBy: selectedCategory,
-        })
-      );
-    }
-  }, [
-    inView,
-    mainCardList?.length,
-    page?.next,
-    page?.page,
-    selectedCategory,
-    dispatch,
-  ]);
 
   const goSurveyHandler = async ({ surveyId }) => {
     navigate(`/survey?surveyId=${surveyId}`);
@@ -73,7 +48,7 @@ const CardList = () => {
             />
           );
         })}
-        <div ref={ref}></div>
+        <InfiniteScroll />
       </SurveyContainer>
     </Container>
   );
@@ -86,11 +61,6 @@ const Container = styled.div`
   align-items: center;
 
   width: 100%;
-  h3 {
-    margin: 10rem;
-    ${fonts.Body6}
-    font-size: 3rem;
-  }
 `;
 
 const SurveyContainer = styled.div`
@@ -111,4 +81,4 @@ const SurveyContainer = styled.div`
   }
 `;
 
-export default CardList;
+export default memo(CardList);

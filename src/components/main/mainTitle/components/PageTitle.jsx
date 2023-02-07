@@ -1,28 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { batch } from "react-redux";
 import styled from "styled-components";
 
-import { baseURLApi } from "../../../../core/api";
 import fonts from "../../../../styles/fonts";
-import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 
 const PageTitle = () => {
-  const navigate = useNavigate();
-  const goCreateFormHandler = async () => {
-    try {
-      const { data } = await baseURLApi.get("user");
-      !data.data
-        ? batch(() => {
-            alert("로그인을 해주세요");
-            navigate("/login");
-          })
-        : navigate("/createForm");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Container>
       <BackgroundContainer>
@@ -34,16 +15,7 @@ const PageTitle = () => {
         <br /> 몽글몽글한 설문조사
       </h1>
       <p>설문에 참여하고 이벤트에 응모해 보세요</p>
-      <ButtonContainer>
-        {/* <RoundButtonMedium buttonValue="설문 참여하기" margin="0 0.85rem 0 0" /> */}
-        {/* <RoundButtonMedium
-          buttonValue="설문 제작하기"
-          margin="0 0 0 0.85rem"
-          onClick={() => {
-            goCreateFormHandler();
-          }}
-        /> */}
-      </ButtonContainer>
+      <ButtonContainer></ButtonContainer>
     </Container>
   );
 };

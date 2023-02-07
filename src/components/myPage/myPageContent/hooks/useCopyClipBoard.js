@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 const useCopyClipBoard = () => {
   const [isCopy, setIsCopy] = useState(false);
@@ -7,7 +8,12 @@ const useCopyClipBoard = () => {
     try {
       await navigator.clipboard.writeText(text);
       setIsCopy(true);
-      alert(`설문조사링크 복사완료`);
+      Swal.fire({
+        text: "설문조사링크 복사완료",
+        icon: "warning",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
       return true;
     } catch (error) {
       console.error(error);

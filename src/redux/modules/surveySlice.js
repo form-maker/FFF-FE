@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 import { instanceApi } from "../../core/api";
 
 const initialState = {
@@ -122,7 +123,12 @@ const SurveySlice = createSlice({
     builder.addCase(__getSurvey.rejected, (state, action) => {
       console.log(action.payload.response?.status);
       if (action.payload.response?.status === 403) {
-        alert(action.payload.response.data.msg);
+        Swal.fire({
+          text: action.payload.response.data.msg,
+          icon: "warning",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         console.log(action.payload.response.data.msg);
         state.error = true;
       }

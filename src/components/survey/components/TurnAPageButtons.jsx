@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 import {
   getCover,
@@ -16,7 +17,11 @@ const TurnAPageButtons = () => {
 
   const nextPageClickHandler = () => {
     currentPageNum === questionIdList.length + 1
-      ? alert("마지막 항목입니다")
+      ? Swal.fire({
+          text: "마지막 항목입니다",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        })
       : dispatch(__getSurveyQuestion(questionIdList[currentPageNum - 1]));
   };
 
@@ -47,7 +52,12 @@ const TurnAPageButtons = () => {
           src={process.env.PUBLIC_URL + "/img/disablePhoneRightArrow.svg"}
           alt="RightButton"
           onClick={() => {
-            alert("마지막 페이지입니다");
+            Swal.fire({
+              text: "마지막 페이지입니다",
+
+              confirmButtonColor: "#7AB0FE",
+              confirmButtonText: "확인",
+            });
           }}
         />
       )}

@@ -6,6 +6,7 @@ import { baseURLApi } from "../core/api";
 import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
 import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
 import { batch } from "react-redux";
+import Swal from "sweetalert2";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -46,7 +47,11 @@ const Header = () => {
                 isLogin
                   ? navigate("/createform")
                   : batch(() => {
-                      alert("로그인 해주세요");
+                      Swal.fire({
+                        text: "로그인 해주세요",
+                        confirmButtonColor: "#7AB0FE",
+                        confirmButtonText: "확인",
+                      });
                       navigate("/login");
                     });
               }}

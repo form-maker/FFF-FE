@@ -11,9 +11,7 @@ import { useSelector } from "react-redux";
 
 const Calender = ({ setIsToggleOn, startDateToggleHandler }) => {
   const dispatch = useDispatch();
-
   const createForm = useSelector((state) => state.createForm);
-
   console.log(createForm);
 
   const [startDate, setStartDate] = useState(new Date());
