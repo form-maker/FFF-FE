@@ -180,11 +180,11 @@ const SurveyView = () => {
       <Header>
         {survey?.giftList?.length === 0 ? (
           <PointContext>
-            🔥 현재 {survey.participant}명이 함께 설문에 참여하고 있어요
+            🔥 현재 {survey?.participant}명이 함께 설문에 참여하고 있어요
           </PointContext>
         ) : (
           <PointContext>
-            🔥 현재 {survey.participant}명이 {survey?.giftList?.[0]?.giftName}
+            🔥 현재 {survey?.participant}명이 {survey?.giftList?.[0]?.giftName}
             을(를) 노리고 있어요
           </PointContext>
         )}
