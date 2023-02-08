@@ -13,20 +13,20 @@ const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
   const acToken = localStorage.getItem("Authorization");
 
-  // useEffect(() => {
-  //   const checkToken = async () => {
-  //     try {
-  //       const { data } = await baseURLApi.get("user");
-  //       setIsLogin(data.data ? data.data : false);
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   checkToken();
-  // }, [isLogin]);
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const { data } = await baseURLApi.get("user");
+        setIsLogin(data.data ? data.data : false);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkToken();
+  }, [isLogin]);
 
-  // console.log(isLogin);
+  console.log(isLogin);
 
   return (
     <Container>
@@ -45,8 +45,7 @@ const Header = () => {
               buttonValue="폼 제작하기"
               font="Body2"
               onClick={() => {
-                //isLogin
-                acToken !== undefined
+                isLogin !== undefined
                   ? navigate("/createform")
                   : batch(() => {
                       Swal.fire({
@@ -60,46 +59,43 @@ const Header = () => {
             />
           </div>
 
-          {
-            //isLogin
-            acToken !== null ? (
-              <LoginContainer>
-                <NoOutLineSmall
-                  buttonValue="마이페이지"
-                  onClick={() => {
-                    navigate("/mypage");
-                  }}
-                  fontSize="1.3rem"
-                />
-                <span>⎮</span>
-                <NoOutLineSmall
-                  buttonValue="로그아웃"
-                  onClick={() => {
-                    localStorage.removeItem("Authorization");
-                    localStorage.removeItem("REFRESH_Authorization");
-                    setIsLogin(false);
-                    navigate("/");
-                  }}
-                  fontSize="1.3rem"
-                />
-              </LoginContainer>
-            ) : (
-              <div>
-                <NoOutLineSmall
-                  buttonValue="로그인"
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                />
-                <NoOutLineSmall
-                  buttonValue="회원가입"
-                  onClick={() => {
-                    navigate("/signup");
-                  }}
-                />
-              </div>
-            )
-          }
+          {isLogin ? (
+            <LoginContainer>
+              <NoOutLineSmall
+                buttonValue="마이페이지"
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+                fontSize="1.3rem"
+              />
+              <span>⎮</span>
+              <NoOutLineSmall
+                buttonValue="로그아웃"
+                onClick={() => {
+                  localStorage.removeItem("Authorization");
+                  localStorage.removeItem("REFRESH_Authorization");
+                  setIsLogin(false);
+                  navigate("/");
+                }}
+                fontSize="1.3rem"
+              />
+            </LoginContainer>
+          ) : (
+            <div>
+              <NoOutLineSmall
+                buttonValue="로그인"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              />
+              <NoOutLineSmall
+                buttonValue="회원가입"
+                onClick={() => {
+                  navigate("/signup");
+                }}
+              />
+            </div>
+          )}
         </div>
       </SubContainer>
     </Container>
