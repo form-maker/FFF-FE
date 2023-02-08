@@ -36,4 +36,4 @@ const InfiniteScroll = () => {
   return <div ref={ref}></div>;
 };
 
-export default memo(InfiniteScroll);
+export default InfiniteScroll;

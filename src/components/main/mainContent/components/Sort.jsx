@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
@@ -36,4 +36,4 @@ const Sort = () => {
   );
 };
 
-export default memo(Sort);
+export default Sort;
