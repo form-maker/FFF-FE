@@ -120,42 +120,44 @@ const SurveyView = () => {
 
   // 적용 sse
 
-  // const [listening, setListening] = useState(false);
-  // const [countData, setData] = useState(0);
+  const [listening, setListening] = useState(false);
+  const [countData, setData] = useState(0);
 
-  // let eventSource = undefined;
-  // useEffect(() => {
-  //   if (!listening) {
-  //     eventSource = new EventSource(`${SERVER_URL_API}/sse/join/${surveyId}`);
+  let eventSource = undefined;
+  useEffect(() => {
+    if (!listening) {
+      eventSource = new EventSource(
+        `${SERVER_URL_API}/sse/connect/${surveyId}`
+      );
 
-  //     eventSource.onopen = (event) => {
-  //       console.log("connection opened");
-  //     };
+      eventSource.onopen = (event) => {
+        console.log("connection opened");
+      };
 
-  //     eventSource.onmessage = (event) => {
-  //       const data = JSON.parse(event.data);
-  //       data.msg === "data" &&
-  //         batch(() => {
-  //           console.log(data.total);
-  //           setData(data.total);
-  //         });
-  //     };
-  //     eventSource.onerror = (event) => {
-  //       console.error(event.target.readyState);
-  //       if (event.target.readyState === EventSource.CLOSED) {
-  //         console.log(`eventSource closed: ${event.target.readyState}`);
-  //       }
-  //       eventSource.close();
-  //     };
-  //     setListening(true);
-  //   }
-  //   return () => {
-  //     eventSource.close();
-  //     console.log("event closed");
-  //   };
-  // }, []);
+      eventSource.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        data.msg === "data" &&
+          batch(() => {
+            console.log(data.total);
+            setData(data.total);
+          });
+      };
+      eventSource.onerror = (event) => {
+        console.error(event.target.readyState);
+        if (event.target.readyState === EventSource.CLOSED) {
+          console.log(`eventSource closed: ${event.target.readyState}`);
+        }
+        eventSource.close();
+      };
+      setListening(true);
+    }
+    return () => {
+      eventSource.close();
+      console.log("event closed");
+    };
+  }, []);
 
-  // console.log(`countData :${countData}`);
+  console.log(`countData :${countData}`);
 
   const endSurveyClickHandler = () => {
     let BlankAnswer = answerList?.filter(
@@ -188,11 +190,11 @@ const SurveyView = () => {
       <Header>
         {survey?.giftList?.length === 0 ? (
           <PointContext>
-            🔥 현재 {survey?.participant}명이 함께 설문에 참여하고 있어요
+            🔥 현재 {countData}명이 함께 설문에 참여하고 있어요
           </PointContext>
         ) : (
           <PointContext>
-            🔥 현재 {survey?.participant}명이 {survey?.giftList?.[0]?.giftName}
+            🔥 현재 {countData}명이 {survey?.giftList?.[0]?.giftName}
             을(를) 노리고 있어요
           </PointContext>
         )}
