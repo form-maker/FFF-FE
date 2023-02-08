@@ -12,14 +12,16 @@ const NewForm = () => {
   );
 };
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  height: 100%;
   h1 {
     margin: 0;
+
     ${fonts.Body1}
     font-weight: 700;
     font-size: 2.4rem;
@@ -27,6 +29,7 @@ const Container = styled.div`
   }
   h5 {
     margin: 4.9rem 0 0 0;
+
     ${fonts.Body3}
     font-weight: 500;
     font-size: 1.6rem;

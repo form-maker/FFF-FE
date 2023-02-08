@@ -64,6 +64,7 @@ const Main = styled.div`
 
     height: 80%;
     overflow-y: auto;
+
     ${fonts.Body3}
     font-weight: 500;
     font-size: 1.4rem;

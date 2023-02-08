@@ -9,7 +9,6 @@ const SurveySummeryCard = ({
   title,
   participant,
 }) => {
-  // 랜덤 색상 배정
   const backgroundColor = ["#BBE0FA", "#B0D1FF", "#F6EAFD", "#CEDFFF"];
   const getRandom = (min, max) =>
     Math.floor(Math.random() * (max - min) + min) - 1;
@@ -51,7 +50,7 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: flex-end;
-  /* align-items: baseline; */
+
   margin: 0;
   p {
     font-size: 0.8rem;
@@ -62,7 +61,6 @@ const Header = styled.div`
 
 const Main = styled.div`
   flex: 1;
-  /* background: ${({ theme }) => theme.backgroundColor}; */
   border-radius: 2.1rem;
   h3 {
     font-size: 1.4rem;

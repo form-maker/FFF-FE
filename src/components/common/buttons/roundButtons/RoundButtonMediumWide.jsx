@@ -23,17 +23,18 @@ const RoundButtonMediumWide = ({
   );
 };
 const Button = styled.button`
+  padding: 1.1rem 1.9rem;
   width: ${({ width }) => width || "100%"};
-  border: none;
-  border-radius: 1.6rem;
-  background: ${({ theme, background }) =>
-    theme[background] || theme.backgroundColor};
+
   ${fonts.Body1}
   font-weight: 600;
   font-size: 1.4rem;
   line-height: 1.7rem;
-  padding: 1.1rem 1.9rem;
 
+  border: none;
+  border-radius: 1.6rem;
+  background: ${({ theme, background }) =>
+    theme[background] || theme.backgroundColor};
   cursor: pointer;
   &:hover {
     background: ${({ theme, hoverBackground }) =>

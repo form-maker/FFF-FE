@@ -1,7 +1,6 @@
 import axios from "axios";
 import { SERVER_URL_API, SERVER_URL } from "../constants/env";
-//-- API 추가 버전 --//
-// 헤더 없이 사용하는 경우( API 추가 )
+
 export const instanceApi = axios.create({
   baseURL: SERVER_URL_API,
   headers: {
@@ -9,7 +8,6 @@ export const instanceApi = axios.create({
   },
 });
 
-// 헤더 토큰 값이 들어가야 하는 경우( API 추가 )
 export const baseURLApi = axios.create({
   baseURL: SERVER_URL_API,
   headers: {
@@ -20,9 +18,7 @@ export const baseURLApi = axios.create({
 baseURLApi.interceptors.request.use((config) => {
   if (config.headers === undefined) return;
   const token = localStorage.getItem("Authorization");
-  // const refresh = localStorage.getItem("REFRESH_Authorization");
   config.headers["Authorization"] = `${token}`;
-  // config.headers["REFRESH_Authorization"] = `${refresh}`;
   return config;
 });
 
@@ -69,9 +65,6 @@ baseURLApi.interceptors.response.use(
   }
 );
 
-//-- API 없는 버전 --//
-
-// 헤더 없이 사용하는 경우( API 추가 )
 export const instance = axios.create({
   baseURL: SERVER_URL,
   headers: {
@@ -79,7 +72,6 @@ export const instance = axios.create({
   },
 });
 
-// 헤더 토큰 값이 들어가야 하는 경우( API 추가 )
 export const baseURL = axios.create({
   baseURL: SERVER_URL,
   headers: {

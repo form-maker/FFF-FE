@@ -6,13 +6,13 @@ const GlobalStyle = createGlobalStyle`
       font-family: "netmarbleB";
       src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.1/netmarbleB.woff")
         format("woff");
-
+      font-display: swap;
     }
     @font-face {
       font-family: "netmarbleM";
       src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.1/netmarbleM.woff")
         format("woff");
-
+      font-display: swap;
     }
     @font-face {
       font-family: "netmarbleL";
@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
 
     }
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
+    font-display: swap;
   html{
   font-size: 62.5%;
   }

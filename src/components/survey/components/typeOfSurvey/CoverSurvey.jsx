@@ -58,6 +58,7 @@ const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+
   width: 100%;
   height: 100%;
   @media screen and (min-width: 500px) {
@@ -121,6 +122,7 @@ const GiftContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   margin-top: 3rem;
   div {
     display: flex;
@@ -138,12 +140,14 @@ const GiftContainer = styled.div`
     }
   }
   p {
+    padding: 0.3rem 1.2rem;
+    margin-left: 1rem;
+
     ${fonts.Body1}
     font-size: 1.3rem;
+
     background: ${({ theme }) => theme.subColor3};
-    padding: 0.3rem 1.2rem;
     border-radius: 0.5rem;
-    margin-left: 1rem;
     span {
       display: inline-block;
       font-weight: 600;

@@ -24,14 +24,16 @@ const RoundButtonSmall = ({
 };
 
 const Button = styled.button`
+  padding: 0.6rem 1.6rem;
+  margin: ${({ margin }) => margin || "0"};
+
   ${fonts.Body1}
   font-size: ${({ fontSize }) => fontSize || "1.2rem"};
   font-weight: ${({ fontWeight }) => fontWeight || "400"};
-  padding: 0.6rem 1.6rem;
+
   border: ${({ theme }) => `2px solid ${theme.subColor1}`};
   border-radius: 2rem;
   background: ${({ background, theme }) => theme[background] || "transparent"};
-  margin: ${({ margin }) => margin || "0"};
   cursor: pointer;
   z-index: 1;
   &:hover {

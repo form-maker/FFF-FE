@@ -3,10 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import {
-  changeAnswerList,
-  __getSurveyQuestion,
-} from "../../../../redux/modules/surveySlice";
+import { changeAnswerList } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 

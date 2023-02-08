@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { fadeInFromLeftAnimation } from "../../../../styles/animations";
 import fonts from "../../../../styles/fonts";
 import RoundButtonLarge from "../../../common/buttons/roundButtons/RoundButtonLarge";

@@ -1,12 +1,12 @@
-import styled from "styled-components";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
+import { __postForm } from "../../../../redux/modules/createFormSlice";
 import RoundButtonLarge from "../../../common/buttons/roundButtons/RoundButtonLarge";
 import GoalNumber from "./createFormFinalSelect/GoalNumber";
 import SelectDate from "./createFormFinalSelect/SelectDate";
 import SelectGift from "./createFormFinalSelect/SelectGift";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { __postForm } from "../../../../redux/modules/createFormSlice";
 
 const CreateFormFinalSelect = ({ closePop }) => {
   const dispatch = useDispatch();
@@ -62,8 +62,10 @@ const Container = styled.div`
 const PopContainer = styled.div`
   display: flex;
   flex-direction: column;
+
   width: 90rem;
   height: 88%;
+
   background-color: white;
   border-radius: 1rem;
   @media screen and (min-height: 780px) {
@@ -88,11 +90,13 @@ const Header = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
     width: 3rem;
     height: 3rem;
-    border-radius: 50%;
+
     background: white;
     border: none;
+    border-radius: 50%;
   }
 `;
 

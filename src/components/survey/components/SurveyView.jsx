@@ -1,8 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch, batch } from "react-redux";
 import styled from "styled-components";
-// import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
+import Swal from "sweetalert2";
+
+import fonts from "../../../styles/fonts";
+import RoundButtonLarge from "../../common/buttons/roundButtons/RoundButtonLarge";
 
 import {
   goEnd,
@@ -10,8 +13,7 @@ import {
   __getSurveyQuestion,
   __postSurvey,
 } from "../../../redux/modules/surveySlice";
-import fonts from "../../../styles/fonts";
-import RoundButtonLarge from "../../common/buttons/roundButtons/RoundButtonLarge";
+import { SERVER_URL_API } from "../../../constants/env";
 
 import CoverSurvey from "./typeOfSurvey/CoverSurvey";
 import ScoreSurvey from "./typeOfSurvey/ScoreSurvey";
@@ -22,15 +24,9 @@ import SlideSurvey from "./typeOfSurvey/SlideSurvey";
 import RankSurvey from "./typeOfSurvey/RankSurvey";
 import ShortDescriptiveSurvey from "./typeOfSurvey/ShortDescriptiveSurvey";
 import LongDescriptiveSurvey from "./typeOfSurvey/LongDescriptiveSurvey";
-import { SERVER_URL_API } from "../../../constants/env";
-import { useState } from "react";
-import SSE from "./SSE";
-import uuid from "react-uuid";
-import { instanceApi } from "../../../core/api";
 import EndSurvey from "./typeOfSurvey/EndSurvey";
 import TurnAPageButtons from "./TurnAPageButtons";
 import Consent from "./typeOfSurvey/Consent";
-import Swal from "sweetalert2";
 
 const SurveyView = () => {
   const dispatch = useDispatch();
@@ -48,82 +44,11 @@ const SurveyView = () => {
     dispatch(__getSurvey(surveyId));
   }, [dispatch, surveyId]);
 
-  // let id;
-  // useEffect(() => {
-  //   id = uuid();
-
-  //   const connect = async () => {
-  //     try {
-  //       const { data } = await instanceApi.get(
-  //         `/sse/join/${surveyId}?sessionId=${id}`
-  //       );
-  //       if (data.msg === "연결 성공") {
-  //         console.log("success");
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  // const sseFetch = async() => {
-  //   if (!listening) {
-  //     eventSource = new EventSource(
-  //       `${SERVER_URL_API}/sse/join/${surveyId}?sessionId=${id}`
-  //     );
-  //     eventSource.onmessage = async (event) => {
-  //       const data = await JSON.parse(event.data);
-  //       data.msg === "data" &&
-  //         batch(() => {
-  //           console.log(data.total);
-  //           setData(data.total);
-  //         });
-  //     };
-  //     eventSource.onerror = async(error) => {
-  //       console.error(error);
-  //       eventSource.close();
-  //     };
-  //     setListening(true);
-  //   }
-  //   return () => {
-  //     eventSource.close();
-  //     console.log("event closed");
-  //   };
-  // };
-  // sseFetch();
-  // }, []);
-
-  // 유튜브;
-  // useEffect(() => {
-  //   const sseData = new EventSource(`${SERVER_URL_API}/sse/join/${surveyId}`);
-
-  //   // sseData.addEventListener((event) => {
-  //   //   const data = JSON.parse(event.data);
-  //   //   console.log(data);
-  //   //   // const { data: receivedCount } = e;
-  //   //   // console.log(receivedCount);
-  //   //   // setData(receivedCount);
-  //   // });
-
-  //   sseData.onmessage = (event) => {
-  //     const data = JSON.parse(event.data);
-  //     console.log(data);
-  //   };
-
-  //   sseData.onerror = (event) => {
-  //     sseData.close();
-  //   };
-
-  //   return () => {
-  //     sseData.close();
-  //   };
-  // });
-
-  // 적용 sse
-
   const [listening, setListening] = useState(false);
   const [countData, setData] = useState(0);
 
   let eventSource = undefined;
+
   useEffect(() => {
     if (!listening) {
       eventSource = new EventSource(

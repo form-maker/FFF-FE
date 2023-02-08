@@ -1,15 +1,14 @@
-import React, { useRef } from "react";
+import React from "react";
+import { useDispatch, batch } from "react-redux";
+import uuid from "react-uuid";
 import styled from "styled-components";
-import SelectType from "./SelectType";
-import { useDispatch, useSelector } from "react-redux";
+
 import {
-  addForm,
   selectedFormType,
   selectNewForm,
 } from "../../../../../redux/modules/createFormSlice";
 import fonts from "../../../../../styles/fonts";
-import { batch } from "react-redux";
-import uuid from "react-uuid";
+import SelectType from "./SelectType";
 
 const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
   const dispatch = useDispatch();

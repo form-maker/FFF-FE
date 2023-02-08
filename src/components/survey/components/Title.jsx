@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+
 import { fadeInFromLeftAnimation } from "../../../styles/animations";
 import fonts from "../../../styles/fonts";
 
@@ -23,6 +24,7 @@ const TitleContainer = styled.div`
   align-items: center;
   h1 {
     margin: 0;
+
     ${fonts.Body1}
     font-weight: 700;
     font-size: 2rem;

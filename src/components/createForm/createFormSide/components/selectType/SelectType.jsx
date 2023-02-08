@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import fonts from "../../../../../styles/fonts";
 
 const SelectType = ({ imgName, typeName, onClick }) => {
@@ -27,12 +28,13 @@ const Container = styled.div`
     height: 3.2rem;
   }
   h4 {
+    padding-left: 1.1rem;
+    margin: 0;
+
     ${fonts.Body1}
     font-weight: 500;
     font-size: 1.3rem;
     line-height: 1.6rem;
-    padding-left: 1.1rem;
-    margin: 0;
   }
 `;
 

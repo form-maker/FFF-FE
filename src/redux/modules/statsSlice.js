@@ -43,9 +43,7 @@ const statsSlice = createSlice({
     builder.addCase(__getStats.rejected, (state, action) => {
       console.log(action.payload);
     });
-    builder.addCase(__deleteStats.fulfilled, (state, action) => {
-      // alert(action.payload.msg);
-    });
+    builder.addCase(__deleteStats.fulfilled, (state, action) => {});
     builder.addCase(__deleteStats.rejected, (state, action) => {
       console.log(action.payload);
       if (action.payload.statusCode === 403) {
