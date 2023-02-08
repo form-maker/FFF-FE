@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 const Header = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
+  const acToken = localStorage.getItem("Authorization");
 
   useEffect(() => {
     const checkToken = async () => {
@@ -44,7 +45,7 @@ const Header = () => {
               buttonValue="폼 제작하기"
               font="Body2"
               onClick={() => {
-                isLogin
+                isLogin !== undefined
                   ? navigate("/createform")
                   : batch(() => {
                       Swal.fire({
@@ -72,6 +73,7 @@ const Header = () => {
                 buttonValue="로그아웃"
                 onClick={() => {
                   localStorage.removeItem("Authorization");
+                  localStorage.removeItem("REFRESH_Authorization");
                   setIsLogin(false);
                   navigate("/");
                 }}
