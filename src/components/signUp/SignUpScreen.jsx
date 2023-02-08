@@ -202,12 +202,7 @@ const SignUpScreen = () => {
   //이메일 인증번호 보내기 통신
   const emailNumSend = async (Email) => {
     if (email.length === 0) {
-      Swal.fire({
-        text: "이메일을 입력해 주세요",
-        icon: "warning",
-        confirmButtonColor: "#7AB0FE",
-        confirmButtonText: "확인",
-      });
+      alert("이메일을 입력해 주세요");
       return;
     }
     try {
@@ -215,9 +210,11 @@ const SignUpScreen = () => {
       if (data.data.statusCode === 200) {
         Swal.fire({
           text: "인증번호가 전송되었습니다.",
+
           confirmButtonColor: "#7AB0FE",
           confirmButtonText: "확인",
         });
+
         return data;
       } else if (data.data.statusCode === 400) {
         alert(data.data.msg);
@@ -245,15 +242,6 @@ const SignUpScreen = () => {
 
   //이메일 인증번호 확인 통신
   const emailCodeCheck = async (Email, EmailNum) => {
-    if (emailNum.length === 0) {
-      Swal.fire({
-        text: "인증번호를 입력해 주세요",
-        icon: "warning",
-        confirmButtonColor: "#7AB0FE",
-        confirmButtonText: "확인",
-      });
-      return;
-    }
     try {
       const data = await baseURLApi.post(
         `user/mail-auth/verify?email=${Email}&code=${EmailNum}`
@@ -266,20 +254,13 @@ const SignUpScreen = () => {
         });
         setIsEmailNumCheck(true);
         return data;
+      } else if (emailNum.length === 0) {
+        alert("인증번호를 입력해 주세요");
+        return;
       } else if (data.data.statusCode === 400) {
-        Swal({
-          text: data.data.msg,
-          icon: "warning",
-          confirmButtonColor: "#7AB0FE",
-          confirmButtonText: "확인",
-        });
+        alert(data.data.msg);
       } else {
-        Swal({
-          text: data.data.msg,
-          icon: "warning",
-          confirmButtonColor: "#7AB0FE",
-          confirmButtonText: "확인",
-        });
+        alert(data.data.msg);
       }
     } catch (error) {}
   };
@@ -304,20 +285,10 @@ const SignUpScreen = () => {
         });
         return data;
       } else if (data.data.statusCode === 400) {
-        Swal({
-          text: data.data.msg,
-          icon: "warning",
-          confirmButtonColor: "#7AB0FE",
-          confirmButtonText: "확인",
-        });
+        alert(data.data.msg);
         return;
       } else {
-        Swal({
-          text: data.data.msg,
-          icon: "warning",
-          confirmButtonColor: "#7AB0FE",
-          confirmButtonText: "확인",
-        });
+        alert(data.data.msg);
       }
     } catch (error) {
       alert(error.response.data.msg);
