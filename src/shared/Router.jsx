@@ -1,38 +1,46 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import Main from "../pages/Main";
-import Login from "../pages/Login";
-import SignUp from "../pages/SignUp";
-import Layout from "../layout/Layout";
-import KakaoRedirectHandler from "../components/login/outh/KakaoRedirectHandler";
-import CreateForm from "../pages/CreateForm";
-import Survey from "../pages/Survey";
-import { darkTheme, lightTheme } from "../styles/theme";
-import { useSelector } from "react-redux";
-import GoogleRedirectHandler from "../components/login/outh/GoogleRedirectHandler";
-import MyPage from "../pages/MyPage";
-import Stats from "../pages/Stats";
+
+import { lightTheme } from "../styles/theme";
+import Spinner from "../components/common/Spinner";
+
+const Main = React.lazy(() => import("../pages/Main"));
+const Login = React.lazy(() => import("../pages/Login"));
+const SignUp = React.lazy(() => import("../pages/SignUp"));
+const Layout = React.lazy(() => import("../layout/Layout"));
+
+const KakaoRedirectHandler = React.lazy(() =>
+  import("../components/login/outh/KakaoRedirectHandler")
+);
+const GoogleRedirectHandler = React.lazy(() =>
+  import("../components/login/outh/GoogleRedirectHandler")
+);
+
+const CreateForm = React.lazy(() => import("../pages/CreateForm"));
+const Survey = React.lazy(() => import("../pages/Survey"));
+const MyPage = React.lazy(() => import("../pages/MyPage"));
+const Stats = React.lazy(() => import("../pages/Stats"));
 
 const Router = () => {
-  const darkMode = useSelector((state) => state.darkTheme.darkTheme);
-
   return (
     <BrowserRouter>
-      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Main />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/stats/:surveyId" element={<Stats />} />
-          </Route>
-          <Route path="/createform" element={<CreateForm />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/login/kakao" element={<KakaoRedirectHandler />} />
-          <Route path="/login/google" element={<GoogleRedirectHandler />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/survey" element={<Survey />} />
-        </Routes>
+      <ThemeProvider theme={lightTheme}>
+        <Suspense fallback={<Spinner />}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Main />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/stats/:surveyId" element={<Stats />} />
+            </Route>
+            <Route path="/createform" element={<CreateForm />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/login/kakao" element={<KakaoRedirectHandler />} />
+            <Route path="/login/google" element={<GoogleRedirectHandler />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/survey" element={<Survey />} />
+          </Routes>
+        </Suspense>
       </ThemeProvider>
     </BrowserRouter>
   );

@@ -118,17 +118,20 @@ const SurveyView = () => {
   //   };
   // });
 
+  // 적용 sse
+
   // const [listening, setListening] = useState(false);
   // const [countData, setData] = useState(0);
 
   // let eventSource = undefined;
-
-  // 기본
   // useEffect(() => {
   //   if (!listening) {
-  //     eventSource = new EventSource(
-  //       `${SERVER_URL_API}/sse/join/${surveyId}?sessionId=${id}`
-  //     );
+  //     eventSource = new EventSource(`${SERVER_URL_API}/sse/join/${surveyId}`);
+
+  //     eventSource.onopen = (event) => {
+  //       console.log("connection opened");
+  //     };
+
   //     eventSource.onmessage = (event) => {
   //       const data = JSON.parse(event.data);
   //       data.msg === "data" &&
@@ -137,8 +140,11 @@ const SurveyView = () => {
   //           setData(data.total);
   //         });
   //     };
-  //     eventSource.onerror = (error) => {
-  //       console.error(error);
+  //     eventSource.onerror = (event) => {
+  //       console.error(event.target.readyState);
+  //       if (event.target.readyState === EventSource.CLOSED) {
+  //         console.log(`eventSource closed: ${event.target.readyState}`);
+  //       }
   //       eventSource.close();
   //     };
   //     setListening(true);
@@ -147,7 +153,9 @@ const SurveyView = () => {
   //     eventSource.close();
   //     console.log("event closed");
   //   };
-  // }, [id]);
+  // }, []);
+
+  // console.log(`countData :${countData}`);
 
   const endSurveyClickHandler = () => {
     let BlankAnswer = answerList?.filter(
@@ -180,11 +188,11 @@ const SurveyView = () => {
       <Header>
         {survey?.giftList?.length === 0 ? (
           <PointContext>
-            🔥 현재 {survey.participant}명이 함께 설문에 참여하고 있어요
+            🔥 현재 {survey?.participant}명이 함께 설문에 참여하고 있어요
           </PointContext>
         ) : (
           <PointContext>
-            🔥 현재 {survey.participant}명이 {survey?.giftList?.[0]?.giftName}
+            🔥 현재 {survey?.participant}명이 {survey?.giftList?.[0]?.giftName}
             을(를) 노리고 있어요
           </PointContext>
         )}

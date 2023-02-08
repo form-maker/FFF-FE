@@ -16,9 +16,10 @@ const SlideStats = ({ stats }) => {
     answerNameList.push(i - volume);
   }
 
+  console.log(answerList);
+
   let options = {
     series: answerList,
-
     options: {
       chart: {
         type: "bar",
@@ -31,8 +32,7 @@ const SlideStats = ({ stats }) => {
       plotOptions: {
         bar: {
           horizontal: true,
-          borderRadius: 6,
-          barHeight: "60%",
+          barHeight: "90%",
         },
       },
       colors: [
@@ -83,6 +83,7 @@ const SlideStats = ({ stats }) => {
       legend: {
         show: true,
         offsetY: 8,
+        offsetX: -80,
       },
       grid: { show: false },
     },
@@ -107,10 +108,6 @@ const SlideStats = ({ stats }) => {
           width={540}
         />
       </ChartContainer>
-      <LabelContainer>
-        <div>{stats.leftLabel}</div>
-        <div>{stats.rightLabel}</div>
-      </LabelContainer>
     </Container>
   );
 };
@@ -127,16 +124,6 @@ const Container = styled.div`
 
 const ChartContainer = styled.div`
   margin-top: 8rem;
-`;
-
-const LabelContainer = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: space-between;
-
-  padding: 0 3rem 0 3rem;
-  width: 100%;
-  top: 25.5rem;
 `;
 
 export default SlideStats;

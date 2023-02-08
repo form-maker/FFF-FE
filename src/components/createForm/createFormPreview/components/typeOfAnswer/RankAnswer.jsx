@@ -16,7 +16,7 @@ const RankAnswer = () => {
   return (
     <Container>
       <CommentContainer>
-        <p>꾹 눌러 드래그 해주세요</p>
+        <p>순서 변경을 원하는 항목을 꾹~ 눌러 순위를 조정해주세요</p>
       </CommentContainer>
       <ButtonBox>
         {answerList?.map((answer, index) => {

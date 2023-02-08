@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 
@@ -102,4 +102,4 @@ const Container = styled.div`
   }
 `;
 
-export default memo(DeadlineBox);
+export default DeadlineBox;

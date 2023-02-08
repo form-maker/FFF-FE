@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
-import { batch } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import {
   fillOutQuestion,
   fillOutQuestionTitleAndSummery,
-  selectedFormType,
 } from "../../../../../redux/modules/createFormSlice";
 import fonts from "../../../../../styles/fonts";
 

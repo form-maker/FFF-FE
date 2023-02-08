@@ -16,6 +16,11 @@ const SlideBarAnswer = () => {
   );
   const [slideVolume, setSlideVolume] = useState(2);
 
+  const Label = useSelector(
+    (state) =>
+      state.createForm?.formList?.questionList[currentPageNum - 2]?.answerList
+  );
+
   useEffect(() => {
     volume !== undefined && setSlideVolume(volume);
     console.log(slideVolume);
@@ -36,7 +41,10 @@ const SlideBarAnswer = () => {
           valueLabelDisplay="on"
         />
       </Box>
-
+      <LabelContainer>
+        <div>{Label[0]}</div>
+        <div>{Label[1]}</div>
+      </LabelContainer>
       <p>점수를 선택해주세요</p>
     </Container>
   );
@@ -82,6 +90,13 @@ const Container = styled.div`
     font-size: 1.2rem;
     line-height: 1.4rem;
   }
+`;
+
+const LabelContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0 0 1rem;
+  width: 100%;
 `;
 
 export default SlideBarAnswer;
