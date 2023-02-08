@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 
 import fonts from "../../../../styles/fonts";
