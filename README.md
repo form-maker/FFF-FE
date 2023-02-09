@@ -43,7 +43,7 @@
 
 ---
 ### ⚙ 아키텍처
-![image](https://user-images.githubusercontent.com/101397314/216868691-59fe224c-d9c6-4dc2-b92a-db54cef74592.png)
+![image 22](https://user-images.githubusercontent.com/101397314/217777203-241ead4a-b81b-4b32-b3cc-bd4c614bd2c2.png)
 
 ### 🛠️ 기술 스택
 **✔︎ Tech**<br/>
