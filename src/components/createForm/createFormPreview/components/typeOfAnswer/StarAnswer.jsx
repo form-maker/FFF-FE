@@ -56,6 +56,7 @@ const Container = styled.div`
   width: 100%;
   p {
     margin-top: 1.9rem;
+
     ${fonts.Body3}
     font-weight: 400;
     font-size: 1.2rem;

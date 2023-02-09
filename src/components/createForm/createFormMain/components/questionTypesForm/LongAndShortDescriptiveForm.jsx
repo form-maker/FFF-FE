@@ -6,8 +6,8 @@ import {
   selectedFormType,
   fillOutQuestion,
 } from "../../../../../redux/modules/createFormSlice";
-import RoundButtonLarge from "../../../../common/buttons/roundButtons/RoundButtonLarge";
 import fonts from "../../../../../styles/fonts";
+import RoundButtonLarge from "../../../../common/buttons/roundButtons/RoundButtonLarge";
 
 const LongAndShortDescriptiveForm = () => {
   const dispatch = useDispatch();
@@ -91,18 +91,22 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   width: 100%;
   p {
     margin: 1rem 0 1rem 0;
+
     ${fonts.Body1}
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 1.9rem;
     &:nth-child(2) {
-      color: ${({ theme }) => theme.gray8};
-      font-size: 1.4rem;
       margin: 0 0 2rem 0;
+
+      font-size: 1.4rem;
       text-align: center;
+
+      color: ${({ theme }) => theme.gray8};
     }
   }
 `;

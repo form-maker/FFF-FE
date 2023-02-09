@@ -1,10 +1,10 @@
-import React from "react";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import fonts from "../../../../../../styles/fonts";
 import EmojiPicker from "emoji-picker-react";
 import "./EmojiPicker.css";
-import { useSelector, useDispatch } from "react-redux";
+
+import fonts from "../../../../../../styles/fonts";
 import { changeGiftField } from "../../../../../../redux/modules/createFormSlice";
 import useToggleShow from "../../../../../common/hooks/useToggleShow";
 
@@ -93,12 +93,14 @@ const EmojiContainer = styled.div`
   padding: 0 1rem;
   div {
     &:nth-child(1) {
-      ${fonts.H1}
       display: flex;
       justify-content: flex-end;
-      color: ${({ theme }) => theme.pointColor};
+
+      ${fonts.H1}
       font-size: 2rem;
       font-weight: 900;
+
+      color: ${({ theme }) => theme.pointColor};
       cursor: pointer;
     }
     &:nth-child(2) {

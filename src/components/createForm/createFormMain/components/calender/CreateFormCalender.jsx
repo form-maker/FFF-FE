@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, batch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import DatePicker from "react-datepicker";
 import ko from "date-fns/esm/locale/ko/index.js";
@@ -7,9 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./CreateFormCalender.css";
 
 import { changeField } from "../../../../../redux/modules/createFormSlice";
-import { useSelector } from "react-redux";
 
-const Calender = ({ setIsToggleOn, startDateToggleHandler }) => {
+const Calender = () => {
   const dispatch = useDispatch();
   const createForm = useSelector((state) => state.createForm);
   console.log(createForm);

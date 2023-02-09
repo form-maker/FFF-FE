@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import CanNotBeUsedForMobile from "../components/common/canNotBeUsedForMobile/CanNotBeUsedForMobile";
 
+import CanNotBeUsedForMobile from "../components/common/canNotBeUsedForMobile/CanNotBeUsedForMobile";
 import MyPageContentScreen from "../components/myPage/myPageContent/screen/MyPageContentScreen";
 import MyPageTitleScreen from "../components/myPage/myPageTitle/screen/MyPageTitleScreen";
 

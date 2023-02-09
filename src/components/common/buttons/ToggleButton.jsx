@@ -25,8 +25,10 @@ const SwitchButton = styled.span`
   content: "";
   position: absolute;
   left: 2px;
+
   width: 24px;
   height: 24px;
+
   border-radius: 45px;
   background: ${({ isChecked, theme }) =>
     isChecked ? theme.subHoverColor1 : theme.gray6};
@@ -46,8 +48,10 @@ const SwitchLabel = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   width: 48px;
   height: 16px;
+
   background-color: ${({ isChecked, theme }) =>
     isChecked ? theme.subColor1 : theme.gray3};
   border-radius: 100px;

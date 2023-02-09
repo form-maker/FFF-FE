@@ -28,20 +28,23 @@ const RoundButtonMedium = ({
 };
 
 const Button = styled.button`
+  padding: 0.8rem 1.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: ${({ margin }) => margin || "0.5rem 1.6rem"};
+  height: ${({ height }) => height};
+
   ${fonts.Body1}
   font-weight: 600;
   font-size: 12px;
   line-height: 14px;
-  padding: 0.8rem 1.9rem;
-  display: flex;
-  justify-content: center;
-  height: ${({ height }) => height};
-  align-items: center;
+
   border: none;
   border-radius: ${({ borderRadius }) => borderRadius || "1.6rem"};
   background: ${({ theme, background }) =>
     theme[background] || theme.backgroundColor};
-  margin: ${({ margin }) => margin || "0.5rem 1.6rem"};
   cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.subHoverColor1};
