@@ -1,10 +1,10 @@
 import React from "react";
-import GoogleRedirectHandler from "../components/login/outh/GoogleRedirectHandler";
+import GoogleLoginHandler from "../components/login/outh/GoogleLoginHandler";
 
 const gpage = () => {
   return (
     <div>
-      <GoogleRedirectHandler />
+      <GoogleLoginHandler />
       <h4>로그인 중...</h4>
     </div>
   );

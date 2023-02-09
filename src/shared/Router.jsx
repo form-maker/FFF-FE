@@ -5,12 +5,12 @@ import Main from "../pages/Main";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Layout from "../layout/Layout";
-import KakaoRedirectHandler from "../components/login/outh/KakaoRedirectHandler";
+import KakaoPage from "../pages/KakaoPage";
 import CreateForm from "../pages/CreateForm";
 import Survey from "../pages/Survey";
 import { darkTheme, lightTheme } from "../styles/theme";
 import { useSelector } from "react-redux";
-import GoogleRedirectHandler from "../components/login/outh/GoogleRedirectHandler";
+import GooglePage from "../pages/GooglePage";
 import MyPage from "../pages/MyPage";
 import Stats from "../pages/Stats";
 
@@ -28,8 +28,8 @@ const Router = () => {
           </Route>
           <Route path="/createform" element={<CreateForm />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/login/kakao" element={<KakaoRedirectHandler />} />
-          <Route path="/login/google" element={<GoogleRedirectHandler />} />
+          <Route path="/login/kakao" element={<KakaoPage />} />
+          <Route path="/login/google" element={<GooglePage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/survey" element={<Survey />} />
         </Routes>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { google } from "../../../core/Social";
 
-const GoogleRedirectHandler = () => {
+const GoogleLoginHandler = () => {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const code = encodeURIComponent(params.get("code"));
@@ -12,4 +12,4 @@ const GoogleRedirectHandler = () => {
   });
 };
 
-export default GoogleRedirectHandler;
+export default GoogleLoginHandler;
