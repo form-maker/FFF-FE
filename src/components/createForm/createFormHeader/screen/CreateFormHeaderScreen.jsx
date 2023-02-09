@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
+import { useSelector, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";

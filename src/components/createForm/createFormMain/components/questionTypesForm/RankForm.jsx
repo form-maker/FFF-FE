@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { batch } from "react-redux";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, batch } from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 
@@ -27,7 +26,6 @@ const RankForm = () => {
       ]
   );
 
-  console.log(answerList);
   useEffect(() => {
     currentPageNum > 1 &&
       !questionTitle &&

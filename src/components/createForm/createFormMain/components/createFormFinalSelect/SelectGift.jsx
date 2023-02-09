@@ -1,7 +1,7 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+
 import { changeGiftField } from "../../../../../redux/modules/createFormSlice";
 import fonts from "../../../../../styles/fonts";
 import SelectEmoji from "./selectGift/SelectEmoji";
@@ -89,10 +89,11 @@ const SelectGift = () => {
 };
 
 const Container = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  height: 100%;
 `;
 
 const Title = styled.div`
@@ -104,13 +105,14 @@ const Title = styled.div`
   div {
     margin-left: 1rem;
     h4 {
-      font-size: 1.6rem;
       margin: 0;
+      font-size: 1.6rem;
     }
     p {
-      font-size: 1.2rem;
       margin-top: 0.4rem;
       margin-bottom: 0;
+
+      font-size: 1.2rem;
     }
   }
 `;
@@ -119,7 +121,6 @@ const GiftContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-
   input {
     width: 37.5rem;
     height: 3.8rem;
@@ -131,10 +132,11 @@ const GiftContainer = styled.div`
     border: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
     &::placeholder {
       ${fonts.Body2}
-      color: #686868;
       font-weight: 500;
       font-size: 13px;
       line-height: 16px;
+
+      color: #686868;
     }
   }
   div {
@@ -143,10 +145,11 @@ const GiftContainer = styled.div`
 `;
 
 const CheckBoxContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
+
   margin-bottom: 1rem;
+  width: 100%;
   input {
     display: none;
     &:checked + label {
@@ -182,10 +185,11 @@ const CheckBoxContainer = styled.div`
       vertical-align: middle;
     }
     span {
+      margin-left: 0.5rem;
+
       ${fonts.Body2}
       font-weight: 700;
       font-size: 1.4rem;
-      margin-left: 0.5rem;
     }
   }
 `;

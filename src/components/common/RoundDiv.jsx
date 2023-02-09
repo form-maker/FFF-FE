@@ -10,11 +10,12 @@ const RoundDiv = ({ text, backgroundColor, color }) => {
 };
 
 const Container = styled.div`
+  padding: 0.4rem 0.9rem;
+  margin: 0;
+
   background: ${({ theme, color }) => color || theme.subColor};
   color: ${({ theme, color }) => color || theme.backgroundColor};
-  padding: 0.4rem 0.9rem;
   border-radius: 1rem;
-  margin: 0;
 `;
 
 export default RoundDiv;

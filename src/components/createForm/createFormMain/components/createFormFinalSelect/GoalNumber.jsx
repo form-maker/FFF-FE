@@ -1,8 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
+
 import { changeField } from "../../../../../redux/modules/createFormSlice";
 import fonts from "../../../../../styles/fonts";
 
@@ -15,10 +15,17 @@ const GoalNumber = () => {
   const InputIncDecHandler = (num) => {
     if (achievement < 1 && num < 0) {
       Swal.fire({
-        text: "1보다 크게 설정해주세요",
+        text: "10보다 크게 설정해주세요",
         confirmButtonColor: "#7AB0FE",
         confirmButtonText: "확인",
       });
+      dispatch(
+        changeField({
+          form: "formList",
+          key: "achievement",
+          value: 10,
+        })
+      );
     } else {
       dispatch(
         changeField({
@@ -128,6 +135,11 @@ const NumberInputContainer = styled.div`
 
     text-align: center;
     border-radius: 0.5rem;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
     border: ${({ theme }) => `0.2rem solid ${theme.gray3}`};
   }
 `;

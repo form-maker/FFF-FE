@@ -1,11 +1,10 @@
-import React, { memo, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 
 import styled from "styled-components";
 import MainSurveySummeryCard from "./MainSurveySummeryCard";
 import { useNavigate } from "react-router-dom";
-import fonts from "../../../../styles/fonts";
 import InfiniteScroll from "./InfiniteScroll";
 
 const CardList = () => {
@@ -81,4 +80,4 @@ const SurveyContainer = styled.div`
   }
 `;
 
-export default memo(CardList);
+export default React.memo(CardList);

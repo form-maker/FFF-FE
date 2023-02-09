@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 import { baseURLApi } from "../core/api";
 import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
 import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
-import { batch } from "react-redux";
-import Swal from "sweetalert2";
 
 const Header = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
-  const acToken = localStorage.getItem("Authorization");
 
   useEffect(() => {
     const checkToken = async () => {
@@ -45,7 +44,7 @@ const Header = () => {
               buttonValue="폼 제작하기"
               font="Body2"
               onClick={() => {
-                isLogin !== undefined
+                isLogin
                   ? navigate("/createform")
                   : batch(() => {
                       Swal.fire({
@@ -72,10 +71,17 @@ const Header = () => {
               <NoOutLineSmall
                 buttonValue="로그아웃"
                 onClick={() => {
-                  localStorage.removeItem("Authorization");
-                  localStorage.removeItem("REFRESH_Authorization");
-                  setIsLogin(false);
-                  navigate("/");
+                  batch(() => {
+                    localStorage.removeItem("Authorization");
+                    localStorage.removeItem("REFRESH_Authorization");
+                    Swal.fire({
+                      text: "로그아웃 완료",
+                      confirmButtonColor: "#7AB0FE",
+                      confirmButtonText: "확인",
+                    });
+                    setIsLogin(false);
+                    navigate("/");
+                  });
                 }}
                 fontSize="1.3rem"
               />

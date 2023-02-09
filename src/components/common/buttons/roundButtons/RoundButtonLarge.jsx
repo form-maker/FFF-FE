@@ -24,12 +24,14 @@ const RoundButtonLarge = ({
 };
 
 const Button = styled.button`
-  ${fonts.Body1}
   height: 5.2rem;
   width: ${({ width }) => width};
+
+  ${fonts.Body1}
   font-weight: 500;
   font-size: 1.6rem;
   line-height: 1.9rem;
+
   border-radius: 2.6rem;
   background: transparent;
   background: ${({ theme, backgroundColor }) =>

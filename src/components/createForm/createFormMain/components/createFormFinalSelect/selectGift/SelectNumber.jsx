@@ -1,7 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+
 import { changeGiftField } from "../../../../../../redux/modules/createFormSlice";
 import fonts from "../../../../../../styles/fonts";
 
@@ -46,6 +46,7 @@ const GiftNumberContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   width: 18rem;
   margin-left: 1rem;
   padding: 3.5rem 1rem;

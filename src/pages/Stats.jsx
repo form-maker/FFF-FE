@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import CanNotBeUsedForMobile from "../components/common/canNotBeUsedForMobile/CanNotBeUsedForMobile";
 
+import CanNotBeUsedForMobile from "../components/common/canNotBeUsedForMobile/CanNotBeUsedForMobile";
 import StatsHeaderScreen from "../components/stats/statsHeader/screen/StatsHeaderScreen";
 import StatsMainListScreen from "../components/stats/statsMainList/screen/StatsMainListScreen";
 import StatsSortToggleScreen from "../components/stats/statsSortToggle/screen/StatsSortToggleScreen";

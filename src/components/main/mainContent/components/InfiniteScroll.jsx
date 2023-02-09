@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 
@@ -36,4 +36,4 @@ const InfiniteScroll = () => {
   return <div ref={ref}></div>;
 };
 
-export default memo(InfiniteScroll);
+export default InfiniteScroll;

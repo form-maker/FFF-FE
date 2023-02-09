@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 
 import fonts from "../../../../styles/fonts";
@@ -18,8 +18,10 @@ const MainSurveySummeryCard = ({
     ["#CEDFFF", "#ADC2EB"],
     ["#F6EAFD", "#E7D1F3"],
   ];
-  const getRandom = (min, max) =>
-    Math.floor(Math.random() * (max - min) + min) - 1;
+  const getRandom = useCallback((min, max) => {
+    return Math.floor(Math.random() * (max - min) + min) - 1;
+  }, []);
+
   let randomColor = backgroundColor[getRandom(1, backgroundColor.length + 1)];
 
   return (
@@ -123,4 +125,4 @@ const Footer = styled.div`
   }
 `;
 
-export default memo(MainSurveySummeryCard);
+export default React.memo(MainSurveySummeryCard);
