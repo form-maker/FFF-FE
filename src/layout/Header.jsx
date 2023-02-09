@@ -71,10 +71,17 @@ const Header = () => {
               <NoOutLineSmall
                 buttonValue="로그아웃"
                 onClick={() => {
-                  localStorage.removeItem("Authorization");
-                  localStorage.removeItem("REFRESH_Authorization");
-                  setIsLogin(false);
-                  navigate("/");
+                  batch(() => {
+                    localStorage.removeItem("Authorization");
+                    localStorage.removeItem("REFRESH_Authorization");
+                    Swal.fire({
+                      text: "로그아웃 완료",
+                      confirmButtonColor: "#7AB0FE",
+                      confirmButtonText: "확인",
+                    });
+                    setIsLogin(false);
+                    navigate("/");
+                  });
                 }}
                 fontSize="1.3rem"
               />
