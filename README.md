@@ -31,7 +31,7 @@
 ![Group 213](https://user-images.githubusercontent.com/101397314/216897782-ea66002f-eb95-4abb-a3d2-9d4e6e32805a.png)
 
 ***2) 좀 더 많은 참여자를 원할 땐 선물하기 기능으로 관심 UP!*** <br/>
-> 선물하기 기능, 참여 중인 다른 사람 수를 통해 그저 재미없는 설문을 즐겁게 참여할 수 있도록 하였습니다.
+> 선물하기 기능, 실시간 참여자 확인 기능을 통해 그저 재미없는 설문을 즐겁게 참여할 수 있도록 하였습니다.
 
 ![Group 212](https://user-images.githubusercontent.com/101397314/216897768-9bbc5ff1-6a86-4cfc-adb4-f4f174cd91c1.png)
 
