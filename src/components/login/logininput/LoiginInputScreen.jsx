@@ -38,7 +38,7 @@ const LoginInputScreen = () => {
     }
   };
 
-  const submihandler = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
     if (loginId === "" || password === "") {
       Swal.fire({
@@ -97,7 +97,7 @@ const LoginInputScreen = () => {
       </LoginPwLabel>
       <ButtonBox
         onClick={(event) => {
-          submihandler(event);
+          submitHandler(event);
         }}
       >
         로그인

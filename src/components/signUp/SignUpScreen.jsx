@@ -140,7 +140,12 @@ const SignUpScreen = () => {
 
         setIsLoginIdCheck(true);
       } else if (data.data.statusCode === 400) {
-        alert(data.data.msg);
+        Swal.fire({
+          text: data.data.msg,
+          icon: "warning",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         setIsLoginIdCheck(false);
       }
     } catch (error) {}
@@ -153,13 +158,27 @@ const SignUpScreen = () => {
         `user/signup/username?username=${Name.username}`
       );
       if (data.data.statusCode === 200) {
-        alert(data.data.msg);
+        Swal.fire({
+          text: data.data.msg,
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         setIsUserName(true);
       } else if (data.data.statusCode === 400) {
-        alert(data.data.msg);
+        Swal.fire({
+          text: data.data.msg,
+          icon: "warning",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         setIsUserName(false);
       } else {
-        alert(data.data.msg);
+        Swal.fire({
+          text: data.data.msg,
+          icon: "warning",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
       }
       return data;
     } catch (error) {}
@@ -220,7 +239,12 @@ const SignUpScreen = () => {
         });
         return data;
       } else if (data.data.statusCode === 400) {
-        alert(data.data.msg);
+        Swal.fire({
+          text: data.data.msg,
+          icon: "warning",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
       } else {
         Swal.fire({
           text: data.data.msg,
@@ -265,7 +289,6 @@ const SignUpScreen = () => {
           confirmButtonText: "확인",
         });
         setIsEmailNumCheck(true);
-        return data;
       } else if (data.data.statusCode === 400) {
         Swal({
           text: data.data.msg,
@@ -273,6 +296,7 @@ const SignUpScreen = () => {
           confirmButtonColor: "#7AB0FE",
           confirmButtonText: "확인",
         });
+        setIsEmailNumCheck(false);
       } else {
         Swal({
           text: data.data.msg,
@@ -281,6 +305,7 @@ const SignUpScreen = () => {
           confirmButtonText: "확인",
         });
       }
+      return data;
     } catch (error) {}
   };
 
@@ -291,8 +316,13 @@ const SignUpScreen = () => {
   };
 
   const postSignup = async (post) => {
-    if (emailNum && passwordConfirm === null) {
-      alert("빈칸을 입력해 주세요!");
+    if (emailNum.length && passwordConfirm.length === 0) {
+      Swal.fire({
+        text: "빈칸을 입력해 주세요!",
+        icon: "warning",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
     }
     try {
       const data = await baseURLApi.post("user/signup", post);
@@ -310,7 +340,6 @@ const SignUpScreen = () => {
           confirmButtonColor: "#7AB0FE",
           confirmButtonText: "확인",
         });
-        return;
       } else {
         Swal({
           text: data.data.msg,
@@ -318,9 +347,15 @@ const SignUpScreen = () => {
           confirmButtonColor: "#7AB0FE",
           confirmButtonText: "확인",
         });
+        return;
       }
     } catch (error) {
-      alert(error.response.data.msg);
+      Swal.fire({
+        text: error.response.data.msg,
+        icon: "warning",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
     }
     if (!isLoginId) {
       setInputs({
@@ -347,7 +382,12 @@ const SignUpScreen = () => {
       });
       inputRef.current[3].focus();
     } else if (isEmailNumCheck && isPasswordConfirm === false) {
-      alert("인증을 완료해주세요");
+      Swal.fire({
+        text: "인증을 완료해 주세요",
+        icon: "warning",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
     }
     return;
   };

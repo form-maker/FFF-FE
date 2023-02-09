@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-
 import { lightTheme } from "../styles/theme";
 import Spinner from "../components/common/Spinner";
 
@@ -10,11 +9,11 @@ const Login = React.lazy(() => import("../pages/Login"));
 const SignUp = React.lazy(() => import("../pages/SignUp"));
 const Layout = React.lazy(() => import("../layout/Layout"));
 
-const KakaoRedirectHandler = React.lazy(() =>
-  import("../components/login/outh/KakaoRedirectHandler")
+const KakaoPage = React.lazy(() =>
+  import("../pages/KakaoPage")
 );
-const GoogleRedirectHandler = React.lazy(() =>
-  import("../components/login/outh/GoogleRedirectHandler")
+const GooglePage = React.lazy(() =>
+  import("../pages/GooglePage")
 );
 
 const CreateForm = React.lazy(() => import("../pages/CreateForm"));
@@ -35,8 +34,8 @@ const Router = () => {
             </Route>
             <Route path="/createform" element={<CreateForm />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/login/kakao" element={<KakaoRedirectHandler />} />
-            <Route path="/login/google" element={<GoogleRedirectHandler />} />
+            <Route path="/login/kakao" element={<KakaoPage />} />
+            <Route path="/login/google" element={<GooglePage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/survey" element={<Survey />} />
           </Routes>
