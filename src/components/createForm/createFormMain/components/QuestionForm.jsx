@@ -16,18 +16,13 @@ const QuestionForm = () => {
   const questionType = useSelector(
     (state) => state.createForm?.selectedFormType
   );
-  let prevForm = localStorage.getItem("createForm");
-
-  console.log(JSON.parse(prevForm)?.formList);
+  let prevForm = localStorage.getItem("create");
 
   useEffect(() => {
-    if (
-      prevForm &&
-      JSON.parse(prevForm)?.formList?.questionList?.length !== 0
-    ) {
+    if (prevForm) {
       window.confirm("임시저장한 데이터를 불러오시겠습니까?")
         ? dispatch(getPrevForm(JSON.parse(prevForm)))
-        : localStorage.removeItem("createForm");
+        : localStorage.removeItem("create");
     }
   }, []);
 
@@ -51,12 +46,14 @@ const QuestionForm = () => {
 
 const Container = styled.div`
   flex: 1;
-  width: 100%;
-  height: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  height: 100%;
 `;
 
 export default QuestionForm;

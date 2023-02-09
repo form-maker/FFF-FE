@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import { baseURLApi } from "../../../core/api";
 import fonts from "../../../styles/fonts";
 
@@ -18,20 +19,34 @@ const LoginInputScreen = () => {
     try {
       const data = await baseURLApi.post("user/login", login);
       if (data.data.statusCode === 200) {
-        alert("로그인 성공");
+        Swal.fire({
+          text: "로그인 성공",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         return data;
       } else {
-        alert("아이디, 비밀번호를 잘못입력했습니다.");
+        Swal.fire({
+          text: "아이디, 비밀번호를 잘못입력했습니다.",
+          icon: "warning",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const submihandler = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
     if (loginId === "" || password === "") {
-      alert("아이디, 비밀번호를 입력해 주세요!");
+      Swal.fire({
+        text: "아이디, 비밀번호를 입력해 주세요!",
+        icon: "warning",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
       return;
     }
     Login({
@@ -82,7 +97,7 @@ const LoginInputScreen = () => {
       </LoginPwLabel>
       <ButtonBox
         onClick={(event) => {
-          submihandler(event);
+          submitHandler(event);
         }}
       >
         로그인

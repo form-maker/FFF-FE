@@ -13,7 +13,8 @@ const CoverSurvey = () => {
   const questionIdList = useSelector((state) => state.survey?.questionIdList);
 
   const surveyStartClickHandler = () => {
-    dispatch(__getSurveyQuestion(questionIdList[0]));
+    questionIdList?.length !== 0 &&
+      dispatch(__getSurveyQuestion(questionIdList[0]));
   };
 
   return (
@@ -57,6 +58,7 @@ const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+
   width: 100%;
   height: 100%;
   @media screen and (min-width: 500px) {
@@ -86,7 +88,7 @@ const Main = styled.div`
     margin-top: 2rem;
     ${fonts.Body1}
     font-weight: 500;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.9rem;
     ${fadeInFromLeftAnimation}
   }
@@ -94,7 +96,7 @@ const Main = styled.div`
     margin-top: 5rem;
     ${fonts.Body3}
     font-weight: 500;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.9rem;
     ${fadeInFromLeftAnimation}
   }
@@ -120,6 +122,7 @@ const GiftContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   margin-top: 3rem;
   div {
     display: flex;
@@ -137,12 +140,14 @@ const GiftContainer = styled.div`
     }
   }
   p {
+    padding: 0.3rem 1.2rem;
+    margin-left: 1rem;
+
     ${fonts.Body1}
     font-size: 1.3rem;
+
     background: ${({ theme }) => theme.subColor3};
-    padding: 0.3rem 1.2rem;
     border-radius: 0.5rem;
-    margin-left: 1rem;
     span {
       display: inline-block;
       font-weight: 600;
@@ -165,7 +170,7 @@ const GiftContainer = styled.div`
 const Bottom = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 4.6rem;
+  padding-bottom: 3rem;
   @media screen and (min-width: 500px) {
     padding-bottom: 2rem;
   }

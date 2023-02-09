@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { baseURLApi } from "./api";
 
 export const kakao = async (post) => {
@@ -5,7 +6,12 @@ export const kakao = async (post) => {
     const data = await baseURLApi.get(`/user/login/kakao?code=${post}`);
     return data;
   } catch (error) {
-    alert(error.response.data.msg);
+    Swal.fire({
+      text: error.response.data.msg,
+      icon: "warning",
+      confirmButtonColor: "#7AB0FE",
+      confirmButtonText: "확인",
+    });
   }
 };
 
@@ -14,6 +20,11 @@ export const google = async (ggg) => {
     const data = await baseURLApi.get(`user/login/google?code=${ggg}`);
     return data;
   } catch (error) {
-    alert(error.response.data.msg);
+    Swal.fire({
+      text: error.response.data.msg,
+      icon: "warning",
+      confirmButtonColor: "#7AB0FE",
+      confirmButtonText: "확인",
+    });
   }
 };

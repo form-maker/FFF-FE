@@ -2,11 +2,16 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { fillOutQuestionTitleAndSummery } from "../../../../redux/modules/createFormSlice";
+import {
+  fillOutQuestionTitleAndSummery,
+  fillOutRequired,
+} from "../../../../redux/modules/createFormSlice";
 import fonts from "../../../../styles/fonts";
+import ToggleButton from "../../../common/buttons/ToggleButton";
 
 const CreateFormInput = () => {
   const dispatch = useDispatch();
+
   const questionType = useSelector(
     (state) => state.createForm?.selectedFormType
   );
@@ -28,7 +33,7 @@ const CreateFormInput = () => {
   );
   const questionSummary = useSelector(
     (state) =>
-      state.createForm.formList?.questionList.length !== 0 &&
+      state.createForm.formList?.questionList?.length !== 0 &&
       questionType !== "COVER" &&
       selectedFormType !== "COVER" &&
       questionType !== "NEW_FORM" &&
@@ -36,6 +41,16 @@ const CreateFormInput = () => {
         "questionSummary"
       ]
   );
+  const isRequired = useSelector(
+    (state) =>
+      state.createForm?.formList?.questionList?.length !== 0 &&
+      questionType !== "COVER" &&
+      state.createForm?.formList?.questionList[currentPageNum - 2]["isRequired"]
+  );
+
+  const test = useSelector((state) => state.createForm?.formList?.questionList);
+
+  console.log(test);
 
   const InputHandler = (event) => {
     const { name, value } = event.target;
@@ -47,12 +62,20 @@ const CreateFormInput = () => {
     );
   };
 
+  const RequireHandler = () => {
+    dispatch(fillOutRequired(!isRequired));
+  };
+
   return (
     questionType !== "CONSENT" &&
     questionType !== "COVER" &&
     questionType !== "NEW_FORM" &&
     questionType !== undefined && (
       <Container>
+        <ToggleContainer>
+          <h5>필수 응답</h5>
+          <ToggleButton isRequired={isRequired} onClick={RequireHandler} />
+        </ToggleContainer>
         <div>
           <TitleInput
             placeholder="질문을 작성해주세요"
@@ -82,7 +105,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding-top: 6.5rem;
+  padding-top: 0.5rem;
   width: 100%;
 
   p {
@@ -93,6 +116,18 @@ const Container = styled.div`
     text-align: center;
 
     color: ${({ theme }) => theme.pointColor};
+  }
+`;
+
+const ToggleContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50rem;
+  h5 {
+    ${fonts.Body2}
+    font-size: 1.4rem;
+    margin-right: 1rem;
   }
 `;
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { fadeInFromLeftAnimation } from "../../../../styles/animations";
 import fonts from "../../../../styles/fonts";
 import RoundButtonLarge from "../../../common/buttons/roundButtons/RoundButtonLarge";
@@ -21,7 +22,7 @@ const EndSurvey = () => {
       </Main>
       <Bottom>
         <RoundButtonLarge
-          buttonValue="댜른 설문 구경하기"
+          buttonValue="다른 설문 구경하기"
           width="28.3rem"
           onClick={() => navigate("/")}
         />

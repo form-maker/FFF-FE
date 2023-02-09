@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 import { instanceApi } from "../../core/api";
 
 const initialState = {
   currentPageNum: 1,
   currentFormType: "COVER",
+  required: true,
   survey: {},
   questionIdList: [],
   question: {},
@@ -121,7 +123,12 @@ const SurveySlice = createSlice({
     builder.addCase(__getSurvey.rejected, (state, action) => {
       console.log(action.payload.response?.status);
       if (action.payload.response?.status === 403) {
-        alert(action.payload.response.data.msg);
+        Swal.fire({
+          text: action.payload.response.data.msg,
+          icon: "warning",
+          confirmButtonColor: "#7AB0FE",
+          confirmButtonText: "확인",
+        });
         console.log(action.payload.response.data.msg);
         state.error = true;
       }
@@ -130,8 +137,10 @@ const SurveySlice = createSlice({
     builder.addCase(__getSurveyQuestion.fulfilled, (state, action) => {
       state.question = action.payload.data;
       state.currentPageNum = state.currentPageNum + 1;
-      state.currentFormType = action.payload.data.questionType;
-      console.log(action.payload.data);
+      state.currentFormType = action?.payload?.data?.questionType;
+      if (action.payload?.data?.required) {
+        state.required = action.payload?.data?.required;
+      }
       state.answer[state.currentPageNum - 2]["questionType"] =
         action.payload.data.questionType;
     });

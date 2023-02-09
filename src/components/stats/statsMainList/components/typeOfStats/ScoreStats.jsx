@@ -15,6 +15,7 @@ const ScoreStats = ({ stats }) => {
   let options = {
     series: [
       {
+        name: stats?.questionTitle,
         data: stats?.satisfactionList,
       },
     ],

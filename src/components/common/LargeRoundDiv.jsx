@@ -11,14 +11,16 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
+  padding: 0 2rem;
   height: 2.6rem;
+
   ${fonts.Body1}
   font-weight: 500;
   font-size: 1.4rem;
   line-height: 17px;
+
   background: ${({ theme }) => theme.gray6};
   border-radius: 2.4rem;
-  padding: 0 2rem;
 `;
 
 export default LargeRoundDiv;

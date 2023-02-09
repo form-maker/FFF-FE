@@ -1,7 +1,7 @@
 import React from "react";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 import { changeDescriptive } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
@@ -17,7 +17,12 @@ const LongDescriptiveSurvey = () => {
   const answerHandler = (event) => {
     const answer = event.target.value;
     dispatch(changeDescriptive(answer));
-    descriptive.length === 200 && alert("200자 이내로 작성해주세요");
+    descriptive.length === 500 &&
+      Swal.fire({
+        text: "500자 이내로 작성해주세요",
+        confirmButtonColor: "#7AB0FE",
+        confirmButtonText: "확인",
+      });
   };
 
   return (
@@ -28,12 +33,12 @@ const LongDescriptiveSurvey = () => {
           <div>
             <textarea
               type="text"
-              placeholder="200자 이내로 답해주세요"
+              placeholder="500자 이내로 답해주세요"
               value={descriptive}
               onChange={answerHandler}
-              maxLength={200}
+              maxLength={500}
             ></textarea>
-            <p>200자 이내로 작성해주세요 ({descriptive?.length}자)</p>
+            <p>500자 이내로 작성해주세요 ({descriptive?.length}자)</p>
           </div>
         </InputContainer>
       </Main>
@@ -77,13 +82,12 @@ const InputContainer = styled.div`
       box-sizing: border-box;
 
       width: 26.4rem;
-      height: 23.7rem;
+      height: 22rem;
       padding: 1rem;
 
       ${fonts.Body1}
       font-weight: 600;
       font-size: 1.4rem;
-      line-height: 1.7rem;
 
       background-color: transparent;
       border: ${({ theme }) => `2px solid ${theme.subColor1}`};
@@ -107,9 +111,9 @@ const InputContainer = styled.div`
     div {
       textarea {
         width: 40rem;
-        font-size: 1.8rem;
+        font-size: 1.4rem;
         &::placeholder {
-          font-size: 1.8rem;
+          font-size: 1.4rem;
         }
       }
     }

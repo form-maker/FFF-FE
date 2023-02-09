@@ -1,15 +1,14 @@
-import React, { useRef } from "react";
+import React from "react";
+import { useDispatch, batch } from "react-redux";
+import uuid from "react-uuid";
 import styled from "styled-components";
-import SelectType from "./SelectType";
-import { useDispatch, useSelector } from "react-redux";
+
 import {
-  addForm,
   selectedFormType,
   selectNewForm,
 } from "../../../../../redux/modules/createFormSlice";
 import fonts from "../../../../../styles/fonts";
-import { batch } from "react-redux";
-import uuid from "react-uuid";
+import SelectType from "./SelectType";
 
 const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
   const dispatch = useDispatch();
@@ -37,6 +36,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionId: uuid(),
                   questionType: "CONSENT",
                   questionTitle: "",
+                  isRequired: true,
                   questionSummary: "",
                 })
               : selectTypeHandler("CONSENT");
@@ -53,6 +53,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SCORE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SCORE");
@@ -69,6 +70,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SLIDE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SLIDE");
@@ -85,6 +87,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SINGLE_CHOICE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SINGLE_CHOICE");
@@ -101,6 +104,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "RANK",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("RANK");
@@ -118,6 +122,7 @@ const SelectTypeList = ({ setIsSelectToggleShow, isCreateForm }) => {
                   questionType: "SHORT_DESCRIPTIVE",
                   questionTitle: "",
                   questionSummary: "",
+                  isRequired: true,
                   answerList: [],
                 })
               : selectTypeHandler("SHORT_DESCRIPTIVE");

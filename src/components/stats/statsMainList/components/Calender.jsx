@@ -9,7 +9,7 @@ import "./Calender.module.css";
 
 import { __getStats } from "../../../../redux/modules/statsSlice";
 
-const Calender = ({ setIsToggleOn }) => {
+const Calender = () => {
   const { surveyId } = useParams();
   const dispatch = useDispatch();
   const statsList = useSelector((state) => state.stats.stats);

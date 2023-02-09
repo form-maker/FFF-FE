@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, batch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import DatePicker from "react-datepicker";
 import ko from "date-fns/esm/locale/ko/index.js";
@@ -8,11 +8,14 @@ import "./CreateFormCalender.css";
 
 import { changeField } from "../../../../../redux/modules/createFormSlice";
 
-const Calender = ({ setIsToggleOn, startDateToggleHandler }) => {
+const Calender = () => {
   const dispatch = useDispatch();
+  const createForm = useSelector((state) => state.createForm);
+  console.log(createForm);
 
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+  const [endDate, setEndDate] = useState(new Date());
+
   const onChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
@@ -23,22 +26,23 @@ const Calender = ({ setIsToggleOn, startDateToggleHandler }) => {
   const ChangedEndDate = endDate?.toISOString().slice(0, 10);
 
   useEffect(() => {
-    batch(() => {
-      dispatch(
-        changeField({
-          form: "formList",
-          key: "startedAt",
-          value: ChangedStartDate,
-        })
-      );
-      dispatch(
-        changeField({
-          form: "formList",
-          key: "endedAt",
-          value: ChangedEndDate,
-        })
-      );
-    });
+    dispatch(
+      changeField({
+        form: "formList",
+        key: "startedAt",
+        value: ChangedStartDate,
+      })
+    );
+  }, [startDate]);
+
+  useEffect(() => {
+    dispatch(
+      changeField({
+        form: "formList",
+        key: "endedAt",
+        value: ChangedEndDate,
+      })
+    );
   }, [endDate]);
 
   return (

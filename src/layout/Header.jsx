@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 import { baseURLApi } from "../core/api";
 import NoOutLineSmall from "../components/common/buttons/noOutLineButtons/NoOutLineSmall";
 import NoOutLineMedium from "../components/common/buttons/noOutLineButtons/NoOutLineMedium";
-import { batch } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -39,7 +40,6 @@ const Header = () => {
             />
           </div>
           <div>
-            {/* <NoOutLineSmall buttonValue="진행중인 폼" font="Body2" /> */}
             <NoOutLineSmall
               buttonValue="폼 제작하기"
               font="Body2"
@@ -47,50 +47,61 @@ const Header = () => {
                 isLogin
                   ? navigate("/createform")
                   : batch(() => {
-                      alert("로그인 해주세요");
+                      Swal.fire({
+                        text: "로그인 해주세요",
+                        confirmButtonColor: "#7AB0FE",
+                        confirmButtonText: "확인",
+                      });
                       navigate("/login");
                     });
               }}
             />
           </div>
-          <div>
-            {isLogin ? (
-              <>
-                <NoOutLineSmall
-                  buttonValue="마이페이지"
-                  onClick={() => {
-                    navigate("/mypage");
-                  }}
-                  fontSize="1.3rem"
-                />
-                ⎮
-                <NoOutLineSmall
-                  buttonValue="로그아웃"
-                  onClick={() => {
+
+          {isLogin ? (
+            <LoginContainer>
+              <NoOutLineSmall
+                buttonValue="마이페이지"
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+                fontSize="1.3rem"
+              />
+              <span>⎮</span>
+              <NoOutLineSmall
+                buttonValue="로그아웃"
+                onClick={() => {
+                  batch(() => {
                     localStorage.removeItem("Authorization");
+                    localStorage.removeItem("REFRESH_Authorization");
+                    Swal.fire({
+                      text: "로그아웃 완료",
+                      confirmButtonColor: "#7AB0FE",
+                      confirmButtonText: "확인",
+                    });
                     setIsLogin(false);
                     navigate("/");
-                  }}
-                  fontSize="1.3rem"
-                />
-              </>
-            ) : (
-              <>
-                <NoOutLineSmall
-                  buttonValue="로그인"
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                />
-                <NoOutLineSmall
-                  buttonValue="회원가입"
-                  onClick={() => {
-                    navigate("/signup");
-                  }}
-                />
-              </>
-            )}
-          </div>
+                  });
+                }}
+                fontSize="1.3rem"
+              />
+            </LoginContainer>
+          ) : (
+            <div>
+              <NoOutLineSmall
+                buttonValue="로그인"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              />
+              <NoOutLineSmall
+                buttonValue="회원가입"
+                onClick={() => {
+                  navigate("/signup");
+                }}
+              />
+            </div>
+          )}
         </div>
       </SubContainer>
     </Container>
@@ -119,10 +130,29 @@ const SubContainer = styled.div`
     align-items: center;
 
     padding: 1rem;
+    &:nth-child(2) {
+      @media screen and (max-width: 500px) {
+        display: none;
+      }
+    }
   }
   @media screen and (max-width: 500px) {
     padding: 0.1rem;
     height: 7rem;
+  }
+`;
+const LoginContainer = styled.div`
+  button {
+    &:nth-child(1) {
+      @media screen and (max-width: 500px) {
+        display: none;
+      }
+    }
+  }
+  span {
+    @media screen and (max-width: 500px) {
+      display: none;
+    }
   }
 `;
 

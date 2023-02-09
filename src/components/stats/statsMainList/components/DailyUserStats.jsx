@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-
 import ApexCharts from "react-apexcharts";
 
 const DailyUserStats = () => {
@@ -10,6 +9,7 @@ const DailyUserStats = () => {
   let options = {
     series: [
       {
+        name: "날짜 별 응답자 수",
         data: statsList?.dailyParticipantList?.participant,
       },
     ],
