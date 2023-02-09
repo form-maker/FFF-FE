@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { kakao } from "../../../core/Social";
 
-const KakaoLoginHandler = () => {
+const KakaoLogin = () => {
   const navigate = useNavigate();
   let code = new URL(window.location.href).searchParams.get("code");
 
@@ -28,4 +28,4 @@ const KakaoLoginHandler = () => {
   });
 };
 
-export default KakaoLoginHandler;
+export default KakaoLogin;

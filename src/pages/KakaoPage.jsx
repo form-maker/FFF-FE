@@ -1,13 +1,13 @@
 import React from "react";
-import KakaoLoginHandler from "../components/login/outh/KakaoLoginHandler";
+import KakaoLogin from "../components/login/outh/KakaoLogin";
 
-const OathPage = () => {
+const KakaoPage = () => {
   return (
     <div>
-      <KakaoLoginHandler />
+      <KakaoLogin />
       <h4>로그인 중</h4>
     </div>
   );
 };
 
-export default OathPage;
+export default KakaoPage;

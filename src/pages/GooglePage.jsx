@@ -1,10 +1,10 @@
 import React from "react";
-import GoogleLoginHandler from "../components/login/outh/GoogleLoginHandler";
+import GoogleLoginr from "../components/login/outh/GoogleLogin";
 
 const gpage = () => {
   return (
     <div>
-      <GoogleLoginHandler />
+      <GoogleLoginr />
       <h4>로그인 중...</h4>
     </div>
   );
