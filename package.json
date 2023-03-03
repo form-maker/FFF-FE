@@ -109,6 +109,7 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.26",
     "webpack-bundle-analyzer": "^4.7.0"
   },
   "jest": {
