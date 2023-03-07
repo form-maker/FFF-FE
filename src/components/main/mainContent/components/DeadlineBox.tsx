@@ -2,7 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 
-const DeadlineBox = ({ deadLine, title, summary, backgroundColor }) => {
+interface Props {
+  deadLine: number;
+  title: string;
+  summary: string;
+  backgroundColor: string;
+}
+
+const DeadlineBox = ({ deadLine, title, summary, backgroundColor }: Props) => {
   return (
     <Container backgroundColor={backgroundColor}>
       {deadLine < 0 && <div>마감 완료</div>}
@@ -39,7 +46,8 @@ const Container = styled.div`
       width: 9.5rem;
 
       border-radius: 1rem;
-      background: ${({ backgroundColor }) => backgroundColor};
+      background: ${({ backgroundColor }: Pick<Props, "backgroundColor">) =>
+        backgroundColor};
       span {
         font-weight: 700;
         font-size: 1.3rem;

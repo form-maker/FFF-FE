@@ -1,8 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSmall";
 

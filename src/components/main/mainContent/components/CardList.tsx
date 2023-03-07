@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 
 import styled from "styled-components";
@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "./InfiniteScroll";
 
 const CardList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const mainCardList = useSelector((state) => state.mainCardList?.mainCardList);
+  const mainCardList = useAppSelector(
+    (state) => state.mainCardList?.mainCardList
+  );
 
   useEffect(() => {
     if (mainCardList?.length === 0) {
@@ -19,7 +21,11 @@ const CardList = () => {
     }
   }, [dispatch, mainCardList?.length]);
 
-  const goSurveyHandler = async ({ surveyId }) => {
+  interface iSurveyId {
+    surveyId?: number;
+  }
+
+  const goSurveyHandler = async ({ surveyId }: iSurveyId) => {
     navigate(`/survey?surveyId=${surveyId}`);
   };
 
@@ -35,12 +41,9 @@ const CardList = () => {
               deadLine={card.dday}
               title={card.title}
               summary={card.summary}
-              createdAt={card.createdAt}
-              participant={card.participant}
               totalQuestion={card.totalQuestion}
               totalTime={card.totalTime}
               giftName={card.giftName}
-              totalGiftQuantity={card.totalGiftQuantity}
               onClick={() => {
                 goSurveyHandler({ surveyId: card.surveyId });
               }}

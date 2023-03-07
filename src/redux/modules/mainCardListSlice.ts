@@ -4,7 +4,7 @@ import type { RootState } from "../config/configstore";
 
 interface mainCardList {
   mainCardList: [] | Array<iMainCardList>;
-  pageStatus: {} | iPageStatus;
+  pageStatus: iPageStatus;
   selectedCategory: string;
   error: null | string;
 }
@@ -25,14 +25,14 @@ interface iMainCardList {
 }
 
 interface iPageStatus {
-  end: number;
-  next: boolean;
-  page: number;
-  pageList: number[];
-  prev: boolean;
-  size: number;
-  start: number;
-  totalPage: number;
+  end?: number;
+  next?: boolean;
+  page?: number;
+  pageList?: number[];
+  prev?: boolean;
+  size?: number;
+  start?: number;
+  totalPage?: number;
 }
 
 const initialState = {

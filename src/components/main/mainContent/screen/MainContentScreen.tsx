@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../../redux/hooks";
 import styled from "styled-components";
 
 import { createFormInitialize } from "../../../../redux/modules/createFormSlice";
@@ -8,7 +8,7 @@ import CardList from "../components/CardList";
 import Sort from "../components/Sort";
 
 const MainContentScreen = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(createFormInitialize());

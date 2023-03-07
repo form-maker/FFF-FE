@@ -4,21 +4,36 @@ import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 import DeadlineBox from "./DeadlineBox";
 
+interface Props {
+  deadLine: number;
+  title: string;
+  summary: string;
+  totalQuestion: number;
+  totalTime: number;
+  giftName: string;
+  onClick: any;
+}
+
+interface iBackgroundColor {
+  backgroundColor: string;
+}
+
 const MainSurveySummeryCard = ({
   deadLine,
-  summary,
   title,
+  summary,
   onClick,
   totalQuestion,
   totalTime,
   giftName,
-}) => {
+}: Props) => {
   const backgroundColor = [
     ["#BBE0FA", "#8CB7D7"],
     ["#CEDFFF", "#ADC2EB"],
     ["#F6EAFD", "#E7D1F3"],
   ];
-  const getRandom = useCallback((min, max) => {
+
+  const getRandom = useCallback((min: number, max: number) => {
     return Math.floor(Math.random() * (max - min) + min) - 1;
   }, []);
 
@@ -59,7 +74,8 @@ const Container = styled.div`
   padding: 2.7rem 2.2rem 2rem 2.2rem;
   border-radius: 1rem;
 
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ backgroundColor }: iBackgroundColor) =>
+    backgroundColor};
   cursor: pointer;
   div {
     margin: 0;
