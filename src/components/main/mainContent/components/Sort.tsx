@@ -1,16 +1,28 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+
 import { __getMainCardList } from "../../../../redux/modules/mainCardListSlice";
 import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSmall";
 
 const Sort = () => {
-  const dispatch = useDispatch();
-  const selectedCategory = useSelector(
+  const dispatch = useAppDispatch();
+  const selectedCategory = useAppSelector(
     (state) => state.mainCardList?.selectedCategory
   );
 
-  const getCategoryHandler = ({ page, size, sortBy }) => {
+  const test = useAppSelector((state) => state.mainCardList);
+  console.log(test);
+
+  interface category {
+    page: number;
+    size: number;
+    sortBy: string;
+  }
+  console.log();
+
+  const getCategoryHandler = ({ page, size, sortBy }: category) => {
     dispatch(__getMainCardList({ page: page, size: size, sortBy: sortBy }));
   };
 
@@ -23,6 +35,8 @@ const Sort = () => {
           getCategoryHandler({ page: 1, size: 9, sortBy: "최신순" });
         }}
         background={selectedCategory === "최신순" && "subColor1"}
+        fontSize={undefined}
+        fontWeight={undefined}
       />
       <RoundButtonSmall
         buttonValue="마감 임박순"
@@ -31,6 +45,8 @@ const Sort = () => {
           getCategoryHandler({ page: 1, size: 9, sortBy: "마감임박순" });
         }}
         background={selectedCategory === "마감임박순" && "subColor1"}
+        fontSize={undefined}
+        fontWeight={undefined}
       />
     </div>
   );
