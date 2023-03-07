@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
+import { batch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
@@ -9,13 +10,13 @@ import MySurveySummeryCard from "./MySurveySummeryCard";
 import Sort from "./Sort";
 
 const MyPageCardList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const myPageCardList = useSelector(
+  const myPageCardList = useAppSelector(
     (state) => state.myPageCardList.myPageCardList?.pageData?.contents
   );
-  const loginError = useSelector((state) => state.myPageCardList?.error);
+  const loginError = useAppSelector((state) => state.myPageCardList?.error);
 
   useEffect(() => {
     dispatch(

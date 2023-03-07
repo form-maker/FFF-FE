@@ -1,18 +1,25 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 
 import { __getMyPageCardList } from "../../../../redux/modules/myPageListSlice";
 import RoundButtonSmall from "../../../common/buttons/roundButtons/RoundButtonSmall";
 
 const Sort = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const selectedCategory = useSelector(
+  const selectedCategory = useAppSelector(
     (state) => state.myPageCardList?.selectedCategory
   );
-  const status = useSelector((state) => state.myPageCardList.status);
+  const status = useAppSelector((state) => state.myPageCardList.status);
 
-  const getCategoryHandler = ({ page, size, sortBy }) => {
+  interface category {
+    page: number;
+    size: number;
+    sortBy: string;
+    status?: string;
+  }
+
+  const getCategoryHandler = ({ page, size, sortBy }: category) => {
     dispatch(
       __getMyPageCardList({
         page: page,
@@ -39,6 +46,8 @@ const Sort = () => {
             status: status,
           });
         }}
+        fontSize={undefined}
+        fontWeight={undefined}
       />
       <RoundButtonSmall
         buttonValue="마감 임박순"
@@ -54,6 +63,8 @@ const Sort = () => {
             status: status,
           });
         }}
+        fontSize={undefined}
+        fontWeight={undefined}
       />
       <RoundButtonSmall
         buttonValue="참여순"
@@ -69,6 +80,8 @@ const Sort = () => {
             status: status,
           });
         }}
+        fontSize={undefined}
+        fontWeight={undefined}
       />
     </div>
   );

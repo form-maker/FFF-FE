@@ -1,15 +1,23 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+
 import styled from "styled-components";
 
 import { __getMyPageCardList } from "../../../../redux/modules/myPageListSlice";
 import StatusButton from "./StatusButton";
 
 const MyPageCategory = () => {
-  const dispatch = useDispatch();
-  const status = useSelector((state) => state.myPageCardList.status);
+  const dispatch = useAppDispatch();
+  const status = useAppSelector((state) => state.myPageCardList.status);
 
-  const getStatusHandler = ({ page, size, sortBy, status }) => {
+  interface category {
+    page: number;
+    size: number;
+    sortBy: string;
+    status: string;
+  }
+
+  const getStatusHandler = ({ page, size, sortBy, status }: category) => {
     dispatch(
       __getMyPageCardList({
         page: page,

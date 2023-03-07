@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import styled from "styled-components";
 
 import fonts from "../../../../styles/fonts";
@@ -8,9 +9,13 @@ import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonM
 
 const MyPageTitle = () => {
   const navigate = useNavigate();
-  const username = useSelector(
+  const username = useAppSelector(
     (state) => state.myPageCardList.myPageCardList?.username
   );
+
+  const test = useAppSelector((state) => state.myPageCardList);
+
+  console.log(test);
 
   return (
     <Container>
@@ -23,6 +28,10 @@ const MyPageTitle = () => {
         onClick={() => {
           navigate("/createform");
         }}
+        fontSize={undefined}
+        fontWeight={undefined}
+        height={undefined}
+        borderRadius={undefined}
       />
     </Container>
   );

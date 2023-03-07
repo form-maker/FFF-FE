@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,6 +7,17 @@ import { __deleteCard } from "../../../../redux/modules/myPageListSlice";
 import fonts from "../../../../styles/fonts";
 import RoundButtonMedium from "../../../common/buttons/roundButtons/RoundButtonMedium";
 import useCopyClipBoard from "../hooks/useCopyClipBoard";
+
+interface Props {
+  title: string;
+  createdAt: string;
+  participant: number;
+  achievement: number;
+  status: string;
+  achievementRate: number;
+  totalQuestion: number;
+  surveyId: number;
+}
 
 const MySurveySummeryCard = ({
   title,
@@ -17,12 +28,12 @@ const MySurveySummeryCard = ({
   achievementRate,
   totalQuestion,
   surveyId,
-}) => {
-  const dispatch = useDispatch();
+}: Props) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isCopy, onCopy] = useCopyClipBoard();
 
-  const copyClipBoardHandler = (text) => {
+  const copyClipBoardHandler = (text: string) => {
     onCopy(text);
   };
 
@@ -66,6 +77,11 @@ const MySurveySummeryCard = ({
           }}
           buttonValue="링크공유"
           background="subColor1"
+          fontSize={undefined}
+          fontWeight={undefined}
+          margin={undefined}
+          height={undefined}
+          borderRadius={undefined}
         ></RoundButtonMedium>
         <RoundButtonMedium
           onClick={() => {
@@ -73,6 +89,11 @@ const MySurveySummeryCard = ({
           }}
           buttonValue="삭제하기"
           background="subColor1"
+          fontSize={undefined}
+          fontWeight={undefined}
+          margin={undefined}
+          height={undefined}
+          borderRadius={undefined}
         ></RoundButtonMedium>
         <RoundButtonMedium
           buttonValue="결과보기"
@@ -80,6 +101,11 @@ const MySurveySummeryCard = ({
           onClick={() => {
             navigate(`/stats/${surveyId}`);
           }}
+          fontSize={undefined}
+          fontWeight={undefined}
+          margin={undefined}
+          height={undefined}
+          borderRadius={undefined}
         ></RoundButtonMedium>
       </ButtonContainer>
     </Container>
