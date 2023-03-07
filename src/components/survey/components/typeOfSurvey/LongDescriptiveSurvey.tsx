@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 
@@ -8,13 +8,13 @@ import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 
 const LongDescriptiveSurvey = () => {
-  const dispatch = useDispatch();
-  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const descriptive = useSelector(
+  const dispatch = useAppDispatch();
+  const currentPageNum = useAppSelector((state) => state.survey.currentPageNum);
+  const descriptive = useAppSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["descriptive"]
   );
 
-  const answerHandler = (event) => {
+  const answerHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const answer = event.target.value;
     dispatch(changeDescriptive(answer));
     descriptive.length === 500 &&
@@ -27,12 +27,11 @@ const LongDescriptiveSurvey = () => {
 
   return (
     <Container>
-      <Title />
+      <Title marginTop={""} />
       <Main>
         <InputContainer>
           <div>
             <textarea
-              type="text"
               placeholder="500자 이내로 답해주세요"
               value={descriptive}
               onChange={answerHandler}

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import styled from "styled-components";
 
 import {
@@ -10,14 +10,17 @@ import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 
 const MultipleChoiceSurvey = () => {
-  const dispatch = useDispatch();
-  const question = useSelector((state) => state.survey.question);
-  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const selectedAnswerList = useSelector(
+  const dispatch = useAppDispatch();
+  const question = useAppSelector((state) => state.survey.question);
+  const currentPageNum = useAppSelector((state) => state.survey.currentPageNum);
+  const selectedAnswerList = useAppSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
-  const answerHandler = (answerNum) => {
-    if (selectedAnswerList !== [] && selectedAnswerList.includes(answerNum)) {
+
+  console.log(question);
+
+  const answerHandler = (answerNum: number) => {
+    if (selectedAnswerList.includes(answerNum)) {
       dispatch(deleteAnswer(answerNum));
     } else {
       dispatch(pushAnswer(answerNum));
@@ -26,7 +29,7 @@ const MultipleChoiceSurvey = () => {
 
   return (
     <Container>
-      <Title />
+      <Title marginTop={""} />
       <Main>
         <CommentContainer>
           <p>다중 선택 가능</p>
@@ -37,7 +40,7 @@ const MultipleChoiceSurvey = () => {
               <div key={answer.answerNum}>
                 {selectedAnswerList.includes(+answer.answerNum) ? (
                   <Button
-                    id={answer.answerNum}
+                    // id={answer.answerNum}
                     onClick={() => {
                       answerHandler(answer.answerNum);
                     }}
@@ -48,7 +51,7 @@ const MultipleChoiceSurvey = () => {
                   </Button>
                 ) : (
                   <Button
-                    id={answer.answerNum}
+                    // id={answer.answerNum}
                     onClick={() => {
                       answerHandler(answer.answerNum);
                     }}
@@ -136,7 +139,8 @@ const Button = styled.div`
   width: 26.5rem;
   padding: 0.8rem;
   margin: 0.2em 0;
-  background: ${({ theme, background }) => theme[background]};
+  background: ${({ theme, background }: { theme: any; background: string }) =>
+    theme[background]};
   border: none;
   border-radius: 1rem;
 

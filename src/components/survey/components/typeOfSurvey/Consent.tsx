@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import styled from "styled-components";
 import { changeDescriptive } from "../../../../redux/modules/surveySlice";
 import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 
 const Consent = () => {
-  const dispatch = useDispatch();
-  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const descriptive = useSelector(
+  const dispatch = useAppDispatch();
+  const currentPageNum = useAppSelector((state) => state.survey.currentPageNum);
+  const descriptive = useAppSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["descriptive"]
   );
 
-  const test = useSelector((state) => state.survey);
+  const test = useAppSelector((state) => state.survey);
 
   console.log(test);
 
-  const answerHandler = (event) => {
+  const answerHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeDescriptive(event.target.checked ? "동의" : "비동의"));
   };
 
@@ -27,13 +27,13 @@ const Consent = () => {
 
   return (
     <Container>
-      <Title />
+      <Title marginTop={""} />
       <Main>
         <div>
           <input
             type="checkbox"
             id="CONSENT"
-            onClick={answerHandler}
+            onChange={answerHandler}
             checked={descriptive === "동의"}
           />
           <label htmlFor="CONSENT">

@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import styled from "styled-components";
 
 import fonts from "../../../../styles/fonts";
@@ -8,9 +8,11 @@ import RoundButtonLarge from "../../../common/buttons/roundButtons/RoundButtonLa
 import { fadeInFromLeftAnimation } from "../../../../styles/animations";
 
 const CoverSurvey = () => {
-  const dispatch = useDispatch();
-  const survey = useSelector((state) => state.survey?.survey);
-  const questionIdList = useSelector((state) => state.survey?.questionIdList);
+  const dispatch = useAppDispatch();
+  const survey = useAppSelector((state) => state.survey?.survey);
+  const questionIdList = useAppSelector(
+    (state) => state.survey?.questionIdList
+  );
 
   const surveyStartClickHandler = () => {
     questionIdList?.length !== 0 &&
@@ -48,6 +50,7 @@ const CoverSurvey = () => {
           buttonValue="시작하기"
           width="28.3rem"
           onClick={surveyStartClickHandler}
+          backgroundColor={""}
         />
       </Bottom>
     </Container>

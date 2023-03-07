@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 
@@ -10,10 +11,10 @@ import {
 } from "../../../redux/modules/surveySlice";
 
 const TurnAPageButtons = () => {
-  const dispatch = useDispatch();
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
-  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const survey = useSelector((state) => state.survey.survey);
+  const dispatch = useAppDispatch();
+  const questionIdList = useAppSelector((state) => state.survey.questionIdList);
+  const currentPageNum = useAppSelector((state) => state.survey.currentPageNum);
+  const survey = useAppSelector((state) => state.survey.survey);
 
   const nextPageClickHandler = () => {
     currentPageNum === questionIdList.length + 1
@@ -41,7 +42,8 @@ const TurnAPageButtons = () => {
       <div>
         {currentPageNum}/{questionIdList.length + 1}
       </div>
-      {currentPageNum !== survey?.questionIdList?.length + 1 ? (
+      {survey?.questionIdList &&
+      currentPageNum !== survey?.questionIdList?.length + 1 ? (
         <img
           src={process.env.PUBLIC_URL + "/img/phoneRightArrow.svg"}
           alt="RightButton"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useSelector, useDispatch, batch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { batch } from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 
@@ -29,16 +30,22 @@ import TurnAPageButtons from "./TurnAPageButtons";
 import Consent from "./typeOfSurvey/Consent";
 
 const SurveyView = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const surveyId = searchParams.get("surveyId");
 
-  const questionIdList = useSelector((state) => state.survey.questionIdList);
-  const survey = useSelector((state) => state.survey.survey);
-  const currentFormType = useSelector((state) => state.survey.currentFormType);
-  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const answerList = useSelector((state) => state.survey.answer);
+  const questionIdList = useAppSelector((state) => state.survey.questionIdList);
+  const survey = useAppSelector((state) => state.survey.survey);
+  const currentFormType = useAppSelector(
+    (state) => state.survey.currentFormType
+  );
+  const currentPageNum = useAppSelector((state) => state.survey.currentPageNum);
+  const answerList = useAppSelector((state) => state.survey.answer);
+
+  const test = useAppSelector((state) => state.survey);
+
+  console.log(test);
 
   useEffect(() => {
     dispatch(__getSurvey(surveyId));
@@ -47,7 +54,7 @@ const SurveyView = () => {
   const [listening, setListening] = useState(false);
   const [countData, setData] = useState(0);
 
-  let eventSource = undefined;
+  let eventSource: any = undefined;
 
   useEffect(() => {
     if (!listening) {
@@ -55,11 +62,11 @@ const SurveyView = () => {
         `${SERVER_URL_API}/sse/connect/${surveyId}`
       );
 
-      eventSource.onopen = (event) => {
+      eventSource.onopen = () => {
         console.log("connection opened");
       };
 
-      eventSource.onmessage = (event) => {
+      eventSource.onmessage = (event: any) => {
         const data = JSON.parse(event.data);
         data.msg === "data" &&
           batch(() => {
@@ -67,7 +74,7 @@ const SurveyView = () => {
             setData(data.total);
           });
       };
-      eventSource.onerror = (event) => {
+      eventSource.onerror = (event: any) => {
         console.error(event.target.readyState);
         if (event.target.readyState === EventSource.CLOSED) {
           console.log(`eventSource closed: ${event.target.readyState}`);
@@ -140,12 +147,12 @@ const SurveyView = () => {
       <EndButtonContainer>
         {currentFormType !== "COVER" &&
           currentFormType !== "SURVEY_END" &&
-          (currentPageNum === survey?.questionIdList?.length + 1 ? (
+          (currentPageNum === survey?.questionIdList?.length! + 1 ? (
             <div>
               <RoundButtonLarge
                 buttonValue="설문 완료"
                 onClick={endSurveyClickHandler}
-                background="subColor1"
+                backgroundColor="subColor1"
                 width="28.3rem"
               ></RoundButtonLarge>
               <TurnAPageButtons />
@@ -159,7 +166,7 @@ const SurveyView = () => {
                     __getSurveyQuestion(questionIdList[currentPageNum - 1])
                   );
                 }}
-                background="subColor1"
+                backgroundColor="subColor1"
                 width="28.3rem"
               ></RoundButtonLarge>
               <TurnAPageButtons />

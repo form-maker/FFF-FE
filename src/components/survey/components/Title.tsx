@@ -1,12 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../redux/hooks";
 import styled from "styled-components";
 
 import { fadeInFromLeftAnimation } from "../../../styles/animations";
 import fonts from "../../../styles/fonts";
 
-const Title = ({ marginTop }) => {
-  const question = useSelector((state) => state.survey.question);
+const Title = ({ marginTop }: { marginTop: string }) => {
+  const question = useAppSelector((state) => state.survey.question);
+  console.log(question);
+
 
   return (
     <TitleContainer marginTop={marginTop}>
@@ -36,7 +38,8 @@ const TitleContainer = styled.div`
     }
   }
   h5 {
-    margin-top: ${({ marginTop }) => marginTop || "2rem"};
+    margin-top: ${({ marginTop }: { marginTop: string }) =>
+      marginTop || "2rem"};
     ${fonts.Body3};
     font-weight: 500;
     font-size: 1.6rem;

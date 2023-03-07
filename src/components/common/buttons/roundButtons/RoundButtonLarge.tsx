@@ -2,19 +2,25 @@ import React from "react";
 import styled from "styled-components";
 import fonts from "../../../../styles/fonts";
 
+interface Props {
+  buttonValue?: string;
+  onClick?: any;
+  width: string;
+  backgroundColor: string;
+  hoverColor?: string;
+}
+
 const RoundButtonLarge = ({
   buttonValue,
-  margin,
   onClick,
   width,
   backgroundColor,
   hoverColor,
-}) => {
+}: Props) => {
   return (
     <Button
       onClick={onClick}
       width={width}
-      margin={margin}
       backgroundColor={backgroundColor}
       hoverColor={hoverColor}
     >
@@ -25,7 +31,7 @@ const RoundButtonLarge = ({
 
 const Button = styled.button`
   height: 5.2rem;
-  width: ${({ width }) => width};
+  width: ${({ width }: { width: string }) => width};
 
   ${fonts.Body1}
   font-weight: 500;
