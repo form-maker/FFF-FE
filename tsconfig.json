@@ -105,7 +105,7 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "jsx": "react-jsx",
     "module": "commonjs",

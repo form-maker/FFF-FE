@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import styled from "styled-components";
 
 import { changeAnswer } from "../../../../redux/modules/surveySlice";
@@ -7,20 +7,20 @@ import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 
 const SingleChoiceSurvey = () => {
-  const dispatch = useDispatch();
-  const question = useSelector((state) => state.survey.question);
-  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const selectedAnswerList = useSelector(
+  const dispatch = useAppDispatch();
+  const question = useAppSelector((state) => state.survey.question);
+  const currentPageNum = useAppSelector((state) => state.survey.currentPageNum);
+  const selectedAnswerList = useAppSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
 
-  const answerHandler = (answerNum) => {
+  const answerHandler = (answerNum: number) => {
     dispatch(changeAnswer(answerNum));
   };
 
   return (
     <Container>
-      <Title />
+      <Title marginTop={""} />
       <Main>
         <CommentContainer>
           <p> 다중선택 불가</p>
@@ -31,7 +31,6 @@ const SingleChoiceSurvey = () => {
               <div key={answer.answerNum}>
                 {selectedAnswerList.includes(+answer.answerNum) ? (
                   <Button
-                    id={answer.answerNum}
                     onClick={() => {
                       answerHandler(answer.answerNum);
                     }}
@@ -42,7 +41,6 @@ const SingleChoiceSurvey = () => {
                   </Button>
                 ) : (
                   <Button
-                    id={answer.answerNum}
                     onClick={() => {
                       answerHandler(answer.answerNum);
                     }}
@@ -131,7 +129,8 @@ const Button = styled.div`
   padding: 0.8rem;
   margin: 0.2em 0;
 
-  background: ${({ theme, background }) => theme[background]};
+  background: ${({ theme, background }: { theme: any; background: string }) =>
+    theme[background]};
   border: none;
   border-radius: 1rem;
 

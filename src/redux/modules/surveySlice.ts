@@ -18,7 +18,7 @@ interface iAnswer {
   questionId: number;
   questionNum: number;
   questionType: string;
-  selectValue: number[] | string[];
+  selectValue: number[];
 }
 
 interface iQuestion {
@@ -31,7 +31,7 @@ interface iQuestion {
   questionType?: string;
   required?: boolean;
   totalQuestion?: number;
-  volume?: null | string | number;
+  volume?: number;
 }
 
 interface iAnswerNum {

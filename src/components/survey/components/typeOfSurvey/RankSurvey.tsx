@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import styled from "styled-components";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -8,8 +8,8 @@ import fonts from "../../../../styles/fonts";
 import Title from "../Title";
 
 const RankSurvey = () => {
-  const dispatch = useDispatch();
-  const question = useSelector((state) => state.survey.question);
+  const dispatch = useAppDispatch();
+  const question = useAppSelector((state) => state.survey.question);
   let addAnswerId = question.answerList?.map((answer, index) => {
     return {
       id: String(index + 1),
@@ -20,8 +20,10 @@ const RankSurvey = () => {
   const [characters, updateCharacters] = useState(addAnswerId);
 
   let answerNumList = [];
-  for (let i = 1; i <= question.answerList?.length; i++) {
-    answerNumList.push(i);
+  if (question.answerList) {
+    for (let i = 1; i <= question.answerList.length; i++) {
+      answerNumList.push(i);
+    }
   }
 
   useEffect(() => {
@@ -31,17 +33,19 @@ const RankSurvey = () => {
     dispatch(changeAnswerList(answerList));
   }, [dispatch, characters]);
 
-  function handleOnDragEnd(result) {
+  function handleOnDragEnd(result: any) {
     if (!result.destination) return;
-    const items = Array.from(characters);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    updateCharacters(items);
+    if (characters) {
+      const items = Array.from(characters);
+      const [reorderedItem] = items.splice(result.source.index, 1);
+      items.splice(result.destination.index, 0, reorderedItem);
+      updateCharacters(items);
+    }
   }
 
   return (
     <Container>
-      <Title />
+      <Title marginTop={""} />
       <Main>
         <CommentContainer>
           <p>순서 변경을 원하는 항목을 꾹~ 눌러 순위를 조정해주세요</p>
@@ -54,7 +58,7 @@ const RankSurvey = () => {
           </AnswerNumberContainer>
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="characters">
-              {(provided) => (
+              {(provided: any) => (
                 <DNDListContainer
                   className="characters"
                   {...provided.droppableProps}
@@ -63,7 +67,7 @@ const RankSurvey = () => {
                   {characters?.map(({ id, answer }, index) => {
                     return (
                       <Draggable key={id} draggableId={id} index={index}>
-                        {(provided) => (
+                        {(provided: any) => (
                           <DNDList
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}

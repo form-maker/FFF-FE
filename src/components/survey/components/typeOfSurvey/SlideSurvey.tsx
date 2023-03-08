@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import styled from "styled-components";
 import { Slider } from "@material-ui/core";
 import { Box } from "@material-ui/core";
@@ -8,57 +8,55 @@ import { changeAnswer } from "../../../../redux/modules/surveySlice";
 import Title from "../Title";
 
 const SlideSurvey = () => {
-  const dispatch = useDispatch();
-  const question = useSelector((state) => state.survey.question);
-  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const currentAnswer = useSelector(
-    (state) =>
-      state.survey.answer[currentPageNum - 2]["selectValue"][0] !== undefined &&
-      state.survey.answer[currentPageNum - 2]["selectValue"][0]
+  const dispatch = useAppDispatch();
+  const question = useAppSelector((state) => state.survey.question);
+  const currentPageNum = useAppSelector((state) => state.survey.currentPageNum);
+  const currentAnswer = useAppSelector(
+    (state) => state.survey.answer[currentPageNum - 2]["selectValue"]?.[0]
   );
 
   useEffect(() => {
     dispatch(changeAnswer(0));
   }, [dispatch, currentPageNum]);
 
-  const changeHandler = (event, newValue) => {
+  const changeHandler = (event: any, newValue: any) => {
     dispatch(changeAnswer(newValue));
   };
 
   const leftRange = [];
-  for (let i = -question.volume; i <= -1; i++) {
-    leftRange.push(i);
-  }
-
   const rightRange = [];
-  for (let i = 1; i <= question.volume; i++) {
-    rightRange.push(i);
+  if (question.volume) {
+    for (let i = -question.volume; i <= -1; i++) {
+      leftRange.push(i);
+    }
+    for (let i = 1; i <= question.volume; i++) {
+      rightRange.push(i);
+    }
   }
 
   return (
     <Container>
-      <Title />
+      <Title marginTop={""} />
       <Main>
         <SlideContainer>
           <Box sx={{ width: 300 }}>
-            <Slider
-              defaultValue={0}
-              min={-question.volume}
-              max={+question.volume}
-              step={1}
-              sx={{
-                color: "palette.color",
-              }}
-              marks
-              valueLabelDisplay="on"
-              onChange={changeHandler}
-              value={currentAnswer}
-            />
+            {question.volume && currentAnswer && (
+              <Slider
+                defaultValue={0}
+                min={-question.volume}
+                max={+question.volume}
+                step={1}
+                marks={true}
+                valueLabelDisplay="on"
+                onChange={changeHandler}
+                value={currentAnswer}
+              />
+            )}
           </Box>
         </SlideContainer>
         <LabelContainer>
-          <div>{question?.answerList[0]["answerValue"]}</div>
-          <div>{question?.answerList[1]["answerValue"]}</div>
+          <div>{question?.answerList![0]["answerValue"]}</div>
+          <div>{question?.answerList![1]["answerValue"]}</div>
         </LabelContainer>
       </Main>
     </Container>

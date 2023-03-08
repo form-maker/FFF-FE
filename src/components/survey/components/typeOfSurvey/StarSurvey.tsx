@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import styled from "styled-components";
 
 import { changeAnswer } from "../../../../redux/modules/surveySlice";
@@ -8,13 +8,13 @@ import Title from "../Title";
 import { fadeInFromBottomAnimation } from "../../../../styles/animations";
 
 const StarSurvey = () => {
-  const dispatch = useDispatch();
-  const currentPageNum = useSelector((state) => state.survey.currentPageNum);
-  const selectedAnswerList = useSelector(
+  const dispatch = useAppDispatch();
+  const currentPageNum = useAppSelector((state) => state.survey.currentPageNum);
+  const selectedAnswerList = useAppSelector(
     (state) => state.survey?.answer[currentPageNum - 2]["selectValue"]
   );
 
-  const answerHandler = (answer) => {
+  const answerHandler = (answer: number) => {
     dispatch(changeAnswer(answer));
   };
 
@@ -25,7 +25,7 @@ const StarSurvey = () => {
 
   return (
     <Container>
-      <Title />
+      <Title marginTop={""} />
       <Main>
         <ScoreButtonContainer>
           {range.map((score) => {
@@ -44,7 +44,7 @@ const StarSurvey = () => {
                 )}
                 {selectedAnswerList.includes(score) && (
                   <Picked>
-                    <div display={true}>Picked!</div>
+                    <div>Picked!</div>
                     <img
                       src={process.env.PUBLIC_URL + "/img/fullStarIcon.svg"}
                       alt="starIcon"
